@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "emi",
+  "version": "0.0.1",
+  "depends": {
+    "mite": "~1.6.4",
+    "fishmodloader": ">=3.3.2"
+  },
+  "environment": "*",
+  "name": "EMI",
+  "description": "Endorse Madi1718 Illness",
+  "authors": [
+    "Xy_Lose"
+  ],
+  "entrypoints": {
+    "main": [
+      "emi.dev.emi.emi.EMIPostInit"
+    ],
+    "emi": [
+      "emi.dev.emi.emi.api.plugin.BTWPlugin"
+    ]
+  },
+  "mixins": [
+    "emi.mixins.json"
+  ],
+  "accessWidener": "emi.accesswidener",
+  "custom": {
+    "loom:injected_interfaces": {
+    }
+  }
+}

@@ -1,0 +1,17 @@
+accessWidener v2 named
+accessible field net/minecraft/Minecraft renderEngine Lnet/minecraft/TextureManager;
+accessible method net/minecraft/StringTranslate getInstance ()Lnet/minecraft/StringTranslate;
+extendable class net/minecraft/ResourceLocation
+accessible field net/minecraft/GuiContainer guiLeft I
+accessible field net/minecraft/GuiContainer guiTop I
+accessible field net/minecraft/GuiContainer xSize I
+accessible field net/minecraft/GuiContainer ySize I
+accessible field net/minecraft/GuiContainer theSlot Lnet/minecraft/Slot;
+accessible method net/minecraft/FontRenderer wrapFormattedStringToWidth (Ljava/lang/String;I)Ljava/lang/String;
+accessible field net/minecraft/Minecraft timer Lnet/minecraft/Timer;
+accessible field net/minecraft/GuiButton width I
+accessible field net/minecraft/GuiButton height I
+accessible method net/minecraft/TileEntityBrewingStand getPotionResult (ILnet/minecraft/ItemStack;)I
+accessible field net/minecraft/Gui zLevel F
+accessible method net/minecraft/Gui drawGradientRect (IIIIII)V
+accessible field net/xiaoyu233/fml/FishModLoader mods Ljava/util/ArrayList;

@@ -1,0 +1,34 @@
+{
+  "required": true,
+  "package": "emi.mitemod.emi.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "target": "DEFAULT",
+  "minVersion": "0.8.3",
+  "mixins": [
+    "BlockMixin",
+    "CraftingManagerMixin",
+    "GuiContainerCreativeMixin",
+    "GuiContainerMixin",
+    "GuiScreenMixin",
+    "GuiTextFieldMixin",
+    "InventoryCraftingMixin",
+    "IRecipeMixin",
+    "ItemMixin",
+    "ItemStackMixin",
+    "MinecraftMixin",
+    "MinecraftServerMixin",
+    "NetClientHandlerMixin",
+    "NetServerHandlerMixin",
+    "PlayerControllerMPMixin",
+    "ResourceLocationMixin",
+    "ServerConfigurationManagerMixin",
+    "ShapedRecipesMixin",
+    "ShapelessRecipesMixin",
+    "SlotCraftingMixin",
+    "SlotMixin",
+    "WorldMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
