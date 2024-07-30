@@ -6,6 +6,7 @@ import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.recipe.btw.EmiFoodRecipe;
 import emi.mitemod.emi.api.EMIShapedRecipes;
+import emi.mitemod.emi.api.EMIShapelessRecipes;
 import emi.shims.java.net.minecraft.nbt.StringNbtReader;
 import net.minecraft.*;
 
@@ -33,7 +34,7 @@ public class SyntheticIdentifier extends ResourceLocation {
 					describe(sr.getRecipeOutput());
 		}
 		else if (o instanceof ShapelessRecipes sr) {
-			return "shapeless:/" + describeFlat(((EMIShapedRecipes)sr).getRecipeItems()) + "/" + describe(sr.getRecipeOutput());
+			return "shapeless:/" + describeFlat(((EMIShapelessRecipes)sr).getRecipeItems()) + "/" + describe(sr.getRecipeOutput());
 		}
 		else if (o instanceof EmiCraftingRecipe cr) {
 			return "crafting:/" + describeFlat(cr.getInputs()) + "/" + describe(cr.getOutputs());

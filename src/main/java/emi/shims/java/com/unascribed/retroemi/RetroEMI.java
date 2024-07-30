@@ -49,7 +49,7 @@ public class RetroEMI {
 		if (item.itemID < Block.blocksList.length) {
 			Block b = Block.blocksList[item.itemID];
 			if (b != null) {
-				return RenderBlockMixin.doesRenderIDRenderItemIn3D(b.getRenderType());
+				return RetroEMI.doesRenderIDRenderItemIn3D(b.getRenderType());
 			}
 		}
 		return false;
@@ -340,5 +340,9 @@ public class RetroEMI {
 	
 	public static String translate(String s, Object... arg) {
 		return StringTranslate.getInstance().translateKeyFormat(s, arg);
+	}
+
+	public static boolean doesRenderIDRenderItemIn3D(int par0) {
+		return par0 == 0 || (par0 == 31 || (par0 == 39 || (par0 == 13 || (par0 == 10 || (par0 == 11 || (par0 == 27 || (par0 == 22 || (par0 == 21 || (par0 == 16 || (par0 == 26 || (par0 == 32 || (par0 == 34 || par0 == 35))))))))))));
 	}
 }

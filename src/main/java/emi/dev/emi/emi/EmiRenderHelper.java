@@ -34,13 +34,13 @@ import static org.lwjgl.opengl.GL11.*;
 public class EmiRenderHelper {
 	public static final DecimalFormat TEXT_FORMAT = new DecimalFormat("0.##");
 	public static final Text EMPTY_TEXT = EmiPort.literal("");
-	public static final ResourceLocation WIDGETS = new ResourceLocation("emi","textures/gui/widgets.png");
-	public static final ResourceLocation BUTTONS = new ResourceLocation("emi", "textures/gui/buttons.png");
-	public static final ResourceLocation BACKGROUND = new ResourceLocation("emi", "textures/gui/background.png");
-	public static final ResourceLocation GRID = new ResourceLocation("emi", "textures/gui/grid.png");
-	public static final ResourceLocation DASH = new ResourceLocation("emi", "textures/gui/dash.png");
-	public static final ResourceLocation CONFIG = new ResourceLocation("emi", "textures/gui/config.png");
-	public static final ResourceLocation PIECES = new ResourceLocation("emi", "textures/gui/pieces.png");
+	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/gui/widgets.png");
+	public static final ResourceLocation BUTTONS = new ResourceLocation("textures/gui/buttons.png");
+	public static final ResourceLocation BACKGROUND = new ResourceLocation("textures/gui/background.png");
+	public static final ResourceLocation GRID = new ResourceLocation("textures/gui/grid.png");
+	public static final ResourceLocation DASH = new ResourceLocation("textures/gui/dash.png");
+	public static final ResourceLocation CONFIG = new ResourceLocation("textures/gui/config.png");
+	public static final ResourceLocation PIECES = new ResourceLocation("textures/gui/pieces.png");
 
 	public static void drawNinePatch(EmiDrawContext context, ResourceLocation texture, int x, int y, int w, int h, int u, int v, int cornerLength, int centerLength) {
 		int cor = cornerLength;

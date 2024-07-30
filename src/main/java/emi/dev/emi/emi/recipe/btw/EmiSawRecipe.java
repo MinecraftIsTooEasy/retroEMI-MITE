@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class EmiSawRecipe implements EmiRecipe {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation("emi", "textures/recipe/btwwidgets.png");
+	private static final ResourceLocation BACKGROUND = new ResourceLocation("textures/recipe/btwwidgets.png");
 	public static final EmiTexture SAW = new EmiTexture(BACKGROUND, 20, 0, 16, 5);
 	public static final EmiTexture SAWBASE = new EmiTexture(BACKGROUND, 20, 10, 16, 9);
 	private final ResourceLocation id;

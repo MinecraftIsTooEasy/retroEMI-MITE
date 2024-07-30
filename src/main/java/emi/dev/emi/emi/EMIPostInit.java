@@ -23,7 +23,7 @@ public class EMIPostInit implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		InRelauncher.init();
+
 	}
 
 	public static final class InRelauncher {

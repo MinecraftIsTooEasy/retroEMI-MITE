@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 @EmiEntrypoint
 public class BTWPlugin implements EmiPlugin {
 	
-	public static final ResourceLocation WIDGETS = new ResourceLocation("emi", "textures/recipe/btwwidgets.png");
+	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/recipe/btwwidgets.png");
 	public static final EmiTexture SMALL_PLUS = new EmiTexture(WIDGETS, 36, 0, 7, 7);
 	
 	static {
@@ -55,50 +55,50 @@ public class BTWPlugin implements EmiPlugin {
 	
 	public static EmiRecipeCategory category(String id, EmiStack icon) {
 		return new EmiRecipeCategory(new ResourceLocation("btw", id), icon,
-				new EmiTexture(new ResourceLocation("emi", "textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16));
+				new EmiTexture(new ResourceLocation("textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16));
 	}
 	
 	public static EmiRecipeCategory category(String id, EmiStack icon, Comparator<EmiRecipe> comp) {
 		return new EmiRecipeCategory(new ResourceLocation("btw", id), icon,
-				new EmiTexture(new ResourceLocation("emi", "textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16), comp);
+				new EmiTexture(new ResourceLocation("textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16), comp);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void register(EmiRegistry reg) {
-		reg.addCategory(BTWEmiRecipeCategories.SOULFORGE);
-		reg.addCategory(BTWEmiRecipeCategories.CAULDRON);
-		reg.addCategory(BTWEmiRecipeCategories.CRUCIBLE);
-		reg.addCategory(BTWEmiRecipeCategories.HOPPER);
-		reg.addCategory(BTWEmiRecipeCategories.KILN);
-		reg.addCategory(BTWEmiRecipeCategories.MILLSTONE);
-		reg.addCategory(BTWEmiRecipeCategories.PISTON);
-		reg.addCategory(BTWEmiRecipeCategories.SAW);
-		reg.addCategory(BTWEmiRecipeCategories.TURNTABLE);
-		reg.addCategory(BTWEmiRecipeCategories.CAMPFIRE);
-		reg.addCategory(BTWEmiRecipeCategories.FOOD);
-		reg.addCategory(BTWEmiRecipeCategories.TRADING);
-		reg.addCategory(BTWEmiRecipeCategories.PROGRESSIVE);
-
-		reg.addWorkstation(BTWEmiRecipeCategories.HOPPER, EmiStack.of(Block.hopperBlock));
-		reg.addWorkstation(BTWEmiRecipeCategories.KILN, EmiStack.of(Block.brick));
-		reg.addWorkstation(BTWEmiRecipeCategories.PISTON, EmiStack.of(Block.pistonBase));
-
-		//Foods
-		for (Item it : Item.itemsList) { // There must be a better way to do this than iterating the registry... right?
-			if (it instanceof ItemFood food) {
-				List<ItemStack> foodList = new ArrayList<>();
-				food.getSubItems(food.itemID, food.getCreativeTab(), foodList);
-				for (ItemStack stack : foodList) {
-					addRecipeSafe(reg, () -> new EmiFoodRecipe(stack));
-				}
-			}
-		}
-
-		//Info
-		
-		addInfoRecipes(reg);
-		addWorldRecipes(reg);
+//		reg.addCategory(BTWEmiRecipeCategories.SOULFORGE);
+//		reg.addCategory(BTWEmiRecipeCategories.CAULDRON);
+//		reg.addCategory(BTWEmiRecipeCategories.CRUCIBLE);
+//		reg.addCategory(BTWEmiRecipeCategories.HOPPER);
+//		reg.addCategory(BTWEmiRecipeCategories.KILN);
+//		reg.addCategory(BTWEmiRecipeCategories.MILLSTONE);
+//		reg.addCategory(BTWEmiRecipeCategories.PISTON);
+//		reg.addCategory(BTWEmiRecipeCategories.SAW);
+//		reg.addCategory(BTWEmiRecipeCategories.TURNTABLE);
+//		reg.addCategory(BTWEmiRecipeCategories.CAMPFIRE);
+//		reg.addCategory(BTWEmiRecipeCategories.FOOD);
+//		reg.addCategory(BTWEmiRecipeCategories.TRADING);
+//		reg.addCategory(BTWEmiRecipeCategories.PROGRESSIVE);
+//
+//		reg.addWorkstation(BTWEmiRecipeCategories.HOPPER, EmiStack.of(Block.hopperBlock));
+//		reg.addWorkstation(BTWEmiRecipeCategories.KILN, EmiStack.of(Block.brick));
+//		reg.addWorkstation(BTWEmiRecipeCategories.PISTON, EmiStack.of(Block.pistonBase));
+//
+//		//Foods
+//		for (Item it : Item.itemsList) { // There must be a better way to do this than iterating the registry... right?
+//			if (it instanceof ItemFood food) {
+//				List<ItemStack> foodList = new ArrayList<>();
+//				food.getSubItems(food.itemID, food.getCreativeTab(), foodList);
+//				for (ItemStack stack : foodList) {
+//					addRecipeSafe(reg, () -> new EmiFoodRecipe(stack));
+//				}
+//			}
+//		}
+//
+//		//Info
+//
+//		addInfoRecipes(reg);
+//		addWorldRecipes(reg);
 	}
 	
 	private void addInfoRecipes(EmiRegistry registry) {

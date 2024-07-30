@@ -52,7 +52,7 @@ public class EmiRecipes {
 
 	public static void bake() {
 		long start = System.currentTimeMillis();
-		categories.sort((a, b) -> EmiRecipeCategoryProperties.getOrder(a) - EmiRecipeCategoryProperties.getOrder(b));
+		categories.sort(Comparator.comparingInt(EmiRecipeCategoryProperties::getOrder));
 		invalidators.addAll(EmiData.recipeFilters);
 		List<EmiRecipe> filtered = recipes.stream().filter(r -> {
 			for (Predicate<EmiRecipe> predicate : invalidators) {

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class EmiHopperRecipe implements EmiRecipe {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation("emi", "textures/recipe/hopper.png");
+	private static final ResourceLocation BACKGROUND = new ResourceLocation("textures/recipe/hopper.png");
 	
 	private final ResourceLocation id;
 	private final List<EmiIngredient> inputs;

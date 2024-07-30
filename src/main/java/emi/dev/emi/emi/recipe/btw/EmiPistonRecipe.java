@@ -17,7 +17,7 @@ import java.util.List;
 
 public class EmiPistonRecipe implements EmiRecipe {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation("emi", "textures/recipe/btwwidgets.png");
+	private static final ResourceLocation BACKGROUND = new ResourceLocation("textures/recipe/btwwidgets.png");
 	public static final EmiTexture PISTON = new EmiTexture(BACKGROUND, 0, 16, 20, 16);
 	
 	private final ResourceLocation id;

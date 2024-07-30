@@ -1,12 +1,26 @@
 package emi.mitemod.emi.mixin;
 
+import net.minecraft.Block;
+import net.minecraft.Minecraft;
 import net.minecraft.RenderBlocks;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//@Mixin(RenderBlocks.class)
+@Mixin(RenderBlocks.class)
 public class RenderBlockMixin {
 
-    public static boolean doesRenderIDRenderItemIn3D(int par0) {
-        return par0 == 0 ? true : (par0 == 31 ? true : (par0 == 39 ? true : (par0 == 13 ? true : (par0 == 10 ? true : (par0 == 11 ? true : (par0 == 27 ? true : (par0 == 22 ? true : (par0 == 21 ? true : (par0 == 16 ? true : (par0 == 26 ? true : (par0 == 32 ? true : (par0 == 34 ? true : par0 == 35))))))))))));
+    @Shadow @Final private Minecraft minecraftRB;
+
+    @Inject(method = "setRenderBoundsForNonStandardFormBlock", at = @At("HEAD"))
+    public void pause(Block block, CallbackInfo ci) {
+        if (this.minecraftRB == null) {
+            int x = 0;
+            x ++;
+        }
     }
+
 }

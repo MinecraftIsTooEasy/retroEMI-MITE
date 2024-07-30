@@ -8,7 +8,7 @@ import emi.shims.java.net.minecraft.client.gui.DrawContext;
 import net.minecraft.ResourceLocation;
 
 public class RecipeBackground extends Widget {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("emi", "textures/gui/background.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/background.png");
 	private final int x, y, width, height;
 	
 	public RecipeBackground(int x, int y, int width, int height) {
