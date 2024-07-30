@@ -133,19 +133,12 @@ public class EmiDrawContext {
 		GL11.glColor4f(r, g, b, a);
 	}
 
-	EMIMinecraft minecraft = new EMIMinecraft() {
-		@Override
-		public Timer getTimer() {
-			return EMIMinecraft.super.getTimer();
-		}
-	};
-
 	public void drawStack(EmiIngredient stack, int x, int y) {
-		stack.render(raw(), x, y, minecraft.getTimer().renderPartialTicks);
+		stack.render(raw(), x, y, client.timer.renderPartialTicks);
 	}
 
 	public void drawStack(EmiIngredient stack, int x, int y, int flags) {
-		drawStack(stack, x, y, minecraft.getTimer().renderPartialTicks, flags);
+		drawStack(stack, x, y, client.timer.renderPartialTicks, flags);
 	}
 
 	public void drawStack(EmiIngredient stack, int x, int y, float delta, int flags) {

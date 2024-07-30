@@ -3,12 +3,13 @@ package emi.dev.emi.emi.screen.widget;
 import emi.dev.emi.emi.EmiRenderHelper;
 import emi.dev.emi.emi.input.EmiInput;
 import emi.dev.emi.emi.screen.EmiScreenManager.SidebarPanel;
+import net.minecraft.ResourceLocation;
 
 import java.util.List;
 
 public class SidebarButtonWidget extends SizedButtonWidget {
 	private final SidebarPanel panel;
-	
+
 	public SidebarButtonWidget(int x, int y, int width, int height, SidebarPanel panel) {
 		super(x, y, width, height, 0, 0, () -> {
 			return panel.pages.pages.size() > 0;
@@ -18,7 +19,7 @@ public class SidebarButtonWidget extends SizedButtonWidget {
 		this.panel = panel;
 		texture = EmiRenderHelper.WIDGETS;
 	}
-	
+
 	@Override
 	public void onPress() {
 		panel.cycleType(EmiInput.isShiftDown() ? -1 : 1);

@@ -15,6 +15,7 @@ public class ItemMixin implements EMIItem {
     public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
         return false;
     }
+
     @Override
     public int getFurnaceBurnTime(int iItemDamage) {
         return defaultFurnaceBurnTime;

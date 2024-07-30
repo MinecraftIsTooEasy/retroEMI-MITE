@@ -25,7 +25,7 @@ public class RegexModQuery extends Query {
 			return false;
 		}
 		String namespace = stack.getId().getResourceDomain();
-		String mod = RetroEMI.getMod(stack.getKey());
+		String mod = RetroEMI.getMod(stack.getItemStack());
 		Matcher m = pattern.matcher(mod);
 		return m.find();
 	}

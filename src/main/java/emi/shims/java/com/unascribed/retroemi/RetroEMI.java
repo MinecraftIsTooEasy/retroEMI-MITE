@@ -19,6 +19,8 @@ import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.*;
+import net.xiaoyu233.fml.api.block.IBlock;
+import net.xiaoyu233.fml.api.item.IItem;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -329,8 +331,31 @@ public class RetroEMI {
 		return id.toString().replace("emi:", "ē").replace("_", "");
 	}
 	
-	public static String getMod(Object o) { // TODO addon support? Seperate PR
-		String mod = "Better Than Wolves";
+	public static String getMod(ItemStack itemStack) {
+		int id = itemStack.itemID;
+		String color = "§9§o";
+		String mod = "Minecraft";
+		if (itemStack.isBlock()) {
+			if (id < 256) {
+				if (id >= 164 && id < 170 || id >= 198 || id == 95) {
+					 mod = color + "MITE";
+				} else if (id <= 163 || id >= 170 && id <= 174) {
+					mod = color + "Minecraft";
+				}
+			} else {
+				mod = color + ((IBlock) itemStack.getItemAsBlock().getBlock()).getNamespace();
+			}
+			return mod;
+		} else if (id >= 256) {
+			if (!((id <= 955 || id == 1026 || id == 1027 || id >= 1058 && id <= 1066 || id == 1116 || id >= 1135 && id <= 1141 || id >= 1168 && id <= 1171 || id == 1238 || id >= 1265 && id <= 1275 || id >= 1283) && (id < 2276 || id > 2279))) {
+				mod = color + "MITE";
+			} else if (id != 262 && id != 268 && (id <= 269 || id >= 280) && id != 290 && id != 291 && id != 293 && (id <= 309 || id >= 314) && (id <= 408 || id >= 417) && id != 419 && id <= 422 || id >= 2256 && id <= 2267) {
+				mod = color + "Minecraft";
+			} else {
+				mod = color + ((IItem) itemStack.getItem()).getNamespace();
+			}
+			return mod;
+		}
 		return mod;
 	}
 	

@@ -162,7 +162,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 			//String namespace = EmiPort.getItemRegistry().getId(stack.getItem()).getNamespace();
 			//String mod = EmiUtil.getModName(namespace);
 			//list.add(TooltipComponent.of(EmiLang.literal(mod, Formatting.BLUE, Formatting.ITALIC)));
-			list.add(TooltipComponent.of(Text.literal(RetroEMI.getMod(stack.getItem())).formatted(Formatting.BLUE, Formatting.ITALIC)));
+			list.add(TooltipComponent.of(Text.literal(RetroEMI.getMod(stack)).formatted(Formatting.BLUE, Formatting.ITALIC)));
 			list.addAll(super.getTooltip());
 		}
 		return list;

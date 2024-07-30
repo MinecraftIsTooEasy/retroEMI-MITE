@@ -11,6 +11,7 @@ public abstract class MinecraftServerEMI extends MinecraftServer {
     public MinecraftServerEMI(File par1File) {
         super(par1File);
     }
+
     public static boolean getIsServer() {
         return isServer;
     }

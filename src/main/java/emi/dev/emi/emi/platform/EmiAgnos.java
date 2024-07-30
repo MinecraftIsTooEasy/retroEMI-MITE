@@ -29,7 +29,7 @@ public abstract class EmiAgnos {
 	}
 
 	public static String getModName(String namespace) {
-		return "Minecraft is Too Easy";
+		return "Minecraft";
 	}
 
 	protected abstract String getModNameAgnos(String namespace);

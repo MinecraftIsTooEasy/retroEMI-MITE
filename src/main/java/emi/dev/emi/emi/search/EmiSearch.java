@@ -62,7 +62,7 @@ public class EmiSearch {
 				}
 				ResourceLocation id = stack.getId();
 				if (id != null) {
-					mods.add(stack, RetroEMI.getMod(stack.getKey()).toLowerCase().replace(" ", ""));
+					mods.add(stack, RetroEMI.getMod(stack.getItemStack()).toLowerCase().replace(" ", ""));
 				}
 				String idString = "";
 				if (stack.getItemStack().itemID < 10) {

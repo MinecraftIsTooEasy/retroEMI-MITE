@@ -13,7 +13,6 @@ import emi.dev.emi.emi.api.widget.WidgetHolder;
 import emi.dev.emi.emi.registry.EmiRecipeFiller;
 import emi.dev.emi.emi.runtime.EmiDrawContext;
 import emi.dev.emi.emi.screen.EmiScreenManager;
-import emi.mitemod.emi.api.EMIMinecraft;
 import emi.shims.java.com.unascribed.retroemi.RetroEMI;
 import emi.shims.java.net.minecraft.client.gui.tooltip.HoveredTooltipPositioner;
 import emi.shims.java.net.minecraft.client.gui.tooltip.TextTooltipComponent;
@@ -34,7 +33,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class EmiRenderHelper {
 	public static final DecimalFormat TEXT_FORMAT = new DecimalFormat("0.##");
 	public static final Text EMPTY_TEXT = EmiPort.literal("");
-	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/gui/widgets.png");
+	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/gui/widgetss.png");
 	public static final ResourceLocation BUTTONS = new ResourceLocation("textures/gui/buttons.png");
 	public static final ResourceLocation BACKGROUND = new ResourceLocation("textures/gui/background.png");
 	public static final ResourceLocation GRID = new ResourceLocation("textures/gui/grid.png");
@@ -244,7 +243,7 @@ public class EmiRenderHelper {
 		context.push();
 		context.matrices().translate(0, 0, 200);
 		Minecraft mc = Minecraft.getMinecraft();
-		mc.renderEngine.bindTexture(EmiRenderHelper.WIDGETS);
+		mc.renderEngine.bindTexture(WIDGETS);
 		context.drawTexture(WIDGETS, x, y, 8, 252, 4, 4);
 		context.pop();
 	}
@@ -326,13 +325,8 @@ public class EmiRenderHelper {
 			context.matrices().translate(x + 4, y + 4, 0);
 
 			recipe.addWidgets(holder);
-			EMIMinecraft minecraft = new EMIMinecraft() {
-				@Override
-				public Timer getTimer() {
-					return EMIMinecraft.super.getTimer();
-				}
-			};
-			float delta = minecraft.getTimer().renderPartialTicks;
+			Minecraft minecraft = Minecraft.getMinecraft();
+			float delta = minecraft.timer.renderPartialTicks;
 			for (Widget widget : widgets) {
 				widget.render(context.raw(), -1000, -1000, delta);
 			}
