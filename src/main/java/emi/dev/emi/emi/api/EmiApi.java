@@ -42,7 +42,7 @@ public class EmiApi {
 	}
 	
 	public static boolean isCheatMode() {
-		return EmiConfig.cheatMode;
+		return EmiConfig.cheatMode && Minecraft.inDevMode();
 	}
 	
 	/**
