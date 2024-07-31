@@ -4,7 +4,7 @@ import emi.dev.emi.emi.Prototype;
 import emi.dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
-import emi.dev.emi.emi.recipe.btw.EmiFoodRecipe;
+import emi.dev.emi.emi.recipe.mite.EmiFoodRecipe;
 import emi.mitemod.emi.api.EMIShapedRecipes;
 import emi.mitemod.emi.api.EMIShapelessRecipes;
 import emi.shims.java.net.minecraft.nbt.StringNbtReader;

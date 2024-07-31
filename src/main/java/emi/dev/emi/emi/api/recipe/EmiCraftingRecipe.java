@@ -1,6 +1,6 @@
 package emi.dev.emi.emi.api.recipe;
 
-import emi.dev.emi.emi.api.plugin.BTWPlugin;
+import emi.dev.emi.emi.api.plugin.MITEPlugin;
 import emi.dev.emi.emi.api.render.EmiTexture;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
@@ -106,7 +106,7 @@ public class EmiCraftingRecipe implements EmiRecipe {
 			}
 		}
 		if (secondaryOutputs != null) {
-			widgets.addTexture(BTWPlugin.SMALL_PLUS, 84, 23).tooltip(List.of(new EmiSecondaryOutputComponent(secondaryOutputs)));
+			widgets.addTexture(MITEPlugin.SMALL_PLUS, 84, 23).tooltip(List.of(new EmiSecondaryOutputComponent(secondaryOutputs)));
 		}
 		widgets.addSlot(output, 92, 14).large(true).recipeContext(this);
 	}

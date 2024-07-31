@@ -272,8 +272,10 @@ public class RetroEMI {
 	public static boolean handleKeyboardInput() {
 		try {
 			GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+			int k = Keyboard.getEventKey();
+			char c = Keyboard.getEventCharacter();
 			if (screen instanceof GuiContainer) {
-				if (Keyboard.getEventKeyState()) {
+				if (Keyboard.getEventKeyState() || k == 0 && Character.isDefined(c)) {
 					if (Keyboard.getEventCharacter() != 0 && !Character.isISOControl(Keyboard.getEventCharacter())) {
 						if (EmiScreenManager.search.charTyped(Keyboard.getEventCharacter(), EmiInput.getCurrentModifiers())) {
 							return true;

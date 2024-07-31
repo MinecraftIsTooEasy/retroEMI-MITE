@@ -9,7 +9,7 @@ import net.minecraft.ResourceLocation;
 import java.util.List;
 
 public class TagTooltipComponent implements EmiTooltipComponent {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("minecraft", "emi/textures/gui/widgetss.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation("minecraft", "emi/textures/gui/emi_widgets.png");
 	private static final int MAX_DISPLAYED = 63;
 	private final List<EmiStack> stacks;
 	

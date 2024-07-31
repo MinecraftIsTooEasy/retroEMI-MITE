@@ -1,4 +1,4 @@
-package emi.dev.emi.emi.recipe.btw.special;
+package emi.dev.emi.emi.recipe.mite.special;
 
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.EmiRecipeCategory;

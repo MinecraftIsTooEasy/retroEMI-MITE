@@ -38,7 +38,7 @@ public abstract class ClickableWidget extends Gui implements Drawable, Element {
 		NONE, HOVERED, FOCUSED
 	}
 
-	public static final ResourceLocation WIDGETS_TEXTURE = new ResourceLocation("textures/gui/widgetss.png");
+	public static final ResourceLocation WIDGETS_TEXTURE = new ResourceLocation("textures/gui/emi_widgets.png");
 	public static final ResourceLocation ACCESSIBILITY_TEXTURE = new ResourceLocation("textures/gui/accessibility.png");
 	protected int width;
 	protected int height;

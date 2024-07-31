@@ -10,7 +10,7 @@ import emi.dev.emi.emi.runtime.EmiReloadLog;
 import emi.mitemod.emi.util.Color;
 import emi.shims.java.net.minecraft.text.Text;
 import net.minecraft.*;
-import emi.dev.emi.emi.recipe.btw.*;
+import emi.dev.emi.emi.recipe.mite.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @EmiEntrypoint
-public class BTWPlugin implements EmiPlugin {
-	
+public class MITEPlugin implements EmiPlugin {
+
 	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/recipe/btwwidgets.png");
 	public static final EmiTexture SMALL_PLUS = new EmiTexture(WIDGETS, 36, 0, 7, 7);
-	
+
 	static {
 		BTWEmiRecipeCategories.HOPPER = category("hopper", EmiStack.of(Block.hopperBlock));
 		BTWEmiRecipeCategories.PISTON = category("piston", EmiStack.of(Block.pistonBase));
@@ -48,18 +48,18 @@ public class BTWPlugin implements EmiPlugin {
 			registry.addRecipe(supplier.get());
 		}
 		catch (Throwable e) {
-			EmiReloadLog.warn("Exception when parsing BTW recipe " + recipe);
+			EmiReloadLog.warn("Exception when parsing MITE recipe " + recipe);
 			EmiReloadLog.error(e);
 		}
 	}
 	
 	public static EmiRecipeCategory category(String id, EmiStack icon) {
-		return new EmiRecipeCategory(new ResourceLocation("btw", id), icon,
+		return new EmiRecipeCategory(new ResourceLocation("mite", id), icon,
 				new EmiTexture(new ResourceLocation("textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16));
 	}
 	
 	public static EmiRecipeCategory category(String id, EmiStack icon, Comparator<EmiRecipe> comp) {
-		return new EmiRecipeCategory(new ResourceLocation("btw", id), icon,
+		return new EmiRecipeCategory(new ResourceLocation("mite", id), icon,
 				new EmiTexture(new ResourceLocation("textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16), comp);
 	}
 	

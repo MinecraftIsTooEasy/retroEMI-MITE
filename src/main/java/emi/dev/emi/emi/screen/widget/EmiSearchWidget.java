@@ -17,6 +17,8 @@ import emi.shims.java.net.minecraft.text.Style;
 import emi.shims.java.net.minecraft.util.Formatting;
 import emi.shims.java.org.lwjgl.glfw.GLFW;
 import net.minecraft.FontRenderer;
+import net.minecraft.Minecraft;
+import net.minecraft.ScaledResolution;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -221,9 +223,9 @@ public class EmiSearchWidget extends TextFieldWidget {
 		;
 		view.push();
 		if (deg != 0) {
-			view.translate(this.x + this.width / 2, this.y + this.height / 2, 0);
+			view.translate(this.x + (double) this.width / 2, this.y + (double) this.height / 2, 0);
 			view.multiply(() -> glRotatef(deg, 0, 0, -1));
-			view.translate(-(this.x + this.width / 2), -(this.y + this.height / 2), 0);
+			view.translate(-(this.x + (double) this.width / 2), -(this.y + (double) this.height / 2), 0);
 		}
 		
 		if (lower.contains("jeb_")) {

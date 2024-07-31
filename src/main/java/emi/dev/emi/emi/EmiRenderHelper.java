@@ -33,7 +33,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class EmiRenderHelper {
 	public static final DecimalFormat TEXT_FORMAT = new DecimalFormat("0.##");
 	public static final Text EMPTY_TEXT = EmiPort.literal("");
-	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/gui/widgetss.png");
+	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/gui/emi_widgets.png");
 	public static final ResourceLocation BUTTONS = new ResourceLocation("textures/gui/buttons.png");
 	public static final ResourceLocation BACKGROUND = new ResourceLocation("textures/gui/background.png");
 	public static final ResourceLocation GRID = new ResourceLocation("textures/gui/grid.png");

@@ -4,13 +4,12 @@ import emi.dev.emi.emi.InputPair;
 import emi.dev.emi.emi.Prototype;
 import emi.dev.emi.emi.api.EmiPlugin;
 import emi.dev.emi.emi.api.EmiRegistry;
-import emi.dev.emi.emi.api.plugin.BTWPlugin;
+import emi.dev.emi.emi.api.plugin.MITEPlugin;
 import emi.dev.emi.emi.api.plugin.VanillaPlugin;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.platform.EmiAgnos;
 import emi.dev.emi.emi.recipe.EmiBrewingRecipe;
 import emi.dev.emi.emi.registry.EmiPluginContainer;
-import emi.mitemod.emi.api.EMIItem;
 import emi.mitemod.emi.util.TileEntityFurnaceEMI;
 import emi.mitemod.emi.util.MinecraftServerEMI;
 import emi.shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
@@ -84,7 +83,7 @@ public class EmiAgnosBTWFabric extends EmiAgnos {
 		}
 
 		if (!foundBTWPlugins) {
-			plugins.add(new EmiPluginContainer(new BTWPlugin(), "btw"));
+			plugins.add(new EmiPluginContainer(new MITEPlugin(), "btw"));
 			plugins.add(new EmiPluginContainer(new VanillaPlugin(), "btw"));
 		}
 
