@@ -642,7 +642,7 @@ public class EmiScreenManager {
 		//			cursor = handled.inventorySlots.getCursorStack();
 		//		}
 		ScreenSpace space = getHoveredSpace(mouseX, mouseY);
-		if (EmiConfig.cheatMode && !ItemStacks.isEmpty(cursor) && space != null && space.getType() == SidebarType.INDEX &&
+		if (EmiConfig.cheatMode && Minecraft.inDevMode() && !ItemStacks.isEmpty(cursor) && space != null && space.getType() == SidebarType.INDEX &&
 				EmiConfig.deleteCursorStack.isBound()) {
 			List<TooltipComponent> list = List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.delete_stack"))),
 					TooltipComponent.of(EmiPort.ordered(EmiConfig.deleteCursorStack.getBindText())));
@@ -828,7 +828,7 @@ public class EmiScreenManager {
 			int mx = (int) mouseX;
 			int my = (int) mouseY;
 			recalculate();
-			if (EmiConfig.cheatMode && EmiConfig.deleteCursorStack.matchesMouse(button)) {
+			if (EmiConfig.cheatMode && Minecraft.inDevMode() && EmiConfig.deleteCursorStack.matchesMouse(button)) {
 				if (deleteCursor(mx, my)) {
 					// Returning false here makes the handled screen do something and removes a bug, oh well.
 					return false;
@@ -920,7 +920,7 @@ public class EmiScreenManager {
 		if (hasFocusedTextField(client.currentScreen, 10)) {
 			return false;
 		}
-		if (EmiConfig.cheatMode && EmiConfig.deleteCursorStack.matchesKey(keyCode, scanCode)) {
+		if (EmiConfig.cheatMode && Minecraft.inDevMode() && EmiConfig.deleteCursorStack.matchesKey(keyCode, scanCode)) {
 			if (deleteCursor(lastMouseX, lastMouseY)) {
 				return true;
 			}
@@ -1027,7 +1027,7 @@ public class EmiScreenManager {
 			if (craftInteraction(ingredient, () -> context, stack, function)) {
 				return true;
 			}
-			if (EmiConfig.cheatMode) {
+			if (EmiConfig.cheatMode && Minecraft.inDevMode()) {
 				if (ingredient.getEmiStacks().size() == 1 && stack instanceof SidebarEmiStackInteraction) {
 					if (function.apply(EmiConfig.cheatOneToInventory)) {
 						return give(ingredient.getEmiStacks().get(0), 1, 0);

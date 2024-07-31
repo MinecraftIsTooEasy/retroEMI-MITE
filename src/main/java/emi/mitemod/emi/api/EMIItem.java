@@ -1,5 +1,6 @@
 package emi.mitemod.emi.api;
 
+import net.minecraft.Item;
 import net.minecraft.ItemStack;
 
 public interface EMIItem {
@@ -9,4 +10,9 @@ public interface EMIItem {
     default int getFurnaceBurnTime(int iItemDamage) {
         return 0;
     }
+
+    default Item hideFromEMI() {
+        return null;
+    }
+
 }
