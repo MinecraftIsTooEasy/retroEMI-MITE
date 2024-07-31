@@ -87,7 +87,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + stack.itemID;
-		result = prime * result + (stack.getItem().getHasSubtypes() ? stack.getItemDamage() : 0);
+		result = prime * result + (stack.getItem().getHasSubtypes() ? stack.getItemSubtype() : 0);
 		return result;
 	}
 	

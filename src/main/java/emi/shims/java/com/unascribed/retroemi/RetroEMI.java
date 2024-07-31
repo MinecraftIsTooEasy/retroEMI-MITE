@@ -300,7 +300,7 @@ public class RetroEMI {
 	}
 	
 	public static EmiIngredient wildcardIngredient(ItemStack stack) {
-		if (stack != null && stack.getItemDamage() == 32767) {
+		if (stack != null && stack.getItemSubtype() == 32767) {
 			EmiIngredient item = EmiIngredient.of(new WildcardItemTag(stack.getItem()));
 			if (item.getEmiStacks().size() == 1) {
 				return item;
@@ -313,7 +313,7 @@ public class RetroEMI {
 	}
 	
 	public static EmiIngredient wildcardIngredientWithStackSize(ItemStack stack) {
-		if (stack != null && stack.getItemDamage() == 32767) {
+		if (stack != null && stack.getItemSubtype() == 32767) {
 			EmiIngredient item = EmiIngredient.of(new WildcardItemTag(stack.getItem()));
 			if (item.getEmiStacks().size() == 1) {
 				return item;

@@ -17,10 +17,7 @@ import emi.dev.emi.emi.runtime.EmiReloadLog;
 import emi.shims.java.net.minecraft.registry.tag.TagKey;
 import emi.shims.java.net.minecraft.registry.tag.WildcardItemTag;
 import emi.shims.java.net.minecraft.text.Text;
-import net.minecraft.Item;
-import net.minecraft.ItemStack;
-import net.minecraft.ResourceLocation;
-import net.minecraft.StringTranslate;
+import net.minecraft.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;

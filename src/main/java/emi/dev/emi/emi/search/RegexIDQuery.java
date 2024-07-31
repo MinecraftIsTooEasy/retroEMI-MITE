@@ -36,7 +36,7 @@ public class RegexIDQuery extends Query {
 		else {
 			idString = String.valueOf(stack.getItemStack().itemID);
 		}
-		String id = idString + "/" + stack.getItemStack().getItemDamage();
+		String id = idString + "/" + stack.getItemStack().getItemSubtype();
 		Matcher m = pattern.matcher(id);
 		return m.find();
 	}

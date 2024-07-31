@@ -125,7 +125,7 @@ public class EmiFireworkStarRecipe extends EmiPatternCraftingRecipe {
 			}
 			else {
 				colors.add(DyeColor.values()[1].getFireworkColor());
-				colors.add(DyeColor.values()[item.getItemDamage()].getFireworkColor());
+				colors.add(DyeColor.values()[item.getItemSubtype()].getFireworkColor());
 			}
 		}
 		if (!hasShape) {

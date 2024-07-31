@@ -77,7 +77,7 @@ public class EmiSearch {
 				else {
 					idString = String.valueOf(stack.getItemStack().itemID);
 				}
-				ids.add(stack, idString + "/" + stack.getItemStack().getItemDamage());
+				ids.add(stack, idString + "/" + stack.getItemStack().getItemSubtype());
 			}
 			catch (Exception e) {
 				EmiLog.error("EMI caught an exception while baking search for " + stack);

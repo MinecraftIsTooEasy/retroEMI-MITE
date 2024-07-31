@@ -1159,7 +1159,7 @@ public class EmiScreenManager {
 		else {
 			if (!ItemStacks.isEmpty(is)) {
 				int id = is.itemID;
-				String command = "/give @p " + id + " " + amount + " " + is.getItemDamage();
+				String command = "/give @p " + id + " " + amount + " " + is.getItemSubtype();
 				
 				if (is.hasTagCompound()) {
 					command += is.getTagCompound().toString();

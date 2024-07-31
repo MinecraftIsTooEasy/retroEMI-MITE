@@ -131,7 +131,7 @@ public class EmiAgnosBTWFabric extends EmiAgnos {
 		// Remove all those uncraftable potions from the index
 		
 		registry.removeEmiStacks(
-				es -> es.getItemStack() != null && es.getItemStack().getItem() == Item.potion && !seenPotions.contains(es.getItemStack().getItemDamage()));
+				es -> es.getItemStack() != null && es.getItemStack().getItem() == Item.potion && !seenPotions.contains(es.getItemStack().getItemSubtype()));
 		
 		// We just did an exhaustive search and determined every legitimately obtainable potion
 		// So let's just cram those into the index where they're supposed to go.
@@ -143,17 +143,7 @@ public class EmiAgnosBTWFabric extends EmiAgnos {
 			}
 			List<PotionEffect> effA = ((List<PotionEffect>) ((ItemPotion) a.getItem()).getEffects(a.toStack()));
 			List<PotionEffect> effB = ((List<PotionEffect>) ((ItemPotion) b.getItem()).getEffects(b.toStack()));
-			return listCompare(effA, effB, (ae, be) -> {
-				int m = Integer.compare(ae.getPotionID(), be.getPotionID());
-				if (m != 0) {
-					return m;
-				}
-				m = Integer.compare(ae.getAmplifier(), be.getAmplifier());
-				if (m != 0) {
-					return m;
-				}
-				return Integer.compare(ae.getDuration(), be.getDuration());
-			});
+			return listCompare(effA, effB, Comparator.comparingInt(PotionEffect::getPotionID).thenComparingInt(PotionEffect::getAmplifier).thenComparingInt(PotionEffect::getDuration));
 		}).map(EmiStack::of).collect(Collectors.toList());
 		EmiStack prev = EmiStack.of(new Prototype(Item.potion, 0));
 		for (EmiStack potion : sorted) {

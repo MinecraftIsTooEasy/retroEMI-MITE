@@ -68,7 +68,7 @@ public class SyntheticIdentifier extends ResourceLocation {
 			return ei.getEmiStacks().stream().map(SyntheticIdentifier::describe).collect(Collectors.joining("/", "[", "]"));
 		}
 		else if (o instanceof ItemStack is) {
-			return is.itemID + "." + is.getItemDamage() + (is.hasTagCompound() ? StringNbtReader.encode(is.getTagCompound()) : "");
+			return is.itemID + "." + is.getItemSubtype() + (is.hasTagCompound() ? StringNbtReader.encode(is.getTagCompound()) : "");
 		}
 		else if (o instanceof Block) {
 			return describe(new ItemStack((Block) o));

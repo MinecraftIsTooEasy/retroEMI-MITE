@@ -18,10 +18,7 @@ import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import net.minecraft.*;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -107,12 +104,11 @@ public class EmiPlayerInventory {
 		if (!handlers.isEmpty()) {
 			EmiCraftContext context = new EmiCraftContext(screen, this, EmiCraftContext.Type.CRAFTABLE);
 			return r -> {
-				for (int i = 0; i < handlers.size(); i++) {
-					EmiRecipeHandler handler = handlers.get(i);
-					if (handler.supportsRecipe(r)) {
-						return handler.canCraft(r, context);
-					}
-				}
+                for (EmiRecipeHandler handler : handlers) {
+                    if (handler.supportsRecipe(r)) {
+                        return handler.canCraft(r, context);
+                    }
+                }
 				return false;
 			};
 		}
@@ -128,15 +124,8 @@ public class EmiPlayerInventory {
 		for (EmiStack stack : inventory.keySet()) {
 			set.addAll(EmiApi.getRecipeManager().getRecipesByInput(stack));
 		}
-		return set.stream().filter(r -> !r.hideCraftable() && predicate.test(r) && r.getOutputs().size() > 0).map(r -> new EmiFavorite.Craftable(r))
-				.sorted((a, b) -> {
-					int i = Integer.compare(EmiStackList.indices.getOrDefault(a.getStack(), Integer.MAX_VALUE),
-							EmiStackList.indices.getOrDefault(b.getStack(), Integer.MAX_VALUE));
-					if (i != 0) {
-						return i;
-					}
-					return Long.compare(a.getAmount(), b.getAmount());
-				}).collect(Collectors.toList());
+		return set.stream().filter(r -> !r.hideCraftable() && predicate.test(r) && !r.getOutputs().isEmpty()).map(EmiFavorite.Craftable::new)
+				.sorted(Comparator.comparingInt((EmiFavorite.Craftable a) -> EmiStackList.indices.getOrDefault(a.getStack(), Integer.MAX_VALUE)).thenComparingLong(EmiFavorite::getAmount)).collect(Collectors.toList());
 	}
 	
 	public List<Boolean> getCraftAvailability(EmiRecipe recipe) {

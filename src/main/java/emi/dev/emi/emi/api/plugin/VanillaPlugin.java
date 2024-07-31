@@ -236,7 +236,7 @@ public class VanillaPlugin implements EmiPlugin {
 				int time = fuelMap.get(item);
 				int heat = heatMap.get(item);
 				registry.addRecipe(new EmiFuelRecipe(EmiStack.of(item), time, heat,
-						synthetic("fuel/item", EmiUtil.subId(item.getItem()) + "/" + item.toStack().getItemDamage())));
+						synthetic("fuel/item", EmiUtil.subId(item.getItem()) + "/" + item.toStack().getItemSubtype())));
 			}
 		});
 	}

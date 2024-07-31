@@ -38,6 +38,7 @@ import net.minecraft.MathHelper;
 import net.minecraft.Minecraft;
 import org.lwjgl.opengl.GL11;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -151,8 +152,7 @@ public class BoMScreen extends REMIScreen {
 			List<Cost> remainders = Lists.newArrayList();
 			
 			List<FlatMaterialCost> remainderCosts = Stream.concat(BoM.tree.cost.remainders.values().stream(), BoM.tree.cost.chanceRemainders.values().stream())
-					.sorted((a, b) -> Integer.compare(EmiStackList.indices.getOrDefault(a.ingredient.getEmiStacks().get(0), Integer.MAX_VALUE),
-							EmiStackList.indices.getOrDefault(b.ingredient.getEmiStacks().get(0), Integer.MAX_VALUE))).collect(Collectors.toList());
+					.sorted(Comparator.comparingInt(a -> EmiStackList.indices.getOrDefault(a.ingredient.getEmiStacks().get(0), Integer.MAX_VALUE))).collect(Collectors.toList());
 			cy += 40;
 			int remainderX = 0;
 			for (FlatMaterialCost node : remainderCosts) {

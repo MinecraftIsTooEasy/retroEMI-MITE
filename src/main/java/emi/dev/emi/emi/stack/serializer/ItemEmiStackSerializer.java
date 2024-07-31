@@ -34,7 +34,7 @@ public class ItemEmiStackSerializer implements EmiStackSerializer<ItemEmiStack> 
 		JsonObject json = new JsonObject();
 		json.addProperty("type", getType());
 		json.addProperty("id", stack.getId().toString());
-		json.addProperty("meta", stack.getItemStack().getItemDamage());
+		json.addProperty("meta", stack.getItemStack().getItemSubtype());
 		if (stack.getAmount() != 1) {
 			json.addProperty("amount", stack.getAmount());
 		}

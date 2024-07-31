@@ -27,7 +27,7 @@ public class Comparison {
 		if (!is.getItem().getHasSubtypes() || is.isItemStackDamageable()) {
 			return 0;
 		}
-		return is.getItemDamage();
+		return is.getItemSubtype();
 	}
 	
 	

@@ -45,11 +45,11 @@ public class ItemMixin implements EMIItem {
 
     @Inject(method={"<clinit>"}, at={@At(value="TAIL")})
     private static void addToCreativeTab(CallbackInfo ci) {
-        ((EMIItem) Item.fragsCreeper).hideFromEMI();
-        ((EMIItem) Item.fragsInfernalCreeper).hideFromEMI();
-        ((EMIItem) Item.referencedBook).hideFromEMI();
-        ((EMIItem) Item.fragsNetherspawn).hideFromEMI();
-        ((EMIItem) Item.thrownWeb).hideFromEMI();
-        ((EMIItem) Item.genericFood).hideFromEMI();
+//        ((EMIItem) Item.fragsCreeper).hideFromEMI();
+//        ((EMIItem) Item.fragsInfernalCreeper).hideFromEMI();
+//        ((EMIItem) Item.referencedBook).hideFromEMI();
+//        ((EMIItem) Item.fragsNetherspawn).hideFromEMI();
+//        ((EMIItem) Item.thrownWeb).hideFromEMI();
+//        ((EMIItem) Item.genericFood).hideFromEMI();
     }
 }
