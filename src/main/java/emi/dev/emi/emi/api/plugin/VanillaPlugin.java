@@ -53,7 +53,7 @@ public class VanillaPlugin implements EmiPlugin {
 	static {
 		CRAFTING = new EmiRecipeCategory(new ResourceLocation("minecraft:crafting"), EmiStack.of(Block.workbench), simplifiedRenderer(240, 240),
 				EmiRecipeSorting.compareOutputThenInput());
-		SMELTING = new EmiRecipeCategory(new ResourceLocation("minecraft:smelting"), EmiStack.of(Block.furnaceBurning), simplifiedRenderer(224, 240),
+		SMELTING = new EmiRecipeCategory(new ResourceLocation("minecraft:smelting"), EmiStack.of(Block.furnaceIdle), simplifiedRenderer(224, 240),
 				EmiRecipeSorting.compareOutputThenInput());
 		BREWING = new EmiRecipeCategory(new ResourceLocation("minecraft:brewing"), EmiStack.of(Item.brewingStand), simplifiedRenderer(224, 224),
 				EmiRecipeSorting.none());
@@ -82,8 +82,8 @@ public class VanillaPlugin implements EmiPlugin {
 		registry.addCategory(RESOLUTION);
 		
 		registry.addWorkstation(CRAFTING, EmiStack.of(Block.workbench));
-		registry.addWorkstation(CRAFTING, EmiStack.of(Block.anvil));
-		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceBurning));
+//		registry.addWorkstation(CRAFTING, EmiStack.of(Block.anvil));
+		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceIdle));
 		registry.addWorkstation(BREWING, EmiStack.of(Item.brewingStand));
 		
 		registry.addRecipeHandler(ContainerPlayer.class, new InventoryRecipeHandler());
@@ -117,7 +117,7 @@ public class VanillaPlugin implements EmiPlugin {
 						if (EmiConfig.effectLocation == EffectLocation.TOP) {
 							int size = collection.size();
 							top = ((EMIGuiContainerCreative) inv).getGuiTop() - 34;
-							if (((Object) screen) instanceof GuiContainerCreative) {
+							if ((screen) instanceof GuiContainerCreative) {
 								top -= 28;
 							}
 							int xOff = 34;
@@ -199,7 +199,7 @@ public class VanillaPlugin implements EmiPlugin {
 				addRecipeSafe(registry, () -> new EmiMapCloningRecipe(new ResourceLocation("minecraft", "map_cloning")), recipe);
 			}
 			else {
-				BTWPlugin.addCustomIRecipes(recipe, registry);
+//				BTWPlugin.addCustomIRecipes(recipe, registry);
 				// No way to introspect arbitrary recipes in 1.6. :(
 			}
 		}
@@ -224,17 +224,18 @@ public class VanillaPlugin implements EmiPlugin {
 	
 	private static void addFuel(EmiRegistry registry, PredicateAsSet<Item> hiddenItems) {
 		Map<Prototype, Integer> fuelMap = EmiAgnos.getFuelMap();
-		compressRecipesToTags(fuelMap.keySet(), (a, b) -> {
-			return Integer.compare(fuelMap.get(a), fuelMap.get(b));
-		}, tag -> {
+		Map<Prototype, Integer> heatMap = EmiAgnos.getHeatMap();
+		compressRecipesToTags(fuelMap.keySet(), Comparator.comparingInt(fuelMap::get), tag -> {
 			EmiIngredient stack = EmiIngredient.of(tag);
 			Prototype item = Prototype.of(stack.getEmiStacks().get(0).getItemStack());
 			int time = fuelMap.getOrDefault(item, 0);
-			registry.addRecipe(new EmiFuelRecipe(stack, time, synthetic("fuel/tag", EmiUtil.subId(tag.id()))));
+			int heat = heatMap.getOrDefault(item, 0);
+			registry.addRecipe(new EmiFuelRecipe(stack, time, heat, synthetic("fuel/tag", EmiUtil.subId(tag.id()))));
 		}, item -> {
 			if (!hiddenItems.contains(item.getItem())) {
 				int time = fuelMap.get(item);
-				registry.addRecipe(new EmiFuelRecipe(EmiStack.of(item), time,
+				int heat = heatMap.get(item);
+				registry.addRecipe(new EmiFuelRecipe(EmiStack.of(item), time, heat,
 						synthetic("fuel/item", EmiUtil.subId(item.getItem()) + "/" + item.toStack().getItemDamage())));
 			}
 		});

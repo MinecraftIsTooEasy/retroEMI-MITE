@@ -271,7 +271,9 @@ emi.chess.multiplayer.cancelled=%s 取消了游戏
 emi.chess.multiplayer.unavailable=%s 不能玩棋
 
 emi.cooking.time=%%s 秒
-emi.fuel_time.items=烧炼 %s 个物品
+emi.fuel_time.items=烧炼 %s
+emi.fuel_number.items=烧炼 %s 个物品
+emi.fuel_heat.items=热值是 %s 级
 emi.btw.bulk.stoked=需要烧制的火盆
 emi.btw.turntable.turns=必须旋转 %d 次
 emi.btw.turntable.ejected_items=制作完成后弹出
@@ -297,7 +299,7 @@ commands.emi.id=需要配方 ID
 
 emi.category.minecraft.crafting=合成
 emi.category.minecraft.brewing=酿造
-emi.category.minecraft.smelting=砖炉烧制
+emi.category.minecraft.smelting=烧制
 emi.category.emi.world_interaction=世界交互
 emi.category.emi.fuel=燃料
 emi.category.emi.info=信息

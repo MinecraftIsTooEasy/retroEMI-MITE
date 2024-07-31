@@ -164,8 +164,8 @@ public class EmiTags {
 		for (var key : itemTags) {
 			TAG_VALUES.put(key, key.get());
 		}
-		var tags = itemTags.stream().collect(Collectors.toList());
-		EmiTags.TAGS.addAll(tags.stream().sorted((a, b) -> a.toString().compareTo(b.toString())).collect(Collectors.toList()));
+		var tags = itemTags.stream().toList();
+		EmiTags.TAGS.addAll(tags.stream().sorted(Comparator.comparing(Object::toString)).toList());
 		itemTags = itemTags.stream()
 			.sorted((a, b) -> Long.compare(b.get().size(), b.get().size()))
 			.collect(Collectors.toList());

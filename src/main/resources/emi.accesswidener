@@ -15,3 +15,4 @@ accessible method net/minecraft/TileEntityBrewingStand getPotionResult (ILnet/mi
 accessible field net/minecraft/Gui zLevel F
 accessible method net/minecraft/Gui drawGradientRect (IIIIII)V
 accessible field net/xiaoyu233/fml/FishModLoader mods Ljava/util/ArrayList;
+accessible field net/minecraft/ItemStack subtype I

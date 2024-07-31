@@ -17,11 +17,13 @@ import java.util.List;
 public class EmiFuelRecipe implements EmiRecipe {
 	private final EmiIngredient stack;
 	private final int time;
+	private final int heat;
 	private final ResourceLocation id;
 	
-	public EmiFuelRecipe(EmiIngredient stack, int time, ResourceLocation id) {
+	public EmiFuelRecipe(EmiIngredient stack, int time, int heat, ResourceLocation id) {
 		this.stack = stack;
 		this.time = time;
+		this.heat = heat;
 		this.id = id;
 		if (stack.getEmiStacks().get(0).getItemStack().getItem().equals(Item.bucketIronLava)) {
 			stack.getEmiStacks().get(0).setRemainder(EmiStack.of(Item.bucketIronEmpty));
@@ -68,6 +70,7 @@ public class EmiFuelRecipe implements EmiRecipe {
 		widgets.addTexture(EmiTexture.EMPTY_FLAME, 1, 1);
 		widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 1, 1, 1000 * time / 20, false, true, true);
 		widgets.addSlot(stack, 18, 0).recipeContext(this);
-		widgets.addText(EmiPort.translatable("emi.fuel_time.items", String.format("%02d:%02d", (time / 5) / 60, (time / 5) % 60)), 38, 5, -1, true);
+		widgets.addText(EmiPort.translatable("emi.fuel_number.items", String.format("%.1f", (time / 200f))), 38, 0, -1, true);
+		widgets.addText(EmiPort.translatable("emi.fuel_heat.items", String.format("%1d", heat)), 38, 10, -1, true);
 	}
 }

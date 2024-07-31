@@ -8,6 +8,7 @@ import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.widget.WidgetHolder;
 import emi.shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
+import net.minecraft.Item;
 import net.minecraft.ItemStack;
 import net.minecraft.ResourceLocation;
 
@@ -63,9 +64,7 @@ public class EmiCookingRecipe implements EmiRecipe {
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
 		int duration = (400 << fuelMultiplier) * 4; //OvenTileEntity.cookTimeMultiplier
-		widgets.addFillingArrow(24, 5, 50 * 200).tooltip((mx, my) -> {
-			return List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.cooking.time", duration / 20))));
-		});
+		widgets.addFillingArrow(24, 5, 50 * 200).tooltip((mx, my) -> List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.cooking.time", duration / 20)))));
 		if (infiniBurn) {
 			widgets.addTexture(EmiTexture.FULL_FLAME, 1, 24);
 		}

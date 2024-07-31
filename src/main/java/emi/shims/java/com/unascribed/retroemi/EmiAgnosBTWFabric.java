@@ -94,7 +94,7 @@ public class EmiAgnosBTWFabric extends EmiAgnos {
 	@Override
 	protected void addBrewingRecipesAgnos(EmiRegistry registry) {
 		TileEntityBrewingStand tebs = new TileEntityBrewingStand();
-		List<Item> ingredience = Arrays.stream(Item.itemsList).filter(i -> i != null && i.isPotionIngredient()).collect(Collectors.toList());
+		List<Item> ingredience = Arrays.stream(Item.itemsList).filter(i -> i != null && i.isPotionIngredient()).toList();
 		
 		Map<InputPair, Prototype> recipes = new HashMap<>();
 		IntList potions = new IntArrayList();
@@ -272,6 +272,19 @@ public class EmiAgnosBTWFabric extends EmiAgnos {
 			}
 		}
 		return pain.stream().filter(TileEntityFurnaceEMI::isItemFuel0).map(Prototype::of).distinct().collect(Collectors.toMap(p -> p,
-				p -> ((EMIItem)p.toStack().getItem()).getFurnaceBurnTime(p.toStack().getItemDamage()) * 2));
+				p -> (p.toStack().getItem()).getBurnTime(p.toStack())));
+	}
+
+	@Override
+	protected Map<Prototype, Integer> getHeatMapAgnos() {
+		// fuels are FULLY DYNAMIC in this version. GUESS I'LL ~~DIE~~ *ITERATE THE REGISTRY*
+		ArrayList<ItemStack> pain = new ArrayList<ItemStack>();
+		for (Item it : Item.itemsList) {
+			if (it != null) {
+				it.getSubItems(it.itemID, it.getCreativeTab(), pain);
+			}
+		}
+		return pain.stream().filter(TileEntityFurnaceEMI::isItemFuel0).map(Prototype::of).distinct().collect(Collectors.toMap(p -> p,
+				p -> (p.toStack().getItem()).getHeatLevel(p.toStack())));
 	}
 }

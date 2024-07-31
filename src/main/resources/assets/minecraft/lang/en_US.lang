@@ -272,6 +272,8 @@ emi.chess.multiplayer.unavailable=%s can't play chess
 
 emi.cooking.time=%s Seconds
 emi.fuel_time.items=Burns for %s
+emi.fuel_number.items=Burns for %s items
+emi.fuel_heat.items=Heat for %s level
 emi.btw.bulk.stoked=Requires Stoked Hibachi
 emi.btw.turntable.turns=Must rotate %d times
 emi.btw.turntable.ejected_items=Ejected when crafting finishes
@@ -297,7 +299,7 @@ commands.emi.id=Requires a recipe ID.
 
 emi.category.minecraft.crafting=Crafting
 emi.category.minecraft.brewing=Brewing
-emi.category.minecraft.smelting=Oven Smelting
+emi.category.minecraft.smelting=Smelting
 emi.category.emi.world_interaction=World Interaction
 emi.category.emi.fuel=Fuel
 emi.category.emi.info=Info

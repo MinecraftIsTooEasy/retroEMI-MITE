@@ -115,7 +115,7 @@ public class EmiApi {
 	@Environment(EnvType.CLIENT)
 	public static void displayAllRecipes() {
 		EmiRecipeManager manager = EmiApi.getRecipeManager();
-		setPages(manager.getCategories().stream().collect(Collectors.toMap(c -> c, c -> manager.getRecipes(c))), EmiStack.EMPTY);
+		setPages(manager.getCategories().stream().collect(Collectors.toMap(c -> c, manager::getRecipes)), EmiStack.EMPTY);
 	}
 	
 	@Environment(EnvType.CLIENT)

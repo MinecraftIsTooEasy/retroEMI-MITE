@@ -92,5 +92,11 @@ public abstract class EmiAgnos {
 		return delegate.getFuelMapAgnos();
 	}
 
+	public static Map<Prototype, Integer> getHeatMap() {
+		return delegate.getHeatMapAgnos();
+	}
+
 	protected abstract Map<Prototype, Integer> getFuelMapAgnos();
+
+	protected abstract Map<Prototype, Integer> getHeatMapAgnos();
 }

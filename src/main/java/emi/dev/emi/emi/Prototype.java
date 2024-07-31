@@ -32,7 +32,7 @@ public record Prototype(Item item, int meta) {
 
 	public static Prototype of(ItemStack stack) {
 		if (stack == null) return EMPTY;
-		return new Prototype(stack.getItem(), stack.getItemDamage());
+		return new Prototype(stack.getItem(), stack.getItemSubtype());
 	}
 
 	public int hashCode() {

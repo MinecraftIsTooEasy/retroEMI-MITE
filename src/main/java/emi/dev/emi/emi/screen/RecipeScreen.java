@@ -90,7 +90,7 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 		}
 		if (recipes != null) {
 			EmiRecipe current = null;
-			if (tab < tabs.size() && page < tabs.get(tab).getPageCount() && tabs.get(tab).getPage(page).size() > 0) {
+			if (tab < tabs.size() && page < tabs.get(tab).getPageCount() && !tabs.get(tab).getPage(page).isEmpty()) {
 				current = tabs.get(tab).getPage(page).get(0).recipe;
 			}
 			tabs.clear();
@@ -105,7 +105,7 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 						bi = Integer.MAX_VALUE;
 					}
 					return ai - bi;
-				}).collect(Collectors.toList())) {
+				}).toList()) {
 					List<EmiRecipe> set = entry.getValue();
 					if (!set.isEmpty()) {
 						RecipeTab tab = new RecipeTab(entry.getKey(), set);
