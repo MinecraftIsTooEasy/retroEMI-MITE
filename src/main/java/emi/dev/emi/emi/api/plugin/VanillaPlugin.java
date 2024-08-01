@@ -199,7 +199,7 @@ public class VanillaPlugin implements EmiPlugin {
 				addRecipeSafe(registry, () -> new EmiMapCloningRecipe(new ResourceLocation("minecraft", "map_cloning")), recipe);
 			}
 			else {
-//				BTWPlugin.addCustomIRecipes(recipe, registry);
+				MITEPlugin.addCustomIRecipes(recipe, registry);
 				// No way to introspect arbitrary recipes in 1.6. :(
 			}
 		}

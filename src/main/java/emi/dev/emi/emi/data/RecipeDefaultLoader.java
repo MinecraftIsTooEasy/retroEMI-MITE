@@ -10,7 +10,9 @@ import net.minecraft.ResourceLocation;
 import net.minecraft.ResourceManager;
 import net.minecraft.ResourceManagerReloadListener;
 
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class RecipeDefaultLoader implements EmiResourceReloadListener, ResourceM
 	public void onResourceManagerReload(ResourceManager manager) {
 		RecipeDefaults defaults = new RecipeDefaults();
 		try {
-			for (Resource resource : (List<Resource>) manager.getAllResources(new ResourceLocation("recipe/defaults/btw_defaults.json"))) {
+			for (Resource resource : (List<Resource>) manager.getAllResources(new ResourceLocation("recipe/defaults/mite_defaults.json"))) {
 				InputStreamReader reader = new InputStreamReader(EmiPort.getInputStream(resource));
 				JsonObject json = JsonHelper.deserialize(GSON, reader, JsonObject.class);
 				loadDefaults(defaults, json);

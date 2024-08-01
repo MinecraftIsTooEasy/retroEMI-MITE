@@ -74,17 +74,17 @@ public class EmiAgnosBTWFabric extends EmiAgnos {
 		List<EmiPluginContainer> plugins = new ArrayList<>(FishModLoader.getEntrypointContainers("emi", EmiPlugin.class).stream()
 				.map(p -> new EmiPluginContainer(p.getEntrypoint(), p.getProvider().getMetadata().getId())).toList());
 
-		boolean foundBTWPlugins = false;
+		boolean foundMITEPlugins = false;
 		for (EmiPluginContainer plugin : plugins) {
-			if (plugin.id().equals("btw")) {
-				foundBTWPlugins = true;
+			if (plugin.id().equals("emi")) {
+				foundMITEPlugins = true;
 				break;
 			}
 		}
 
-		if (!foundBTWPlugins) {
-			plugins.add(new EmiPluginContainer(new MITEPlugin(), "btw"));
-			plugins.add(new EmiPluginContainer(new VanillaPlugin(), "btw"));
+		if (!foundMITEPlugins) {
+			plugins.add(new EmiPluginContainer(new MITEPlugin(), "mite"));
+			plugins.add(new EmiPluginContainer(new VanillaPlugin(), "mite"));
 		}
 
 		return plugins;

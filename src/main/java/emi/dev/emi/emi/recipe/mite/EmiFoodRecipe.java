@@ -1,6 +1,6 @@
 package emi.dev.emi.emi.recipe.mite;
 
-import emi.dev.emi.emi.api.recipe.BTWEmiRecipeCategories;
+import emi.dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.EmiRecipeCategory;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
@@ -24,13 +24,13 @@ public class EmiFoodRecipe implements EmiRecipe {
 	public EmiFoodRecipe(ItemStack foodStack) {
 		ItemFood food = (ItemFood) foodStack.getItem();
 		this.hunger = food.getNutrition();
-		this.saturationModifier = food.getSatiation(foodStack.getItemFrame().getAsPlayer()); //unsure how to implement
+		this.saturationModifier = food.getSatiation(null); //unsure how to implement
 		this.foodItem = EmiStack.of(foodStack);
 	}
 	
 	@Override
 	public EmiRecipeCategory getCategory() {
-		return BTWEmiRecipeCategories.FOOD;
+		return MITEEmiRecipeCategories.FOOD;
 	}
 	
 	@Override
@@ -71,21 +71,16 @@ public class EmiFoodRecipe implements EmiRecipe {
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
 		int i;
-		for (i = 0; i < hunger / 6; i++) {
+		for (i = 0; i < hunger / 2; i++) {
 			widgets.addTexture(TEXTURE, (10 * i) + 25, 5, 9, 9, 16, 27);
-			if (!(i - 1 == hunger / 6)) {
+			if (!(i - 1 == hunger / 2)) {
 				widgets.addTexture(TEXTURE, (10 * i) + 25, 5, 9, 9, 52, 27);
 			}
 		}
-		if (hunger % 6 != 0) {
-			int offset = 9 - ((hunger % 6) + 3);
+		if (hunger % 2 != 0) {
+			int offset = 9 - ((hunger % 2) + 3);
 			int haunchUCoord = 62 + offset;
 			int haunchXCoord = (10 * i) + 25;
-			if (hunger % 6 == 5) {
-				offset += 1;
-				haunchUCoord = 52 + offset; // Special case to use the full haunch when hunger is 5
-				haunchXCoord -= 1;
-			}
 			widgets.addTexture(TEXTURE, (10 * i) + 25, 5, 9, 9, 16, 27);
 			widgets.addTexture(TEXTURE, haunchXCoord + offset + 1, 5, 9 - offset, 9, haunchUCoord, 27);
 		}

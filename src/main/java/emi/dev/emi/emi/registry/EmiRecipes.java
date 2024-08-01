@@ -148,19 +148,17 @@ public class EmiRecipes {
 						.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
 					recipe.getCatalysts().stream().flatMap(i -> i.getEmiStacks().stream()).forEach(i -> byInput
 						.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
-					recipe.getOutputs().stream().forEach(i -> byOutput
+					recipe.getOutputs().forEach(i -> byOutput
 						.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
 				}
 			}
-			this.byInput = byInput.entrySet().stream().collect(Collectors.toMap(k -> k.getKey(), m -> {
-				return m.getValue().stream().collect(Collectors.toList());
+			this.byInput = byInput.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, m -> {
+				return new ArrayList<>(m.getValue());
 			}));
-			this.byOutput = byOutput.entrySet().stream().collect(Collectors.toMap(k -> k.getKey(), m -> {
-				return m.getValue().stream().collect(Collectors.toList());
+			this.byOutput = byOutput.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, m -> {
+				return new ArrayList<>(m.getValue());
 			}));
-			for (EmiRecipeCategory category : workstations.keySet()) {
-				workstations.put(category, workstations.get(category).stream().distinct().collect(Collectors.toList()));
-			}
+            workstations.replaceAll((c, v) -> workstations.get(c).stream().distinct().collect(Collectors.toList()));
 			for (Map.Entry<EmiRecipeCategory, List<EmiRecipe>> entry : byCategory.entrySet()) {
 				for (EmiIngredient ingredient : workstations.getOrDefault(entry.getKey(), Collections.emptyList())) {
 					for (EmiStack stack : ingredient.getEmiStacks()) {

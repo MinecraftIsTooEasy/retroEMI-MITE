@@ -15,6 +15,7 @@ import emi.shims.java.net.minecraft.text.Text;
 import net.minecraft.Minecraft;
 import net.minecraft.server.MinecraftServer;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -136,7 +137,7 @@ public class EmiReloadManager {
 					EmiRegistry registry = new EmiRegistryImpl();
 					List<EmiPluginContainer> plugins = Lists.newArrayList();
 					plugins.addAll(EmiAgnos.getPlugins().stream()
-						.sorted((a, b) -> Integer.compare(entrypointPriority(a), entrypointPriority(b))).collect(Collectors.toList()));
+						.sorted(Comparator.comparingInt(ReloadWorker::entrypointPriority)).toList());
 					
 					for (EmiPluginContainer container : plugins) {
 						step(EmiPort.literal("Loading plugin from " + container.id()), 10_000);
@@ -201,7 +202,7 @@ public class EmiReloadManager {
 			thread = null;
 		}
 
-		private final static int entrypointPriority(EmiPluginContainer container) {
+		private static int entrypointPriority(EmiPluginContainer container) {
 			return container.id().equals("emi") ? 0 : 1;
 		}
 	}

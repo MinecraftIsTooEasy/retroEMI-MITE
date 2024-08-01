@@ -24,9 +24,9 @@ public class MITEPlugin implements EmiPlugin {
 	public static final EmiTexture SMALL_PLUS = new EmiTexture(WIDGETS, 36, 0, 7, 7);
 
 	static {
-		BTWEmiRecipeCategories.HOPPER = category("hopper", EmiStack.of(Block.hopperBlock));
-		BTWEmiRecipeCategories.PISTON = category("piston", EmiStack.of(Block.pistonBase));
-		BTWEmiRecipeCategories.FOOD = category("food", EmiStack.of(Item.carrot), Comparator.comparingInt(a -> ((EmiFoodRecipe) a).getHunger()));
+		MITEEmiRecipeCategories.HOPPER = category("hopper", EmiStack.of(Block.hopperBlock));
+		MITEEmiRecipeCategories.PISTON = category("piston", EmiStack.of(Block.pistonBase));
+		MITEEmiRecipeCategories.FOOD = category("food", EmiStack.of(Item.carrot), Comparator.comparingInt(a -> ((EmiFoodRecipe) a).getHunger()));
 	}
 	
 	//Executed in the EMIPlugin instead of here as iterating through all recipes *twice* isn't ideal. Only here for clarity.
@@ -66,34 +66,34 @@ public class MITEPlugin implements EmiPlugin {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void register(EmiRegistry reg) {
-//		reg.addCategory(BTWEmiRecipeCategories.SOULFORGE);
-//		reg.addCategory(BTWEmiRecipeCategories.CAULDRON);
-//		reg.addCategory(BTWEmiRecipeCategories.CRUCIBLE);
-//		reg.addCategory(BTWEmiRecipeCategories.HOPPER);
-//		reg.addCategory(BTWEmiRecipeCategories.KILN);
-//		reg.addCategory(BTWEmiRecipeCategories.MILLSTONE);
-//		reg.addCategory(BTWEmiRecipeCategories.PISTON);
-//		reg.addCategory(BTWEmiRecipeCategories.SAW);
-//		reg.addCategory(BTWEmiRecipeCategories.TURNTABLE);
-//		reg.addCategory(BTWEmiRecipeCategories.CAMPFIRE);
-//		reg.addCategory(BTWEmiRecipeCategories.FOOD);
-//		reg.addCategory(BTWEmiRecipeCategories.TRADING);
-//		reg.addCategory(BTWEmiRecipeCategories.PROGRESSIVE);
+//		reg.addCategory(MITEEmiRecipeCategories.SOULFORGE);
+//		reg.addCategory(MITEEmiRecipeCategories.CAULDRON);
+//		reg.addCategory(MITEEmiRecipeCategories.CRUCIBLE);
+//		reg.addCategory(MITEEmiRecipeCategories.HOPPER);
+//		reg.addCategory(MITEEmiRecipeCategories.KILN);
+//		reg.addCategory(MITEEmiRecipeCategories.MILLSTONE);
+//		reg.addCategory(MITEEmiRecipeCategories.PISTON);
+//		reg.addCategory(MITEEmiRecipeCategories.SAW);
+//		reg.addCategory(MITEEmiRecipeCategories.TURNTABLE);
+//		reg.addCategory(MITEEmiRecipeCategories.CAMPFIRE);
+		reg.addCategory(MITEEmiRecipeCategories.FOOD);
+//		reg.addCategory(MITEEmiRecipeCategories.TRADING);
+//		reg.addCategory(MITEEmiRecipeCategories.PROGRESSIVE);
 //
-//		reg.addWorkstation(BTWEmiRecipeCategories.HOPPER, EmiStack.of(Block.hopperBlock));
-//		reg.addWorkstation(BTWEmiRecipeCategories.KILN, EmiStack.of(Block.brick));
-//		reg.addWorkstation(BTWEmiRecipeCategories.PISTON, EmiStack.of(Block.pistonBase));
+//		reg.addWorkstation(MITEEmiRecipeCategories.HOPPER, EmiStack.of(Block.hopperBlock));
+//		reg.addWorkstation(MITEEmiRecipeCategories.KILN, EmiStack.of(Block.brick));
+//		reg.addWorkstation(MITEEmiRecipeCategories.PISTON, EmiStack.of(Block.pistonBase));
 //
 //		//Foods
-//		for (Item it : Item.itemsList) { // There must be a better way to do this than iterating the registry... right?
-//			if (it instanceof ItemFood food) {
-//				List<ItemStack> foodList = new ArrayList<>();
-//				food.getSubItems(food.itemID, food.getCreativeTab(), foodList);
-//				for (ItemStack stack : foodList) {
-//					addRecipeSafe(reg, () -> new EmiFoodRecipe(stack));
-//				}
-//			}
-//		}
+		for (Item it : Item.itemsList) { // There must be a better way to do this than iterating the registry... right?
+			if (it instanceof ItemFood food) {
+				List<ItemStack> foodList = new ArrayList<>();
+				food.getSubItems(food.itemID, food.getCreativeTab(), foodList);
+				for (ItemStack stack : foodList) {
+					addRecipeSafe(reg, () -> new EmiFoodRecipe(stack));
+				}
+			}
+		}
 //
 //		//Info
 //

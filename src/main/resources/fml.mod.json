@@ -20,6 +20,7 @@
       "emi.dev.emi.emi.EMIPostInit"
     ],
     "emi": [
+      "emi.dev.emi.emi.api.plugin.VanillaPlugin",
       "emi.dev.emi.emi.api.plugin.MITEPlugin"
     ]
   },

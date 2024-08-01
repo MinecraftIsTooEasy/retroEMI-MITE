@@ -1,7 +1,7 @@
 package emi.dev.emi.emi.data;
 
 import com.google.common.collect.Lists;
-import emi.dev.emi.emi.api.recipe.BTWEmiRecipeCategories;
+import emi.dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.EmiRecipeCategory;
 import emi.dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
@@ -92,6 +92,6 @@ public class EmiData {
 	public static void defaultCategoryOrder() {
 		EmiData.setCategoryOrder(-1000, VanillaEmiRecipeCategories.CRAFTING);
 		EmiData.setCategoryOrder(100, VanillaEmiRecipeCategories.FUEL); //Should fuel show time in oven?
-		EmiData.setCategoryOrder(120, BTWEmiRecipeCategories.FOOD);
+		EmiData.setCategoryOrder(120, MITEEmiRecipeCategories.FOOD);
 	}
 }

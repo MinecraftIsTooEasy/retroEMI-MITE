@@ -44,23 +44,27 @@ public class EmiIngredientSerializers {
 			if (element.isJsonObject()) {
 				JsonObject json = element.getAsJsonObject();
 				type = json.get("type").getAsString();
-				if (type.equals("emi:item")) {
-					json.addProperty("type", "item");
-					if (!json.has("id")) {
-						json.addProperty("id", JsonHelper.getString(json, "item", ""));
-					}
-				} else if (type.equals("emi:fluid")) {
-					json.addProperty("type", "fluid");
-					if (!json.has("id")) {
-						json.addProperty("id", JsonHelper.getString(json, "fluid", ""));
-					}
-				} else if (type.equals("emi:item_tag")) {
-					json.addProperty("type", "tag");
-					json.addProperty("registry", "minecraft:item");
-					if (!json.has("id")) {
-						json.addProperty("id", JsonHelper.getString(json, "tag", ""));
-					}
-				}
+                switch (type) {
+                    case "emi:item" -> {
+                        json.addProperty("type", "item");
+                        if (!json.has("id")) {
+                            json.addProperty("id", JsonHelper.getString(json, "item", ""));
+                        }
+                    }
+                    case "emi:fluid" -> {
+                        json.addProperty("type", "fluid");
+                        if (!json.has("id")) {
+                            json.addProperty("id", JsonHelper.getString(json, "fluid", ""));
+                        }
+                    }
+                    case "emi:item_tag" -> {
+                        json.addProperty("type", "tag");
+                        json.addProperty("registry", "minecraft:item");
+                        if (!json.has("id")) {
+                            json.addProperty("id", JsonHelper.getString(json, "tag", ""));
+                        }
+                    }
+                }
 				type = json.get("type").getAsString();
 			} else {
 				String[] split = element.getAsString().split(":");

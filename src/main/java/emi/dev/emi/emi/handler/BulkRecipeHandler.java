@@ -1,7 +1,7 @@
 package emi.dev.emi.emi.handler;
 
 import com.google.common.collect.Lists;
-import emi.dev.emi.emi.api.recipe.BTWEmiRecipeCategories;
+import emi.dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import net.minecraft.ContainerFurnace;
@@ -35,6 +35,6 @@ public class BulkRecipeHandler implements StandardRecipeHandler<ContainerFurnace
 	
 	@Override
 	public boolean supportsRecipe(EmiRecipe recipe) {
-		return recipe.supportsRecipeTree() && recipe.getCategory() == BTWEmiRecipeCategories.CAULDRON || recipe.getCategory() == BTWEmiRecipeCategories.CRUCIBLE;
+		return recipe.supportsRecipeTree() && recipe.getCategory() == MITEEmiRecipeCategories.CAULDRON || recipe.getCategory() == MITEEmiRecipeCategories.CRUCIBLE;
 	}
 }

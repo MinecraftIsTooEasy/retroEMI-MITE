@@ -14,10 +14,7 @@ import emi.mitemod.emi.util.MinecraftServerEMI;
 import net.minecraft.Minecraft;
 import net.minecraft.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RecipeDefaults {
 	public final List<ResourceLocation> added = Lists.newArrayList();
@@ -79,7 +76,7 @@ public class RecipeDefaults {
 		for (Tag t : tags) {
 			EmiIngredient tag = EmiIngredientSerializer.getDeserialized(t.tag);
 			EmiIngredient stack = EmiIngredientSerializer.getDeserialized(t.stack);
-			if (!tag.isEmpty() && !stack.isEmpty() && stack.getEmiStacks().size() == 1 && tag.getEmiStacks().containsAll(stack.getEmiStacks())) {
+			if (!tag.isEmpty() && !stack.isEmpty() && stack.getEmiStacks().size() == 1 && new HashSet<>(tag.getEmiStacks()).containsAll(stack.getEmiStacks())) {
 				map.put(tag, new EmiResolutionRecipe(tag, stack.getEmiStacks().get(0)));
 			}
 		}

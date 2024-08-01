@@ -50,7 +50,7 @@ public class EmiSidebars {
 
 	public static void craft(EmiRecipe recipe) {
 		if (!recipe.getOutputs().isEmpty()) {
-			if (craftHistory.size() >= 1 && EmiApi.getRecipeContext(craftHistory.get(0)).equals(recipe)) {
+			if (!craftHistory.isEmpty() && EmiApi.getRecipeContext(craftHistory.get(0)).equals(recipe)) {
 				return;
 			}
 			EmiIngredient stack = new EmiFavorite.Craftable(recipe);

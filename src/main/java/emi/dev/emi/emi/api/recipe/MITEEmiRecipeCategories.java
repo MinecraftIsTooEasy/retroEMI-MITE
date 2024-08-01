@@ -1,6 +1,6 @@
 package emi.dev.emi.emi.api.recipe;
 
-public class BTWEmiRecipeCategories {
+public class MITEEmiRecipeCategories {
 	public static EmiRecipeCategory SOULFORGE;
 	public static EmiRecipeCategory CAULDRON;
 	public static EmiRecipeCategory CRUCIBLE;
