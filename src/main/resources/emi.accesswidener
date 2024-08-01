@@ -14,5 +14,7 @@ accessible field net/minecraft/GuiButton height I
 accessible method net/minecraft/TileEntityBrewingStand getPotionResult (ILnet/minecraft/ItemStack;)I
 accessible field net/minecraft/Gui zLevel F
 accessible method net/minecraft/Gui drawGradientRect (IIIIII)V
-accessible field net/xiaoyu233/fml/FishModLoader mods Ljava/util/ArrayList;
+#accessible field net/xiaoyu233/fml/FishModLoader mods Ljava/util/ArrayList;
 accessible field net/minecraft/ItemStack subtype I
+accessible field net/minecraft/SlotCrafting craftMatrix Lnet/minecraft/IInventory;
+accessible field net/minecraft/Item materials Ljava/util/List;

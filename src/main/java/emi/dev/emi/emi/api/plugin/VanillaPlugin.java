@@ -183,9 +183,12 @@ public class VanillaPlugin implements EmiPlugin {
 				addRecipeSafe(registry, () -> new EmiShapelessRecipe((EMIShapelessRecipes) shapeless), recipe);
 			}
 			else if (recipe instanceof RecipesArmorDyes dye) {
-				for (Item i : EmiArmorDyeRecipe.DYEABLE_ITEMS) {
-					if (!hiddenItems.contains(i)) {
-						addRecipeSafe(registry, () -> new EmiArmorDyeRecipe(i, synthetic("crafting/dying", EmiUtil.subId(i))), recipe);
+				for (Item item : EmiArmorDyeRecipe.DYEABLE_ITEMS) {
+					for (int i = 0; i < item.materials.size(); ++i) {
+						if (item.getMaterial(i).map_color.equals(MapColor.leatherColor))
+							if (!hiddenItems.contains(item)) {
+								addRecipeSafe(registry, () -> new EmiArmorDyeRecipe(item, synthetic("crafting/dying", EmiUtil.subId(item))), recipe);
+							}
 					}
 				}
 			}

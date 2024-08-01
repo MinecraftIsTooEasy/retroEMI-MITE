@@ -74,7 +74,7 @@ public class EmiRecipeFiller {
 			}
 			for (Slot slot : (List<Slot>)screen.inventorySlots.inventorySlots) {
 				if (slot instanceof SlotCrafting crs) {
-					var inv = ((EMISlotCrafting) crs).getCraftMatrix();
+					var inv = crs.craftMatrix;
 					if (inv != null && inv.getSizeInventory() > 0) {
 						return List.of(new CoercedRecipeHandler<T>(crs));
 					}

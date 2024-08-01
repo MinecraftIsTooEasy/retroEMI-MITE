@@ -330,9 +330,4 @@ alias.emi.cauldron=Cauldron
 
 # EMI recipe info
 
-emi.info.piston_crushing_input=Items in world surrounded by solid faces
-emi.info.piston_crushing_output=Placed block as output
-
-emi.info.hopper_urn=Place under hopper
-
 # EMI Item Info

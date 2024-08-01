@@ -1,20 +1,23 @@
 {
   "schemaVersion": 1,
   "id": "emi",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "depends": {
     "mite": "~1.6.4",
-    "fishmodloader": ">=3.3.2"
+    "fishmodloader": ">=3.3.0"
   },
   "environment": "*",
   "name": "EMI",
   "description": "Eager Madi1718 Illness",
   "authors": [
     "Emi",
+    "Katherine",
     "BTW CE",
     "Xy_Lose",
     "limingzxc"
   ],
+  "icon": "emi.png",
+  "License": "MIT License",
   "entrypoints": {
     "main": [
       "emi.dev.emi.emi.EMIPostInit"

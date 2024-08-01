@@ -117,8 +117,8 @@ public class EmiNameWidget implements Drawable {
 			parts[2] = transformString(rand, parts[2], p);
 		}
 		
-		context.drawCenteredTextWithShadow(EmiPort.literal(parts[0], Style.EMPTY.withColor(0xeb7bfc)).append(EmiPort.literal("  "))
-				.append(EmiPort.literal(parts[1], Style.EMPTY.withColor(0x7bfca2))).append(EmiPort.literal("  "))
-				.append(EmiPort.literal(parts[2], Style.EMPTY.withColor(0x7bebfc))), x, y, -1);
+		context.drawCenteredTextWithShadow(EmiPort.literal(parts[0], Style.EMPTY.withColor(0XEB7BFC)).append(EmiPort.literal("  "))
+				.append(EmiPort.literal(parts[1], Style.EMPTY.withColor(0x7BFCA2))).append(EmiPort.literal("  "))
+				.append(EmiPort.literal(parts[2], Style.EMPTY.withColor(0x7BEBFC))), x, y, -1);
 	}
 }
