@@ -87,7 +87,7 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
 
     @Inject(method = "keyTyped", at = @At("HEAD"), cancellable = true)
     public void keyTyped(char par1, int par2, CallbackInfo ci) {
-        if ((Object) this instanceof GuiInventory guiInventory && ((EMISearchInput)guiInventory).getEMISearchInput()) {
+        if (((EMISearchInput) this).getEMISearchInput()) {
             ci.cancel();
         }
     }
