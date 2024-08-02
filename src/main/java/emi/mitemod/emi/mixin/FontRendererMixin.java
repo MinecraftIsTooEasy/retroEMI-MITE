@@ -11,6 +11,7 @@ public class FontRendererMixin {
             method = {"<init>"},
     constant = {@Constant(
             intValue = 256
+
     )}
     )
     private int modifyChanceTableSize(int val) {

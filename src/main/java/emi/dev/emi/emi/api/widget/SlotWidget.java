@@ -213,7 +213,7 @@ public class SlotWidget extends Widget {
 	}
 	
 	public void drawSlotHighlight(DrawContext draw, Bounds bounds) {
-		glDisable(GL_DEPTH_TEST);
+//		glDisable(GL_DEPTH_TEST);
 		EmiRenderHelper.drawSlotHightlight(EmiDrawContext.wrap(draw), bounds.x() + 1, bounds.y() + 1, bounds.width() - 2, bounds.height() - 2);
 	}
 	

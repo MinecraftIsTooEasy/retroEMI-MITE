@@ -13,7 +13,7 @@ public class Style {
 	}
 	
 	public Style withUnderline(boolean underline) {
-		if (underline) return new Style(formats+ Formatting.UNDERLINE);
+		if (underline) return new Style(formats + Formatting.UNDERLINE);
 		return this;
 	}
 	

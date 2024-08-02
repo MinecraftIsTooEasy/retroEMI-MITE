@@ -79,13 +79,16 @@ public class EmiScreenManager {
 	private static boolean lastHoveredCraftableSturdy = false;
 	private static int lastHoveredCraftableOffset = -1;
 	private static double scrollAcc = 0;
+	static ScaledResolution scaledResolution = new ScaledResolution(client.gameSettings, client.displayWidth, client.displayHeight);
+	static int screenWidth = scaledResolution.getScaledWidth();
+	static int screenHeight = scaledResolution.getScaledHeight();
 	
-	public static EmiSearchWidget search = new EmiSearchWidget(client.fontRenderer, 0, 0, 160, 18);
+	public static EmiSearchWidget search = new EmiSearchWidget(client.fontRenderer, (screenWidth / 2) - 80 , screenHeight - 21, 160, 18);
 	public static SizedButtonWidget emi =
-			new SizedButtonWidget(0, 0, 20, 20, 204, 0, () -> true, (w) -> client.displayGuiScreen(new ConfigScreen(client.currentScreen)),
+			new SizedButtonWidget(2, screenHeight - 22, 20, 20, 204, 0, () -> true, (w) -> client.displayGuiScreen(new ConfigScreen(client.currentScreen)),
 					List.of(EmiPort.translatable("tooltip.emi.config", EmiRenderHelper.getEmiText())));
 	public static SizedButtonWidget tree =
-			new SizedButtonWidget(0, 0, 20, 20, 184, 0, () -> true, (w) -> EmiApi.viewRecipeTree(), List.of(EmiPort.translatable("tooltip.emi.recipe_tree")));
+			new SizedButtonWidget(24, screenHeight - 22, 20, 20, 184, 0, () -> true, (w) -> EmiApi.viewRecipeTree(), List.of(EmiPort.translatable("tooltip.emi.recipe_tree")));
 	
 	public static boolean isDisabled() {
 		return !EmiReloadManager.isLoaded() || !EmiConfig.enabled;

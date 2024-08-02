@@ -16,8 +16,8 @@
     "Xy_Lose",
     "limingzxc"
   ],
-  "icon": "emi.png",
   "License": "MIT License",
+  "icon": "emi.png",
   "entrypoints": {
     "main": [
       "emi.dev.emi.emi.EMIPostInit"

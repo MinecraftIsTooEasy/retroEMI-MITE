@@ -17,8 +17,6 @@ import emi.shims.java.net.minecraft.text.Style;
 import emi.shims.java.net.minecraft.util.Formatting;
 import emi.shims.java.org.lwjgl.glfw.GLFW;
 import net.minecraft.FontRenderer;
-import net.minecraft.Minecraft;
-import net.minecraft.ScaledResolution;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;

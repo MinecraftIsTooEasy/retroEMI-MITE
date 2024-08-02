@@ -96,7 +96,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 		EmiDrawContext context = EmiDrawContext.wrap(draw);
 		ItemStack stack = getItemStack();
 		if ((flags & RENDER_ICON) != 0) {
-			glEnable(GL_DEPTH_TEST);
+//			glEnable(GL_DEPTH_TEST);
 			RenderHelper.enableGUIStandardItemLighting();
 			if (stack.getItem() instanceof ItemBlock && stack.getItemSubtype() == 32767) stack.setItemSubtype(0);
 			draw.drawItem(stack, x, y);

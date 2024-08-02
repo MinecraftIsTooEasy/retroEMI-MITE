@@ -184,8 +184,10 @@ public class VanillaPlugin implements EmiPlugin {
 			}
 			else if (recipe instanceof RecipesArmorDyes dye) {
 				for (Item i : EmiArmorDyeRecipe.DYEABLE_ITEMS) {
-					if (!hiddenItems.contains(i)) {
-						addRecipeSafe(registry, () -> new EmiArmorDyeRecipe(i, synthetic("crafting/dying", EmiUtil.subId(i))), recipe);
+					if (i.hasMaterial(Material.leather)) {
+						if (!hiddenItems.contains(i)) {
+							addRecipeSafe(registry, () -> new EmiArmorDyeRecipe(i, synthetic("crafting/dying", EmiUtil.subId(i))), recipe);
+						}
 					}
 				}
 			}
