@@ -13,6 +13,7 @@ import emi.shims.java.net.minecraft.client.util.InputUtil;
 import emi.shims.java.org.lwjgl.glfw.GLFW;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.Util;
+import net.xiaoyu233.fml.FishModLoader;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -404,7 +405,7 @@ public class EmiConfig {
 	// Dev
 	@Comment("Whether development functions should be enabled. Not recommended for general play.")
 	@ConfigValue("dev.dev-mode")
-	public static boolean devMode = EmiAgnos.isDevelopmentEnvironment();
+	public static boolean devMode = false;
 	
 	@Comment("Whether editing the index is enabled")
 	@ConfigValue("dev.edit-mode")
@@ -412,7 +413,7 @@ public class EmiConfig {
 	
 	@Comment("Whether to log untranslated tags as warnings.")
 	@ConfigValue("dev.log-untranslated-tags")
-	public static boolean logUntranslatedTags = EmiAgnos.isDevelopmentEnvironment();
+	public static boolean logUntranslatedTags = false;
 	
 	@Comment("Whether to log ingredients that don't have a representative tag as warnings.")
 	@ConfigValue("dev.log-non-tag-ingredients")
