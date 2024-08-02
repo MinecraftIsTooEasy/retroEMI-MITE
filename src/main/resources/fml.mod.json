@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "depends": {
     "mite": "~1.6.4",
-    "fishmodloader": ">=3.3.0"
+    "fishmodloader": ">=3.2.4"
   },
   "environment": "*",
   "name": "EMI",

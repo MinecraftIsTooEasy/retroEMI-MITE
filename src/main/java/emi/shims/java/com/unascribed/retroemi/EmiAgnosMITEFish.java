@@ -27,9 +27,9 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EmiAgnosBTWFabric extends EmiAgnos {
+public class EmiAgnosMITEFish extends EmiAgnos {
 	static {
-		EmiAgnos.delegate = new EmiAgnosBTWFabric();
+		EmiAgnos.delegate = new EmiAgnosMITEFish();
 	}
 	
 	public static void poke() {

@@ -7,12 +7,10 @@ import emi.dev.emi.emi.platform.EmiClient;
 import emi.dev.emi.emi.platform.EmiMain;
 import emi.mitemod.emi.api.EMIPlayerControllerMP;
 import emi.mitemod.emi.util.MinecraftServerEMI;
-import emi.shims.java.com.unascribed.retroemi.EmiAgnosBTWFabric;
+import emi.shims.java.com.unascribed.retroemi.EmiAgnosMITEFish;
 import emi.shims.java.com.unascribed.retroemi.RetroEMI;
 import emi.shims.java.net.minecraft.network.PacketByteBuf;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.DefaultResourcePack;
 import net.minecraft.Minecraft;
 import net.minecraft.Packet250CustomPayload;
 
@@ -29,7 +27,7 @@ public class EMIPostInit implements ModInitializer {
 	public static final class InRelauncher {
 		
 		public static void init() {
-			EmiAgnosBTWFabric.poke();
+			EmiAgnosMITEFish.poke();
 			if (!MinecraftServerEMI.getIsServer()) {
 				Client.init();
 			}
