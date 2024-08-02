@@ -211,5 +211,4 @@ public class REMIScreen extends GuiScreen implements ParentElement {
 		}
 		this.children.remove(child);
 	}
-	
 }

@@ -2,6 +2,7 @@ package emi.mitemod.emi.mixin;
 
 import emi.dev.emi.emi.Hooks;
 import emi.mitemod.emi.api.EMIGuiContainerCreative;
+import emi.mitemod.emi.api.EMISearchInput;
 import net.minecraft.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,6 +17,8 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
     @Shadow public int guiLeft;
     @Shadow public int guiTop;
     @Shadow public Slot theSlot;
+
+    @Shadow public Container inventorySlots;
 
     @Inject(
             method = "drawScreen",
@@ -80,5 +83,12 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
     @Override
     public int getySize() {
         return ySize;
+    }
+
+    @Inject(method = "keyTyped", at = @At("HEAD"), cancellable = true)
+    public void keyTyped(char par1, int par2, CallbackInfo ci) {
+        if ((Object) this instanceof GuiInventory guiInventory && ((EMISearchInput)guiInventory).getEMISearchInput()) {
+            ci.cancel();
+        }
     }
 }

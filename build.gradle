@@ -76,6 +76,7 @@ java {
 }
 
 jar {
+	from fileTree("$projectDir/extras/")
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
 	}

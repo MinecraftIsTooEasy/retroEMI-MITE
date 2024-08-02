@@ -293,50 +293,50 @@ public class TextFieldWidget extends ClickableWidget implements Drawable {
 			}
 			return true;
 		}
-		switch (keyCode) {
-			case GLFW.GLFW_KEY_LEFT: {
-				if (EmiInput.isControlDown()) {
-					this.setCursor(this.getWordSkipPosition(-1));
-				} else {
-					this.moveCursor(-1);
-				}
-				return true;
-			}
-			case GLFW.GLFW_KEY_RIGHT: {
-				if (EmiInput.isControlDown()) {
-					this.setCursor(this.getWordSkipPosition(1));
-				} else {
-					this.moveCursor(1);
-				}
-				return true;
-			}
-			case GLFW.GLFW_KEY_BACKSPACE: {
-				if (this.editable) {
-					this.selecting = false;
-					this.erase(-1);
-					this.selecting = EmiInput.isShiftDown();
-				}
-				return true;
-			}
-			case GLFW.GLFW_KEY_DELETE: {
-				if (this.editable) {
-					this.selecting = false;
-					this.erase(1);
-					this.selecting = EmiInput.isShiftDown();
-				}
-				return true;
-			}
-			case GLFW.GLFW_KEY_HOME: {
-				this.setCursorToStart();
-				return true;
-			}
-			case GLFW.GLFW_KEY_END: {
-				this.setCursorToEnd();
-				return true;
-			}
-		}
-		return false;
-	}
+        return switch (keyCode) {
+            case GLFW.GLFW_KEY_LEFT -> {
+                if (EmiInput.isControlDown()) {
+                    this.setCursor(this.getWordSkipPosition(-1));
+                } else {
+                    this.moveCursor(-1);
+                }
+                yield true;
+            }
+            case GLFW.GLFW_KEY_RIGHT -> {
+                if (EmiInput.isControlDown()) {
+                    this.setCursor(this.getWordSkipPosition(1));
+                } else {
+                    this.moveCursor(1);
+                }
+                yield true;
+            }
+            case GLFW.GLFW_KEY_BACKSPACE -> {
+                if (this.editable) {
+                    this.selecting = false;
+                    this.erase(-1);
+                    this.selecting = EmiInput.isShiftDown();
+                }
+                yield true;
+            }
+            case GLFW.GLFW_KEY_DELETE -> {
+                if (this.editable) {
+                    this.selecting = false;
+                    this.erase(1);
+                    this.selecting = EmiInput.isShiftDown();
+                }
+                yield true;
+            }
+            case GLFW.GLFW_KEY_HOME -> {
+                this.setCursorToStart();
+                yield true;
+            }
+            case GLFW.GLFW_KEY_END -> {
+                this.setCursorToEnd();
+                yield true;
+            }
+            default -> false;
+        };
+    }
 
 	public boolean isActive() {
 		return this.isVisible() && this.isFocused() && this.isEditable();

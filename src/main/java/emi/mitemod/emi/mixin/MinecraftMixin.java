@@ -31,9 +31,4 @@ public class MinecraftMixin implements EMIMinecraft {
         //Added with EMI
         EmiPort.registerReloadListeners(this.mcResourceManager);
     }
-
-    @Inject(method = "<init>", at = @At("RETURN"))
-    public void init(Session par1Session, int par2, int par3, boolean par4, boolean par5, File par6File, File par7File, File par8File, Proxy par9Proxy, String par10Str, CallbackInfo ci) {
-        EMIPostInit.InRelauncher.init();
-    }
 }

@@ -1,5 +1,6 @@
 /.gradle/
 /.idea/
+/extras/
 /build/
 /run/*
 !run/.gitkeep
