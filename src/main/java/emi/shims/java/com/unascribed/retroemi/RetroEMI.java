@@ -8,6 +8,7 @@ import emi.dev.emi.emi.runtime.EmiLog;
 import emi.dev.emi.emi.screen.EmiScreen;
 import emi.dev.emi.emi.screen.EmiScreenManager;
 import emi.mitemod.emi.api.EMIGuiContainerCreative;
+import emi.mitemod.emi.api.EMIItemStack;
 import emi.mitemod.emi.mixin.RenderBlockMixin;
 import emi.mitemod.emi.util.MinecraftServerEMI;
 import emi.shims.java.net.minecraft.client.gui.tooltip.TooltipBackgroundRenderer;
@@ -136,7 +137,7 @@ public class RetroEMI {
 	}
 	
 	public static boolean canCombine(ItemStack a, ItemStack b) {
-		return a == null || b == null ? a == b : a.equals(b) && ItemStack.areItemStackTagsEqual(a, b);
+		return a == null || b == null ? a == b : ((EMIItemStack)(Object) a).isItemEqual(b) && ItemStack.areItemStackTagsEqual(a, b);
 	}
 	
 	public static void renderModernTooltip(GuiScreen screen, List<TooltipComponent> components, int x, int y, int maxWidth, TooltipPositioner positioner) {

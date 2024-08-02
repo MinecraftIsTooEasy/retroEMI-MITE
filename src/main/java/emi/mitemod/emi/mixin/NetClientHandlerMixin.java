@@ -9,6 +9,7 @@ import emi.shims.java.net.minecraft.network.PacketByteBuf;
 import net.minecraft.Minecraft;
 import net.minecraft.NetClientHandler;
 import net.minecraft.Packet250CustomPayload;
+import net.minecraft.Packet5PlayerInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,5 +38,12 @@ public class NetClientHandlerMixin {
         EmiLog.info("Disconnecting from server, EMI data cleared");
         EmiReloadManager.clear();
         EmiClient.onServer = false;
+    }
+
+    @Inject(method = "handlePlayerInventory", at = @At("HEAD"), cancellable = true)
+    public void handlePlayerInventory(Packet5PlayerInventory par1Packet5PlayerInventory, CallbackInfo ci) {
+        if(par1Packet5PlayerInventory.full_inventory) {
+            ci.cancel();
+        }
     }
 }
