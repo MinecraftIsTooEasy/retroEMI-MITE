@@ -24,7 +24,7 @@ public class ItemEmiStackSerializer implements EmiStackSerializer<ItemEmiStack> 
 	public EmiIngredient deserialize(JsonElement element) {
 		EmiIngredient ing = EmiStackSerializer.super.deserialize(element);
 		if (element.isJsonObject() && ing instanceof ItemEmiStack ies) {
-			ies.getItemStack().setItemDamage(JsonHelper.getInt(element.getAsJsonObject(), "meta", 0));
+			ies.getItemStack().setItemSubtype(JsonHelper.getInt(element.getAsJsonObject(), "meta", 0));
 		}
 		return ing;
 	}
