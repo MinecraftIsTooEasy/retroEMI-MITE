@@ -315,9 +315,11 @@ alias.emi.crafting_table=工作台
 alias.emi.stick=木棍
 alias.emi.tnt=TNT
 
+emi.config.tooltip.general.enabled=EMI是否可见
+
 # EMI Tags
 
-
 # EMI recipe info
+emi.craftlevel=合成等级
 
 # EMI Item Info

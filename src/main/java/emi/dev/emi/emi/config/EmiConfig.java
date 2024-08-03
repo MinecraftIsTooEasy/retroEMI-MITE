@@ -13,6 +13,7 @@ import emi.shims.java.net.minecraft.client.util.InputUtil;
 import emi.shims.java.org.lwjgl.glfw.GLFW;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.I18n;
+import net.minecraft.StringTranslate;
 import net.minecraft.Util;
 import net.xiaoyu233.fml.FishModLoader;
 
@@ -41,7 +42,7 @@ public class EmiConfig {
 	public static String startupConfig;
 
 	// General
-	@Comment("Whether EMI is enabled and visible.")
+	@Comment("emi.config.tooltip.general.enabled")
 	@ConfigValue("general.enabled")
 	public static boolean enabled = true;
 	

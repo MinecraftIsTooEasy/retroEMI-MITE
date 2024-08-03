@@ -3,6 +3,7 @@ package emi.dev.emi.emi.api.recipe;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.Material;
 import net.minecraft.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
@@ -84,5 +85,10 @@ public interface EmiRecipe {
 	 */
 	default boolean hideCraftable() {
 		return false;
+	}
+
+
+	default Material craftLevel() {
+		return Material.air;
 	}
 }

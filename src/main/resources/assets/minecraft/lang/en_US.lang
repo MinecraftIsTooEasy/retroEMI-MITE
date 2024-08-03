@@ -314,6 +314,9 @@ alias.emi.crafting_table=Crafting Table
 alias.emi.stick=Stick
 alias.emi.tnt=TNT
 
+#EMI config tips
+emi.config.tooltip.general.enabled=Whether EMI is enabled and visible.
+
 # EMI Tags
 
 # EMI recipe info
