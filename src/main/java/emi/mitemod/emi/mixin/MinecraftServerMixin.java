@@ -22,6 +22,6 @@ public class MinecraftServerMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void init(File par1File, CallbackInfo ci) {
-        EMIPostInit.InRelauncher.init();
+        EMIPostInit.initEMI();
     }
 }

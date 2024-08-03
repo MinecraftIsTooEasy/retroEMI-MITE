@@ -19,9 +19,17 @@ import java.io.DataOutputStream;
 
 public class EMIPostInit implements ModInitializer {
 
+	private static boolean isEMIInit = false;
 	@Override
 	public void onInitialize() {
 
+	}
+
+	public static void initEMI() {
+		if (!isEMIInit) {
+			InRelauncher.init();
+			isEMIInit = true;
+		}
 	}
 
 	public static final class InRelauncher {
