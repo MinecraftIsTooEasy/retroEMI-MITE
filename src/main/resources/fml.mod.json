@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "emi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "depends": {
     "mite": "~1.6.4",
     "fishmodloader": ">=3.2.4"

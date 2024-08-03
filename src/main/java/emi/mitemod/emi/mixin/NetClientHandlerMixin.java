@@ -22,6 +22,7 @@ import java.util.function.Function;
 
 @Mixin(NetClientHandler.class)
 public class NetClientHandlerMixin {
+
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
     public void handleCustomPayload(Packet250CustomPayload par1Packet250CustomPayload, CallbackInfo ci) {
         // EMI edit (Taken from retro emi, might want to rewrite how packets are handled?)
