@@ -50,8 +50,6 @@ public class BlockMixin implements EMIBlock {
         ((EMIBlock) Block.web).hideFromEMI();
         ((EMIBlock) Block.mushroomBrown).hideFromEMI();
         ((EMIBlock) Block.mushroomRed).hideFromEMI();
-        ((EMIBlock) Block.mobSpawner).hideFromEMI();
-        ((EMIBlock) Block.chest).hideFromEMI();
         ((EMIBlock) (Block) Block.redstoneWire).hideFromEMI();
         ((EMIBlock) Block.crops).hideFromEMI();
         ((EMIBlock) Block.tilledField).hideFromEMI();
