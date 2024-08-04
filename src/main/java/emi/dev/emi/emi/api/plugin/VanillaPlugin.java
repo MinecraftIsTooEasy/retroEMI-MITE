@@ -70,10 +70,7 @@ public class VanillaPlugin implements EmiPlugin {
 	public void register(EmiRegistry registry) {
 		registry.addIngredientSerializer(ItemEmiStack.class, new ItemEmiStackSerializer());
 		registry.addIngredientSerializer(TagEmiIngredient.class, new TagEmiIngredientSerializer());
-		
 		registry.addCategory(CRAFTING);
-
-
 		registry.addCategory(SMELTING);
 		registry.addCategory(BREWING);
 		registry.addCategory(WORLD_INTERACTION);
@@ -83,11 +80,12 @@ public class VanillaPlugin implements EmiPlugin {
 		registry.addCategory(INGREDIENT);
 		registry.addCategory(RESOLUTION);
 
-		for (int i = 3; i < 11; i++) {
-			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1 ,i)));
+		for (int i = 4; i < 11; i++) {
+			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 0)));
+//			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 12)));
+			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1 , i)));
 		}
 
-//		registry.addWorkstation(CRAFTING, EmiStack.of(Block.anvil));
 		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceIdle));
 		registry.addWorkstation(BREWING, EmiStack.of(Item.brewingStand));
 		

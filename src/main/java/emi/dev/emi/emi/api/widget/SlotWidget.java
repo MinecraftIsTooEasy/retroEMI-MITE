@@ -251,11 +251,13 @@ public class SlotWidget extends Widget {
                 materialName = EmiPort.literal(material.getLocalizedName(), Formatting.MITHRIL);
             } else if (material == Material.adamantium) {
                 materialName = EmiPort.literal(material.getLocalizedName(), Formatting.ADAMANTIUM);
+			} else if (material == Material.obsidian) {
+				materialName = EmiPort.literal(material.getLocalizedName(), Formatting.OBSIDIAN);
             } else {
 				materialName = EmiPort.literal(material.getLocalizedName(), Formatting.WHITE);
 			}
 
-			TextTooltipComponent finalName = new TextTooltipComponent(EmiPort.translatable("emi.craftlevel") + ": " + materialName);
+			TextTooltipComponent finalName = new TextTooltipComponent(EmiPort.translatable("emi.craft_level") + ": " + materialName);
 
 			list.add(finalName);
 		}

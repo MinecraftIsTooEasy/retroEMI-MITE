@@ -30,7 +30,7 @@ public enum Formatting {
 	ANCIENTMETAL('T'),
 	MITHRIL('Y'),
 	ADAMANTIUM('U'),
-
+	OBSIDIAN('I')
 	;
 
 	
@@ -69,7 +69,7 @@ public enum Formatting {
 		else if (this==ANCIENTMETAL) return 10331545;
 		else if (this==MITHRIL) return 10991559;
 		else if (this==ADAMANTIUM) return 3090231;
-
+		else if (this==OBSIDIAN) return 0x2A263E;
 		else return null;
 	}
 
