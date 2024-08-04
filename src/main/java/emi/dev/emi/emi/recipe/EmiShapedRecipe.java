@@ -12,6 +12,7 @@ import emi.shims.java.com.unascribed.retroemi.RetroEMI;
 import emi.shims.java.net.minecraft.util.SyntheticIdentifier;
 import net.minecraft.IRecipe;
 import net.minecraft.InventoryCrafting;
+import net.minecraft.Material;
 import net.minecraft.ShapedRecipes;
 
 import java.util.Arrays;
@@ -19,12 +20,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EmiShapedRecipe extends EmiCraftingRecipe {
-	
+
+	private final ShapedRecipes shaped_recipe;
+
 	public EmiShapedRecipe(ShapedRecipes recipe) {
 		super(padIngredients((EMIShapedRecipes) recipe), EmiStack.of(EmiPort.getOutput(recipe)), new SyntheticIdentifier(recipe), false, ((EMIShapedRecipes) recipe).getSecondaryOutput(null));
 		setRemainders(input, recipe, false);
+		this.shaped_recipe = recipe;
 	}
-	
+
+	@Override
+	public Material craftLevel() {
+		return this.shaped_recipe.getMaterialToCheckToolBenchHardnessAgainst();
+	}
+
 	public static void setRemainders(List<EmiIngredient> input, IRecipe recipe, boolean isSoulforge) {
 		InventoryCrafting inv = isSoulforge ? EmiUtil.getCraftingInventory() : EmiUtil.getSoulforgeInventory();
 		for (int i = 0; i < input.size(); i++) {

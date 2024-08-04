@@ -23,7 +23,16 @@ public enum Formatting {
 	UNDERLINE('n'),
 	ITALIC('o'),
 	RESET('r'),
+	COPPER('Q'),
+	SILVER('W'),
+	RUSTEDIRON('E'),
+	IRON('R'),
+	ANCIENTMETAL('T'),
+	MITHRIL('Y'),
+	ADAMANTIUM('U'),
+	OBSIDIAN('I')
 	;
+
 	
 	private final String code;
 
@@ -53,6 +62,14 @@ public enum Formatting {
 		else if (this==LIGHT_PURPLE) return 0xFF55FF;
 		else if (this==YELLOW) return 0x55FFFF;
 		else if (this==WHITE) return 0xFFFFFF;
+		else if (this==COPPER) return 10970880;
+		else if (this==SILVER) return 0xFFFFFF;
+		else if (this==RUSTEDIRON) return 10854039;
+		else if (this==IRON) return 10987431;
+		else if (this==ANCIENTMETAL) return 10331545;
+		else if (this==MITHRIL) return 10991559;
+		else if (this==ADAMANTIUM) return 3090231;
+		else if (this==OBSIDIAN) return 0x2A263E;
 		else return null;
 	}
 

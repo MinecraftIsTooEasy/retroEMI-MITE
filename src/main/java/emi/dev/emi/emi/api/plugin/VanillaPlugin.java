@@ -70,7 +70,6 @@ public class VanillaPlugin implements EmiPlugin {
 	public void register(EmiRegistry registry) {
 		registry.addIngredientSerializer(ItemEmiStack.class, new ItemEmiStackSerializer());
 		registry.addIngredientSerializer(TagEmiIngredient.class, new TagEmiIngredientSerializer());
-		
 		registry.addCategory(CRAFTING);
 		registry.addCategory(SMELTING);
 		registry.addCategory(BREWING);
@@ -80,9 +79,13 @@ public class VanillaPlugin implements EmiPlugin {
 		registry.addCategory(TAG);
 		registry.addCategory(INGREDIENT);
 		registry.addCategory(RESOLUTION);
-		
-		registry.addWorkstation(CRAFTING, EmiStack.of(Block.workbench));
-//		registry.addWorkstation(CRAFTING, EmiStack.of(Block.anvil));
+
+		for (int i = 4; i < 11; i++) {
+			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 0)));
+//			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 12)));
+			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1 , i)));
+		}
+
 		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceIdle));
 		registry.addWorkstation(BREWING, EmiStack.of(Item.brewingStand));
 		
@@ -102,7 +105,7 @@ public class VanillaPlugin implements EmiPlugin {
 		registry.addGenericExclusionArea((screen, consumer) -> {
 			if (screen instanceof GuiInventory inv) {
 				Minecraft client = Minecraft.getMinecraft();
-				Collection<PotionEffect> collection = client.thePlayer.getActivePotionEffects();
+				Collection collection = client.thePlayer.getActivePotionEffects();
 				if (!collection.isEmpty()) {
 					int k = 33;
 					if (collection.size() > 5) {
@@ -117,10 +120,7 @@ public class VanillaPlugin implements EmiPlugin {
 						if (EmiConfig.effectLocation == EffectLocation.TOP) {
 							int size = collection.size();
 							top = ((EMIGuiContainerCreative) inv).getGuiTop() - 34;
-							if ((screen) instanceof GuiContainerCreative) {
-								top -= 28;
-							}
-							int xOff = 34;
+                            int xOff = 34;
 							if (size == 1) {
 								xOff = 122;
 							}
@@ -176,12 +176,14 @@ public class VanillaPlugin implements EmiPlugin {
 				addRecipeSafe(registry, () -> new EmiCraftingRecipe(List.of(paper, paper, paper, paper, EmiStack.of(Item.map), paper, paper, paper, paper),
 						EmiStack.of(Item.map), new ResourceLocation("minecraft", "map_extending"), false, null), recipe);
 			}
+
 			else if (recipe instanceof ShapedRecipes shaped) {
 				addRecipeSafe(registry, () -> new EmiShapedRecipe(shaped), recipe);
 			}
 			else if (recipe instanceof ShapelessRecipes shapeless) {
-				addRecipeSafe(registry, () -> new EmiShapelessRecipe((EMIShapelessRecipes) shapeless), recipe);
+				addRecipeSafe(registry, () -> new EmiShapelessRecipe((EMIShapelessRecipes) shapeless, shapeless), recipe);
 			}
+
 			else if (recipe instanceof RecipesArmorDyes dye) {
 				for (Item i : EmiArmorDyeRecipe.DYEABLE_ITEMS) {
 					if (i.hasMaterial(Material.leather)) {

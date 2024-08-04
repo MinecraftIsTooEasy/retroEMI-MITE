@@ -20,6 +20,7 @@ import java.io.DataOutputStream;
 public class EMIPostInit implements ModInitializer {
 
 	private static boolean isEMIInit = false;
+
 	@Override
 	public void onInitialize() {
 
@@ -33,7 +34,7 @@ public class EMIPostInit implements ModInitializer {
 	}
 
 	public static final class InRelauncher {
-		
+
 		public static void init() {
 			EmiAgnosMITEFish.poke();
 			if (!MinecraftServerEMI.getIsServer()) {

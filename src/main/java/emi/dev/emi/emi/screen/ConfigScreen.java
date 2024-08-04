@@ -27,9 +27,7 @@ import emi.shims.java.net.minecraft.client.gui.widget.TextFieldWidget;
 import emi.shims.java.net.minecraft.client.util.InputUtil;
 import emi.shims.java.net.minecraft.text.Text;
 import emi.shims.java.org.lwjgl.glfw.GLFW;
-import net.minecraft.GuiScreen;
-import net.minecraft.Minecraft;
-import net.minecraft.StringTranslate;
+import net.minecraft.*;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -71,20 +69,28 @@ public class ConfigScreen extends REMIScreen {
 		Minecraft.getMinecraft().displayGuiScreen(last);
 	}
 	
-	@SuppressWarnings("unchecked")
+
 	public static List<TooltipComponent> getFieldTooltip(Field field) {
 		List<TooltipComponent> text;
 		ConfigValue annot = field.getAnnotation(ConfigValue.class);
 		String key = "config.emi.tooltip." + annot.value().replace('-', '_');
 		Comment comment = field.getAnnotation(Comment.class);
 		if (StringTranslate.getInstance().containsTranslateKey(key)) {
-			text = (List<TooltipComponent>) (Object) Arrays.stream(RetroEMI.translate(key).split("\n")).map(EmiPort::literal).map(EmiTooltipComponents::of)
+			text = Arrays.stream(RetroEMI.translate(key).split("\n")).map(EmiPort::literal).map(EmiTooltipComponents::of)
 					.collect(Collectors.toList());
 		}
 		else if (comment != null) {
-			text = (List<TooltipComponent>) (Object) Arrays.stream(comment.value().split("\n")).map(EmiPort::literal).map(EmiTooltipComponents::of)
-					.collect(Collectors.toList());
+			String commentStr = comment.value();
+			if (commentStr.startsWith("emi.config.tooltip.")) {
+				text = Arrays.stream(RetroEMI.translate(commentStr).split("\n")).map(EmiPort::literal).map(EmiTooltipComponents::of)
+						.collect(Collectors.toList());
+			} else {
+				text = Arrays.stream(commentStr.split("\n")).map(EmiPort::literal).map(EmiTooltipComponents::of)
+						.collect(Collectors.toList());
+			}
 		}
+
+
 		else {
 			text = null;
 		}
