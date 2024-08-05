@@ -14,10 +14,12 @@ import emi.dev.emi.emi.screen.EmiScreenManager;
 import emi.shims.java.com.unascribed.retroemi.RetroEMI;
 import emi.shims.java.net.minecraft.client.search.SuffixArray;
 import emi.shims.java.net.minecraft.text.Text;
+import net.minecraft.Minecraft;
 import net.minecraft.ResourceLocation;
 import net.minecraft.StringTranslate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -176,6 +178,11 @@ public class EmiSearch {
 					if (EmiConfig.searchModNameByDefault) {
 						constructors.add(QueryType.MOD.queryConstructor);
 						regexConstructors.add(QueryType.MOD.regexQueryConstructor);
+					}
+					if (EmiConfig.searchNameByPinyin &&
+							Objects.equals(Minecraft.theMinecraft.gameSettings.language, "zh_CN")) {
+						constructors.add(QueryType.PINYIN.queryConstructor);
+						regexConstructors.add(QueryType.PINYIN.regexQueryConstructor);
 					}
 					if (EmiConfig.searchTagsByDefault) {
 						constructors.add(QueryType.TAG.queryConstructor);
