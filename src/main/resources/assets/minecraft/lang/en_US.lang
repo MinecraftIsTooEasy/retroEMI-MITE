@@ -93,6 +93,7 @@ config.emi.general.search_tooltip_by_default=Search Tooltip by Default
 config.emi.general.search_mod_name_by_default=Search Mod Name by Default
 config.emi.general.search_tags_by_default=Search Tags by Default
 config.emi.general.search_id_by_default=Search ID by Default
+config.emi.general.search_name_by_pinyin=Search Pinyin by Default
 config.emi.general.simulate_nei_lag=[retroEMI] Simulate NEI Lag
 
 config.emi.ui.effect_location=Effect Location
@@ -324,6 +325,7 @@ emi.config.tooltip.general.search-tooltip-by-default=Whether normal search queri
 emi.config.tooltip.general.search-mod-name-by-default=Whether normal search queries should include the mod name.
 emi.config.tooltip.general.search-tags-by-default=Whether normal search queries should include the stack's tags.
 emi.config.tooltip.general.search-id-by-default=Whether normal search queries should include the stack's item ID. Better Than Wolves specifc.
+emi.config.tooltip.general.search-name-by-pinyin=Whether normal search queries should include the pinyin
 emi.config.tooltip.ui.effect-location=Where to display status effects in the inventory.
 emi.config.tooltip.ui.show-hover-overlay=Whether to display a gray overlay when hovering over a stack.
 emi.config.tooltip.ui.append-mod-id=Whether to add mod name to tooltips.

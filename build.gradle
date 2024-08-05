@@ -50,7 +50,8 @@ dependencies {
 
 	implementation files("libs\\fastutil-8.5.12.jar")
 	implementation files("libs\\gson-2.10.1.jar")
-	implementation files("libs\\pinin-1.6.0-all.jar")
+//	implementation files("libs\\pinin-1.6.0-all.jar")
+	implementation files("libs\\PinIn-Lib-1.6.0.jar")
 	implementation files(loom.getFML().toPath())
 }
 

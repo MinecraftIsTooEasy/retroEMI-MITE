@@ -1,10 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "emi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "depends": {
     "mite": "~1.6.4",
-    "fishmodloader": ">=3.2.4"
+    "fishmodloader": ">=3.2.4",
+    "pinin": ">=1.6.0"
   },
   "environment": "*",
   "name": "EMI",
@@ -14,7 +15,8 @@
     "Katherine",
     "BTW CE",
     "Xy_Lose",
-    "limingzxc"
+    "limingzxc",
+    "huix"
   ],
   "License": "MIT License",
   "icon": "emi.png",

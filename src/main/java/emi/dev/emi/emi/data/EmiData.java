@@ -85,7 +85,7 @@ public class EmiData {
 		
 		EmiData.addAliases(EmiStack.of(Item.stick), "alias.emi.stick");
 		EmiData.addAliases(EmiStack.of(Block.tnt), "alias.emi.tnt");
-		EmiData.addAliases(EmiStack.of(Block.cauldron), "alias.emi.cauldron");
+//		EmiData.addAliases(EmiStack.of(Block.cauldron), "alias.emi.cauldron");
 	}
 	
 	//todo finish adding all recipe categories

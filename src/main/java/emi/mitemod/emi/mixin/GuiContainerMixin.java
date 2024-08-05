@@ -1,9 +1,12 @@
 package emi.mitemod.emi.mixin;
 
 import emi.dev.emi.emi.Hooks;
+import emi.dev.emi.emi.screen.EmiScreenManager;
 import emi.mitemod.emi.api.EMIGuiContainerCreative;
 import emi.mitemod.emi.api.EMISearchInput;
 import net.minecraft.*;
+import net.xiaoyu233.fml.util.ReflectHelper;
+import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +23,11 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
 
     @Shadow public Container inventorySlots;
 
+    @Inject(method = "initGui", at = @At("TAIL"))
+    private void initGui(CallbackInfo ci) {
+        EmiScreenManager.addWidgets(this);
+    }
+
     @Inject(
             method = "drawScreen",
             at = @At(
@@ -35,21 +43,13 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/GuiContainer;drawGuiContainerForegroundLayer(II)V",
-                    shift = At.Shift.BEFORE
-            ))
-    private void renderForegroundPre(int par1, int par2, float par3, CallbackInfo ci) {
-        Hooks.renderForegroundPre(par1, par2, this.mc);
-    }
-    @Inject(
-            method = "drawScreen",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/GuiContainer;drawGuiContainerForegroundLayer(II)V",
                     shift = At.Shift.AFTER
             ))
     private void renderForegroundPost(int par1, int par2, float par3, CallbackInfo ci) {
+        Hooks.renderForegroundPre(par1, par2, this.mc);
         Hooks.renderForegroundPost(par1, par2, this.mc);
     }
+
     @Inject(
             method = "drawSlotInventory",
             at = @At(

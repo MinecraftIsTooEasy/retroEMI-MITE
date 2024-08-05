@@ -52,11 +52,6 @@ public class EmiConfig {
 	public static HelpLevel helpLevel = HelpLevel.NORMAL;
 
 	@ConfigGroup("general.search")
-	@Comment("emi.config.tooltip.general.search-name-by-pinyin")
-	@ConfigValue("general.search-name-by-pinyin")
-	public static boolean searchNameByPinyin = true;
-
-	@ConfigGroup("general.search")
 	@Comment("emi.config.tooltip.general.search-tooltip-by-default")
 	@ConfigValue("general.search-tooltip-by-default")
 	public static boolean searchTooltipByDefault = true;
@@ -71,8 +66,12 @@ public class EmiConfig {
 	
 	@Comment("emi.config.tooltip.general.search-id-by-default")
 	@ConfigValue("general.search-id-by-default")
-	@ConfigGroupEnd
 	public static boolean searchIdByDefault = true;
+
+	@Comment("emi.config.tooltip.general.search-name-by-pinyin")
+	@ConfigValue("general.search-name-by-pinyin")
+	@ConfigGroupEnd
+	public static boolean searchNameByPinyin = true;
 	
 	// UI
 	
