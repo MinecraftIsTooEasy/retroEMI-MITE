@@ -15,9 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class GuiScreenMixin implements EMISearchInput {
     @Unique
     private boolean emiSearchInput = false;
+    @Unique
+    private boolean emiMouseInput = false;
+
     @Inject(method = "handleMouseInput", at = @At("HEAD"))
     public void handleMouseInputEMI(CallbackInfo ci) {
-        RetroEMI.handleMouseInput();
+        emiMouseInput = RetroEMI.handleMouseInput();
     }
 
     @Inject(method = "handleKeyboardInput", at = @At(value = "INVOKE", target = "Lorg/lwjgl/input/Keyboard;getEventKeyState()Z", shift = At.Shift.AFTER))
@@ -35,5 +38,10 @@ public class GuiScreenMixin implements EMISearchInput {
     @Override
     public boolean getEMISearchInput() {
         return emiSearchInput;
+    }
+
+    @Override
+    public boolean getEMIMouseInput() {
+        return emiMouseInput;
     }
 }

@@ -8,6 +8,7 @@
     "BlockMixin",
     "CraftingManagerMixin",
     "FontRendererMixin",
+    "GuiContainerCreativeMixin",
     "GuiContainerMixin",
     "GuiScreenMixin",
     "GuiTextFieldMixin",
