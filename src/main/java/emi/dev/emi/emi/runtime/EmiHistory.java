@@ -1,7 +1,7 @@
 package emi.dev.emi.emi.runtime;
 
-import emi.dev.emi.emi.api.EmiApi;
 import com.google.common.collect.Lists;
+import emi.dev.emi.emi.api.EmiApi;
 import net.minecraft.GuiContainer;
 import net.minecraft.GuiScreen;
 import net.minecraft.Minecraft;

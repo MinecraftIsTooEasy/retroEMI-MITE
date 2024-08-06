@@ -3,8 +3,6 @@ package emi.shims.java.net.minecraft.nbt;
 import net.minecraft.CompressedStreamTools;
 import net.minecraft.NBTTagCompound;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.Base64;
 
 public class StringNbtReader {

@@ -3,8 +3,8 @@ package emi.dev.emi.emi.network;
 import emi.dev.emi.emi.chess.EmiChess;
 import emi.shims.java.net.minecraft.network.PacketByteBuf;
 import net.minecraft.EntityPlayer;
-import net.minecraft.ServerPlayer;
 import net.minecraft.ResourceLocation;
+import net.minecraft.ServerPlayer;
 
 public abstract class EmiChessPacket implements EmiPacket {
 	protected final String uuid;

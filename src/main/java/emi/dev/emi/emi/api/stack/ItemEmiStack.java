@@ -22,9 +22,6 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
-import static org.lwjgl.opengl.GL11.glEnable;
-
 @ApiStatus.Internal
 public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 	private final ItemStack stack;

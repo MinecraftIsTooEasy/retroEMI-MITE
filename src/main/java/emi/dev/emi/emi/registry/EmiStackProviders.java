@@ -2,16 +2,15 @@ package emi.dev.emi.emi.registry;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import emi.dev.emi.emi.api.EmiApi;
 import emi.dev.emi.emi.api.EmiStackProvider;
-import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.stack.EmiStackInteraction;
 import emi.mitemod.emi.api.EMIGuiContainerCreative;
 import emi.shims.java.com.unascribed.retroemi.ItemStacks;
-import emi.shims.java.net.minecraft.util.SyntheticIdentifier;
-import net.minecraft.*;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.GuiContainer;
+import net.minecraft.GuiScreen;
+import net.minecraft.ItemStack;
+import net.minecraft.Slot;
 
 import java.util.List;
 import java.util.Map;

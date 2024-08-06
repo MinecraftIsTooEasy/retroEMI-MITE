@@ -1,13 +1,13 @@
 package emi.shims.java.net.minecraft.network;
 
+import net.minecraft.ItemStack;
+import net.minecraft.Packet;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
-
-import net.minecraft.ItemStack;
-import net.minecraft.Packet;
 
 public interface PacketByteBuf {
 

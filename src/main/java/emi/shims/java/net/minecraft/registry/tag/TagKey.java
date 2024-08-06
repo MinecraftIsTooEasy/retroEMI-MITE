@@ -1,8 +1,8 @@
 package emi.shims.java.net.minecraft.registry.tag;
 
-import java.util.List;
-
 import net.minecraft.ResourceLocation;
+
+import java.util.List;
 
 public interface TagKey<T> {
 	

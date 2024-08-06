@@ -12,7 +12,6 @@ import emi.dev.emi.emi.runtime.EmiLog;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.Item;
-import net.minecraft.ItemBlock;
 import net.minecraft.ItemStack;
 
 import java.util.Collections;

@@ -5,7 +5,6 @@ import emi.dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
-import emi.dev.emi.emi.runtime.EmiLog;
 import emi.mitemod.emi.api.EMIInventoryCrafting;
 import emi.mitemod.emi.api.EMISlot;
 import emi.mitemod.emi.api.EMISlotCrafting;

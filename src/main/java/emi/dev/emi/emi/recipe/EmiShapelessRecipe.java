@@ -6,7 +6,10 @@ import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.mitemod.emi.api.EMIShapelessRecipes;
 import emi.shims.java.com.unascribed.retroemi.RetroEMI;
 import emi.shims.java.net.minecraft.util.SyntheticIdentifier;
-import net.minecraft.*;
+import net.minecraft.IRecipe;
+import net.minecraft.ItemStack;
+import net.minecraft.Material;
+import net.minecraft.ShapelessRecipes;
 
 import java.util.List;
 import java.util.stream.Collectors;

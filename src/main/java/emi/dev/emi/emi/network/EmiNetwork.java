@@ -1,7 +1,7 @@
 package emi.dev.emi.emi.network;
 
-import net.minecraft.ServerPlayer;
 import net.minecraft.ResourceLocation;
+import net.minecraft.ServerPlayer;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;

@@ -1,17 +1,11 @@
 package emi.shims.java.net.minecraft.util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -21,8 +15,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
-
-import org.jetbrains.annotations.Nullable;
 
 public class JsonHelper {
 	private static final Gson GSON = new GsonBuilder().create();

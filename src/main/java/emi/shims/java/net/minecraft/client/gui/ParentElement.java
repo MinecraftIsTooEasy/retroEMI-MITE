@@ -1,8 +1,9 @@
 package emi.shims.java.net.minecraft.client.gui;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 import java.util.Optional;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * A GUI interface which handles keyboard and mouse callbacks for child GUI elements. The

@@ -2,11 +2,8 @@ package emi.mitemod.emi.mixin;
 
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.data.EmiRemoveFromIndex;
-import emi.mitemod.emi.api.EMIBlock;
 import emi.mitemod.emi.api.EMIItem;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.Block;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
 import net.xiaoyu233.fml.FishModLoader;

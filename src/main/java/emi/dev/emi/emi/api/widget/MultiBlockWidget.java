@@ -2,7 +2,6 @@ package emi.dev.emi.emi.api.widget;
 
 import emi.dev.emi.emi.screen.Bounds;
 import emi.shims.java.net.minecraft.client.gui.DrawContext;
-import net.minecraft.Block;
 import net.minecraft.RenderBlocks;
 
 public class MultiBlockWidget extends Widget { // I doubt anything will come of this, mostly just messing about trying to make pretty kiln rendering

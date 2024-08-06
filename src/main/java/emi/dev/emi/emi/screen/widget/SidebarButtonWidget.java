@@ -3,7 +3,6 @@ package emi.dev.emi.emi.screen.widget;
 import emi.dev.emi.emi.EmiRenderHelper;
 import emi.dev.emi.emi.input.EmiInput;
 import emi.dev.emi.emi.screen.EmiScreenManager.SidebarPanel;
-import net.minecraft.ResourceLocation;
 
 import java.util.List;
 

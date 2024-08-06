@@ -1,6 +1,10 @@
 package emi.dev.emi.emi.registry;
 
-import emi.dev.emi.emi.api.*;
+import com.google.common.collect.Lists;
+import emi.dev.emi.emi.api.EmiDragDropHandler;
+import emi.dev.emi.emi.api.EmiExclusionArea;
+import emi.dev.emi.emi.api.EmiRegistry;
+import emi.dev.emi.emi.api.EmiStackProvider;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.EmiRecipeCategory;
 import emi.dev.emi.emi.api.stack.Comparison;
@@ -8,8 +12,9 @@ import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.stack.serializer.EmiIngredientSerializer;
 import emi.dev.emi.emi.runtime.EmiReloadLog;
-import com.google.common.collect.Lists;
-import net.minecraft.*;
+import net.minecraft.Container;
+import net.minecraft.CraftingManager;
+import net.minecraft.GuiScreen;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
