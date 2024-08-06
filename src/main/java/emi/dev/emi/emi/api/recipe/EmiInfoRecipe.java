@@ -27,7 +27,7 @@ public class EmiInfoRecipe implements EmiRecipe {
 	public EmiInfoRecipe(List<EmiIngredient> stacks, List<Text> text, @Nullable ResourceLocation id) {
 		this.stacks = stacks;
 		this.text = !MinecraftServerEMI.getIsServer() ? text.stream().flatMap(
-				t -> Arrays.stream(Minecraft.getMinecraft().fontRenderer.wrapFormattedStringToWidth(t.asString(), getDisplayWidth() - 4).split("\n")).map(Text::literal)
+				t -> Arrays.stream(Minecraft.getMinecraft().fontRenderer.wrapFormattedStringToWidth(t.asString().replace("\\n", "\n"), getDisplayWidth() - 4).split("\n")).map(Text::literal)
 						.map(Text::asOrderedText)).collect(Collectors.toList()) : new ArrayList<>();
 		this.id = id;
 	}

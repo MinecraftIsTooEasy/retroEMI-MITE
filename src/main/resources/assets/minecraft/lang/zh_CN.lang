@@ -414,3 +414,4 @@ emi.config.tooltip.dev.highlight-exclusion-areas=高亮会与EMI交互的区域
 # EMI recipe info
 
 # EMI Item Info
+mite.gravel.info=§l当被玩家破坏时\n§r有5/32的几率掉落§7燧石碎片\n§r有1/96的几率掉落§7燧石\n§r有1/18的几率掉落§Q铜粒\n§r有1/54的几率掉落§W银粒\n§r有1/162的几率掉落§6金粒\n§r有1/486的几率掉落§I黑曜石碎片\n§r有1/1458的几率掉落§a绿宝石碎片\n§r有1/4374的几率掉落§b钻石碎片\n§r有1/13122的几率掉落§Y秘银粒\n§r有1/26244的几率掉落§U艾德曼粒

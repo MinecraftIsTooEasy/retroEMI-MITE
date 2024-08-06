@@ -408,3 +408,4 @@ emi.config.tooltip.dev.highlight-exclusion-areas=Whether to display exclusion ar
 # EMI recipe info
 
 # EMI Item Info
+mite.gravel.info="mite info,\n please replace :P"
