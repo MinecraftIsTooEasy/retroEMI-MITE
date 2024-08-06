@@ -27,6 +27,11 @@ public class MITEPlugin implements EmiPlugin {
 		MITEEmiRecipeCategories.HOPPER = category("hopper", EmiStack.of(Block.hopperBlock));
 		MITEEmiRecipeCategories.PISTON = category("piston", EmiStack.of(Block.pistonBase));
 		MITEEmiRecipeCategories.FOOD = category("food", EmiStack.of(Item.carrot), Comparator.comparingInt(a -> ((EmiFoodRecipe) a).getHunger()));
+//		Comparator<EmiRecipe> tradeComparitor = Comparator.comparingInt(a -> ((EmiTradeRecipe) a).professionId); //Silly generics, tricks are for kids
+//		MITEEmiRecipeCategories.TRADING = category("trading", EmiStack.of(Item.emerald), tradeComparitor.thenComparingInt(a -> {
+//			int level = ((EmiTradeRecipe) a).tradeLevel;
+//			return ((EmiTradeRecipe) a).isLevelUp ? -level : level;
+//		}));
 	}
 	
 	//Executed in the EMIPlugin instead of here as iterating through all recipes *twice* isn't ideal. Only here for clarity.

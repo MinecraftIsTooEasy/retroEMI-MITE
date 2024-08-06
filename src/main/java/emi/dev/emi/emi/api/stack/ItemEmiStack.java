@@ -5,6 +5,7 @@ import emi.dev.emi.emi.EmiPort;
 import emi.dev.emi.emi.EmiRenderHelper;
 import emi.dev.emi.emi.Prototype;
 import emi.dev.emi.emi.api.render.EmiRender;
+import emi.dev.emi.emi.config.EmiConfig;
 import emi.dev.emi.emi.platform.EmiAgnos;
 import emi.dev.emi.emi.runtime.EmiDrawContext;
 import emi.dev.emi.emi.screen.StackBatcher;
@@ -163,7 +164,9 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 			//String namespace = EmiPort.getItemRegistry().getId(stack.getItem()).getNamespace();
 			//String mod = EmiUtil.getModName(namespace);
 			//list.add(TooltipComponent.of(EmiLang.literal(mod, Formatting.BLUE, Formatting.ITALIC)));
-			list.add(TooltipComponent.of(Text.literal(RetroEMI.getMod(stack)).formatted(Formatting.BLUE, Formatting.ITALIC)));
+			if (EmiConfig.appendModId || EmiConfig.appendItemModId) {
+				list.add(TooltipComponent.of(Text.literal(RetroEMI.getMod(stack)).formatted(Formatting.BLUE, Formatting.ITALIC)));
+			}
 			list.addAll(super.getTooltip());
 		}
 		return list;

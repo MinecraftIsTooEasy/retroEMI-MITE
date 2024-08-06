@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "emi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "depends": {
     "mite": "~1.6.4",
     "fishmodloader": ">=3.2.4",
@@ -16,9 +16,9 @@
     "BTW CE",
     "Xy_Lose",
     "limingzxc",
-    "huix"
+    "Huix"
   ],
-  "License": "MIT License",
+  "License": "MIT license",
   "icon": "emi.png",
   "entrypoints": {
     "main": [

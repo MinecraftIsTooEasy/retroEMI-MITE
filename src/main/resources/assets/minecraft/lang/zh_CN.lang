@@ -170,9 +170,9 @@ config.emi.presets.author_binds=作者用的热键
 config.emi.presets.backup=恢复备份
 config.emi.presets.defaults=将所有设置项恢复到上次启动时的样子
 
-emi.unit.liters=Liters
-emi.unit.millibuckets=Millibuckets
-emi.unit.droplets=Droplets
+emi.unit.liters=升
+emi.unit.millibuckets=毫桶
+emi.unit.droplets=滴
 emi.fluid.amount.liters=%s L
 emi.fluid.amount.millibuckets=%smB
 emi.fluid.amount.droplets=%s d
