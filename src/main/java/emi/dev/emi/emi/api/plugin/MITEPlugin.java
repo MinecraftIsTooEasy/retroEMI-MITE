@@ -11,6 +11,7 @@ import emi.dev.emi.emi.api.render.EmiTexture;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.recipe.mite.EmiFoodRecipe;
 import emi.dev.emi.emi.runtime.EmiReloadLog;
+import emi.mitemod.emi.util.EnchantmentNameIDTranslator;
 import emi.shims.java.net.minecraft.text.Text;
 import net.minecraft.*;
 
@@ -149,15 +150,15 @@ public class MITEPlugin implements EmiPlugin {
 
 		//------ Tech info ------//
 
-		// Enchanting/magic
+		// Enchantment
 		HashSet<Integer> enchantmentSet = new HashSet<>();
 		for (int i = 0; i < Enchantment.enchantmentsList.length; ++i) {
-			Enchantment enchantment = Enchantment.get(i);
+			Enchantment enchantment = EnchantmentNameIDTranslator.getEnchantmentByText(i);
 			if (enchantment != null && !enchantmentSet.contains(enchantment.effectId)) {
 				enchantmentSet.add(enchantment.effectId);
 				info(registry, Item.enchantedBook.getEnchantedItemStack(
 						new EnchantmentData(enchantment, enchantment.getNumLevels())),
-						"mite.enchanted_book.info." + i);
+						"enchanted_book.info." + enchantment.getName());
 			}
 		}
 //		info(registry, Block.brewingStand, "btw.brewing_stand.info");
