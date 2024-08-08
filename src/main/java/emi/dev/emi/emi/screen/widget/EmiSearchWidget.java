@@ -52,7 +52,7 @@ public class EmiSearchWidget extends TextFieldWidget {
 				int end = style.getLeft();
 				if (end > stringStart) {
 					if (end - stringStart >= string.length()) {
-						text = EmiPort.literal(string.substring(0, string.length()), style.getRight());
+						text = EmiPort.literal(string, style.getRight());
 						// Skip second loop
 						s = styles.size();
 						break;
@@ -67,7 +67,7 @@ public class EmiSearchWidget extends TextFieldWidget {
 				Pair<Integer, Style> style = styles.get(s);
 				int end = style.getLeft();
 				if (end - stringStart >= string.length()) {
-					EmiPort.append(text, EmiPort.literal(string.substring(last, string.length()), style.getRight()));
+					EmiPort.append(text, EmiPort.literal(string.substring(last), style.getRight()));
 					break;
 				}
 				EmiPort.append(text, EmiPort.literal(string.substring(last, end - stringStart), style.getRight()));

@@ -92,12 +92,8 @@ public class MITEPlugin implements EmiPlugin {
 //
 //		//Foods
 		for (Item it : Item.itemsList) { // There must be a better way to do this than iterating the registry... right?
-			if (it instanceof ItemFood food) {
-				List<ItemStack> foodList = new ArrayList<>();
-				food.getSubItems(food.itemID, food.getCreativeTab(), foodList);
-				for (ItemStack stack : foodList) {
-					addRecipeSafe(reg, () -> new EmiFoodRecipe(stack));
-				}
+			if (it != null && (it.getNutrition() > 0 || it.getSatiation(null) > 0)) {
+				addRecipeSafe(reg, () -> new EmiFoodRecipe(new ItemStack(it)));
 			}
 		}
 //
