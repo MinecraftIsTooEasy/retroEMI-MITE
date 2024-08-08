@@ -1,9 +1,9 @@
 package emi.dev.emi.emi.data;
 
 import com.google.common.collect.Lists;
-import emi.dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.EmiRecipeCategory;
+import emi.dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;

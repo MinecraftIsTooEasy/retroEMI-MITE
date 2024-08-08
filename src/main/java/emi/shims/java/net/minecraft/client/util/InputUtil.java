@@ -1,17 +1,16 @@
 package emi.shims.java.net.minecraft.client.util;
 
+import com.google.common.collect.Maps;
+import emi.shims.java.net.minecraft.text.Text;
+import emi.shims.java.org.lwjgl.glfw.GLFW;
+import net.minecraft.StringTranslate;
+import org.lwjgl.input.Keyboard;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.function.BiFunction;
-
-import com.google.common.collect.Maps;
-import emi.shims.java.net.minecraft.text.Text;
-import emi.shims.java.org.lwjgl.glfw.GLFW;
-
-import net.minecraft.StringTranslate;
-import org.lwjgl.input.Keyboard;
 
 public class InputUtil {
 	public static final Key UNKNOWN_KEY = Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_UNKNOWN);

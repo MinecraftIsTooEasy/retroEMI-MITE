@@ -1,8 +1,8 @@
 package emi.dev.emi.emi.handler;
 
 import com.google.common.collect.Lists;
-import emi.dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
+import emi.dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import net.minecraft.ContainerFurnace;
 import net.minecraft.Slot;

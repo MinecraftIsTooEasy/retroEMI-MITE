@@ -34,7 +34,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class RecipeScreen extends REMIScreen implements EmiScreen {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/background.png");

@@ -9,11 +9,8 @@ import emi.dev.emi.emi.screen.EmiScreenManager;
 import emi.dev.emi.emi.search.EmiSearch;
 import emi.mitemod.emi.api.EMICraftingManager;
 import emi.mitemod.emi.api.EMIGuiContainerCreative;
-import emi.mitemod.emi.api.EMIMinecraft;
 import emi.shims.java.net.minecraft.util.SyntheticIdentifier;
 import net.minecraft.*;
-import net.xiaoyu233.fml.util.ReflectHelper;
-import org.lwjgl.opengl.Display;
 
 import java.util.List;
 

@@ -27,7 +27,9 @@ import emi.shims.java.net.minecraft.client.gui.widget.TextFieldWidget;
 import emi.shims.java.net.minecraft.client.util.InputUtil;
 import emi.shims.java.net.minecraft.text.Text;
 import emi.shims.java.org.lwjgl.glfw.GLFW;
-import net.minecraft.*;
+import net.minecraft.GuiScreen;
+import net.minecraft.Minecraft;
+import net.minecraft.StringTranslate;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

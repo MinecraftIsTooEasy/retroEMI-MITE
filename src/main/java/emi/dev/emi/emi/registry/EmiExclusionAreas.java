@@ -1,12 +1,12 @@
 package emi.dev.emi.emi.registry;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import emi.dev.emi.emi.api.EmiExclusionArea;
 import emi.dev.emi.emi.runtime.EmiLog;
 import emi.dev.emi.emi.screen.Bounds;
 import emi.dev.emi.emi.screen.EmiScreen;
 import emi.dev.emi.emi.screen.EmiScreenManager;
-import com.google.common.collect.Lists;
 import emi.shims.java.com.unascribed.retroemi.RetroEMI;
 import net.minecraft.GuiScreen;
 

@@ -2,7 +2,10 @@ package emi.mitemod.emi.mixin;
 
 import emi.dev.emi.emi.Hooks;
 import emi.mitemod.emi.api.EMISlotCrafting;
-import net.minecraft.*;
+import net.minecraft.EntityPlayer;
+import net.minecraft.IInventory;
+import net.minecraft.ItemStack;
+import net.minecraft.SlotCrafting;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

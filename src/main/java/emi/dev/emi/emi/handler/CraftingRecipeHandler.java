@@ -1,12 +1,10 @@
 package emi.dev.emi.emi.handler;
 
-import net.minecraft.ContainerWorkbench;
 import com.google.common.collect.Lists;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
-import net.minecraft.IRecipe;
-import net.minecraft.MITEContainerCrafting;
+import net.minecraft.ContainerWorkbench;
 import net.minecraft.Slot;
 import org.jetbrains.annotations.Nullable;
 

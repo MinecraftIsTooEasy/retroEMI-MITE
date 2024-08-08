@@ -7,7 +7,6 @@ import emi.dev.emi.emi.runtime.EmiDrawContext;
 import emi.mitemod.emi.util.MinecraftServerEMI;
 import emi.shims.java.net.minecraft.text.OrderedText;
 import emi.shims.java.net.minecraft.text.Text;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.Minecraft;
 import net.minecraft.ResourceLocation;
 import org.jetbrains.annotations.Nullable;

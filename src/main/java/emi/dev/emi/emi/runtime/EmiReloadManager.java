@@ -12,15 +12,11 @@ import emi.dev.emi.emi.screen.EmiScreenManager;
 import emi.dev.emi.emi.search.EmiSearch;
 import emi.mitemod.emi.util.MinecraftServerEMI;
 import emi.shims.java.net.minecraft.text.Text;
-import net.minecraft.Minecraft;
-import net.minecraft.server.MinecraftServer;
-import org.lwjgl.opengl.Display;
 
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class EmiReloadManager {
 	private static int loadedResourcesMask = 0;

@@ -1,13 +1,13 @@
 package emi.shims.java.net.minecraft.registry.tag;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import emi.dev.emi.emi.Prototype;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
 import net.minecraft.ResourceLocation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class WildcardItemTag implements TagKey<Prototype> {
 

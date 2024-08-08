@@ -8,7 +8,6 @@ import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.widget.WidgetHolder;
 import emi.shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.Item;
 import net.minecraft.ItemStack;
 import net.minecraft.ResourceLocation;
 

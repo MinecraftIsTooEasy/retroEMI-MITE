@@ -1,13 +1,14 @@
 package emi.dev.emi.emi.runtime;
 
 import emi.dev.emi.emi.api.stack.EmiIngredient;
-import emi.mitemod.emi.api.EMIGuiContainerCreative;
-import emi.mitemod.emi.api.EMIMinecraft;
 import emi.shims.java.net.minecraft.client.gui.DrawContext;
 import emi.shims.java.net.minecraft.client.util.math.MatrixStack;
 import emi.shims.java.net.minecraft.text.OrderedText;
 import emi.shims.java.net.minecraft.text.Text;
-import net.minecraft.*;
+import net.minecraft.Gui;
+import net.minecraft.Minecraft;
+import net.minecraft.ResourceLocation;
+import net.minecraft.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.glPopMatrix;

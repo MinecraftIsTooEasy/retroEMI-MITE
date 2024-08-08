@@ -8,7 +8,9 @@ import emi.shims.java.net.minecraft.text.Text;
 import emi.shims.java.org.lwjgl.glfw.GLFW;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.*;
+import net.minecraft.FontRenderer;
+import net.minecraft.GuiScreen;
+import net.minecraft.MathHelper;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.input.Keyboard;
 
