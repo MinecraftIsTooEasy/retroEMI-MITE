@@ -27,7 +27,7 @@ public class Hooks {
 		GuiContainer screen = (GuiContainer) mc.currentScreen;
 		EmiDrawContext context = EmiDrawContext.instance();
 		context.push();
-		context.matrices().translate(-((EMIGuiContainerCreative)screen).getGuiLeft(), -((EMIGuiContainerCreative)screen).getGuiTop(), 0.0);
+		context.matrices().translate(-((EMIGuiContainerCreative) screen).getGuiLeft(), -((EMIGuiContainerCreative) screen).getGuiTop(), 0.0);
 		EmiScreenManager.render(context, par1, par2, minecraft.timer.renderPartialTicks);
 		context.pop();
 	}
@@ -36,7 +36,7 @@ public class Hooks {
 		GuiContainer screen = (GuiContainer) mc.currentScreen;
 		EmiDrawContext context = EmiDrawContext.instance();
 		context.push();
-		context.matrices().translate(-((EMIGuiContainerCreative)screen).getGuiLeft(), -((EMIGuiContainerCreative)screen).getGuiTop(), 0.0);
+		context.matrices().translate(-((EMIGuiContainerCreative) screen).getGuiLeft(), -((EMIGuiContainerCreative) screen).getGuiTop(), 0.0);
 		EmiScreenManager.drawForeground(context, par1, par2, minecraft.timer.renderPartialTicks);
 		context.pop();
 	}

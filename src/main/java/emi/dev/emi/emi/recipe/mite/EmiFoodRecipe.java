@@ -16,7 +16,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class EmiFoodRecipe implements EmiRecipe {
+	private ResourceLocation VANILLA = new ResourceLocation("textures/gui/icons.png");
 	private ResourceLocation TEXTURE = new ResourceLocation("textures/gui/icons_food.png");
+	private ResourceLocation BEEF = new ResourceLocation("textures/items/beef_cooked.png");
+	private ResourceLocation CARROT = new ResourceLocation("textures/items/carrot.png");
+	private ResourceLocation SUGAR = new ResourceLocation("textures/items/sugar.png");
+
 	private int y = 5;
 	private final int hunger;
 	private final int saturationModifier;
@@ -31,7 +36,7 @@ public class EmiFoodRecipe implements EmiRecipe {
 		this.saturationModifier = food.getSatiation(null); //unsure how to implement
 		this.phytonutrients = food.getPhytonutrients() / 8000;
 		this.protein = food.getProtein() / 8000;
-		this.sugar = food.getSugarContent() / 1000;
+		this.sugar = food.getSugarContent() / 8000;
 
 		this.foodItem = EmiStack.of(foodStack);
 	}
@@ -81,16 +86,16 @@ public class EmiFoodRecipe implements EmiRecipe {
 		int i;
 
 		for (i = 0; i < hunger / 2; i++) {
-			widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 16, 27);
+			widgets.addTexture(VANILLA, (10 * i) + 25, y, 9, 9, 16, 27);
 			if (!(i - 1 == hunger / 2)) {
-				widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 52, 27);
+				widgets.addTexture(VANILLA, (10 * i) + 25, y, 9, 9, 52, 27);
 			}
 		}
 		if (hunger % 2 != 0) {
             int haunchUCoord = 61;
 			int haunchXCoord = (10 * i) + 25;
-			widgets.addTexture(TEXTURE, haunchXCoord, y, 9, 9, 16, 27);
-			widgets.addTexture(TEXTURE, haunchXCoord, y, 9, 9, haunchUCoord, 27);
+			widgets.addTexture(VANILLA, haunchXCoord, y, 9, 9, 16, 27);
+			widgets.addTexture(VANILLA, haunchXCoord, y, 9, 9, haunchUCoord, 27);
 		}
 		checkY(hunger);
 

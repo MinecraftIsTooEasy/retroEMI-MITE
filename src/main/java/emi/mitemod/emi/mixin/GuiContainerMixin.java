@@ -39,6 +39,7 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
     private void renderEMIBackground(int par1, int par2, float par3, CallbackInfo ci) {
         Hooks.renderBackground(par1, par2); //render EMI background
     }
+
     @Inject(
             method = "drawScreen",
             at = @At(

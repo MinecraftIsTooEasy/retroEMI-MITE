@@ -275,11 +275,9 @@ emi.chess.multiplayer.unavailable=%s 不能玩棋
 emi.cooking.time=%%s 秒
 emi.fuel_time.items=烧炼 %s
 emi.fuel_number.items=烧炼 %s 个物品
-emi.fuel_heat.items=热值是 %s 级
-emi.btw.bulk.stoked=需要烧制的火盆
-emi.btw.turntable.turns=必须旋转 %d 次
-emi.btw.turntable.ejected_items=制作完成后弹出
-emi.btw.progressive.time=按住右键单击
+emi.fuel_heat.items=热值 %s 级
+emi.craft_difficult.items=合成难度 %s
+emi.craft_time.items=基础合成时间 %s 秒
 
 emi.trade.BlacksmithVillagerEntity=需要等级 %d 铁匠
 emi.trade.PriestVillagerEntity=需要等级 %d 牧师
@@ -288,8 +286,6 @@ emi.trade.FarmerVillagerEntity=需要等级 %d 农民
 emi.trade.ButcherVillagerEntity=需要等级 %d 屠夫
 emi.trade.level_up=从等级 %d 升级到 %d
 emi.trade.enchanted=随机附魔
-
-emi.world_interaction.btw.crafting_stump=§6需要几次摆动！
 
 # EMI Commands
 

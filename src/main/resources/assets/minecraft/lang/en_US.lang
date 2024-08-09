@@ -275,11 +275,9 @@ emi.chess.multiplayer.unavailable=%s can't play chess
 emi.cooking.time=%s Seconds
 emi.fuel_time.items=Burns for %s
 emi.fuel_number.items=Burns for %s items
-emi.fuel_heat.items=Heat for %s level
-emi.btw.bulk.stoked=Requires Stoked Hibachi
-emi.btw.turntable.turns=Must rotate %d times
-emi.btw.turntable.ejected_items=Ejected when crafting finishes
-emi.btw.progressive.time=Hold right click
+emi.fuel_heat.items=Heat level %s
+emi.craft_difficult.items=Crafting Difficulty %s
+emi.craft_time.items=Base Crafting Time %s Seconds
 
 emi.trade.BlacksmithVillagerEntity=Requires Rank %d Blacksmith
 emi.trade.PriestVillagerEntity=Requires Rank %d Priest
@@ -288,8 +286,6 @@ emi.trade.FarmerVillagerEntity=Requires Rank %d Farmer
 emi.trade.ButcherVillagerEntity=Requires Rank %d Butcher
 emi.trade.level_up=Upgrades from rank %d to %d
 emi.trade.enchanted=Has Random Enchantments
-
-emi.world_interaction.btw.crafting_stump=§6Takes a few swings!
 
 # EMI Commands
 

@@ -178,10 +178,10 @@ public class VanillaPlugin implements EmiPlugin {
 			}
 
 			else if (recipe instanceof ShapedRecipes shaped) {
-				addRecipeSafe(registry, () -> new EmiShapedRecipe(shaped), recipe);
+				addRecipeSafe(registry, () -> new EmiShapedRecipe(shaped, (int) shaped.getUnmodifiedDifficulty()), recipe);
 			}
 			else if (recipe instanceof ShapelessRecipes shapeless) {
-				addRecipeSafe(registry, () -> new EmiShapelessRecipe((EMIShapelessRecipes) shapeless, shapeless), recipe);
+				addRecipeSafe(registry, () -> new EmiShapelessRecipe((EMIShapelessRecipes) shapeless, shapeless, (int) shapeless.getUnmodifiedDifficulty()), recipe);
 			}
 
 			else if (recipe instanceof RecipesArmorDyes dye) {

@@ -1,5 +1,6 @@
 package emi.dev.emi.emi.api.recipe;
 
+import emi.dev.emi.emi.EmiPort;
 import emi.dev.emi.emi.api.plugin.MITEPlugin;
 import emi.dev.emi.emi.api.render.EmiTexture;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
@@ -29,7 +30,7 @@ public class EmiCraftingRecipe implements EmiRecipe {
 		this.input = input;
 		this.output = output;
 		this.id = id;
-		this.shapeless = shapeless;
+        this.shapeless = shapeless;
 		this.secondaryOutputs = secondaryOutputs;
 	}
 	
