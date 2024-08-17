@@ -5,7 +5,7 @@ import emi.dev.emi.emi.api.recipe.EmiPatternCraftingRecipe;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.widget.GeneratedSlotWidget;
 import emi.dev.emi.emi.api.widget.SlotWidget;
-import emi.mitemod.emi.api.EMIItem;
+import emi.moddedmite.emi.api.EMIItem;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
 import net.minecraft.ResourceLocation;

@@ -276,8 +276,8 @@ emi.cooking.time=%s Seconds
 emi.fuel_time.items=Burns for %s
 emi.fuel_number.items=Burns for %s items
 emi.fuel_heat.items=Heat level %s
-emi.craft_difficult.items=Crafting Difficulty %s
-emi.craft_time.items=Base Crafting Time %s Seconds
+emi.craft_difficult.items=%s Difficulty
+emi.craft_time.items=%s Seconds
 
 emi.trade.BlacksmithVillagerEntity=Requires Rank %d Blacksmith
 emi.trade.PriestVillagerEntity=Requires Rank %d Priest

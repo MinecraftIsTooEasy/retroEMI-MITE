@@ -5,9 +5,9 @@ import com.google.common.collect.Maps;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.runtime.EmiDrawContext;
 import emi.dev.emi.emi.screen.Bounds;
-import emi.mitemod.emi.api.EMIGuiContainerCreative;
-import emi.shims.java.net.minecraft.client.gui.DrawContext;
+import emi.moddedmite.emi.api.EMIGuiContainerCreative;
 import net.minecraft.*;
+import emi.shims.java.net.minecraft.client.gui.DrawContext;
 
 import java.util.Collection;
 import java.util.List;

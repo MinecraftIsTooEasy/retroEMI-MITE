@@ -4,7 +4,7 @@ import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.widget.WidgetHolder;
 import emi.dev.emi.emi.runtime.EmiDrawContext;
-import emi.mitemod.emi.util.MinecraftServerEMI;
+import emi.moddedmite.emi.util.MinecraftServerEMI;
 import emi.shims.java.net.minecraft.text.OrderedText;
 import emi.shims.java.net.minecraft.text.Text;
 import net.minecraft.Minecraft;

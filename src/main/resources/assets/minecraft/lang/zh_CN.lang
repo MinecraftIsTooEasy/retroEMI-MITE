@@ -276,8 +276,8 @@ emi.cooking.time=%%s 秒
 emi.fuel_time.items=烧炼 %s
 emi.fuel_number.items=烧炼 %s 个物品
 emi.fuel_heat.items=热值 %s 级
-emi.craft_difficult.items=合成难度 %s
-emi.craft_time.items=基础合成时间 %s 秒
+emi.craft_difficult.items=%s 难度
+emi.craft_time.items=%s 秒
 
 emi.trade.BlacksmithVillagerEntity=需要等级 %d 铁匠
 emi.trade.PriestVillagerEntity=需要等级 %d 牧师

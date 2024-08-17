@@ -10,7 +10,7 @@ import emi.dev.emi.emi.api.recipe.EmiRecipeManager;
 import emi.dev.emi.emi.api.recipe.EmiResolutionRecipe;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.serializer.EmiIngredientSerializer;
-import emi.mitemod.emi.util.MinecraftServerEMI;
+import emi.moddedmite.emi.util.MinecraftServerEMI;
 import net.minecraft.Minecraft;
 import net.minecraft.ResourceLocation;
 

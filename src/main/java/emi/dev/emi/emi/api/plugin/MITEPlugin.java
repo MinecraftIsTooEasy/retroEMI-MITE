@@ -11,7 +11,7 @@ import emi.dev.emi.emi.api.render.EmiTexture;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.recipe.mite.EmiFoodRecipe;
 import emi.dev.emi.emi.runtime.EmiReloadLog;
-import emi.mitemod.emi.util.EnchantmentNameIDTranslator;
+import emi.moddedmite.emi.util.EnchantmentNameIDTranslator;
 import emi.shims.java.net.minecraft.text.Text;
 import net.minecraft.*;
 
@@ -28,8 +28,7 @@ public class MITEPlugin implements EmiPlugin {
 	public static final EmiTexture SMALL_PLUS = new EmiTexture(WIDGETS, 36, 0, 7, 7);
 
 	static {
-		MITEEmiRecipeCategories.HOPPER = category("hopper", EmiStack.of(Block.hopperBlock));
-		MITEEmiRecipeCategories.PISTON = category("piston", EmiStack.of(Block.pistonBase));
+		MITEEmiRecipeCategories.ENCHANT = category("enchant", EmiStack.of(Block.enchantmentTable));
 		MITEEmiRecipeCategories.FOOD = category("food", EmiStack.of(Item.carrot), Comparator.comparingInt(a -> ((EmiFoodRecipe) a).getHunger()));
 //		Comparator<EmiRecipe> tradeComparitor = Comparator.comparingInt(a -> ((EmiTradeRecipe) a).professionId); //Silly generics, tricks are for kids
 //		MITEEmiRecipeCategories.TRADING = category("trading", EmiStack.of(Item.emerald), tradeComparitor.thenComparingInt(a -> {
@@ -75,24 +74,10 @@ public class MITEPlugin implements EmiPlugin {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void register(EmiRegistry reg) {
-//		reg.addCategory(MITEEmiRecipeCategories.SOULFORGE);
-//		reg.addCategory(MITEEmiRecipeCategories.CAULDRON);
-//		reg.addCategory(MITEEmiRecipeCategories.CRUCIBLE);
-//		reg.addCategory(MITEEmiRecipeCategories.HOPPER);
-//		reg.addCategory(MITEEmiRecipeCategories.KILN);
-//		reg.addCategory(MITEEmiRecipeCategories.MILLSTONE);
-//		reg.addCategory(MITEEmiRecipeCategories.PISTON);
-//		reg.addCategory(MITEEmiRecipeCategories.SAW);
-//		reg.addCategory(MITEEmiRecipeCategories.TURNTABLE);
-//		reg.addCategory(MITEEmiRecipeCategories.CAMPFIRE);
 		reg.addCategory(MITEEmiRecipeCategories.FOOD);
+		reg.addCategory(MITEEmiRecipeCategories.ENCHANT);
 //		reg.addCategory(MITEEmiRecipeCategories.TRADING);
-//		reg.addCategory(MITEEmiRecipeCategories.PROGRESSIVE);
-//
-//		reg.addWorkstation(MITEEmiRecipeCategories.HOPPER, EmiStack.of(Block.hopperBlock));
-//		reg.addWorkstation(MITEEmiRecipeCategories.KILN, EmiStack.of(Block.brick));
-//		reg.addWorkstation(MITEEmiRecipeCategories.PISTON, EmiStack.of(Block.pistonBase));
-//
+
 //		//Foods
 		for (Item it : Item.itemsList) { // There must be a better way to do this than iterating the registry... right?
 			if (it != null && (it.getNutrition() > 0 || it.getSatiation(null) > 0)) {
@@ -103,7 +88,7 @@ public class MITEPlugin implements EmiPlugin {
 //		//Info
 //
 		addInfoRecipes(reg);
-//		addWorldRecipes(reg);
+		addWorldRecipes(reg);
 	}
 
 	private void addInfoRecipes(EmiRegistry registry) {

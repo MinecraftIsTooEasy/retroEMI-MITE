@@ -10,7 +10,7 @@ import emi.dev.emi.emi.platform.EmiAgnos;
 import emi.dev.emi.emi.registry.*;
 import emi.dev.emi.emi.screen.EmiScreenManager;
 import emi.dev.emi.emi.search.EmiSearch;
-import emi.mitemod.emi.util.MinecraftServerEMI;
+import emi.moddedmite.emi.util.MinecraftServerEMI;
 import emi.shims.java.net.minecraft.text.Text;
 
 import java.util.Comparator;

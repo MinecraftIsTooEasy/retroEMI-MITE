@@ -15,7 +15,7 @@ import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.handler.CoercedRecipeHandler;
 import emi.dev.emi.emi.runtime.EmiSidebars;
-import emi.mitemod.emi.api.EMISlotCrafting;
+import emi.moddedmite.emi.api.EMISlotCrafting;
 import emi.shims.java.com.unascribed.retroemi.ItemStacks;
 import emi.shims.java.com.unascribed.retroemi.RetroEMI;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;

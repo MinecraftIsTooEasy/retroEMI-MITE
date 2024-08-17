@@ -7,8 +7,8 @@ import emi.dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.widget.WidgetHolder;
-import emi.mitemod.emi.api.EMIInventoryCrafting;
-import emi.mitemod.emi.api.EMIShapedRecipes;
+import emi.moddedmite.emi.api.EMIInventoryCrafting;
+import emi.moddedmite.emi.api.EMIShapedRecipes;
 import emi.shims.java.com.unascribed.retroemi.RetroEMI;
 import emi.shims.java.net.minecraft.util.SyntheticIdentifier;
 import net.minecraft.IRecipe;
@@ -91,6 +91,6 @@ public class EmiShapedRecipe extends EmiCraftingRecipe {
 		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 		float crafting_time = (float) ((Math.pow((crafting_difficulty - 100), 0.74) + 100) / 20);
 		widgets.addText(EmiPort.translatable("emi.craft_difficult.items", String.format("%d", crafting_difficulty)), 55, 45, 0xFFFFFFFF, true);
-		widgets.addText(EmiPort.translatable("emi.craft_time.items", String.format("%s", decimalFormat.format(crafting_time) ) ), 55, 0, 0xFFFFFFFF, true);
+		widgets.addText(EmiPort.translatable("emi.craft_time.items", String.format("%s", decimalFormat.format(crafting_time))), 55, 35, 0xFFFFFFFF, true);
 	}
 }

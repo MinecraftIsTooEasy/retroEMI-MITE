@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import emi.dev.emi.emi.api.EmiStackProvider;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.stack.EmiStackInteraction;
-import emi.mitemod.emi.api.EMIGuiContainerCreative;
+import emi.moddedmite.emi.api.EMIGuiContainerCreative;
 import emi.shims.java.com.unascribed.retroemi.ItemStacks;
 import net.minecraft.GuiContainer;
 import net.minecraft.GuiScreen;

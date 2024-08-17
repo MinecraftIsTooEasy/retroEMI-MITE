@@ -4,7 +4,7 @@ import emi.dev.emi.emi.api.EmiApi;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.stack.EmiStackInteraction;
-import emi.mitemod.emi.api.EMISlotCrafting;
+import emi.moddedmite.emi.api.EMISlotCrafting;
 import emi.shims.java.net.minecraft.util.SyntheticIdentifier;
 import net.minecraft.*;
 import org.jetbrains.annotations.Nullable;

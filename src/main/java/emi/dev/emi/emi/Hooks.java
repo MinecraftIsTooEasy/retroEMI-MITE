@@ -7,8 +7,8 @@ import emi.dev.emi.emi.runtime.EmiDrawContext;
 import emi.dev.emi.emi.runtime.EmiSidebars;
 import emi.dev.emi.emi.screen.EmiScreenManager;
 import emi.dev.emi.emi.search.EmiSearch;
-import emi.mitemod.emi.api.EMICraftingManager;
-import emi.mitemod.emi.api.EMIGuiContainerCreative;
+import emi.moddedmite.emi.api.EMICraftingManager;
+import emi.moddedmite.emi.api.EMIGuiContainerCreative;
 import emi.shims.java.net.minecraft.util.SyntheticIdentifier;
 import net.minecraft.*;
 

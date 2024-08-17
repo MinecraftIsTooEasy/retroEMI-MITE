@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.registry.EmiStackList;
-import emi.mitemod.emi.api.EMIResourceLocation;
+import emi.moddedmite.emi.api.EMIResourceLocation;
 import net.minecraft.ResourceLocation;
 import org.jetbrains.annotations.ApiStatus;
 

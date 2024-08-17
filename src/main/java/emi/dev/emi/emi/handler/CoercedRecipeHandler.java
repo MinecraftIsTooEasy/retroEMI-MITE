@@ -5,9 +5,9 @@ import emi.dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
 import emi.dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import emi.dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
-import emi.mitemod.emi.api.EMIInventoryCrafting;
-import emi.mitemod.emi.api.EMISlot;
-import emi.mitemod.emi.api.EMISlotCrafting;
+import emi.moddedmite.emi.api.EMIInventoryCrafting;
+import emi.moddedmite.emi.api.EMISlot;
+import emi.moddedmite.emi.api.EMISlotCrafting;
 import net.minecraft.*;
 
 import java.util.List;
