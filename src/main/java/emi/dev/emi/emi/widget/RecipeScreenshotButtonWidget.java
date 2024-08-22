@@ -1,7 +1,10 @@
 package emi.dev.emi.emi.widget;
 
 import emi.dev.emi.emi.EmiPort;
+import emi.dev.emi.emi.EmiRenderHelper;
 import emi.dev.emi.emi.api.recipe.EmiRecipe;
+import emi.dev.emi.emi.runtime.EmiDrawContext;
+import emi.shims.java.net.minecraft.client.gui.DrawContext;
 import emi.shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.Minecraft;
 import net.minecraft.ResourceLocation;
@@ -37,9 +40,9 @@ public class RecipeScreenshotButtonWidget extends RecipeButtonWidget {
 		int height = recipe.getDisplayHeight() + 8;
 		Minecraft client = Minecraft.getMinecraft();
 		// TODO this saves screenshots of recipes, (todo from RetroEMI)
-		//		DrawContext context = new DrawContext(client, client.getBufferBuilders().getEntityVertexConsumers());
-		//		EmiScreenshotRecorder.saveScreenshot("emi/recipes/" + path, width, height,
-		//			() -> EmiRenderHelper.renderRecipe(recipe, EmiDrawContext.wrap(context), 0, 0, false, -1));
+//				DrawContext context = new DrawContext(client, client.getBufferBuilders().getEntityVertexConsumers());
+//				EmiScreenshotRecorder.saveScreenshot("emi/recipes/" + path, width, height,
+//					() -> EmiRenderHelper.renderRecipe(recipe, EmiDrawContext.wrap(context), 0, 0, false, -1));
 		
 		return true;
 	}

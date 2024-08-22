@@ -62,7 +62,9 @@ public class REMIScreen extends GuiScreen implements ParentElement {
 	@Override
 	public void handleKeyboardInput() {
 		super.handleKeyboardInput();
-		if (!Keyboard.getEventKeyState()) {
+		int k = Keyboard.getEventKey();
+		char c = Keyboard.getEventCharacter();
+		if (!Keyboard.getEventKeyState() || k == 0 && Character.isDefined(c)) {
 			keyReleased(Keyboard.getEventKey(), 0, EmiInput.getCurrentModifiers());
 		}
 	}

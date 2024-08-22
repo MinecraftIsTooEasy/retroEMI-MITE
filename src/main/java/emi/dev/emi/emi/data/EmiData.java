@@ -80,12 +80,11 @@ public class EmiData {
 	}
 	
 	private static void defaultAliases() {
-		List<EmiIngredient> craftingTables = List.of(EmiStack.of(Block.workbench), EmiStack.of(Block.anvil));
+		List<EmiIngredient> craftingTables = List.of(EmiStack.of(Block.workbench));
 		EmiData.addAliases(craftingTables, List.of("alias.emi.crafting_table", "alias.emi.workbench"));
 		
 		EmiData.addAliases(EmiStack.of(Item.stick), "alias.emi.stick");
 		EmiData.addAliases(EmiStack.of(Block.tnt), "alias.emi.tnt");
-//		EmiData.addAliases(EmiStack.of(Block.cauldron), "alias.emi.cauldron");
 	}
 	
 	//todo finish adding all recipe categories

@@ -17,6 +17,7 @@ import emi.shims.java.net.minecraft.text.Style;
 import emi.shims.java.net.minecraft.util.Formatting;
 import emi.shims.java.org.lwjgl.glfw.GLFW;
 import net.minecraft.FontRenderer;
+import net.minecraft.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -36,7 +37,8 @@ public class EmiSearchWidget extends TextFieldWidget {
 	public boolean highlight = false;
 	// Reimplement focus because other mods keep breaking it
 	public boolean isFocused;
-	
+	Tessellator tessellator = Tessellator.instance;
+
 	public EmiSearchWidget(FontRenderer fontRenderer, int x, int y, int width, int height) {
 		super(fontRenderer, x, y, width, height, EmiPort.literal(""));
 		this.setFocusUnlocked(true);
@@ -218,29 +220,31 @@ public class EmiSearchWidget extends TextFieldWidget {
 		lastRender = System.currentTimeMillis();
 		long deg = accumulatedSpin * -180 / 500;
 		MatrixStack view = MatrixStack.INSTANCE;
-		;
+
 		view.push();
 		if (deg != 0) {
 			view.translate(this.x + (double) this.width / 2, this.y + (double) this.height / 2, 0);
 			view.multiply(() -> glRotatef(deg, 0, 0, -1));
 			view.translate(-(this.x + (double) this.width / 2), -(this.y + (double) this.height / 2), 0);
 		}
-		
+
 		if (lower.contains("jeb_")) {
 			int amount = 0x3FF;
+			lastRender = System.currentTimeMillis();
 			float h = ((lastRender & amount) % (float) amount) / (float) amount;
 			int rgb = Color.HSBtoRGB(h, 1, 1);
-			GL11.glColor4f(((rgb >> 16) & 0xFF) / 255f, ((rgb >> 8) & 0xFF) / 255f, ((rgb >> 0) & 0xFF) / 255f, 1);
+//			context.setColor(((rgb >> 16) & 0xFF) / 255f, ((rgb >> 8) & 0xFF) / 255f, ((rgb >> 0) & 0xFF) / 255f);
+			tessellator.setColorRGBA((int) (((rgb >> 16) & 0xFF) / 255f), (int) (((rgb >> 8) & 0xFF) / 255f), (int) (((rgb >> 0) & 0xFF) / 255f), 1);
 		}
-		
+
 		if (EmiConfig.enabled) {
 			super.render(context.raw(), mouseX, mouseY, delta);
 			if (highlight) {
 				int border = 0xffeeee00;
-				context.fill(this.x - 1, this.y - 1, this.width + 2, 1, border);
-				context.fill(this.x - 1, this.y + this.height, this.width + 2, 1, border);
-				context.fill(this.x - 1, this.y - 1, 1, this.height + 2, border);
-				context.fill(this.x + this.width, this.y - 1, 1, this.height + 2, border);
+				context.fill(this.x - 2, this.y - 2, this.width + 3, 1, border);
+				context.fill(this.x - 2, this.y + this.height + 1, this.width + 3, 1, border);
+				context.fill(this.x - 2, this.y - 2, 1, this.height + 3, border);
+				context.fill(this.x + this.width + 1, this.y - 2, 1, this.height + 4, border);
 			}
 		}
 		GL11.glColor4f(1, 1, 1, 1);

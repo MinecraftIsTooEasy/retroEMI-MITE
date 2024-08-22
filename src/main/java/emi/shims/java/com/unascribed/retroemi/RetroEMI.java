@@ -280,7 +280,7 @@ public class RetroEMI {
 							return true;
 						}
 					}
-					if (EmiScreenManager.keyPressed(Keyboard.getEventKey(), 0, EmiInput.getCurrentModifiers())) {
+					if (EmiScreenManager.keyPressed(Keyboard.getEventKey() , 0, EmiInput.getCurrentModifiers())) {
 						return true;
 					}
 				}
