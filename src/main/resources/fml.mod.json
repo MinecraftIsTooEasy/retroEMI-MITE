@@ -22,11 +22,11 @@
   "icon": "emi.png",
   "entrypoints": {
     "main": [
-      "emi.dev.emi.emi.EMIPostInit"
+      "dev.emi.emi.EMIPostInit"
     ],
     "emi": [
-      "emi.dev.emi.emi.api.plugin.VanillaPlugin",
-      "emi.dev.emi.emi.api.plugin.MITEPlugin"
+      "dev.emi.emi.api.plugin.VanillaPlugin",
+      "dev.emi.emi.api.plugin.MITEPlugin"
     ]
   },
   "mixins": [
