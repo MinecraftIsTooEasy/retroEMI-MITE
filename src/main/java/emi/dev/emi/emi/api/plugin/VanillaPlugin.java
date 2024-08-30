@@ -228,6 +228,7 @@ public class VanillaPlugin implements EmiPlugin {
 			int fuel = furnace.getFuelHeatLevel();
 			addRecipeSafe(registry, () -> new EmiCookingRecipe(new ResourceLocation("minecraft", "oven/" + id), in, out, SMELTING, fuel));
 		}
+
 		for (Item i : Item.itemsList) {
 			if (i == null) continue;
 			if (hiddenItems.contains(i)) {
@@ -237,7 +238,7 @@ public class VanillaPlugin implements EmiPlugin {
 				if (i instanceof ItemArmor ai && ai.getArmorMaterial() != null && ai.getArmorMaterial().getMaterialMobility() != 0) {
 					var material = Item.itemsList[ai.getArmorMaterial().getMaterialMobility()];
 					addRecipeSafe(registry, () -> new EmiAnvilRecipe(EmiStack.of(i), EmiStack.of(material),
-							new ResourceLocation("minecraft", "anvil/armor/" + SyntheticIdentifier.describe(i) +"/"+SyntheticIdentifier.describe(material))));
+							new ResourceLocation("minecraft", "anvil/armor/" + SyntheticIdentifier.describe(i) + "/"+SyntheticIdentifier.describe(material))));
 				} else if (i instanceof ItemTool ti && ti.getToolMaterial().getMaterialMobility() != 0) {
 					var material = Item.itemsList[ti.getToolMaterial().getMaterialMobility()];
 					addRecipeSafe(registry, () -> new EmiAnvilRecipe(EmiStack.of(i), EmiStack.of(material),
@@ -245,18 +246,19 @@ public class VanillaPlugin implements EmiPlugin {
 				}
 			}
 			if (i.isDamageable()) {
-				addRecipeSafe(registry, () -> new EmiAnvilRepairItemRecipe(i, new ResourceLocation("minecraft", "anvil/repair/"+SyntheticIdentifier.describe(i))));
+				addRecipeSafe(registry, () -> new EmiAnvilRepairItemRecipe(i, new ResourceLocation("minecraft", "anvil/repair/" + SyntheticIdentifier.describe(i))));
 			}
 			var is = new ItemStack(i);
 			if (is.isEnchantable()) {
 				for (Enchantment e : EmiAnvilEnchantRecipe.ENCHANTMENTS) {
 					if (e.canEnchantItem(is.getItem())) {
 						int max = e.getNumLevels();
-						int min = e.getMinEnchantmentLevelsCost();
+						int min = e.getLevel(is);
 						while (min <= max) {
 							int finalMin = min;
-							addRecipeSafe(registry, () -> new EmiAnvilEnchantRecipe(i, e, finalMin,
-									new ResourceLocation("minecraft", "anvil/enchant/"+SyntheticIdentifier.describe(i)+"/"+e.effectId+"/"+SyntheticIdentifier.describe(finalMin))));
+							if (max == min)
+								addRecipeSafe(registry, () -> new EmiAnvilEnchantRecipe(i, e, finalMin,
+									new ResourceLocation("minecraft", "anvil/enchant/" + SyntheticIdentifier.describe(i) + "/" + e.effectId+"/" + SyntheticIdentifier.describe(finalMin))));
 							min++;
 						}
 					}

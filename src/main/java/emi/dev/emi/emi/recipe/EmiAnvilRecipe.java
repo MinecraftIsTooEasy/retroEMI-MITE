@@ -11,7 +11,6 @@ import emi.dev.emi.emi.api.render.EmiTexture;
 import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.Item;
 import net.minecraft.ResourceLocation;
 import net.minecraft.ItemStack;
 
@@ -73,7 +72,6 @@ public class EmiAnvilRecipe implements EmiRecipe {
 
     private EmiStack getTool(Random r, boolean repaired) {
         ItemStack stack = tool.getItemStack().copy();
-        ItemStack nugget = tool.getItemStack().getRepairItem().getItemStackForStatsIcon();
         if (stack.getItemSubtype() <= 0) {
             return tool;
         }

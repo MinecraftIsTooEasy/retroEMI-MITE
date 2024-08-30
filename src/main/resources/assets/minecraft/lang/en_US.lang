@@ -298,14 +298,15 @@ commands.emi.id=Requires a recipe ID.
 emi.category.minecraft.crafting=Crafting
 emi.category.minecraft.brewing=Brewing
 emi.category.minecraft.smelting=Smelting
+emi.category.emi.anvil_repairing=Anvil Repairing
 emi.category.emi.world_interaction=World Interaction
 emi.category.emi.fuel=Fuel
 emi.category.emi.info=Info
-emi.category.mite.trading=Trading
-
 emi.category.emi.tag=Tags
 emi.category.emi.ingredient=Ingredients
+
 emi.category.mite.food=Foods
+emi.category.mite.trading=Trading
 
 alias.emi.workbench=Workbench
 alias.emi.crafting_table=Crafting Table

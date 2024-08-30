@@ -16,10 +16,10 @@ public class PinyinQuery extends Query {
         return PinyinMatch.contains(getText(stack).getString(), name);
     }
 
-    @Override
-    public boolean matchesUnbaked(EmiStack stack) {
-        return PinyinMatch.toPinyin(getText(stack).getString()).contains(name);
-    }
+//    @Override
+//    public boolean matchesUnbaked(EmiStack stack) {
+//        return PinyinMatch.toPinyin(getText(stack).getString()).contains(name);
+//    }
 
     public static Text getText(EmiStack stack) {
         return stack.getName();

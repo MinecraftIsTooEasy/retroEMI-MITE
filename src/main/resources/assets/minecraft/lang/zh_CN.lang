@@ -298,13 +298,14 @@ commands.emi.id=需要配方 ID
 emi.category.minecraft.crafting=合成
 emi.category.minecraft.brewing=酿造
 emi.category.minecraft.smelting=烧制
+emi.category.emi.anvil_repairing=铁砧修复
 emi.category.emi.world_interaction=世界交互
 emi.category.emi.fuel=燃料
 emi.category.emi.info=信息
-emi.category.mite.trading=交易
-
 emi.category.emi.tag=标签
 emi.category.emi.ingredient=合成材料
+
+emi.category.mite.trading=交易
 emi.category.mite.food=食物
 
 alias.emi.workbench=工作台
