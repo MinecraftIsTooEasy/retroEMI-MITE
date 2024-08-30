@@ -69,7 +69,6 @@ public class BlockMixin implements EMIBlock {
         ((EMIBlock) Block.mushroomCapBrown).hideFromEMI();
         ((EMIBlock) Block.mushroomCapRed).hideFromEMI();
         ((EMIBlock) Block.endPortal).hideFromEMI();
-        ((EMIBlock) Block.enchantmentTable).hideFromEMI();
         ((EMIBlock) Block.brewingStand).hideFromEMI();
         ((EMIBlock) Block.cauldron).hideFromEMI();
         ((EMIBlock) Block.redstoneLampIdle).hideFromEMI();

@@ -3,6 +3,7 @@ package emi.dev.emi.emi.api.stack;
 import com.google.common.collect.Lists;
 import emi.dev.emi.emi.EmiPort;
 import emi.dev.emi.emi.EmiRenderHelper;
+import emi.dev.emi.emi.EmiUtil;
 import emi.dev.emi.emi.Prototype;
 import emi.dev.emi.emi.api.render.EmiRender;
 import emi.dev.emi.emi.config.EmiConfig;
@@ -21,6 +22,9 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.glEnable;
 
 @ApiStatus.Internal
 public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
@@ -94,12 +98,12 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 		EmiDrawContext context = EmiDrawContext.wrap(draw);
 		ItemStack stack = getItemStack();
 		if ((flags & RENDER_ICON) != 0) {
-//			glEnable(GL_DEPTH_TEST);
+			glEnable(GL_DEPTH_TEST);
 			RenderHelper.enableGUIStandardItemLighting();
 			if (stack.getItem() instanceof ItemBlock && stack.getItemSubtype() == 32767) stack.setItemSubtype(0);
 			draw.drawItem(stack, x, y);
 			draw.drawItemInSlot(Minecraft.getMinecraft().fontRenderer, stack, x, y);
-//			RenderHelper.disableStandardItemLighting();
+			RenderHelper.disableStandardItemLighting();
 		}
 		if ((flags & RENDER_AMOUNT) != 0) {
 			String count = "";
@@ -158,9 +162,9 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 		List<TooltipComponent> list = Lists.newArrayList();
 		if (!isEmpty()) {
 			list.addAll(EmiAgnos.getItemTooltip(stack));
-			//String namespace = EmiPort.getItemRegistry().getId(stack.getItem()).getNamespace();
-			//String mod = EmiUtil.getModName(namespace);
-			//list.add(TooltipComponent.of(EmiLang.literal(mod, Formatting.BLUE, Formatting.ITALIC)));
+//			String namespace = EmiPort.getItemRegistry().getId(stack.getItem()).getNamespace();
+//			String mod = EmiUtil.getModName(namespace);
+//			list.add(TooltipComponent.of(EmiLang.literal(mod, Formatting.BLUE, Formatting.ITALIC)));
 			if (EmiConfig.appendModId || EmiConfig.appendItemModId) {
 				list.add(TooltipComponent.of(Text.literal(RetroEMI.getMod(stack)).formatted(Formatting.BLUE, Formatting.ITALIC)));
 			}
