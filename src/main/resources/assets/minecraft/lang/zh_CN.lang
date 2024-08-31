@@ -278,6 +278,7 @@ emi.fuel_number.items=烧炼 %s 个物品
 emi.fuel_heat.items=热值 %s 级
 emi.craft_difficult.items=%s 难度
 emi.craft_time.items=%s 秒
+emi.exp_cost.items=%s 经验
 
 emi.trade.BlacksmithVillagerEntity=需要等级 %d 铁匠
 emi.trade.PriestVillagerEntity=需要等级 %d 牧师
@@ -307,6 +308,7 @@ emi.category.emi.ingredient=合成材料
 
 emi.category.mite.trading=交易
 emi.category.mite.food=食物
+emi.category.mite.enchant=附魔
 
 alias.emi.workbench=工作台
 alias.emi.crafting_table=工作台

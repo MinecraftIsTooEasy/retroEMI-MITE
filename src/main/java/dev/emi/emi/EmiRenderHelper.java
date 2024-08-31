@@ -129,8 +129,9 @@ public class EmiRenderHelper {
 	}
 
 	public static Text getPageText(int page, int total, int maxWidth) {
-		Text text = EmiPort.translatable("emi.page", page, total);
-		if (Minecraft.getMinecraft().fontRenderer.getStringWidth(text.asString()) > maxWidth) {
+		Text text;
+		text = EmiPort.translatable("emi.page", page, total);
+		if (Minecraft.getMinecraft().fontRenderer.getStringWidth(text.asString()) + 10 > maxWidth) {
 			text = EmiPort.translatable("emi.page.short", page, total);
 			if (Minecraft.getMinecraft().fontRenderer.getStringWidth(text.asString()) > maxWidth) {
 				text = EmiPort.literal("" + page);

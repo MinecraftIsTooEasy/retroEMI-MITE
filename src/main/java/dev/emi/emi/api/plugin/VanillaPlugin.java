@@ -86,7 +86,7 @@ public class VanillaPlugin implements EmiPlugin {
 
 		for (int i = 4; i < 11; i++) {
 			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 0)));
-//			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 12)));
+			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 12)));
 			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1 , i)));
 		}
 

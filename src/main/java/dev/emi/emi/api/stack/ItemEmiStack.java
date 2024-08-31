@@ -102,7 +102,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 			if (stack.getItem() instanceof ItemBlock && stack.getItemSubtype() == 32767) stack.setItemSubtype(0);
 			draw.drawItem(stack, x, y);
 			draw.drawItemInSlot(Minecraft.getMinecraft().fontRenderer, stack, x, y);
-			RenderHelper.disableStandardItemLighting();
+//			RenderHelper.disableStandardItemLighting();
 		}
 		if ((flags & RENDER_AMOUNT) != 0) {
 			String count = "";

@@ -1,5 +1,7 @@
 package dev.emi.emi.api.plugin;
 
+import dev.emi.emi.recipe.EmiCookingRecipe;
+import dev.emi.emi.recipe.mite.EmiEnchantRecipe;
 import dev.emi.emi.recipe.mite.EmiFoodRecipe;
 import dev.emi.emi.runtime.EmiReloadLog;
 import dev.emi.emi.api.EmiEntrypoint;
@@ -20,6 +22,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Supplier;
+
+import static dev.emi.emi.api.recipe.VanillaEmiRecipeCategories.SMELTING;
 
 @EmiEntrypoint
 public class MITEPlugin implements EmiPlugin {
@@ -84,9 +88,10 @@ public class MITEPlugin implements EmiPlugin {
 				addRecipeSafe(reg, () -> new EmiFoodRecipe(new ItemStack(it)));
 			}
 		}
-//
-//		//Info
-//
+
+		addRecipeSafe(reg, () -> new EmiEnchantRecipe(EmiStack.of(new ItemStack(Item.appleGold, 1, 0)), EmiStack.of(new ItemStack(Item.appleGold, 1, 1)), 200));
+		addRecipeSafe(reg, () -> new EmiEnchantRecipe(EmiStack.of(new ItemStack(Item.potion, 1, 0)), EmiStack.of(new ItemStack(Item.expBottle, 1, 1)), 200));
+
 		addInfoRecipes(reg);
 		addWorldRecipes(reg);
 	}

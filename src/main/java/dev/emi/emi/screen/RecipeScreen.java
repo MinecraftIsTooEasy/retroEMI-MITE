@@ -288,8 +288,8 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 	
 	public int getMaxWorkstations() {
 		return switch (EmiConfig.workstationLocation) {
-			case LEFT, RIGHT -> (this.backgroundHeight - getResolveOffset() - 18) / 18;
-			case BOTTOM -> (this.backgroundWidth - getResolveOffset() - 18) / 18;
+			case LEFT, RIGHT -> (this.backgroundHeight - getResolveOffset() - 16) / 16;
+			case BOTTOM -> (this.backgroundWidth - getResolveOffset() - 16) / 16;
 			default -> 0;
 		};
 	}
