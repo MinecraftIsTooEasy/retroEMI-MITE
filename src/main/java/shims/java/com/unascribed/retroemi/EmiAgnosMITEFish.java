@@ -23,11 +23,13 @@ import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.*;
 import net.xiaoyu233.fml.FishModLoader;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class EmiAgnosMITEFish extends EmiAgnos {
+	public static final File CONFIG_DIR = new File("config");
 	static {
 		EmiAgnos.delegate = new EmiAgnosMITEFish();
 	}
@@ -46,7 +48,7 @@ public class EmiAgnosMITEFish extends EmiAgnos {
 
 	@Override
 	protected Path getConfigDirectoryAgnos() {
-		return FishModLoader.CONFIG_DIR.toPath();
+		return CONFIG_DIR.toPath();
 	}
 
 	@Override

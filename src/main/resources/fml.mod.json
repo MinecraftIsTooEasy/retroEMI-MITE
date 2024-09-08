@@ -7,6 +7,9 @@
     "fishmodloader": ">=3.2.4",
     "pinin": ">=1.6.0"
   },
+  "recommends": {
+    "hwite": ">=1.4.7"
+  },
   "environment": "*",
   "name": "EMI",
   "description": "Eager Madi1718 Illness",
@@ -15,18 +18,27 @@
     "Katherine",
     "BTW CE",
     "Xy_Lose",
-    "limingzxc",
+    "limingzxc"
+  ],
+  "contributors": [
     "Huix"
   ],
-  "License": "MIT license",
+  "License": "MIT",
   "icon": "emi.png",
   "entrypoints": {
     "main": [
-      "dev.emi.emi.EMIPostInit"
+      "dev.emi.emi.platform.EmiMain"
     ],
+    "client": [
+      "dev.emi.emi.platform.EmiClient"
+    ],
+    "server": [],
     "emi": [
       "dev.emi.emi.api.plugin.VanillaPlugin",
       "dev.emi.emi.api.plugin.MITEPlugin"
+    ],
+    "modmenu": [
+      "dev.emi.emi.compat.EmiModMenu"
     ]
   },
   "mixins": [

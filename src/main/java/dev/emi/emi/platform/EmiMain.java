@@ -1,7 +1,13 @@
 package dev.emi.emi.platform;
 
-public class EmiMain {
+import net.fabricmc.api.ModInitializer;
+
+public class EmiMain implements ModInitializer {
 	
 	public static void init() {
+	}
+
+	@Override
+	public void onInitialize() {
 	}
 }

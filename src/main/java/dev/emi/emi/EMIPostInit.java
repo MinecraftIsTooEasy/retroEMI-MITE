@@ -17,14 +17,9 @@ import net.minecraft.Packet250CustomPayload;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
-public class EMIPostInit implements ModInitializer {
+public class EMIPostInit {
 
 	private static boolean isEMIInit = false;
-
-	@Override
-	public void onInitialize() {
-
-	}
 
 	public static void initEMI() {
 		if (!isEMIInit) {
