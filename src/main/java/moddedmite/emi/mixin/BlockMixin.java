@@ -47,7 +47,6 @@ public class BlockMixin implements EMIBlock {
         ((EMIBlock) Block.pistonMoving).hideFromEMI();
         ((EMIBlock) Block.stoneDoubleSlab).hideFromEMI();
         ((EMIBlock) (Block) Block.bed).hideFromEMI();
-        ((EMIBlock) Block.web).hideFromEMI();
         ((EMIBlock) Block.mushroomBrown).hideFromEMI();
         ((EMIBlock) Block.mushroomRed).hideFromEMI();
         ((EMIBlock) (Block) Block.redstoneWire).hideFromEMI();

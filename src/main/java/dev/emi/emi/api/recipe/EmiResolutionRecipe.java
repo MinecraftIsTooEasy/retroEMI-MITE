@@ -1,6 +1,6 @@
 package dev.emi.emi.api.recipe;
 
-import dev.emi.emi.api.plugin.VanillaPlugin;
+import dev.emi.emi.VanillaPlugin;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;

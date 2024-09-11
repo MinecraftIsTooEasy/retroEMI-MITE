@@ -20,6 +20,7 @@ import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.screen.RecipeScreen;
 import dev.emi.emi.screen.tooltip.EmiTooltip;
 import dev.emi.emi.screen.tooltip.RecipeCostTooltipComponent;
+import org.lwjgl.opengl.GL11;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TextTooltipComponent;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
@@ -165,6 +166,7 @@ public class SlotWidget extends Widget {
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		drawBackground(draw, mouseX, mouseY, delta);
 		drawStack(draw, mouseX, mouseY, delta);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		drawOverlay(draw, mouseX, mouseY, delta);
 	}
 	

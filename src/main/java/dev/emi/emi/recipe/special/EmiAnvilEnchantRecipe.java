@@ -87,8 +87,8 @@ public class EmiAnvilEnchantRecipe implements EmiRecipe {
         enchant.setShort("id", (short) id);
         enchant.setShort("lvl", (short) level);
         StoredEnchantments.appendTag(enchant);
-        tag.setShort("StoredEnchantments", StoredEnchantments.getId());
-//        item.setTagCompound(tag);
+        tag.setTag("StoredEnchantments", StoredEnchantments);
+        item.setTagCompound(tag);
         return EmiStack.of(item);
     }
 }

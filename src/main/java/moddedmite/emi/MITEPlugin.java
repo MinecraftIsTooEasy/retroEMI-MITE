@@ -1,8 +1,7 @@
-package dev.emi.emi.api.plugin;
+package moddedmite.emi;
 
-import dev.emi.emi.recipe.EmiCookingRecipe;
-import dev.emi.emi.recipe.mite.EmiEnchantRecipe;
-import dev.emi.emi.recipe.mite.EmiFoodRecipe;
+import moddedmite.emi.recipe.EmiEnchantRecipe;
+import moddedmite.emi.recipe.EmiFoodRecipe;
 import dev.emi.emi.runtime.EmiReloadLog;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
@@ -22,8 +21,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Supplier;
-
-import static dev.emi.emi.api.recipe.VanillaEmiRecipeCategories.SMELTING;
 
 @EmiEntrypoint
 public class MITEPlugin implements EmiPlugin {

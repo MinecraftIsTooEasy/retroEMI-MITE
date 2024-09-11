@@ -1,4 +1,4 @@
-package dev.emi.emi.recipe.mite.special;
+package moddedmite.emi.recipe.special;
 
 import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;

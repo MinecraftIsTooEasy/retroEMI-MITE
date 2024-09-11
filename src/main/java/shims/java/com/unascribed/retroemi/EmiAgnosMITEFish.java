@@ -4,8 +4,8 @@ import dev.emi.emi.InputPair;
 import dev.emi.emi.Prototype;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
-import dev.emi.emi.api.plugin.MITEPlugin;
-import dev.emi.emi.api.plugin.VanillaPlugin;
+import moddedmite.emi.MITEPlugin;
+import dev.emi.emi.VanillaPlugin;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.recipe.EmiBrewingRecipe;
@@ -178,37 +178,48 @@ public class EmiAgnosMITEFish extends EmiAgnos {
 		return a.size() - b.size();
 	}
 	
-	@SuppressWarnings("RedundantCast")
+//	@SuppressWarnings("RedundantCast")
+//	@Override
+//	protected List<TooltipComponent> getItemTooltipAgnos(ItemStack stack) {
+//		if (MinecraftServerEMI.getIsServer()) {
+//			String var5 = stack.getDisplayName();
+//
+//			if (stack.hasDisplayName())
+//			{
+//				var5 = EnumChatFormatting.ITALIC + var5 + EnumChatFormatting.RESET;
+//			}
+//			return Collections.singletonList(TooltipComponent.of(Text.literal(var5)));
+//		}
+//		else {
+//			// I SWEAR TO GOD DON'T YOU FUCKING TOUCH THIS CAST
+//			EntityPlayer player = (EntityPlayer) (Object) Minecraft.getMinecraft().thePlayer;
+//			while (player == null) {
+//				// THE CLASSLOADER IS A LIE
+//				player = (EntityPlayer) (Object) Minecraft.getMinecraft().thePlayer;
+//				try {
+//					Thread.sleep(5);
+//				}
+//				catch (InterruptedException e) {
+//					throw new RuntimeException(e);
+//				}
+//			}
+//			List<String> tip = stack.getTooltip(player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips, (Slot) null);
+//			for (int i = 0; i < tip.size(); i++) {
+//				tip.set(i, "§" + (i == 0 ? Integer.toHexString(stack.getRarity().rarityColor) : "7") + tip.get(i));
+//			}
+//			return tip.stream().map(Text::literal).map(TooltipComponent::of).collect(Collectors.toList());
+//		}
+//	}
+
 	@Override
 	protected List<TooltipComponent> getItemTooltipAgnos(ItemStack stack) {
-		if (MinecraftServerEMI.getIsServer()) {
-			String var5 = stack.getDisplayName();
-			
-			if (stack.hasDisplayName())
-			{
-				var5 = EnumChatFormatting.ITALIC + var5 + EnumChatFormatting.RESET;
-			}
-			return Collections.singletonList(TooltipComponent.of(Text.literal(var5)));
+		List<String> tip = stack.getTooltip(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().gameSettings.advancedItemTooltips, (Slot) null);
+		for (int i = 0; i < tip.size(); i++) {
+			tip.set(i, "§"+(i == 0 ? Integer.toHexString(stack.getRarity().rarityColor) : "7")+tip.get(i));
 		}
-		else {
-			// I SWEAR TO GOD DON'T YOU FUCKING TOUCH THIS CAST
-			EntityPlayer player = (EntityPlayer) (Object) Minecraft.getMinecraft().thePlayer;
-			while (player == null) {
-				// THE CLASSLOADER IS A LIE
-				player = (EntityPlayer) (Object) Minecraft.getMinecraft().thePlayer;
-				try {
-					Thread.sleep(5);
-				}
-				catch (InterruptedException e) {
-					throw new RuntimeException(e);
-				}
-			}
-			List<String> tip = stack.getTooltip(player, Minecraft.getMinecraft().gameSettings.advancedItemTooltips, (Slot) null);
-			for (int i = 0; i < tip.size(); i++) {
-				tip.set(i, "§" + (i == 0 ? Integer.toHexString(stack.getRarity().rarityColor) : "7") + tip.get(i));
-			}
-			return tip.stream().map(Text::literal).map(TooltipComponent::of).collect(Collectors.toList());
-		}
+		return tip.stream()
+				.map(Text::literal).map(TooltipComponent::of)
+				.toList();
 	}
 	
 //	@Override

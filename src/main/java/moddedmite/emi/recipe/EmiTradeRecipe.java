@@ -1,14 +1,14 @@
-//package dev.emi.emi.recipe.mite;
+//package moddedmite.emi.recipe;
 //
-//import emi.dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
-//import emi.dev.emi.emi.api.recipe.EmiRecipe;
-//import emi.dev.emi.emi.api.recipe.EmiRecipeCategory;
-//import emi.dev.emi.emi.api.render.EmiTexture;
-//import emi.dev.emi.emi.api.stack.EmiIngredient;
-//import emi.dev.emi.emi.api.stack.EmiStack;
-//import emi.dev.emi.emi.api.widget.SlotWidget;
-//import emi.dev.emi.emi.api.widget.TextureWidget;
-//import emi.dev.emi.emi.api.widget.WidgetHolder;
+//import dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
+//import dev.emi.emi.api.recipe.EmiRecipe;
+//import dev.emi.emi.api.recipe.EmiRecipeCategory;
+//import dev.emi.emi.api.render.EmiTexture;
+//import dev.emi.emi.api.stack.EmiIngredient;
+//import dev.emi.emi.api.stack.EmiStack;
+//import dev.emi.emi.api.widget.SlotWidget;
+//import dev.emi.emi.api.widget.TextureWidget;
+//import dev.emi.emi.api.widget.WidgetHolder;
 //import dev.emi.emi.runtime.EmiDrawContext;
 //import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 //import shims.java.net.minecraft.text.Text;
@@ -23,7 +23,7 @@
 //public class EmiTradeRecipe implements EmiRecipe {
 //	private final ResourceLocation TEXTURE = new ResourceLocation("emi", "textures/recipe/btwwidgets.png");
 //	private Random rand = new Random();
-//	private final VillagerTrade trade;
+//	private final MerchantRecipeList trade;
 //	private final Class<?> professionClass;
 //	public final int tradeLevel;
 //	public final boolean isLevelUp;
@@ -32,7 +32,7 @@
 //	private final TradeItem secondInput;
 //	private final TradeItem output;
 //
-//	public EmiTradeRecipe(VillagerTrade trade, int profession, boolean isLevelUp) {
+//	public EmiTradeRecipe(MerchantRecipeList trade, int profession, boolean isLevelUp) {
 //		this.trade = trade;
 //		this.professionId = profession;
 //		this.isLevelUp = isLevelUp;
@@ -122,8 +122,8 @@
 //		});
 //	}
 //
-//	private TradeItem getFirstInput(VillagerTrade trade) {
-//		TradeItem item = TradeItem.EMPTY;
+//	private MerchantRecipeList getFirstInput(MerchantRecipeList trade) {
+//        MerchantRecipeList item = MerchantRecipeList.;
 //		if (trade instanceof EnchantmentVillagerTrade enchTrade) {
 //			item = enchTrade.item;
 //		}

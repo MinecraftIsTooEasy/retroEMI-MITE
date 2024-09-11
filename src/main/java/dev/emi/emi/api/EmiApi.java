@@ -2,7 +2,7 @@ package dev.emi.emi.api;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import dev.emi.emi.api.plugin.VanillaPlugin;
+import dev.emi.emi.VanillaPlugin;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.EmiRecipeManager;

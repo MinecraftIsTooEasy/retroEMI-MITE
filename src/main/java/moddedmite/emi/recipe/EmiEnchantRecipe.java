@@ -1,4 +1,4 @@
-package dev.emi.emi.recipe.mite;
+package moddedmite.emi.recipe;
 
 import dev.emi.emi.EmiPort;
 import dev.emi.emi.api.recipe.EmiRecipe;

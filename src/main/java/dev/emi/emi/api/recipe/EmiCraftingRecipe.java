@@ -1,7 +1,7 @@
 package dev.emi.emi.api.recipe;
 
 import dev.emi.emi.screen.tooltip.EmiSecondaryOutputComponent;
-import dev.emi.emi.api.plugin.MITEPlugin;
+import moddedmite.emi.MITEPlugin;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;

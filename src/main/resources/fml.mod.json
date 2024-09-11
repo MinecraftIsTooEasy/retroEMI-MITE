@@ -16,7 +16,7 @@
   "authors": [
     "Emi",
     "Katherine",
-    "BTW CE",
+    "Bagel",
     "Xy_Lose",
     "limingzxc"
   ],
@@ -34,8 +34,8 @@
     ],
     "server": [],
     "emi": [
-      "dev.emi.emi.api.plugin.VanillaPlugin",
-      "dev.emi.emi.api.plugin.MITEPlugin"
+      "dev.emi.emi.VanillaPlugin",
+      "moddedmite.emi.MITEPlugin"
     ],
     "modmenu": [
       "dev.emi.emi.compat.EmiModMenu"

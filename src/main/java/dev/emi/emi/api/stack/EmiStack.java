@@ -2,6 +2,7 @@ package dev.emi.emi.api.stack;
 
 import com.google.common.collect.Lists;
 import dev.emi.emi.Prototype;
+import dev.emi.emi.recipe.special.EmiArmorDyeRecipe;
 import dev.emi.emi.registry.EmiComparisonDefaults;
 import dev.emi.emi.screen.tooltip.RemainderTooltipComponent;
 import shims.java.com.unascribed.retroemi.ItemStacks;
@@ -26,8 +27,8 @@ public abstract class EmiStack implements EmiIngredient {
 	protected Comparison comparison = Comparison.DEFAULT_COMPARISON;
 	protected long amount = 1;
 	protected float chance = 1;
-	
-	@Override
+
+    @Override
 	public List<EmiStack> getEmiStacks() {
 		return Collections.singletonList(this);
 	}

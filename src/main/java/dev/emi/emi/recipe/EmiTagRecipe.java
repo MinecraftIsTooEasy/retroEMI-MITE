@@ -1,7 +1,7 @@
 package dev.emi.emi.recipe;
 
 import dev.emi.emi.EmiUtil;
-import dev.emi.emi.api.plugin.VanillaPlugin;
+import dev.emi.emi.VanillaPlugin;
 import dev.emi.emi.api.recipe.EmiIngredientRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;

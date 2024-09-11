@@ -6,13 +6,10 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.GeneratedSlotWidget;
 import dev.emi.emi.api.widget.SlotWidget;
+import net.minecraft.*;
 import shims.java.net.minecraft.item.DyeItem;
 import shims.java.net.minecraft.item.DyeableItem;
 import shims.java.net.minecraft.util.DyeColor;
-import net.minecraft.Item;
-import net.minecraft.ItemArmor;
-import net.minecraft.ItemStack;
-import net.minecraft.ResourceLocation;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,14 +19,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EmiArmorDyeRecipe extends EmiPatternCraftingRecipe {
-	public static final List<Item> DYEABLE_ITEMS = Arrays.stream(Item.itemsList).filter(Objects::nonNull)
-			.filter(i -> i instanceof ItemArmor a).collect(Collectors.toList());
-	private static final List<DyeItem> DYES = Stream.of(DyeColor.values()).map(c -> DyeItem.byColor(c)).collect(Collectors.toList());
+	public static final List<Item> DYEABLE_ITEMS = Arrays.stream(Item.itemsList)
+			.filter(i -> i != null)
+			.filter(i -> i instanceof ItemArmor a && a.getArmorMaterial() == Material.leather).toList();
+	private static final List<DyeItem> DYES = Stream.of(DyeColor.values()).map(c -> DyeItem.byColor(c)).toList();
+
 	private final Item armor;
 	
 	public EmiArmorDyeRecipe(Item armor, ResourceLocation id) {
-		super(List.of(EmiIngredient.of(DYES.stream().map(i -> (EmiIngredient) EmiStack.of(i)).collect(Collectors.toList())), EmiStack.of(armor)),
-				EmiStack.of(armor), id);
+		super(List.of(
+				EmiIngredient.of(DYES.stream().map(i -> (EmiIngredient) EmiStack.of(i)).collect(Collectors.toList())),
+				EmiStack.of(armor)), EmiStack.of(armor), id);
 		this.armor = armor;
 	}
 	
