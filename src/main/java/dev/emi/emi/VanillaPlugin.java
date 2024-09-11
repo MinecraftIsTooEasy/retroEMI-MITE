@@ -239,7 +239,7 @@ public class VanillaPlugin implements EmiPlugin {
 							new ResourceLocation("minecraft", "anvil/tool/" + SyntheticIdentifier.describe(i) + "/" + SyntheticIdentifier.describe(material))));
 				}
 			}
-			if (i.isDamageable()) {
+			if (i.isDamageable() && !(i instanceof ItemAnvilBlock)) {
 				addRecipeSafe(registry, () -> new EmiAnvilRepairItemRecipe(i, new ResourceLocation("minecraft", "anvil/repair/" + SyntheticIdentifier.describe(i))));
 			}
 			var is = new ItemStack(i);

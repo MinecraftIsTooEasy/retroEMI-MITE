@@ -74,7 +74,8 @@ public class EmiAnvilRepairItemRecipe implements EmiRecipe {
     protected EmiStack getItem(Random random, int item) {
         List<ItemStack> items = Lists.newArrayList();
         items.add(getTool(random));
-        items.add(getTool(random));
+//        items.add(getTool(random));
+        items.add(getToolRepairItem());
         items.add(getMergeItems(items));
 
         return EmiStack.of(items.get(item));
@@ -92,11 +93,18 @@ public class EmiAnvilRepairItemRecipe implements EmiRecipe {
 
     private ItemStack getTool(Random r) {
         ItemStack stack = new ItemStack(tool);
-        if (stack.getItemSubtype() <= 0) {
+        if (stack.getItemDamage() <= 0) {
             return stack;
         }
-        int d = r.nextInt(stack.getItemSubtype());
-        stack.setItemSubtype(d);
+        int d = r.nextInt(stack.getItemDamage());
+        stack.setItemDamage(d);
+        return stack;
+    }
+
+    private ItemStack getToolRepairItem() {
+        ItemStack stack = new ItemStack(tool);
+        if (stack.getRepairItem() != null)
+            return stack.getRepairItem().getItemStackForStatsIcon();
         return stack;
     }
 }
