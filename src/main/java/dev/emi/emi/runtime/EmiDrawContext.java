@@ -46,18 +46,22 @@ public class EmiDrawContext {
 	}
 
 	public void drawTexture(ResourceLocation texture, int x, int y, int u, int v, int w, int h) {
+		GL11.glDisable(GL11.GL_LIGHTING);
 		drawTexture(texture, x, y, w, h, u, v, w, h, 256, 256);
 	}
 
 	public void drawTexture(ResourceLocation texture, int x, int y, int z, float u, float v, int w, int h) {
+		GL11.glDisable(GL11.GL_LIGHTING);
 		drawTexture(texture, x, y, z, u, v, w, h, 256, 256);
 	}
 
 	public void drawTexture(ResourceLocation texture, int x, int y, int z, float u, float v, int w, int h, int textureWidth, int textureHeight) {
+		GL11.glDisable(GL11.GL_LIGHTING);
 		drawTexture(texture, x, y, z, w, h, u, v, w, h, textureWidth, textureHeight);
 	}
 
 	public void drawTexture(ResourceLocation texture, int x, int y, int w, int h, float u, float v, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
+		GL11.glDisable(GL11.GL_LIGHTING);
 		drawTexture(texture, x, y, 0, w, h, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
 	}
 

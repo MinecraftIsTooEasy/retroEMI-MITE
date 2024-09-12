@@ -9,17 +9,19 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.*;
+import net.minecraft.Item;
+import net.minecraft.ItemStack;
+import net.minecraft.ResourceLocation;
 
 import java.util.List;
 import java.util.Random;
 
-public class EmiAnvilRepairItemRecipe implements EmiRecipe {
+public class EmiAnvilRepairToolRecipe  implements EmiRecipe {
     private final Item tool;
     private final ResourceLocation id;
     private final int uniq = EmiUtil.RANDOM.nextInt();
 
-    public EmiAnvilRepairItemRecipe(Item tool, ResourceLocation id) {
+    public EmiAnvilRepairToolRecipe(Item tool, ResourceLocation id) {
         this.tool = tool;
         this.id = id;
     }
@@ -72,7 +74,7 @@ public class EmiAnvilRepairItemRecipe implements EmiRecipe {
     protected EmiStack getItem(Random random, int item) {
         List<ItemStack> items = Lists.newArrayList();
         items.add(getTool(random));
-        items.add(getToolRepairItem());
+        items.add(getTool(random));
         items.add(getMergeItems(items));
 
         return EmiStack.of(items.get(item));
@@ -80,15 +82,10 @@ public class EmiAnvilRepairItemRecipe implements EmiRecipe {
 
     private ItemStack getMergeItems(List<ItemStack> items) {
         ItemStack item = tool.getItemStackForStatsIcon();
-        if (item.getRepairItem() != null) {
-            int damage;
-            if (!(item.getItem() instanceof ItemArmor))
-                damage = items.get(0).getItemDamage() - (int) (items.get(0).getMaterialForRepairs().durability * 200);
-            else
-                damage = items.get(0).getItemDamage() - (int) (items.get(0).getMaterialForRepairs().durability);
-            if (damage > 0) {
-                item.setItemDamage(damage);
-            }
+        int maxDamage = item.getMaxDamage();
+        int damage = items.get(0).getItemDamage() - (21 * maxDamage)/20 + items.get(1).getItemDamage();
+        if (damage > 0) {
+            item.setItemDamage(damage);
         }
         return item;
     }
@@ -102,12 +99,4 @@ public class EmiAnvilRepairItemRecipe implements EmiRecipe {
         stack.setItemDamage(d);
         return stack;
     }
-
-    private ItemStack getToolRepairItem() {
-        ItemStack stack = new ItemStack(tool);
-        if (stack.getRepairItem() != null)
-            return stack.getRepairItem().getItemStackForStatsIcon();
-        return stack;
-    }
 }
-

@@ -90,7 +90,11 @@ public class VanillaPlugin implements EmiPlugin {
 			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, i)));
 		}
 
-		registry.addWorkstation(ANVIL_REPAIRING, EmiStack.of(Block.anvil));
+		for (int i = 0; i < Block.blocksList.length; ++i) {
+			Block block = Block.getBlock(i);
+			if (block instanceof BlockAnvil anvil)
+				registry.addWorkstation(ANVIL_REPAIRING, EmiStack.of(anvil));
+		}
 		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceIdle));
 		registry.addWorkstation(BREWING, EmiStack.of(Item.brewingStand));
 		registry.addWorkstation(WORLD_INTERACTION, EmiStack.of(Block.grass));
@@ -240,7 +244,9 @@ public class VanillaPlugin implements EmiPlugin {
 				}
 			}
 			if (i.isDamageable() && !(i instanceof ItemAnvilBlock)) {
-				addRecipeSafe(registry, () -> new EmiAnvilRepairItemRecipe(i, new ResourceLocation("minecraft", "anvil/repair/" + SyntheticIdentifier.describe(i))));
+				addRecipeSafe(registry, () -> new EmiAnvilRepairToolRecipe(i, new ResourceLocation("minecraft", "anvil/repair/" + SyntheticIdentifier.describe(i))));
+				if (!(i instanceof ItemFishingRod) && !(i instanceof ItemCarrotOnAStick))
+					addRecipeSafe(registry, () -> new EmiAnvilRepairItemRecipe(i, new ResourceLocation("minecraft", "anvil/repair/" + SyntheticIdentifier.describe(i))));
 			}
 			var is = new ItemStack(i);
 			if (is.isEnchantable()) {

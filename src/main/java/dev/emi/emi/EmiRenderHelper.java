@@ -185,6 +185,7 @@ public class EmiRenderHelper {
 			}
 		}
 		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_LIGHTING);
 		EmiPort.setPositionTexShader();
 		context.resetColor();
 		

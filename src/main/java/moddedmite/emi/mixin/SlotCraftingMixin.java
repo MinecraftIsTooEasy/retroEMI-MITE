@@ -23,6 +23,7 @@ public class SlotCraftingMixin implements EMISlotCrafting {
     public IInventory getCraftMatrix() {
         return this.craftMatrix;
     }
+
     @Inject(method = "onCrafting(Lnet/minecraft/ItemStack;)V", at = @At("HEAD"))
     private void onCraftRenderEMI(ItemStack par1ItemStack, CallbackInfo ci) {
         Hooks.onCrafting(this.thePlayer, this.craftMatrix);

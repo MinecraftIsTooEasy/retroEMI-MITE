@@ -72,17 +72,17 @@ public class EmiAnvilRecipe implements EmiRecipe {
 
     private EmiStack getTool(Random r, boolean repaired) {
         ItemStack stack = tool.getItemStack().copy();
-        if (stack.getItemSubtype() <= 0) {
-            return tool;
-        }
-        int d = r.nextInt(stack.getItemSubtype());
+//        if (stack.getItemDamage() <= 0) {
+//            return tool;
+//        }
+        int d = r.nextInt(stack.getMaxDamage());
         if (repaired) {
-            d -= stack.getItemSubtype() / 4;
+            d -= stack.getItemDamage() / 4;
             if (d <= 0) {
                 return tool;
             }
         }
-        stack.setItemSubtype(d);
+        stack.setItemDamage(d);
         return EmiStack.of(stack);
     }
 }

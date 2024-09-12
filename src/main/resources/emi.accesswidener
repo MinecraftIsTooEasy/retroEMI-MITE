@@ -16,3 +16,4 @@ accessible field net/minecraft/Gui zLevel F
 accessible method net/minecraft/Gui drawGradientRect (IIIIII)V
 accessible method net/minecraft/Minecraft loadScreen ()V
 accessible field net/minecraft/Minecraft fullscreen Z
+accessible field net/minecraft/Material durability F
