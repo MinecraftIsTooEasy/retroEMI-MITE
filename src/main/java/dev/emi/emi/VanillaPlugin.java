@@ -28,6 +28,7 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.*;
 import moddedmite.emi.api.EMIGuiContainerCreative;
 import moddedmite.emi.api.EMIShapelessRecipes;
+import moddedmite.emi.recipe.special.EmiAnvilDisenchantRecipe;
 import shims.java.com.unascribed.retroemi.PredicateAsSet;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.tag.TagKey;
@@ -244,12 +245,12 @@ public class VanillaPlugin implements EmiPlugin {
 				}
 			}
 			if (i.isDamageable() && !(i instanceof ItemAnvilBlock)) {
-				addRecipeSafe(registry, () -> new EmiAnvilRepairToolRecipe(i, new ResourceLocation("minecraft", "anvil/repair/" + SyntheticIdentifier.describe(i))));
-				if (!(i instanceof ItemFishingRod) && !(i instanceof ItemCarrotOnAStick))
-					addRecipeSafe(registry, () -> new EmiAnvilRepairItemRecipe(i, new ResourceLocation("minecraft", "anvil/repair/" + SyntheticIdentifier.describe(i))));
+				addRecipeSafe(registry, () -> new EmiAnvilRepairToolRecipe(i, new ResourceLocation("minecraft", "anvil/repair/tool/" + SyntheticIdentifier.describe(i))));
+				if (!(i instanceof ItemFishingRod) && !(i instanceof ItemCarrotOnAStick) && !(i instanceof ItemFlintAndSteel))
+					addRecipeSafe(registry, () -> new EmiAnvilRepairItemRecipe(i, new ResourceLocation("minecraft", "anvil/repair/nugget/" + SyntheticIdentifier.describe(i))));
 			}
 			var is = new ItemStack(i);
-			if (is.isEnchantable()) {
+			if (is.isEnchantable() && !(is.getItem() instanceof ItemAppleGold) && !(is.getItem() instanceof ItemBook) && !(is.getItem() instanceof ItemExpBottle) && !(is.getItem() instanceof ItemCarrotOnAStick)) {
 				for (Enchantment e : EmiAnvilEnchantRecipe.ENCHANTMENTS) {
 					if (e.canEnchantItem(is.getItem())) {
 						int max = e.getNumLevels();
@@ -263,6 +264,7 @@ public class VanillaPlugin implements EmiPlugin {
 						}
 					}
 				}
+				VanillaPlugin.addRecipeSafe(registry, () -> new EmiAnvilDisenchantRecipe(i, new ResourceLocation("minecraft", "anvil/disenchant/" + SyntheticIdentifier.describe(i))));
 			}
 		}
 
@@ -271,11 +273,11 @@ public class VanillaPlugin implements EmiPlugin {
 		for (int i = 0; i < Item.itemsList.length; ++i) {
 			Item item = Item.getItem(i);
 			if (item instanceof ItemHoe itemHoe)
-				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemHoe), EmiStack.of(Block.tilledField), new ResourceLocation("minecraft", "tilling")));
+				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemHoe), EmiStack.of(Block.tilledField), new ResourceLocation("minecraft", item + "/tilling")));
 			if (item instanceof ItemMattock itemMattock)
-				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemMattock), EmiStack.of(Block.tilledField), new ResourceLocation("minecraft", "tilling")));
+				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemMattock), EmiStack.of(Block.tilledField), new ResourceLocation("mite", item + "/tilling")));
 			if (item instanceof ItemMeat itemMeat && !itemMeat.is_cooked && itemMeat != Item.rottenFlesh)
-				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(itemMeat), EmiStack.of(Block.fire), EmiStack.of(itemMeat.getCookedItem()), new ResourceLocation("mite", "fire")));
+				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(itemMeat), EmiStack.of(Block.fire), EmiStack.of(itemMeat.getCookedItem()), new ResourceLocation("mite", item + "/fire")));
 		}
 
 		for (Item item : EmiArmorDyeRecipe.DYEABLE_ITEMS) {

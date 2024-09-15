@@ -16,4 +16,11 @@ public class GuiContainerCreativeMixin {
             ci.cancel();
         }
     }
+
+    @Inject(method={"keyTyped"}, at={@At(value="HEAD")}, cancellable=true)
+    public void blockEMISearchToCreativeSearch(CallbackInfo ci) {
+        if (((EMISearchInput)this).getEMISearchInput()) {
+            ci.cancel();
+        }
+    }
 }

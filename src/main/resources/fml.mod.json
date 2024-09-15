@@ -4,11 +4,11 @@
   "version": "${version}",
   "depends": {
     "mite": "~1.6.4",
-    "fishmodloader": ">=3.2.4",
-    "pinin": ">=1.6.0"
+    "fishmodloader": ">=3.2.4"
   },
   "recommends": {
-    "hwite": ">=1.4.7"
+    "hwite": ">=1.4.7",
+    "pinin": ">=1.6.0"
   },
   "environment": "*",
   "name": "EMI",
@@ -47,6 +47,9 @@
   "accessWidener": "emi.accesswidener",
   "custom": {
     "loom:injected_interfaces": {
+      "net/minecraft/ItemStack": [
+        "moddedmite/emi/api/EMIItemStack"
+      ]
     }
   }
 }

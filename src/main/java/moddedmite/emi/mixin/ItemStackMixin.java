@@ -4,9 +4,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.data.EmiRemoveFromIndex;
 import moddedmite.emi.api.EMIItemStack;
 import net.fabricmc.api.EnvType;
-import net.minecraft.Block;
-import net.minecraft.Item;
-import net.minecraft.ItemStack;
+import net.minecraft.*;
 import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,6 +14,8 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(ItemStack.class)
 public class ItemStackMixin implements EMIItemStack {
     @Shadow public int itemID;
+    @Shadow public NBTTagCompound stackTagCompound;
+
     @Unique
     private int itemDamage;
 
@@ -32,6 +32,21 @@ public class ItemStackMixin implements EMIItemStack {
             }
         }
         return ReflectHelper.dyCast(this);
+    }
+
+    @Override
+    public void setEnchanted() {
+        if (this.stackTagCompound == null) {
+            this.setTagCompound(new NBTTagCompound());
+        }
+        if (!this.stackTagCompound.hasKey("ench")) {
+            this.stackTagCompound.setTag("ench", (NBTBase)new NBTTagList("ench"));
+        }
+    }
+
+    @Shadow
+    public ItemStack setTagCompound(NBTTagCompound nbtTagCompound) {
+        return null;
     }
 
 }

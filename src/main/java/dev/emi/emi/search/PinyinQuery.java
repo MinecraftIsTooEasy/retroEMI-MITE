@@ -1,7 +1,7 @@
 package dev.emi.emi.search;
 
-import dev.emi.emi.pinyin.PinyinMatch;
 import dev.emi.emi.api.stack.EmiStack;
+import net.xiaoyu233.fml.FishModLoader;
 import shims.java.net.minecraft.text.Text;
 
 public class PinyinQuery extends Query {
@@ -13,7 +13,15 @@ public class PinyinQuery extends Query {
 
     @Override
     public boolean matches(EmiStack stack) {
-        return PinyinMatch.contains(getText(stack).getString(), name);
+        boolean contains = false;
+        if (FishModLoader.hasMod("pinin")) {
+            try {
+                contains = me.towdium.pinin.PinyinMatch.contains(PinyinQuery.getText(stack).getString(), (CharSequence)this.name);
+            }
+            catch (Exception ignored) {
+            }
+        }
+        return contains;
     }
 
 //    @Override

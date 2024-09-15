@@ -1,7 +1,7 @@
 package dev.emi.emi.search;
 
-import dev.emi.emi.pinyin.PinyinMatch;
 import dev.emi.emi.api.stack.EmiStack;
+import net.xiaoyu233.fml.FishModLoader;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,10 +21,17 @@ public class RegexPinyinQuery extends Query {
 
     @Override
     public boolean matches(EmiStack stack) {
-        if (pattern == null) {
+        if (this.pattern == null) {
             return false;
         }
-        Matcher m = pattern.matcher(PinyinMatch.toPinyin(PinyinQuery.getText(stack).getString()));
+        Matcher m = null;
+        if (FishModLoader.hasMod("pinin")) {
+            try {
+                m = this.pattern.matcher(me.towdium.pinin.PinyinMatch.toPinyin(PinyinQuery.getText(stack).getString()));
+            }
+            catch (Exception ignored) {
+            }
+        }
         return m.find();
     }
 }

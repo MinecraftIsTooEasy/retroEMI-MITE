@@ -10,4 +10,5 @@ public interface EMIItemStack {
     default Item hideFromEMI() {
         return null;
     }
+    default public void setEnchanted() {}
 }
