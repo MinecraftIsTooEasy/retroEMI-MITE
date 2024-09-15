@@ -4,6 +4,7 @@
 //import java.util.function.Consumer;
 //
 //import net.minecraft.Minecraft;
+//import net.minecraft.Tessellator;
 //import org.joml.Matrix4f;
 //
 //import com.mojang.blaze3d.systems.RenderSystem;
@@ -11,11 +12,8 @@
 //
 //import dev.emi.emi.EmiPort;
 //import dev.emi.emi.config.EmiConfig;
-//import net.minecraft.MinecraftClient;
 //import net.minecraft.Framebuffer;
-//import net.minecraft.SimpleFramebuffer;
 //import net.minecraft.NativeImage;
-//import net.minecraft.MatrixStack;
 //import net.minecraft.ClickEvent;
 //import net.minecraft.Style;
 //import net.minecraft.Text;
@@ -60,11 +58,12 @@
 //            scale = EmiConfig.recipeScreenshotScale;
 //        }
 //
-//        Framebuffer framebuffer = new SimpleFramebuffer(width * scale, height * scale, true, Minecraft.isRunningOnMac);
-//        framebuffer.setClearColor(0f, 0f, 0f, 0f);
-//        framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+//        Tessellator tessellator = new Tessellator();
+////        Framebuffer framebuffer = new SimpleFramebuffer(width * scale, height * scale, true, Minecraft.isRunningOnMac);
+//        tessellator.setColorRGBA_F(0f, 0f, 0f, 0f);
+//        framebuffer.clear(Minecraft.isRunningOnMac);
 //
-//        framebuffer.beginWrite(true);
+//        tessellator.draw();
 //
 //        Matrix4fStack view = RenderSystem.getModelViewStack();
 //        view.pushMatrix();
