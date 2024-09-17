@@ -3,8 +3,7 @@ package com.mojang.blaze3d.systems;
 import static org.lwjgl.opengl.GL11.*;
 
 import net.minecraft.Minecraft;
-import net.minecraft.MatrixStack;
-import net.minecraft.Identifier;
+//import net.minecraft.MatrixStack;
 import net.minecraft.ResourceLocation;
 
 public class RenderSystem {
@@ -29,9 +28,9 @@ public class RenderSystem {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public static MatrixStack getModelViewStack() {
-        return MatrixStack.INSTANCE;
-    }
+//    public static MatrixStack getModelViewStack() {
+//        return MatrixStack.INSTANCE;
+//    }
 
     public static void applyModelViewMatrix() {
         // it's already applied
@@ -41,9 +40,9 @@ public class RenderSystem {
         glColor4f(r, g, b, a);
     }
 
-    public static void setShaderTexture(int i, ResourceLocation id) {
-        glBindTexture(GL_TEXTURE_2D+i, Minecraft.getMinecraft().renderEngine.getTexture(id.toPath("assets")));
-    }
+//    public static void setShaderTexture(int i, ResourceLocation id) {
+//        glBindTexture(GL_TEXTURE_2D+i, Minecraft.getMinecraft().renderEngine.getTexture(id.toPath("assets")));
+//    }
 
     public static void colorMask(boolean r, boolean g, boolean b, boolean a) {
         glColorMask(r, g, b, a);

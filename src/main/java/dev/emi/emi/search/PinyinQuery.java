@@ -1,14 +1,19 @@
 package dev.emi.emi.search;
 
+import com.google.common.collect.Sets;
 import dev.emi.emi.api.stack.EmiStack;
 import net.xiaoyu233.fml.FishModLoader;
 import shims.java.net.minecraft.text.Text;
 
+import java.util.Set;
+
 public class PinyinQuery extends Query {
     private final String name;
+    private final Set<EmiStack> valid;
 
     public PinyinQuery(String name) {
         this.name = name.toLowerCase();
+        this.valid = Sets.newHashSet(EmiSearch.names.findAll(name.toLowerCase()));
     }
 
     @Override
@@ -16,10 +21,12 @@ public class PinyinQuery extends Query {
         boolean contains = false;
         if (FishModLoader.hasMod("pinin")) {
             try {
-                contains = me.towdium.pinin.PinyinMatch.contains(PinyinQuery.getText(stack).getString(), (CharSequence)this.name);
+                contains = me.towdium.pinin.PinyinMatch.contains(PinyinQuery.getText(stack).getString(), this.name);
             }
             catch (Exception ignored) {
             }
+        } else {
+            contains = valid.contains(stack);
         }
         return contains;
     }

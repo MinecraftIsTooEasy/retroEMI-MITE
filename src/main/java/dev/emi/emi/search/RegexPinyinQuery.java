@@ -25,6 +25,8 @@ public class RegexPinyinQuery extends Query {
             return false;
         }
         Matcher m = null;
+        if (m == null)
+            return false;
         if (FishModLoader.hasMod("pinin")) {
             try {
                 m = this.pattern.matcher(me.towdium.pinin.PinyinMatch.toPinyin(PinyinQuery.getText(stack).getString()));

@@ -225,7 +225,7 @@ public class VanillaPlugin implements EmiPlugin {
 			ItemStack out = recipe.getValue();
 			TileEntityFurnace furnace = new TileEntityFurnace();
 			int fuel = furnace.getFuelHeatLevel();
-			addRecipeSafe(registry, () -> new EmiCookingRecipe(new ResourceLocation("minecraft", "furnace/" + id), in, out, SMELTING, fuel));
+			addRecipeSafe(registry, () -> new EmiCookingRecipe(new ResourceLocation("minecraft", "furnace/" + id), in, out, SMELTING, fuel, out.getExperienceReward()));
 		}
 
 		for (Item i : Item.itemsList) {

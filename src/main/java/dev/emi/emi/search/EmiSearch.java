@@ -11,6 +11,7 @@ import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.xiaoyu233.fml.FishModLoader;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.search.SuffixArray;
 import shims.java.net.minecraft.text.Text;
@@ -179,8 +180,7 @@ public class EmiSearch {
 						constructors.add(QueryType.MOD.queryConstructor);
 						regexConstructors.add(QueryType.MOD.regexQueryConstructor);
 					}
-					if (EmiConfig.searchNameByPinyin &&
-							Objects.equals(Minecraft.theMinecraft.gameSettings.language, "zh_CN")) {
+					if (EmiConfig.searchNameByPinyin && Objects.equals(Minecraft.theMinecraft.gameSettings.language, "zh_CN") && FishModLoader.hasMod("pinin")) {
 						constructors.add(QueryType.PINYIN.queryConstructor);
 						regexConstructors.add(QueryType.PINYIN.regexQueryConstructor);
 					}

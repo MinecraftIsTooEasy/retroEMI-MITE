@@ -19,13 +19,15 @@ public class EmiCookingRecipe implements EmiRecipe {
 	private final EmiIngredient input;
 	private final EmiStack output;
 	private int fuelMultiplier;
+	private int xp;
 
-	public EmiCookingRecipe(ResourceLocation id, ItemStack input, ItemStack output, EmiRecipeCategory category, int fuelMultiplier) {
+	public EmiCookingRecipe(ResourceLocation id, ItemStack input, ItemStack output, EmiRecipeCategory category, int fuelMultiplier, int xp) {
 		this.id = id;
 		this.category = category;
 		this.input = EmiStack.of(input);
 		this.output = EmiStack.of(output);
 		this.fuelMultiplier = fuelMultiplier;
+		this.xp = xp;
 	}
 
 	@Override
@@ -66,5 +68,8 @@ public class EmiCookingRecipe implements EmiRecipe {
 		widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 1, 24, duration * 20, false, true, true);
 		widgets.addSlot(input, 0, 4);
 		widgets.addSlot(output, 56, 0).large(true).recipeContext(this);
+		if (xp != 0)
+			widgets.addText(EmiPort.ordered(EmiPort.translatable("emi.cooking.experience", xp)), 26, 28, -1, true);
+
 	}
 }

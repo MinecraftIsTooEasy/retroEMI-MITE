@@ -1,5 +1,6 @@
 package dev.emi.emi.search;
 
+import net.xiaoyu233.fml.FishModLoader;
 import shims.java.net.minecraft.text.Style;
 
 import java.util.function.Function;

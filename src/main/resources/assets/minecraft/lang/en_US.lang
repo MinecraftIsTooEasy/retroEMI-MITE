@@ -273,6 +273,7 @@ emi.chess.multiplayer.cancelled=%s cancelled the chess game
 emi.chess.multiplayer.unavailable=%s can't play chess
 
 emi.cooking.time=%s Seconds
+emi.cooking.experience=%s XP
 emi.fuel_time.items=Burns for %s
 emi.fuel_number.items=Burns for %s items
 emi.fuel_heat.items=Heat level %s
