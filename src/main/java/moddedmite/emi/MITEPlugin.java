@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static dev.emi.emi.api.recipe.VanillaEmiRecipeCategories.SMELTING;
+
 @EmiEntrypoint
 public class MITEPlugin implements EmiPlugin {
 
@@ -74,23 +76,29 @@ public class MITEPlugin implements EmiPlugin {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void register(EmiRegistry reg) {
-		reg.addCategory(MITEEmiRecipeCategories.FOOD);
-		reg.addCategory(MITEEmiRecipeCategories.ENCHANT);
-//		reg.addCategory(MITEEmiRecipeCategories.TRADING);
+	public void register(EmiRegistry registry) {
+		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceClayIdle));
+		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceHardenedClayIdle));
+		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceSandstoneIdle));
+		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceObsidianIdle));
+		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceNetherrackIdle));
+
+		registry.addCategory(MITEEmiRecipeCategories.FOOD);
+		registry.addCategory(MITEEmiRecipeCategories.ENCHANT);
+//		registry.addCategory(MITEEmiRecipeCategories.TRADING);
 
 //		//Foods
 		for (Item it : Item.itemsList) { // There must be a better way to do this than iterating the registry... right?
 			if (it != null && (it.getNutrition() > 0 || it.getSatiation(null) > 0)) {
-				addRecipeSafe(reg, () -> new EmiFoodRecipe(new ItemStack(it)));
+				addRecipeSafe(registry, () -> new EmiFoodRecipe(new ItemStack(it)));
 			}
 		}
 
-		addRecipeSafe(reg, () -> new EmiEnchantRecipe(EmiStack.of(new ItemStack(Item.appleGold, 1, 0)), EmiStack.of(new ItemStack(Item.appleGold, 1, 1)), 200));
-		addRecipeSafe(reg, () -> new EmiEnchantRecipe(EmiStack.of(new ItemStack(Item.potion, 1, 0)), EmiStack.of(new ItemStack(Item.expBottle, 1, 1)), 200));
+		addRecipeSafe(registry, () -> new EmiEnchantRecipe(EmiStack.of(new ItemStack(Item.appleGold, 1, 0)), EmiStack.of(new ItemStack(Item.appleGold, 1, 1)), 200));
+		addRecipeSafe(registry, () -> new EmiEnchantRecipe(EmiStack.of(new ItemStack(Item.potion, 1, 0)), EmiStack.of(new ItemStack(Item.expBottle, 1, 1)), 200));
 
-		addInfoRecipes(reg);
-		addWorldRecipes(reg);
+		addInfoRecipes(registry);
+		addWorldRecipes(registry);
 	}
 
 	private void addInfoRecipes(EmiRegistry registry) {
