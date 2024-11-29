@@ -53,8 +53,8 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 	private int minimumWidth = 176;
 	int backgroundWidth = minimumWidth;
 	int backgroundHeight = 200;
-	int x = (this.width - backgroundWidth) / 2;
-	int y = (this.height - backgroundHeight) / 2;
+	public int x = (this.width - backgroundWidth) / 2;
+	public int y = (this.height - backgroundHeight) / 2;
 	
 	public RecipeScreen(GuiContainer old, Map<EmiRecipeCategory, List<EmiRecipe>> recipes) {
 		super(EmiPort.translatable("screen.emi.recipe"));

@@ -2,17 +2,8 @@
   "schemaVersion": 1,
   "id": "emi",
   "version": "${version}",
-  "depends": {
-    "mite": "~1.6.4",
-    "fishmodloader": ">=3.2.4"
-  },
-  "recommends": {
-    "hwite": ">=1.4.7",
-    "pinin": ">=1.6.0"
-  },
-  "environment": "*",
   "name": "EMI",
-  "description": "Eager Madi1718 Illness",
+  "description": "A featureful and accessible item and recipe viewer",
   "authors": [
     "Emi",
     "Katherine",
@@ -23,8 +14,10 @@
   "contributors": [
     "Huix"
   ],
-  "License": "MIT",
+  "contact": {},
+  "license": "MIT",
   "icon": "emi.png",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "dev.emi.emi.platform.EmiMain"
@@ -41,15 +34,23 @@
       "dev.emi.emi.compat.EmiModMenu"
     ]
   },
-  "mixins": [
-    "emi.mixins.json"
-  ],
-  "accessWidener": "emi.accesswidener",
   "custom": {
     "loom:injected_interfaces": {
       "net/minecraft/ItemStack": [
         "moddedmite/emi/api/EMIItemStack"
       ]
     }
+  },
+  "mixins": [
+    "emi.mixins.json"
+  ],
+  "accessWidener": "emi.accesswidener",
+  "depends": {
+    "minecraft": "1.6.4-mite",
+    "fishmodloader": ">=3.3.3"
+  },
+  "recommends": {
+    "hwite": ">=1.4.7",
+    "pinin": ">=1.6.0"
   }
 }

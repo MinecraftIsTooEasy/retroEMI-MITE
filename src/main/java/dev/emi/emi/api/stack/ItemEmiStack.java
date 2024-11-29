@@ -9,6 +9,7 @@ import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.screen.StackBatcher;
 import dev.emi.emi.api.render.EmiRender;
+import net.xiaoyu233.fml.FishModLoader;
 import shims.java.com.unascribed.retroemi.ItemStacks;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.gui.DrawContext;
@@ -164,8 +165,9 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 //			String namespace = EmiPort.getItemRegistry().getId(stack.getItem()).getNamespace();
 //			String mod = EmiUtil.getModName(namespace);
 //			list.add(TooltipComponent.of(EmiLang.literal(mod, Formatting.BLUE, Formatting.ITALIC)));
-			if (EmiConfig.appendModId || EmiConfig.appendItemModId) {
-				list.add(TooltipComponent.of(Text.literal(RetroEMI.getMod(stack)).formatted(Formatting.BLUE, Formatting.ITALIC)));
+			if (!FishModLoader.hasMod("better_tips")) {
+				if (EmiConfig.appendModId || EmiConfig.appendItemModId)
+					list.add(TooltipComponent.of(Text.literal(RetroEMI.getMod(stack)).formatted(Formatting.BLUE, Formatting.ITALIC)));
 			}
 			list.addAll(super.getTooltip());
 		}

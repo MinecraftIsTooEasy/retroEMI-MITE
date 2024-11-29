@@ -122,6 +122,14 @@ public class EmiConfig {
 	@Comment("emi.config.tooltip.ui.empty-search-sidebar-focus")
 	@ConfigValue("ui.empty-search-sidebar-focus")
 	public static SidebarType emptySearchSidebarFocus = SidebarType.NONE;
+
+	@Comment("config.emi.tooltip.ui.emi_config_button_visibility")
+	@ConfigValue("ui.emi-config-button-visibility")
+	public static ButtonVisibility emiConfigButtonVisibility = ButtonVisibility.SHOWN;
+
+	@Comment("config.emi.tooltip.ui.recipe_tree_button_visibility")
+	@ConfigValue("ui.recipe-tree-button-visibility")
+	public static ButtonVisibility recipeTreeButtonVisibility = ButtonVisibility.AUTO;
 	
 	@ConfigGroup("ui.recipe-screen")
 	@Comment("emi.config.tooltip.ui.vertical-margin")
