@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import dev.emi.emi.Hooks;
 import dev.emi.emi.screen.EmiScreenManager;
@@ -16,16 +16,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiContainer.class)
 public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreative {
-    @Shadow public int xSize = 176;
-    @Shadow public int ySize = 166;
+    @Shadow public int xSize;
+    @Shadow public int ySize;
     @Shadow public int guiLeft;
     @Shadow public int guiTop;
     @Shadow public Slot theSlot;
-
     @Shadow public Container inventorySlots;
 
     @Inject(method = "initGui", at = @At("TAIL"))
-    private void initGui(CallbackInfo ci) {
+    private void addEMIWidgets(CallbackInfo ci) {
         EmiScreenManager.addWidgets(this);
     }
 
@@ -52,14 +51,16 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
         Hooks.renderForegroundPost(par1, par2, this.mc);
     }
 
-    @Inject(
-            method = "drawSlotInventory",
-            at = @At(
-                    value = "RETURN"
-            )
-    )
+    @Inject(method = "drawSlotInventory", at = @At(value = "RETURN"))
     private void drawSlot(Slot par1Slot, CallbackInfo ci) {
         Hooks.drawSlot(par1Slot);
+    }
+
+    @Inject(method = "keyTyped", at = @At("HEAD"), cancellable = true)
+    public void disableHotkeyInEMISearchInput(char par1, int par2, CallbackInfo ci) {
+        if (((EMISearchInput) this).getEMISearchInput()) {
+            ci.cancel();
+        }
     }
 
     @Override
@@ -85,12 +86,5 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
     @Override
     public int getySize() {
         return ySize;
-    }
-
-    @Inject(method = "keyTyped", at = @At("HEAD"), cancellable = true)
-    public void keyTyped(char par1, int par2, CallbackInfo ci) {
-        if (((EMISearchInput) this).getEMISearchInput()) {
-            ci.cancel();
-        }
     }
 }

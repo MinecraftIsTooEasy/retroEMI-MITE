@@ -11,6 +11,7 @@ import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import moddedmite.emi.util.ModIdentification;
 import net.xiaoyu233.fml.FishModLoader;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.search.SuffixArray;
@@ -65,7 +66,7 @@ public class EmiSearch {
 				}
 				ResourceLocation id = stack.getId();
 				if (id != null) {
-					mods.add(stack, RetroEMI.getMod(stack.getItemStack()).toLowerCase().replace(" ", ""));
+					mods.add(stack, ModIdentification.getMod(stack.getItemStack()).toLowerCase().replace(" ", ""));
 				}
 				String idString = "";
 				if (stack.getItemStack().itemID < 10) {
@@ -84,7 +85,7 @@ public class EmiSearch {
 			}
 			catch (Exception e) {
 				EmiLog.error("EMI caught an exception while baking search for " + stack);
-				e.printStackTrace();
+				EmiLog.error(e);
 			}
 		}
 		for (Supplier<dev.emi.emi.data.EmiAlias> supplier : EmiData.aliases) {

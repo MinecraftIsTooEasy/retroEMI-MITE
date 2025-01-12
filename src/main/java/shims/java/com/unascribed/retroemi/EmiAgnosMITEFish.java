@@ -86,7 +86,7 @@ public class EmiAgnosMITEFish extends EmiAgnos {
 
 		if (!foundMITEPlugins) {
 			plugins.add(new EmiPluginContainer(new MITEPlugin(), "mite"));
-			plugins.add(new EmiPluginContainer(new VanillaPlugin(), "mite"));
+			plugins.add(new EmiPluginContainer(new VanillaPlugin(), "minecraft"));
 		}
 
 		return plugins;
@@ -215,7 +215,7 @@ public class EmiAgnosMITEFish extends EmiAgnos {
 	protected List<TooltipComponent> getItemTooltipAgnos(ItemStack stack) {
 		List<String> tip = stack.getTooltip(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().gameSettings.advancedItemTooltips, (Slot) null);
 		for (int i = 0; i < tip.size(); i++) {
-			tip.set(i, "§"+(i == 0 ? Integer.toHexString(stack.getRarity().rarityColor) : "7")+tip.get(i));
+			tip.set(i, "§" + (i == 0 ? Integer.toHexString(stack.getRarity().rarityColor) : "7") + tip.get(i));
 		}
 		return tip.stream()
 				.map(Text::literal).map(TooltipComponent::of)

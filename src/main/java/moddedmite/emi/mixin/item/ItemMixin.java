@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.item;
 
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.data.EmiRemoveFromIndex;
@@ -40,7 +40,7 @@ public class ItemMixin implements EMIItem {
     }
 
 
-    @Inject(method={"<clinit>"}, at={@At(value="TAIL")})
+    @Inject(method = "<clinit>", at = @At(value = "TAIL"))
     private static void addToCreativeTab(CallbackInfo ci) {
         ((EMIItem) Item.fragsCreeper).hideFromEMI();
         ((EMIItem) Item.fragsInfernalCreeper).hideFromEMI();

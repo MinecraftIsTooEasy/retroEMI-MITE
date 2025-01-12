@@ -12,5 +12,4 @@ public interface EMIShapelessRecipes {
     default ItemStack[] getSecondaryOutput(IInventory inventory) {
         return null;
     }
-
 }

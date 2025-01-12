@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.server;
 
 import dev.emi.emi.EMIPostInit;
 import moddedmite.emi.util.MinecraftServerEMI;
@@ -19,7 +19,7 @@ public class MinecraftServerMixin {
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    public void init(File par1File, CallbackInfo ci) {
+    public void initEMIServer(File par1File, CallbackInfo ci) {
         EMIPostInit.initEMI();
     }
 }

@@ -73,10 +73,14 @@ public interface EmiStackSerializer<T extends EmiStack> extends EmiIngredientSer
 	
 	@Override
 	default JsonElement serialize(T stack) {
+		String nbt = null;
+		if (stack.hasNbt()) {
+			nbt += StringNbtReader.encode(stack.getNbt());
+		}
 		if (stack.getAmount() == 1 && stack.getChance() == 1 && stack.getRemainder().isEmpty()) {
 			String s = getType() + ":" + stack.getId();
-			if (stack.hasNbt()) {
-				s += StringNbtReader.encode(stack.getNbt());
+			if (nbt != null) {
+				s += nbt;
 			}
 			return new JsonPrimitive(s);
 		}
@@ -84,6 +88,9 @@ public interface EmiStackSerializer<T extends EmiStack> extends EmiIngredientSer
 			JsonObject json = new JsonObject();
 			json.addProperty("type", getType());
 			json.addProperty("id", stack.getId().toString());
+			if (nbt != null) {
+				json.addProperty("nbt", nbt);
+			}
 			if (stack.getAmount() != 1) {
 				json.addProperty("amount", stack.getAmount());
 			}

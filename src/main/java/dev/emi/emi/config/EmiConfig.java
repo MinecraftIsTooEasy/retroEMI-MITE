@@ -7,6 +7,7 @@ import dev.emi.emi.input.EmiBind;
 import dev.emi.emi.input.EmiInput;
 import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.runtime.EmiLog;
+import net.xiaoyu233.fml.FishModLoader;
 import shims.java.com.unascribed.nil.QDCSS;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.util.InputUtil;
@@ -52,6 +53,10 @@ public class EmiConfig {
 	public static HelpLevel helpLevel = HelpLevel.NORMAL;
 
 	@ConfigGroup("general.search")
+	@Comment("emi.config.tooltip.general.search-sidebar")
+	@ConfigValue("general.search-sidebar")
+	public static SidebarSide searchSidebar = SidebarSide.RIGHT;
+
 	@Comment("emi.config.tooltip.general.search-tooltip-by-default")
 	@ConfigValue("general.search-tooltip-by-default")
 	public static boolean searchTooltipByDefault = true;
@@ -72,7 +77,7 @@ public class EmiConfig {
 	@ConfigValue("general.search-name-by-pinyin")
 	@ConfigGroupEnd
 	public static boolean searchNameByPinyin = true;
-	
+
 	// UI
 	
 	@Comment("emi.config.tooltip.ui.effect-location")
@@ -440,6 +445,18 @@ public class EmiConfig {
 	@Comment("emi.config.tooltip.dev.highlight-exclusion-areas")
 	@ConfigValue("dev.highlight-exclusion-areas")
 	public static boolean highlightExclusionAreas = false;
+
+	//Distraction Free Recipes
+
+	@ConfigGroup("addon.distraction")
+	@Comment("emi.config.tooltip.addon.distraction.enable-distraction-free-mode")
+	@ConfigValue("addon.distraction.enable-distraction-free-mode")
+	public static boolean enableDistractionFreeMode = false;
+
+	@Comment("emi.config.tooltip.addon.distraction.lower_opacity")
+	@ConfigValue("addon.distraction.lower_opacity")
+	@ConfigGroupEnd()
+	public static boolean lowerOpacity = false;
 	
 	// Persistent (currently empty)
 	

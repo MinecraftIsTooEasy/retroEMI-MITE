@@ -1,8 +1,6 @@
 package moddedmite.emi.util;
 
-import net.minecraft.CommandBase;
 import net.minecraft.Enchantment;
-import net.minecraft.ICommandSender;
 
 import java.util.Arrays;
 import java.util.Objects;

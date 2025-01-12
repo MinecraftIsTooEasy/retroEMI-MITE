@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import moddedmite.emi.api.EMIInventoryCrafting;
 import net.minecraft.IInventory;
@@ -21,5 +21,4 @@ public abstract class InventoryCraftingMixin implements EMIInventoryCrafting, II
     public ItemStack[] getStackList() {
         return this.stackList;
     }
-
 }

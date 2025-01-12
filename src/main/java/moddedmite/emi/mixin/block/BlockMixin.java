@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.block;
 
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.data.EmiRemoveFromIndex;

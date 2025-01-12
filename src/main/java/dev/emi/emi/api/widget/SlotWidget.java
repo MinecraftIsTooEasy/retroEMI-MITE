@@ -20,6 +20,7 @@ import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.screen.RecipeScreen;
 import dev.emi.emi.screen.tooltip.EmiTooltip;
 import dev.emi.emi.screen.tooltip.RecipeCostTooltipComponent;
+import net.minecraft.Block;
 import org.lwjgl.opengl.GL11;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TextTooltipComponent;
@@ -231,36 +232,35 @@ public class SlotWidget extends Widget {
 		list.addAll(getStack().getTooltip());
 		addSlotTooltip(list);
 
-		if (this.getRecipe() != null && this.getRecipe().craftLevel() != null && this.getRecipe().craftLevel() != Material.air) {
+		if (Block.workbench.isValidMetadata(2) && this.getRecipe() != null && this.getRecipe().craftLevel() != null && this.getRecipe().craftLevel() != Material.air) {
 			Material material = this.getRecipe().craftLevel();
 			MutableText materialName;
             if (material == Material.flint) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.BLACK);
+                materialName = EmiPort.literal(material.getLocalizedName());
             } else if (material == Material.copper) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.COPPER);
+                materialName = EmiPort.literal(material.getLocalizedName());
             } else if (material == Material.silver) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.SILVER);
+                materialName = EmiPort.literal(material.getLocalizedName());
             } else if (material == Material.gold) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.GOLD);
+                materialName = EmiPort.literal(material.getLocalizedName());
             } else if (material == Material.rusted_iron) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.RUSTEDIRON);
+                materialName = EmiPort.literal(material.getLocalizedName());
             } else if (material == Material.iron) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.IRON);
+                materialName = EmiPort.literal(material.getLocalizedName());
             } else if (material == Material.ancient_metal) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.ANCIENTMETAL);
+                materialName = EmiPort.literal(material.getLocalizedName());
             } else if (material == Material.mithril) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.MITHRIL);
+                materialName = EmiPort.literal(material.getLocalizedName());
             } else if (material == Material.adamantium) {
-                materialName = EmiPort.literal(material.getLocalizedName(), Formatting.ADAMANTIUM);
+                materialName = EmiPort.literal(material.getLocalizedName());
 			} else if (material == Material.obsidian) {
-				materialName = EmiPort.literal(material.getLocalizedName(), Formatting.OBSIDIAN);
+				materialName = EmiPort.literal(material.getLocalizedName());
             } else {
-				materialName = EmiPort.literal(material.getLocalizedName(), Formatting.WHITE);
+				materialName = EmiPort.literal(material.getLocalizedName());
 			}
+			TextTooltipComponent craftLevel = new TextTooltipComponent(EmiPort.translatable("emi.craft_level") + ": " + materialName);
 
-			TextTooltipComponent finalName = new TextTooltipComponent(EmiPort.translatable("emi.craft_level") + ": " + materialName);
-
-			list.add(finalName);
+			list.add(craftLevel);
 		}
 
 		return list;

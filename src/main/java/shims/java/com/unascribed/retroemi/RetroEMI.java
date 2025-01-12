@@ -135,7 +135,7 @@ public class RetroEMI {
 	}
 	
 	public static boolean canCombine(ItemStack a, ItemStack b) {
-		return a == null || b == null ? a == b : ((EMIItemStack)(Object) a).isItemEqual(b) && ItemStack.areItemStackTagsEqual(a, b);
+		return a == null || b == null ? a == b : a.isItemEqual(b) && ItemStack.areItemStackTagsEqual(a, b);
 	}
 	
 	public static void renderModernTooltip(GuiScreen screen, List<TooltipComponent> components, int x, int y, int maxWidth, TooltipPositioner positioner) {
@@ -330,33 +330,6 @@ public class RetroEMI {
 		
 		// Is this necessary? -Bagel
 		return id.toString().replace("emi:", "ē").replace("_", "");
-	}
-	
-	public static String getMod(ItemStack itemStack) {
-		int id = itemStack.itemID;
-		String mod = "Minecraft";
-		if (itemStack.isBlock()) {
-			if (id < 256) {
-				if (id >= 164 && id < 170 || id >= 198 || id == 95) {
-					mod = "MITE";
-				} else if (id <= 163 || id >= 170 && id <= 174) {
-					mod = "Minecraft";
-				}
-			} else {
-				mod = ((IBlock) itemStack.getItemAsBlock().getBlock()).getNamespace();
-			}
-			return mod;
-		} else if (id >= 256) {
-			if (!((id <= 955 || id == 1026 || id == 1027 || id >= 1058 && id <= 1066 || id == 1116 || id >= 1135 && id <= 1141 || id >= 1168 && id <= 1171 || id == 1238 || id >= 1265 && id <= 1275 || id >= 1283) && (id < 2276 || id > 2279))) {
-				mod = "MITE";
-			} else if (id != 262 && id != 268 && (id <= 269 || id >= 280) && id != 290 && id != 291 && id != 293 && (id <= 309 || id >= 314) && (id <= 408 || id >= 417) && id != 419 && id <= 422 || id >= 2256 && id <= 2267) {
-				mod = "Minecraft";
-			} else {
-				mod = ((IItem) itemStack.getItem()).getNamespace();
-			}
-			return mod;
-		}
-		return mod;
 	}
 	
 	public static String translate(String s) {

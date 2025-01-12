@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.server;
 
 import moddedmite.emi.api.EMIPlayerControllerMP;
 import net.minecraft.NetClientHandler;
@@ -10,10 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(PlayerControllerMP.class)
 public class PlayerControllerMPMixin implements EMIPlayerControllerMP {
-    @Mutable
-    @Final
-    @Shadow
-    protected final NetClientHandler netClientHandler;
+    @Mutable @Final @Shadow protected final NetClientHandler netClientHandler;
 
     public PlayerControllerMPMixin(NetClientHandler netClientHandler) {
         this.netClientHandler = netClientHandler;

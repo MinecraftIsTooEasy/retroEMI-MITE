@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import moddedmite.emi.api.EMISearchInput;
 import net.minecraft.GuiContainerCreative;
@@ -17,7 +17,7 @@ public class GuiContainerCreativeMixin {
         }
     }
 
-    @Inject(method={"keyTyped"}, at={@At(value="HEAD")}, cancellable=true)
+    @Inject(method = "keyTyped", at = @At(value = "HEAD"), cancellable = true)
     public void blockEMISearchToCreativeSearch(CallbackInfo ci) {
         if (((EMISearchInput)this).getEMISearchInput()) {
             ci.cancel();

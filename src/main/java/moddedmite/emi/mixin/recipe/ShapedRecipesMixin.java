@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.recipe;
 
 import moddedmite.emi.api.EMIShapedRecipes;
 import net.minecraft.IInventory;
@@ -19,17 +19,19 @@ public class ShapedRecipesMixin implements EMIShapedRecipes {
     public int getRecipeHeight() {
         return recipeHeight;
     }
+
     @Override
     public int getRecipeWidth() {
         return recipeWidth;
     }
+
     @Override
     public ItemStack[] getRecipeItems() {
         return recipeItems;
     }
+
     @Override
     public ItemStack[] getSecondaryOutput(IInventory inventory) {
         return this.recipeSecondaryOutputs;
     }
-
 }

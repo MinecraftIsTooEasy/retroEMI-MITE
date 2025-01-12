@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import dev.emi.emi.Hooks;
 import moddedmite.emi.api.EMISlotCrafting;
@@ -15,11 +15,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SlotCrafting.class)
 public class SlotCraftingMixin implements EMISlotCrafting {
-
-    @Final
-    @Shadow private IInventory craftMatrix;
+    @Final @Shadow private IInventory craftMatrix;
     @Shadow private EntityPlayer thePlayer;
 
+    @Override
     public IInventory getCraftMatrix() {
         return this.craftMatrix;
     }

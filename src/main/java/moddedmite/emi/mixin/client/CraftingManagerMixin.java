@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import moddedmite.emi.api.EMICraftingManager;
 import net.minecraft.CraftingManager;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mixin(CraftingManager.class)
 public class CraftingManagerMixin implements EMICraftingManager {
-    @Shadow private List recipes = new ArrayList();
+    @Shadow private List recipes;
 
     @Override
     public List getRecipes() {

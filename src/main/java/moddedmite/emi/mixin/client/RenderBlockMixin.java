@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import net.minecraft.Block;
 import net.minecraft.Minecraft;

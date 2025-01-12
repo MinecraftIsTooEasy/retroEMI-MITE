@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.server;
 
 import dev.emi.emi.network.EmiNetwork;
 import dev.emi.emi.network.PingS2CPacket;

@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.world;
 
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import net.minecraft.World;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(World.class)
 public class WorldMixin {
     @Inject(method = "tick", at = @At("RETURN"))
-    public void tick(CallbackInfo ci) {
+    public void tickEMI(CallbackInfo ci) {
         RetroEMI.tick();
     }
 }

@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import dev.emi.emi.EMIPostInit;
 import dev.emi.emi.EmiPort;
@@ -17,7 +17,7 @@ import java.net.Proxy;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin implements EMIMinecraft {
-    @Shadow public Timer timer = new Timer(20.0f);
+    @Shadow public Timer timer;
     @Shadow private ReloadableResourceManager mcResourceManager;
 
     @Override
@@ -26,13 +26,13 @@ public class MinecraftMixin implements EMIMinecraft {
     }
 
     @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/Minecraft;loadScreen()V", shift = At.Shift.BEFORE))
-    private void startGameInjectEMI(CallbackInfo ci) {
+    private void registerReloadListeners(CallbackInfo ci) {
         //Added with EMI
         EmiPort.registerReloadListeners(this.mcResourceManager);
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    public void init(Session par1Session, int par2, int par3, boolean par4, boolean par5, File par6File, File par7File, File par8File, Proxy par9Proxy, String par10Str, CallbackInfo ci) {
+    public void initEMIClient(Session par1Session, int par2, int par3, boolean par4, boolean par5, File par6File, File par7File, File par8File, Proxy par9Proxy, String par10Str, CallbackInfo ci) {
         EMIPostInit.initEMI();
     }
 

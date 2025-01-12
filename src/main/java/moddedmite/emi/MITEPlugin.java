@@ -27,7 +27,7 @@ import static dev.emi.emi.api.recipe.VanillaEmiRecipeCategories.SMELTING;
 @EmiEntrypoint
 public class MITEPlugin implements EmiPlugin {
 
-	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/recipe/btwwidgets.png");
+	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/recipe/widgets.png");
 	public static final EmiTexture SMALL_PLUS = new EmiTexture(WIDGETS, 36, 0, 7, 7);
 
 	static {

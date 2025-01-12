@@ -277,7 +277,7 @@ public class VanillaPlugin implements EmiPlugin {
 			if (item instanceof ItemMattock itemMattock)
 				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemMattock), EmiStack.of(Block.tilledField), new ResourceLocation("mite", item + "/tilling")));
 			if (item instanceof ItemMeat itemMeat && !itemMeat.is_cooked && itemMeat != Item.rottenFlesh)
-				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(itemMeat), EmiStack.of(Block.fire), EmiStack.of(itemMeat.getCookedItem()), new ResourceLocation("mite", item + "/fire")));
+				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(itemMeat), EmiStack.of(Block.fire), EmiStack.of(itemMeat.getCookedItem()), new ResourceLocation("mite", item + String.valueOf(item.itemID) + "/fire")));
 		}
 
 		for (Item item : EmiArmorDyeRecipe.DYEABLE_ITEMS) {

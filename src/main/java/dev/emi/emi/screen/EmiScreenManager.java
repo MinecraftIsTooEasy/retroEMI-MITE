@@ -41,6 +41,7 @@ import net.minecraft.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -290,8 +291,8 @@ public class EmiScreenManager {
 		for (int i = 0; i < exclusion.size(); i++) {
 			Bounds overlap = exclusion.get(i).overlap(bounds);
 			if (!overlap.empty()) {
-				if (overlap.top() < bounds.top() + ENTRY_SIZE + headerOffset || overlap.width() >= bounds.width() / 2 ||
-						overlap.height() >= bounds.height() / 3) {
+				if (overlap.top() < bounds.top() + ENTRY_SIZE + headerOffset || overlap.width() >= bounds.width() * 2 / 3
+						|| overlap.height() >= bounds.height() / 3) {
 					int widthFactor = overlap.width() * 10 / bounds.width();
 					int heightFactor = overlap.height() * 10 / bounds.height();
 					if (heightFactor < widthFactor) {
@@ -335,8 +336,9 @@ public class EmiScreenManager {
 	}
 	
 	public static void focusSearchSidebarType(SidebarType type) {
-		if (getSearchPanel().supportsType(type)) {
-			getSearchPanel().setType(type);
+		SidebarPanel search = getSearchPanel();
+		if (search != null && search.supportsType(type)) {
+			search.setType(type);
 		}
 	}
 	
@@ -408,7 +410,7 @@ public class EmiScreenManager {
 				return panel;
 			}
 		}
-		return panels.get(1);
+		return null;
 	}
 	
 	public static void toggleSidebarType(SidebarType type) {
@@ -425,7 +427,11 @@ public class EmiScreenManager {
 	}
 	
 	public static List<? extends EmiIngredient> getSearchSource() {
-		return EmiSidebars.getStacks(getSearchPanel().getType());
+		SidebarPanel search = getSearchPanel();
+		if (search == null) {
+			return List.of();
+		}
+		return EmiSidebars.getStacks(search.getType());
 	}
 	
 	public static EmiStackInteraction getHoveredStack(int mouseX, int mouseY, boolean notClick) {
@@ -602,7 +608,6 @@ public class EmiScreenManager {
 				ScreenSpace space = getHoveredSpace(mouseX, mouseY);
 				if (space != null && (space.getType() == SidebarType.CRAFTABLES || space.getType() == SidebarType.CRAFT_HISTORY)) {
 					MatrixStack view = MatrixStack.INSTANCE;
-					;
 					view.push();
 					view.translate(0, 0, 200);
 					int lhx = space.getRawX(lastHoveredCraftableOffset);
@@ -642,7 +647,6 @@ public class EmiScreenManager {
 			}
 			EmiDragDropHandlers.render(screen, draggedStack, context.raw(), mouseX, mouseY, delta);
 			MatrixStack view = MatrixStack.INSTANCE;
-			;
 			view.push();
 			view.translate(0, 0, 400);
 			draggedStack.render(context.raw(), mouseX - 8, mouseY - 8, delta, EmiIngredient.RENDER_ICON);
@@ -689,10 +693,10 @@ public class EmiScreenManager {
 			}
 			if (space != null && space.rtl) {
 				EmiRenderHelper.drawLeftTooltip(screen, context, list, mouseX, mouseY);
-			}
-			else {
+			} else {
 				EmiRenderHelper.drawTooltip(screen, context, list, mouseX, mouseY);
 			}
+
 			client.mcProfiler.endSection();
 		}
 		lastStackTooltipRendered = null;
@@ -755,12 +759,19 @@ public class EmiScreenManager {
 			search.setWidth(160);
 		}
 		else {
-			search.x = panels.get(1).space.tx;
-			search.y = screen.height - 21;
-			search.setWidth(panels.get(1).space.tw * ENTRY_SIZE);
+			if (EmiConfig.searchSidebar == SidebarSide.RIGHT) {
+				search.x = panels.get(1).space.tx;
+				search.y = screen.height - 21;
+				search.setWidth(panels.get(1).space.tw * ENTRY_SIZE);
+			} else {
+				search.x = panels.get(0).space.tx;
+				search.y = screen.height - 21 - 21;
+				search.setWidth(panels.get(0).space.tw * ENTRY_SIZE);
+			}
 		}
 		EmiPort.focus(search, false);
-		
+		search.setVisible(EmiConfig.searchSidebar != SidebarSide.NONE);
+
 		emi.x = 2;
 		emi.y = screen.height - 22;
 		
@@ -1400,7 +1411,7 @@ public class EmiScreenManager {
 		}
 		
 		public boolean isSearch() {
-			return side == SidebarSide.RIGHT;
+			return side == EmiConfig.searchSidebar;
 		}
 		
 		public void updateWidgetPosition() {
@@ -1417,6 +1428,9 @@ public class EmiScreenManager {
 		
 		public boolean isVisible() {
 			if (getType() == SidebarType.CHESS && (space.tw != 8 || space.th != 8)) {
+				return false;
+			}
+			if (this.getType() == SidebarType.INDEX && EmiScreenManager.search.getText().isEmpty() && EmiConfig.enableDistractionFreeMode) {
 				return false;
 			}
 			return !isDisabled() && space.pageSize > 0 && pages.pages.size() > 0;

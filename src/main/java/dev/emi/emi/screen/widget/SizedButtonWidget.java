@@ -65,7 +65,7 @@ public class SizedButtonWidget extends ButtonWidget {
 	
 	@Override
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		glColor4f(1, 1, 1, 1);
+//		glColor4f(1, 1, 1, 1);
 		EmiDrawContext context = EmiDrawContext.instance();
 		glEnable(GL_DEPTH_TEST);
 		context.drawTexture(texture, this.x, this.y, getU(mouseX, mouseY), getV(mouseX, mouseY), this.width, this.height);

@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.packet;
 
 import dev.emi.emi.PacketReader;
 import dev.emi.emi.network.EmiPacket;

@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import moddedmite.emi.api.EMISlot;
 import net.minecraft.IInventory;
@@ -12,9 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Slot.class)
 public class SlotMixin implements EMISlot {
-    @Final
-    @Shadow private int slotIndex;
-
+    @Final @Shadow private int slotIndex;
     @Shadow protected boolean locked;
 
     @Override

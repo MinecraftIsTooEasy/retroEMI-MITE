@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.recipe;
 
 import dev.emi.emi.data.EmiData;
 import shims.java.net.minecraft.util.SyntheticIdentifier;

@@ -78,12 +78,12 @@ public class EmiAnvilDisenchantRecipe
         items.add(this.getTool());
         items.add(Item.bottleOfDisenchanting.getItemStackForStatsIcon());
         items.add(this.getToolDisenchantm());
-        return EmiStack.of((ItemStack)items.get(item));
+        return EmiStack.of(items.get(item));
     }
 
     private ItemStack getTool() {
         ItemStack stack = new ItemStack(this.tool);
-        ((EMIItemStack) stack).setEnchanted();
+        stack.setEnchanted();
         return stack;
     }
 

@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import moddedmite.emi.api.EMIGuiTextField;
 import net.minecraft.Gui;

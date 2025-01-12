@@ -17,6 +17,7 @@ import dev.emi.emi.screen.widget.SizedButtonWidget;
 import dev.emi.emi.screen.widget.config.*;
 import dev.emi.emi.search.EmiSearch;
 import dev.emi.emi.api.render.EmiTooltipComponents;
+import org.lwjgl.opengl.GL11;
 import shims.java.com.unascribed.nil.QDCSS;
 import shims.java.com.unascribed.retroemi.REMIScreen;
 import shims.java.com.unascribed.retroemi.RetroEMI;
@@ -38,6 +39,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static org.lwjgl.opengl.GL11.glColor4f;
 
 public class ConfigScreen extends REMIScreen {
 	private static final int maxWidth = 240;
@@ -283,10 +286,10 @@ public class ConfigScreen extends REMIScreen {
 	private void addJumpButtons() {
 		List<String> jumps =
 				Lists.newArrayList("general", "general.search", "ui", "ui.left-sidebar", "ui.right-sidebar", "ui.top-sidebar", "ui.bottom-sidebar", "binds",
-						"binds.crafts", "binds.cheats", "dev");
+						"binds.crafts", "binds.cheats", "dev", "addon");
 		List<List<String>> removes =
 				List.of(List.of("binds.cheats"), List.of("general.search"), List.of("ui.top-sidebar", "ui.bottom-sidebar"), List.of("binds.crafts"),
-						List.of("ui.left-sidebar", "ui.right-sidebar"));
+						List.of("ui.left-sidebar", "ui.right-sidebar"), List.of("addon.distraction"));
 		int space = list.getLogicalHeight() - 10;
 		for (List<String> r : removes) {
 			if (jumps.size() * 16 > space) {

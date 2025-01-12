@@ -2,6 +2,8 @@ package dev.emi.emi.runtime;
 
 import net.fabricmc.loader.api.FabricLoader;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.logging.Logger;
 
 public class EmiLog {
@@ -23,6 +25,16 @@ public class EmiLog {
 	public static void debug(String str) {
 		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
 			logger.info("EMI: " + str);
+		}
+	}
+
+	public static void error(Throwable e) {
+		e.printStackTrace();
+		StringWriter writer = new StringWriter();
+		e.printStackTrace(new PrintWriter(writer, true));
+		String[] strings = writer.getBuffer().toString().split("/");
+		for (String s : strings) {
+			EmiLog.error(s);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.client;
 
 import moddedmite.emi.api.EMISearchInput;
 import shims.java.com.unascribed.retroemi.RetroEMI;
@@ -18,21 +18,21 @@ public class GuiScreenMixin implements EMISearchInput {
 
     @Inject(method = "handleMouseInput", at = @At("HEAD"))
     public void handleMouseInputEMI(CallbackInfo ci) {
-        emiMouseInput = RetroEMI.handleMouseInput();
+        this.emiMouseInput = RetroEMI.handleMouseInput();
     }
 
     @Inject(method = "handleKeyboardInput", at = @At(value = "INVOKE", target = "Lorg/lwjgl/input/Keyboard;getEventKeyState()Z", shift = At.Shift.AFTER))
     public void handleKeyboardInputEMI(CallbackInfo ci) {
-         emiSearchInput = RetroEMI.handleKeyboardInput();
+        this.emiSearchInput = RetroEMI.handleKeyboardInput();
     }
 
     @Override
     public boolean getEMISearchInput() {
-        return emiSearchInput;
+        return this.emiSearchInput;
     }
 
     @Override
     public boolean getEMIMouseInput() {
-        return emiMouseInput;
+        return this.emiMouseInput;
     }
 }

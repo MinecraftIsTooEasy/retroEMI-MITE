@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.packet;
 
 import dev.emi.emi.PacketReader;
 import dev.emi.emi.network.EmiPacket;
@@ -23,13 +23,12 @@ public abstract class NetServerHandlerMixin extends NetHandler {
 
     @Inject(method = "handleCustomPayload", at = @At("RETURN"))
     public void handleCustomPayload(Packet250CustomPayload par1Packet250CustomPayload, CallbackInfo ci) {
-        // EMI edit (Taken from retro emi, might want to rewrite how packets are handled?)
+        // Taken from retro emi, might want to rewrite how packets are handled?
         Function<PacketByteBuf, EmiPacket> reader = PacketReader.serverReaders.get(par1Packet250CustomPayload.channel);
         if (reader != null) {
             var epkt = reader.apply(PacketByteBuf.in(new DataInputStream(new ByteArrayInputStream(par1Packet250CustomPayload.data))));
             epkt.apply(playerEntity);
         }
-        // End EMI edit
     }
 
 }

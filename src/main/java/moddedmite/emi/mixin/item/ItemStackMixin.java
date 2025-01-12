@@ -1,4 +1,4 @@
-package moddedmite.emi.mixin;
+package moddedmite.emi.mixin.item;
 
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.data.EmiRemoveFromIndex;
@@ -9,19 +9,16 @@ import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin implements EMIItemStack {
+    @Shadow public int damage;
     @Shadow public int itemID;
     @Shadow public NBTTagCompound stackTagCompound;
 
-    @Unique
-    private int itemDamage;
-
     @Override
     public boolean isItemEqual(ItemStack par1ItemStack) {
-        return this.itemID == par1ItemStack.itemID && this.itemDamage == this.itemDamage;
+        return this.itemID == par1ItemStack.itemID && this.damage == par1ItemStack.getItemDamage();
     }
 
     @Override
@@ -40,7 +37,7 @@ public class ItemStackMixin implements EMIItemStack {
             this.setTagCompound(new NBTTagCompound());
         }
         if (!this.stackTagCompound.hasKey("ench")) {
-            this.stackTagCompound.setTag("ench", (NBTBase)new NBTTagList("ench"));
+            this.stackTagCompound.setTag("ench", new NBTTagList("ench"));
         }
     }
 
@@ -48,5 +45,4 @@ public class ItemStackMixin implements EMIItemStack {
     public ItemStack setTagCompound(NBTTagCompound nbtTagCompound) {
         return null;
     }
-
 }
