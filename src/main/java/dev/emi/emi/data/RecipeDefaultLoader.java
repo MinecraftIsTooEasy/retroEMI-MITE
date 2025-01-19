@@ -25,7 +25,7 @@ public class RecipeDefaultLoader implements EmiResourceReloadListener, ResourceM
 	public void onResourceManagerReload(ResourceManager manager) {
 		RecipeDefaults defaults = new RecipeDefaults();
 		try {
-			for (Resource resource : (List<Resource>) manager.getAllResources(new ResourceLocation("recipe/defaults/mite_defaults.json"))) {
+			for (Resource resource : (List<Resource>) manager.getAllResources(new ResourceLocation("emi", "recipe/defaults/defaults.json"))) {
 				InputStreamReader reader = new InputStreamReader(EmiPort.getInputStream(resource));
 				JsonObject json = JsonHelper.deserialize(GSON, reader, JsonObject.class);
 				loadDefaults(defaults, json);

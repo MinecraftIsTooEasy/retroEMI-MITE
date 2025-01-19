@@ -28,8 +28,10 @@ public abstract class EmiAgnos {
 		return false;
 	}
 
+	protected abstract boolean isForgeAgnos();
+
 	public static String getModName(String namespace) {
-		return "Minecraft";
+		return delegate.getModNameAgnos(namespace);
 	}
 
 	protected abstract String getModNameAgnos(String namespace);

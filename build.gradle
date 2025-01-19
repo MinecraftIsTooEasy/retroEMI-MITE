@@ -21,7 +21,7 @@ repositories {
 loom {
 	accessWidenerPath = file("src/main/resources/emi.accesswidener")
 	mergedMinecraftJar()
-	setFML(new File("libs\\FishModLoader-v3.3.3.jar"))
+	setFML(new File("libs\\FishModLoader-v3.0.0.jar"))
 	mods {
 		"EMI" {
 			sourceSet sourceSets.main
@@ -38,7 +38,6 @@ dependencies {
 
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.fmlMCPMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	implementation files("libs\\fastutil-8.5.12.jar")
 	implementation files("libs\\gson-2.10.1.jar")
@@ -84,4 +83,15 @@ publishing {
 	repositories {
 
 	}
+}
+
+allprojects {
+	base.archivesName = rootProject.archives_base_name
+	ext.mavenVersion = "${rootProject.mod_version}"
+	if (System.getenv("RELEASE") == null) {
+		ext.mavenVersion += "-SNAPSHOT"
+	}
+	ext.mavenVersion += "+${rootProject.minecraft_version}"
+	version = "${project.ext.mavenVersion}+${project.enabled_platforms}-dev"
+	group = rootProject.maven_group
 }

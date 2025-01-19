@@ -1,6 +1,6 @@
 package dev.emi.emi.runtime;
 
-import net.fabricmc.loader.api.FabricLoader;
+import net.xiaoyu233.fml.FishModLoader;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -23,7 +23,7 @@ public class EmiLog {
 	}
 	
 	public static void debug(String str) {
-		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+		if (FishModLoader.isDevelopmentEnvironment()) {
 			logger.info("EMI: " + str);
 		}
 	}

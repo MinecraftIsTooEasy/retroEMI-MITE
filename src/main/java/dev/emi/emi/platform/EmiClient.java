@@ -13,7 +13,7 @@ import net.minecraft.Slot;
 
 import java.util.List;
 
-public class EmiClient implements ClientModInitializer {
+public class EmiClient implements ClientModInitializer{
 	public static boolean onServer = false;
 
 	public static void init() {
@@ -21,7 +21,7 @@ public class EmiClient implements ClientModInitializer {
 	}
 
 	public static <T extends Container> void sendFillRecipe(StandardRecipeHandler<T> handler, GuiContainer screen,
-															int syncId, int action, List<ItemStack> stacks, EmiRecipe recipe) {
+			int syncId, int action, List<ItemStack> stacks, EmiRecipe recipe) {
 		T screenHandler = (T)screen.inventorySlots;
 		List<Slot> crafting = handler.getCraftingSlots(recipe, screenHandler);
 		Slot output = handler.getOutputSlot(screenHandler);
@@ -30,5 +30,6 @@ public class EmiClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		init();
 	}
 }

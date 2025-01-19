@@ -8,10 +8,10 @@
     "Emi",
     "Katherine",
     "Bagel",
-    "Xy_Lose",
-    "limingzxc"
+    "Xy_Lose"
   ],
   "contributors": [
+    "limingzxc",
     "Huix"
   ],
   "contact": {},
@@ -20,7 +20,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.emi.emi.platform.EmiMain"
+      "moddedmite.emi.platform.fish.EmiMainFish"
     ],
     "client": [
       "dev.emi.emi.platform.EmiClient"
@@ -47,9 +47,9 @@
   "accessWidener": "emi.accesswidener",
   "depends": {
     "minecraft": "1.6.4-mite",
-    "fishmodloader": ">=3.3.3"
+    "fishmodloader": ">=3.4.0"
   },
-  "recommends": {
+  "suggests": {
     "hwite": ">=1.4.7",
     "pinin": ">=1.6.0"
   }

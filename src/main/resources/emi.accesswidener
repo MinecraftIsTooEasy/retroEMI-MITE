@@ -17,3 +17,5 @@ accessible method net/minecraft/Gui drawGradientRect (IIIIII)V
 accessible method net/minecraft/Minecraft loadScreen ()V
 accessible field net/minecraft/Minecraft fullscreen Z
 accessible field net/minecraft/Material durability F
+accessible field net/minecraft/Skill id I
+accessible method net/minecraft/CraftingManager addShapelessRecipe (Lnet/minecraft/ItemStack;Z[Ljava/lang/Object;)Lnet/minecraft/ShapelessRecipes;

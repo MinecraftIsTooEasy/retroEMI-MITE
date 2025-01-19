@@ -7,10 +7,9 @@ import dev.emi.emi.platform.EmiClient;
 import dev.emi.emi.platform.EmiMain;
 import moddedmite.emi.api.EMIPlayerControllerMP;
 import moddedmite.emi.util.MinecraftServerEMI;
-import shims.java.com.unascribed.retroemi.EmiAgnosMITEFish;
+import moddedmite.emi.platform.fish.EmiAgnosFish;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.network.PacketByteBuf;
-import net.fabricmc.api.ModInitializer;
 import net.minecraft.Minecraft;
 import net.minecraft.Packet250CustomPayload;
 
@@ -31,7 +30,7 @@ public class EMIPostInit {
 	public static final class InRelauncher {
 
 		public static void init() {
-			EmiAgnosMITEFish.poke();
+			EmiAgnosFish.poke();
 			if (!MinecraftServerEMI.getIsServer()) {
 				Client.init();
 			}

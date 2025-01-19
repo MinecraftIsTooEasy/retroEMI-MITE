@@ -38,9 +38,9 @@ public class SidebarPages {
 			}
 		}
 	}
-	
+
 	public boolean canShowChess() {
-		return settings.size().values.getInt(0) == 8 && settings.size().values.getInt(1) == 8 && settings.theme() == SidebarTheme.MODERN;
+		return settings.size().values.get(0) == 8 && settings.size().values.get(1) == 8 && settings.theme() == SidebarTheme.MODERN;
 	}
 	
 	public static class SidebarPage {

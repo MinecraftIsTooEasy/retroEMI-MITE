@@ -163,7 +163,7 @@ public class EmiScreenManager {
 			}
 			spaceExclusion.addAll(exclusion);
 			
-			int topCenter = EmiConfig.topSidebarSize.values.getInt(0) * ENTRY_SIZE / 2 + EmiConfig.topSidebarTheme.horizontalPadding;
+			int topCenter = EmiConfig.topSidebarSize.values.get(0) * ENTRY_SIZE / 2 + EmiConfig.topSidebarTheme.horizontalPadding;
 			int topSpaceBottom = switch (EmiConfig.topSidebarAlign.horizontal) {
 				case LEFT -> getVerticalConstraint(panels.get(0), EmiConfig.topSidebarMargins.left() + topCenter, top, screen.height, true);
 				case CENTER -> top;
@@ -173,7 +173,7 @@ public class EmiScreenManager {
 			
 			createScreenSpace(panels.get(2), screen, spaceExclusion, topRtl, new Bounds(0, 0, screen.width, topSpaceBottom), SidebarSettings.TOP);
 			
-			int bottomCenter = EmiConfig.bottomSidebarSize.values.getInt(0) * ENTRY_SIZE / 2 + EmiConfig.bottomSidebarTheme.horizontalPadding;
+			int bottomCenter = EmiConfig.bottomSidebarSize.values.get(0) * ENTRY_SIZE / 2 + EmiConfig.bottomSidebarTheme.horizontalPadding;
 			int bottomSpaceTop = switch (EmiConfig.bottomSidebarAlign.horizontal) {
 				case LEFT -> getVerticalConstraint(panels.get(0), EmiConfig.bottomSidebarMargins.left() + bottomCenter, bottom, 0, false);
 				case CENTER -> bottom;
@@ -211,8 +211,8 @@ public class EmiScreenManager {
 		SidebarSubpanels subpanels = settings.subpanels();
 		boolean header = settings.header() == HeaderType.VISIBLE;
 		
-		int maxWidth = settings.size().values.getInt(0);
-		int maxHeight = settings.size().values.getInt(1);
+		int maxWidth = settings.size().values.get(0);
+		int maxHeight = settings.size().values.get(1);
 		
 		int subpanelHeight = 0;
 		for (SidebarSubpanels.Subpanel subpanel : subpanels.subpanels) {
@@ -1024,10 +1024,14 @@ public class EmiScreenManager {
 		if (function.apply(EmiConfig.viewTree)) {
 			EmiApi.viewRecipeTree();
 			return true;
-		}
-		else if (function.apply(EmiConfig.back)) {
+		} else if (function.apply(EmiConfig.back)) {
 			if (!EmiHistory.isEmpty()) {
 				EmiHistory.pop();
+				return true;
+			}
+		} else if (function.apply(EmiConfig.forward)) {
+			if (!EmiHistory.isForwardEmpty()) {
+				EmiHistory.forward();
 				return true;
 			}
 		}

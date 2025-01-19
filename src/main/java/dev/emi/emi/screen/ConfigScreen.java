@@ -73,30 +73,20 @@ public class ConfigScreen extends REMIScreen {
 		EmiSearch.update();
 		Minecraft.getMinecraft().displayGuiScreen(last);
 	}
-	
 
+	@SuppressWarnings("unchecked")
 	public static List<TooltipComponent> getFieldTooltip(Field field) {
 		List<TooltipComponent> text;
 		ConfigValue annot = field.getAnnotation(ConfigValue.class);
 		String key = "config.emi.tooltip." + annot.value().replace('-', '_');
 		Comment comment = field.getAnnotation(Comment.class);
 		if (StringTranslate.getInstance().containsTranslateKey(key)) {
-			text = Arrays.stream(RetroEMI.translate(key).split("\n")).map(EmiPort::literal).map(EmiTooltipComponents::of)
-					.collect(Collectors.toList());
-		}
-		else if (comment != null) {
-			String commentStr = comment.value();
-			if (commentStr.startsWith("emi.config.tooltip.")) {
-				text = Arrays.stream(RetroEMI.translate(commentStr).split("\n")).map(EmiPort::literal).map(EmiTooltipComponents::of)
-						.collect(Collectors.toList());
-			} else {
-				text = Arrays.stream(commentStr.split("\n")).map(EmiPort::literal).map(EmiTooltipComponents::of)
-						.collect(Collectors.toList());
-			}
-		}
-
-
-		else {
+			text = Arrays.stream(RetroEMI.translate(key).split("\n"))
+					.map(EmiPort::literal).map(EmiTooltipComponents::of).toList();
+		} else if (comment != null) {
+			text = Arrays.stream(comment.value().split("\n"))
+					.map(EmiPort::literal).map(EmiTooltipComponents::of).toList();
+		} else {
 			text = null;
 		}
 		if (text == null) {

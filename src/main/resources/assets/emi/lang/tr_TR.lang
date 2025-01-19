@@ -1,0 +1,312 @@
+# EMI
+
+key.keyboard.control=Ctrl
+key.keyboard.alt=Alt
+key.keyboard.shift=Shift
+
+key.emi.toggle_visibility=Görünürlüğü Aç/Kapa
+key.emi.focus_search=Odaklı Ara
+key.emi.clear_search=Arananları Temizle
+key.emi.view_recipes=Tarifleri Gör
+key.emi.view_uses=Kullanımları Gör
+key.emi.favorite=Favori
+key.emi.set_default=Varsayılan Ayarla
+key.emi.default_stack=Varsayılan Stek Ayarla
+key.emi.view_stack_tree=Stek Ağacını Gör
+key.emi.view_tree=Ağacı Gör
+key.emi.back=Geri
+key.emi.forward=İleri
+key.emi.craft_one=Bir Tane Üret
+key.emi.craft_all=Hepsini Üret
+key.emi.craft_one_to_inventory=Envantere Bir Tane Üret
+key.emi.craft_all_to_inventory=Envantere Hepsini Üret
+key.emi.craft_one_to_cursor=İmlece Bir Tane Üret
+key.emi.show_craft=Üretimi Gör
+key.emi.cheat_one_to_inventory=Envantere Bir Tane Hilele
+key.emi.cheat_stack_to_inventory=Envantere Bir Stek Hilele
+key.emi.cheat_one_to_cursor=İmlece Bir Tane Hilele
+key.emi.cheat_stack_to_cursor=İmlece Bir Stek Hilele
+key.emi.delete_cursor_stack=İmleçten Bir Stek Sil
+key.emi.hide_stack=Steki Gizle
+key.emi.hide_stack_by_id=Steki ID'ye göre Gizle
+
+emi.help_level.verbose=Ayrıntılı
+emi.help_level.normal=Normal
+emi.help_level.none=Hiç
+emi.align.horizontal.left=Sol
+emi.align.horizontal.center=Merkez
+emi.align.horizontal.right=Sağ
+emi.align.vertical.top=Üst
+emi.align.vertical.center=Merkez
+emi.align.vertical.bottom=Alt
+emi.sidebar.type.none=Hiç
+emi.sidebar.type.index=Dizin
+emi.sidebar.type.craftables=Üretilebilenler
+emi.sidebar.type.favorites=Favoriler
+emi.sidebar.type.lookup_history=Arama Geçmişi
+emi.sidebar.type.craft_history=Üretim Geçmişi
+emi.sidebar.type.chess=Satranç
+emi.sidebar.theme.transparent=Saydam
+emi.sidebar.theme.vanilla=Vanilla
+emi.sidebar.theme.modern=Modern
+emi.header.visible=Görünür
+emi.header.invisible=Görünmez
+emi.sidebar.size.columns=Sütunlar
+emi.sidebar.size.rows=Sıralar
+emi.sidebar.margins.top=Üst
+emi.sidebar.margins.right=Sağ
+emi.sidebar.margins.bottom=Alt
+emi.sidebar.margins.left=Sol
+emi.sidebar.none=Hiç
+emi.sidebar.left=Sol
+emi.sidebar.right=Sağ
+emi.sidebar.top=Üst
+emi.sidebar.bottom=Alt
+emi.effect_location.top=Üst
+emi.effect_location.left_compressed=Sol (Sıkıştırılmış)
+emi.effect_location.right_compressed=Sağ (Sıkıştırılmış)
+emi.effect_location.left=Sol
+emi.effect_location.right=Sağ
+emi.recipe_book_action.default=Varsayılan
+emi.recipe_book_action.toggle_craftables=Üretilebilirleri Değiştir
+emi.recipe_book_action.toggle_visibility=Görünürlüğü Değiştir
+
+config.emi.group.general=Genel
+config.emi.group.general.search=Arama
+config.emi.group.ui=Arayüz
+config.emi.group.ui.mod_id=Mod ID
+config.emi.group.ui.recipe_screen=Tarif Ekranı
+config.emi.group.ui.recipe_buttons=Tarif Düğmeleri
+config.emi.group.ui.left_sidebar=Sol Araç Çubuğu
+config.emi.group.ui.right_sidebar=Sağ Araç Çubuğu
+config.emi.group.ui.top_sidebar=Üst Araç Çubuğu
+config.emi.group.ui.bottom_sidebar=Alt Araç Çubuğu
+config.emi.group.binds=Atamalar
+config.emi.group.dev=Geliştirici
+
+config.emi.group.binds.crafts=Üretimler
+config.emi.group.binds.cheats=Üretimler
+
+config.emi.general.enabled=Etkin
+config.emi.general.cheat_mode=Hile Modu
+config.emi.general.help_level=Yardım Düzeyi
+config.emi.general.search_tooltip_by_default=Varsayılan Bilgi Çubuğuyla Ara
+config.emi.general.search_mod_name_by_default=Varsayılan Mod İsmiyle Ara
+config.emi.general.search_tags_by_default=Varsayılan Etiketlerle Ara
+config.emi.general.search_id_by_default=Varsayılan ID'lerle Ara
+config.emi.general.simulate_nei_lag=[retroEMI] NEI Gecikme Simülasyonu
+
+config.emi.ui.effect_location=Efekt Konumu
+config.emi.ui.center_search_bar=Arama Çubuğunu Merkezle
+config.emi.ui.show_hover_overlay=Üzerine Gelinen Yerleşimi Göster
+config.emi.ui.append_mod_id=Mod ID Ekle
+config.emi.ui.append_item_mod_id=Mod Eşya ID'si Ekle
+config.emi.ui.recipe_book_action=Tarif Kitabı Eylemi
+config.emi.ui.search_sidebar_focus=Arama Kenar Çubuğu Odağı
+config.emi.ui.empty_search_sidebar_focus=Arama Kenar Çubuğu Odağı Temizle
+
+config.emi.ui.left_sidebar_pages=Sayfalar
+config.emi.ui.left_sidebar_subpanels=Alt Paneller
+config.emi.ui.left_sidebar_size=Boyut
+config.emi.ui.left_sidebar_margins=Kenar Boşlukları
+config.emi.ui.left_sidebar_align=Hizalama
+config.emi.ui.left_sidebar_header=Başlık
+config.emi.ui.left_sidebar_theme=Tema
+
+config.emi.ui.right_sidebar_pages=Sayfalar
+config.emi.ui.right_sidebar_subpanels=Alt Paneller
+config.emi.ui.right_sidebar_size=Boyut
+config.emi.ui.right_sidebar_margins=Kenar Boşlukları
+config.emi.ui.right_sidebar_align=Hizalama
+config.emi.ui.right_sidebar_header=Başlık
+config.emi.ui.right_sidebar_theme=Tema
+
+config.emi.ui.top_sidebar_pages=Sayfalar
+config.emi.ui.top_sidebar_subpanels=Alt Paneller
+config.emi.ui.top_sidebar_size=Boyut
+config.emi.ui.top_sidebar_margins=Kenar Boşlukları
+config.emi.ui.top_sidebar_align=Hizalama
+config.emi.ui.top_sidebar_header=Başlık
+config.emi.ui.top_sidebar_theme=Tema
+
+config.emi.ui.bottom_sidebar_pages=Sayfalar
+config.emi.ui.bottom_sidebar_subpanels=Alt Paneller
+config.emi.ui.bottom_sidebar_size=Boyut
+config.emi.ui.bottom_sidebar_margins=Kenar Boşlukları
+config.emi.ui.bottom_sidebar_align=Hizalama
+config.emi.ui.bottom_sidebar_header=Başlık
+config.emi.ui.bottom_sidebar_theme=Tema
+
+config.emi.ui.vertical_margin=Dikey Kenar Boşluğu
+config.emi.ui.minimum_recipe_screen_width=Minimum Tarif Ekranı Genişliği
+config.emi.ui.workstation_location=Çalışma Masası Konumu
+config.emi.ui.miscraft_prevention=Yanlış Üretim Önleme
+config.emi.ui.fluid_unit=Sıvı Ünitesi
+config.emi.ui.show_cost_per_batch=Grup Başına Maliyeti Göster
+config.emi.ui.recipe_default_button=Varsayılan Tarif Düğmesi
+config.emi.ui.recipe_tree_button=Tarif Ağacı Düğmesi
+config.emi.ui.recipe_fill_button=Tarif Doldurma Düğmesi
+config.emi.ui.recipe_screenshot_button=Tarif Ekran Görüntüsü Düğmesi
+config.emi.ui.recipe_screenshot_scale=Tarif Ekran Görüntüsü Boyutu
+config.emi.ui.use_batched_renderer=Batched Renderlama Kullan
+
+config.emi.dev.dev_mode=Geliştirici Modu
+config.emi.dev.edit_mode=Düzenleme Modu
+config.emi.dev.log_untranslated_tags=Çevrilmemiş Etiketleri Günlükle
+config.emi.dev.log_non_tag_ingredients=Etiketsiz Bileşenleri Günlükle
+config.emi.dev.show_recipe_ids=Tarif ID'lerini Göster
+config.emi.dev.highlight_defaulted=Varsayılanları Vurgula
+config.emi.dev.highlight_exclusion_areas=Hariç Tutulan Alanları Vurgula
+
+config.emi.presets.sidebars=Kenar Çubuğu
+config.emi.presets.binds=Atamalar
+config.emi.presets.restore=Geri Yükle
+
+config.emi.presets.productive=Üretken
+config.emi.presets.recipe_book_plus=Tarif Kitabı+
+
+config.emi.presets.author_binds=Yazar Atamaları
+
+config.emi.presets.backup=Yedeği Geri Yükle
+config.emi.presets.defaults=Varsayılanları Geri Yükle
+
+emi.unit.liters=Litre
+emi.unit.millibuckets=Milikova
+emi.unit.droplets=Damla
+emi.fluid.amount.liters=%s L
+emi.fluid.amount.millibuckets=%smB
+emi.fluid.amount.droplets=%s d
+
+emi.disabled=EMI devre dışı! Göstermek için:
+emi.reloading=EMI Yeniden Yükleniyor...
+emi.reloading.waiting=EMI sunucudan tarif verisi bekliyor...
+emi.reloading.error=§cEMI, kontrol günlüğünü yeniden yüklerken kritik bir istisna yaşadı
+emi.reloading.worry=§cGecikme yaşanıyor her şey yolunda mı?
+emi.search=EMI'da Ara...
+emi.search_config=Yapılandırma Ara...
+emi.delete_stack=§cTutulan stacki sil
+emi.inapplicable=Mevcut çalışma masası tarifi desteklemiyor
+emi.not_enough_ingredients=Üretim için yeterli malzeme yok
+emi.too_small=Üretim menüsü malzemeleri sığdırmak için çok küçük
+emi.favorite_recipe=Tarifi favorilemek için %s tuşuna basın
+emi.resolve.resolve=Bu tarif ağacını kullanmak için %s tuşuna basın
+emi.resolve.default=Tüm ağaçlar için varsayılan yapmak için %s tuşuna basın
+emi.page=Sayfa %s/%s
+emi.page.short=%s/%s
+emi.total_cost=Toplam Maliyet
+emi.cost_per=Üretim başına maliyet:
+emi.leftovers=Arta Kalanlar
+emi.view_all_recipes=Tüm tarifleri görmek için tıklayın
+emi.tree_welcome=%s Ağacına Hoş Geldiniz
+emi.no_tree=Görüntülemek için henüz bir tarif ağacı seçmediniz...
+emi.random_tree=Belki rastgele birini görmek istersiniz?
+emi.random_tree_input=§6[ctrl + r] tuşlarına basın
+emi.edit_mode.hide_one=Steki gizlemek için %s tuşuna basın
+emi.edit_mode.hide_all=Steki ID'ye göre gizlemek için %s tuşuna basın
+tooltip.emi.chance.consume=Tüketim şansı: %s%%
+tooltip.emi.chance.produce=Üretim şansı: %s%%
+tooltip.emi.accepts=Alınan:
+tooltip.emi.fill_recipe=Tarifi Doldur
+tooltip.emi.fill_recipe_no_server=Sunucuda EMI olmadan Tarif Doldurulamıyor
+tooltip.emi.set_default=Varsayılan tarif olarak ayarla
+tooltip.emi.current_defaults=Şu an için varsayılan tarif:
+tooltip.emi.unset_default=Varsayılan tarif olarak kaldır
+tooltip.emi.set_default_stack=Bu stekin varsayılan tarifini ayarlamak için bir çıktı üzerinde %s tuşuna basın
+tooltip.emi.view_tree=Tarif Ağacını Gör
+tooltip.emi.recipe_screenshot=Tarif Ekran Görüntüsü Alın
+tooltip.emi.resolution=Bileşen için tarif ağacını çözme
+tooltip.emi.select_resolution=Bu tarif ağacına atamak için bir §6tarifin çıktı§r'sına tıklayın
+tooltip.emi.default_resolution=§aTüm §rtarif ağaçlarına atamak için §6varsayılan tarif düğmesine§ tıklayın
+tooltip.emi.clear_resolution=Çözümü §ctemizlemek§r için §6buraya§r tıklayın
+
+tooltip.emi.config=%s Yapılandırma
+tooltip.emi.recipe_tree=Tarif Ağacı
+
+
+tooltip.emi.config.global=Oyun örneği başına ayrı bir yapılandırma yerine tüm oyun örnekleri arasında genel bir EMI yapılandırması kullanmayı değiştirin./n§cHenüz Uygulanmadı§r
+
+tooltip.emi.synfav.uncraftable=§cHiçbir§r tarif üretilemiyor
+tooltip.emi.synfav.partially_craftable=§dBazı§r tarifler üretilebilir
+tooltip.emi.synfav.fully_craftable=§aBütün %s§r tarifler üretilebilir
+tooltip.emi.synfav.craft_some=Mümkün olduğunca çok üretmek için %s tuşuna basın
+tooltip.emi.synfav.craft_all=Tüm §9%s§r tarifleri üretmek için %s tuşuna basın
+
+tooltip.emi.recipe_remainder=Ek olarak:
+
+tooltip.emi.bom.batch_size=Toplam iş: %s/nAyarlamak için fareyle kaydırın/n16 ile ayarlamak için §6[shift]§r tuşuna basılı tutun
+tooltip.emi.bom.batch_size.ideal=En az arta kalanı almak için %s tuşuna basın
+tooltip.emi.bom.mode.view=Tarif ağacı §6görüntüleniyor§r
+tooltip.emi.bom.mode.craft=Tarif ağacı §6üretiliyor§r/nİlerleme tarif ağacında gösterilecek/n§bYapay favoriler§r kenar çubuğuna eklendi
+tooltip.emi.bom.help=Tarif ağacı, bir tarifin sürecini ve temel maliyetini gösterir/nGörüntü kaydırılabilir ve yakınlaştırılabilir/n/nBir tarifi seçmek için farenin sol tuşuyla tıklayın/nEnvanterinize göre otomatik olarak seçmek için §6[shift]§r tuşunu basılı tutun/n/Geçici olarak katlamak için bir tarif düğümüne sağ tıklayın/nTarifi temizlemek için §6[shift]§r tuşunu basılı tutun/n/nİlk ağaç durumu varsayılan tarifler tarafından kontrol edilir/nTariflerin yanındaki bir düğme varsayılan tarif tercihlerini ayarlayabilir/n/nToplam maliyete göre geçiş, bir tarif ağacı üretmeye yardımcı olmak için kullanılabilir/nToplanması gereken üretim malzemeleri görüntülenirken/n§bYapay favoriler§r, tamamlanmamış adımları gösterecek ve üretim yapmak için kullanılabilecek favoriler kenar çubuğuna eklenecektir
+screen.emi.recipe=Tarif
+screen.emi.config=Yapılandırma
+screen.emi.presets=Yapılandırma Ön Ayarı
+
+screen.emi.config.reset=%s değişikl(iği/eri) geri döndür
+
+emi.error.recipe.initialize=Başlatma Hatası
+emi.error.recipe.render=Render Hatası
+
+# EMI Chess
+
+emi.chess.piece.white_pawn=Beyaz Piyon
+emi.chess.piece.white_rook=Beyaz Kale
+emi.chess.piece.white_knight=Beyaz At
+emi.chess.piece.white_bishop=Beyaz Fil
+emi.chess.piece.white_queen=Beyaz Vezir
+emi.chess.piece.white_king=Beyaz Şah
+emi.chess.piece.black_pawn=Siyah Piyon
+emi.chess.piece.black_rook=Siyah Kale
+emi.chess.piece.black_knight=Siyah At
+emi.chess.piece.black_bishop=Siyah Fil
+emi.chess.piece.black_queen=Siyah Vezir
+emi.chess.piece.black_king=Siyah Şah
+emi.chess.tooltip.invite=Arama çubuğunuzdaki oyuncuyu satranç oynamaya davet edin
+emi.chess.tooltip.accept=%s oyuncusunun satranç davetini kabul et
+emi.chess.tooltip.decline=%s oyuncusunun satranç davetini reddetmek için sağ tıklayın
+emi.chess.tooltip.restart=Yeniden başlatmak için sağ tıklayın
+emi.chess.multiplayer.invited=%s seni satranç oynamaya davet etti
+emi.chess.multiplayer.accepted=%s satranç davetinizi kabul etti
+emi.chess.multiplayer.cancelled=%s satranç oyununu reddetti
+emi.chess.multiplayer.unavailable=%s satranç oynayamaz
+
+emi.cooking.time=%s Saniye
+emi.fuel_time.items=%s boyunca yanar
+emi.trade.BlacksmithVillagerEntity=%d Seviye Demirci Gerektirir
+emi.trade.PriestVillagerEntity=%d Seviye Rahip Gerektirir
+emi.trade.LibrarianVillagerEntity=%d Seviye Kütüphaneci Gerektirir
+emi.trade.FarmerVillagerEntity=%d Seviye Çiftçi Gerektirir
+emi.trade.ButcherVillagerEntity=%d Seviye Kasap Gerektirir
+emi.trade.level_up=Seviye %d'den/ten %d'(y)e yükseltir
+emi.trade.enchanted=Büyüler Rastgeledir
+
+# EMI Commands
+
+commands.emi.usage=Tariflerin, tarif ağacının görüntülenmesine, bir ağaç hedefi eklenmesine ve bir ağaç özeti eklenmesine izin verir. Henüz uygulanmadı.
+commands.emi.nyi=Bu komut henüz uygulanmamıştır
+commands.emi.id=Bir tarif ID'si gerektirir.
+
+# EMI Categories
+
+emi.category.minecraft.crafting=Üretim
+emi.category.minecraft.brewing=İksir Yapımı
+emi.category.minecraft.smelting=Tuğla Fırında Pişirme
+emi.category.emi.world_interaction=Dünya Etkileşimi
+emi.category.emi.fuel=Yakıt
+emi.category.emi.info=Bilgi
+
+emi.category.emi.tag=Etiketler
+emi.category.emi.ingredient=Malzemeler
+
+emi.category.mite.food=Yiyecekler
+
+alias.emi.workbench=Çalışma Tezgahı
+alias.emi.crafting_table=Çalışma Masası
+alias.emi.stick=Çubuk
+alias.emi.tnt=TNT
+
+# EMI Tags
+
+# EMI recipe info
+
+# EMI Item Info

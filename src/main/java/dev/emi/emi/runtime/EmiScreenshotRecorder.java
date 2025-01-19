@@ -12,7 +12,7 @@ import net.minecraft.Minecraft;
 import net.minecraft.Tessellator;
 import org.joml.Matrix4f;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+//import com.mojang.blaze3d.systems.RenderSystem;
 //import com.mojang.blaze3d.systems.VertexSorter;
 
 import dev.emi.emi.EmiPort;

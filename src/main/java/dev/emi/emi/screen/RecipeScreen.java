@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RecipeScreen extends REMIScreen implements EmiScreen {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/background.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation("emi", "textures/gui/background.png");
 	public static @Nullable EmiIngredient resolve = null;
 	private Map<EmiRecipeCategory, List<EmiRecipe>> recipes;
 	public GuiContainer old;

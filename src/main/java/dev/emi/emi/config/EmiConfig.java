@@ -7,12 +7,10 @@ import dev.emi.emi.input.EmiBind;
 import dev.emi.emi.input.EmiInput;
 import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.runtime.EmiLog;
-import net.xiaoyu233.fml.FishModLoader;
 import shims.java.com.unascribed.nil.QDCSS;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.util.InputUtil;
 import shims.java.org.lwjgl.glfw.GLFW;
-import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.Util;
 
 import java.io.File;
@@ -22,10 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -40,420 +35,426 @@ public class EmiConfig {
 	public static String startupConfig;
 
 	// General
-	@Comment("emi.config.tooltip.general.enabled")
+	@Comment("Whether EMI is enabled and visible.")
 	@ConfigValue("general.enabled")
 	public static boolean enabled = true;
-	
-	@Comment("emi.config.tooltip.general.cheat-mode")
+
+	@Comment("Whether cheating in items is enabled.")
 	@ConfigValue("general.cheat-mode")
 	public static boolean cheatMode = false;
-	
-	@Comment("emi.config.tooltip.general.help-level")
+
+	@Comment("How much EMI should use tooltips and popups to show controls and information.")
 	@ConfigValue("general.help-level")
 	public static HelpLevel helpLevel = HelpLevel.NORMAL;
 
 	@ConfigGroup("general.search")
-	@Comment("emi.config.tooltip.general.search-sidebar")
+	@Comment("Which sidebar should be searched using the search bar.")
 	@ConfigValue("general.search-sidebar")
 	public static SidebarSide searchSidebar = SidebarSide.RIGHT;
 
-	@Comment("emi.config.tooltip.general.search-tooltip-by-default")
+	@Comment("Whether normal search queries should include the tooltip.")
 	@ConfigValue("general.search-tooltip-by-default")
 	public static boolean searchTooltipByDefault = true;
-	
-	@Comment("emi.config.tooltip.general.search-mod-name-by-default")
+
+	@Comment("Whether normal search queries should include the mod name.")
 	@ConfigValue("general.search-mod-name-by-default")
 	public static boolean searchModNameByDefault = false;
-	
-	@Comment("emi.config.tooltip.general.search-tags-by-default")
+
+	@Comment("Whether normal search queries should include the stack's tags.")
 	@ConfigValue("general.search-tags-by-default")
 	public static boolean searchTagsByDefault = false;
-	
-	@Comment("emi.config.tooltip.general.search-id-by-default")
+
+	@Comment("Whether normal search queries should include the stack's item ID. Better Than Wolves specifc.")
 	@ConfigValue("general.search-id-by-default")
 	public static boolean searchIdByDefault = true;
 
-	@Comment("emi.config.tooltip.general.search-name-by-pinyin")
+	@Comment("Whether normal search queries should include the pinyin, need Pinin_Lib Mod and zh_CN language.This option is not recommended for non-Chinese users.")
 	@ConfigValue("general.search-name-by-pinyin")
 	@ConfigGroupEnd
 	public static boolean searchNameByPinyin = true;
 
 	// UI
-	
-	@Comment("emi.config.tooltip.ui.effect-location")
+
+	@Comment("Where to display status effects in the inventory.")
 	@ConfigValue("ui.effect-location")
 	public static EffectLocation effectLocation = EffectLocation.TOP;
-	
-	@Comment("emi.config.tooltip.ui.show-hover-overlay")
+
+	@Comment("Whether to display a gray overlay when hovering over a stack.")
 	@ConfigValue("ui.show-hover-overlay")
 	public static boolean showHoverOverlay = true;
-	
+
 	@ConfigGroup("ui.mod-id")
-	@Comment("emi.config.tooltip.ui.append-mod-id")
+	@Comment("Whether to add mod name to tooltips")
 	@ConfigValue("ui.append-mod-id")
 	public static boolean appendModId = true;
-	
+
 	@ConfigGroupEnd
-	@Comment("emi.config.tooltip.ui.append-item-mod-id")
+	@Comment("Whether to add mod name to item tooltips, in case another mod provides behavior")
 	@ConfigValue("ui.append-item-mod-id")
 	public static boolean appendItemModId = true;
-	
-	@Comment("emi.config.tooltip.ui.miscraft-prevention")
+
+	@Comment("Prevents recipes being quick crafted from shifting around under the cursor.")
 	@ConfigValue("ui.miscraft-prevention")
 	public static boolean miscraftPrevention = true;
-	
-	@Comment("emi.config.tooltip.ui.fluid-unit")
+
+	@Comment("The unit to display fluids as.")
 	@ConfigValue("ui.fluid-unit")
 	public static FluidUnit fluidUnit = EmiAgnos.isForge() ? FluidUnit.MILLIBUCKETS : FluidUnit.LITERS;
-	
-	@Comment("emi.config.tooltip.ui.center-search-bar")
+
+	@Comment("Whether to have the search bar in the center of the screen, instead of to the side.")
 	@ConfigValue("ui.center-search-bar")
 	public static boolean centerSearchBar = true;
-	
+
 	@ConfigFilter("ui.search-sidebar-focus")
 	private static Predicate<SidebarType> searchSidebarFocusFilter = type -> {
 		return type != SidebarType.CHESS;
 	};
-	
-	@Comment("emi.config.tooltip.ui.search-sidebar-focus")
+
+	@Comment("Which sidebar type to switch to when searching.")
 	@ConfigValue("ui.search-sidebar-focus")
 	public static SidebarType searchSidebarFocus = SidebarType.INDEX;
-	
+
 	@ConfigFilter("ui.empty-search-sidebar-focus")
 	private static Predicate<SidebarType> emptySearchSidebarFocusFilter = type -> {
 		return type != SidebarType.CHESS;
 	};
-	
-	@Comment("emi.config.tooltip.ui.empty-search-sidebar-focus")
+
+	@Comment("Which sidebar type to focus when the search is empty.")
 	@ConfigValue("ui.empty-search-sidebar-focus")
 	public static SidebarType emptySearchSidebarFocus = SidebarType.NONE;
 
-	@Comment("config.emi.tooltip.ui.emi_config_button_visibility")
+	@Comment("Whether the EMI config button should be visible.")
 	@ConfigValue("ui.emi-config-button-visibility")
 	public static ButtonVisibility emiConfigButtonVisibility = ButtonVisibility.SHOWN;
 
-	@Comment("config.emi.tooltip.ui.recipe_tree_button_visibility")
+	@Comment("Whether the recipe tree button should be visible.")
 	@ConfigValue("ui.recipe-tree-button-visibility")
 	public static ButtonVisibility recipeTreeButtonVisibility = ButtonVisibility.AUTO;
-	
+
 	@ConfigGroup("ui.recipe-screen")
-	@Comment("emi.config.tooltip.ui.vertical-margin")
+	@Comment("The amount of vertical margin to give in the recipe screen.")
 	@ConfigValue("ui.vertical-margin")
 	public static int verticalMargin = 20;
-	
-	@Comment("emi.config.tooltip.ui.minimum-recipe-screen-width")
+
+	@Comment("The minimum width of the recipe screen in pixels. " + "Controls how many tabs there can be, and where the page switching buttons go. " +
+			"The default is 176, the width of most screens.")
 	@ConfigValue("ui.minimum-recipe-screen-width")
 	public static int minimumRecipeScreenWidth = 176;
-	
+
 	@ConfigFilter("ui.workstation-location")
 	private static Predicate<SidebarSide> workstationLocationFilter = side -> {
 		return side != SidebarSide.TOP;
 	};
-	@Comment("emi.config.tooltip.ui.workstation-location")
+	@Comment("Where to show workstations in the recipe screen")
 	@ConfigValue("ui.workstation-location")
 	public static SidebarSide workstationLocation = SidebarSide.BOTTOM;
-	
+
 	@ConfigGroupEnd()
-	@Comment("emi.config.tooltip.ui.show-cost-per-batch")
+	@Comment("Display cost per batch when hovering a recipe output")
 	@ConfigValue("ui.show-cost-per-batch")
 	public static boolean showCostPerBatch = true;
-	
+
 	@ConfigGroup("ui.recipe-buttons")
-	@Comment("emi.config.tooltip.ui.recipe-default-button")
+	@Comment("Whether recipes should have a button to set as default.")
 	@ConfigValue("ui.recipe-default-button")
 	public static boolean recipeDefaultButton = true;
-	
-	@Comment("emi.config.tooltip.ui.recipe-tree-button")
+
+	@Comment("Whether recipes should have a button to show the recipe tree.")
 	@ConfigValue("ui.recipe-tree-button")
 	public static boolean recipeTreeButton = true;
-	
-	@Comment("emi.config.tooltip.ui.recipe-fill-button")
+
+	@Comment("Whether recipes should have a button to fill the ingredients in a handler.")
 	@ConfigValue("ui.recipe-fill-button")
 	public static boolean recipeFillButton = true;
-	
-	@Comment("emi.config.tooltip.ui.recipe-screenshot-button")
+
+	@Comment("Whether recipes should have a button to take a screenshot of the recipe.")
 	@ConfigValue("ui.recipe-screenshot-button")
 	public static boolean recipeScreenshotButton = false;
-	
+
 	@ConfigGroupEnd
-	@Comment("emi.config.tooltip.ui.recipe-screenshot-scale")
+	@Comment("The GUI scale at which recipe screenshots are saved. Use 0 to use the current GUI scale.")
 	@ConfigValue("ui.recipe-screenshot-scale")
 	public static int recipeScreenshotScale = 0;
-	
+
 	// Left sidebar
-	
+
 	@ConfigGroup("ui.left-sidebar")
-	@Comment("emi.config.tooltip.ui.left-sidebar-pages")
+	@Comment("The pages in the left sidebar")
 	@ConfigValue("ui.left-sidebar-pages")
 	public static SidebarPages leftSidebarPages =
 			new SidebarPages(Collections.singletonList(new SidebarPages.SidebarPage(SidebarType.FAVORITES)), SidebarSettings.LEFT);
-	
-	@Comment("emi.config.tooltip.ui.left-sidebar-subpanels")
+
+	@Comment("The subpanels in the left sidebar")
 	@ConfigValue("ui.left-sidebar-subpanels")
 	public static SidebarSubpanels leftSidebarSubpanels = new SidebarSubpanels(List.of(), SidebarSettings.LEFT);
-	
-	@Comment("emi.config.tooltip.ui.left-sidebar-size")
+
+	@Comment("How many columns and rows of ingredients to limit the left sidebar to")
 	@ConfigValue("ui.left-sidebar-size")
-	public static IntGroup leftSidebarSize = new IntGroup("emi.sidebar.size.", List.of("columns", "rows"), IntList.of(12, 100));
-	
-	@Comment("emi.config.tooltip.ui.left-sidebar-margins")
+	public static IntGroup leftSidebarSize = new IntGroup("emi.sidebar.size.", List.of("columns", "rows"), new ArrayList<>(Arrays.asList(12, 100)));
+
+	@Comment("How much space to maintain between the left sidebar and obstructions, in pixels")
 	@ConfigValue("ui.left-sidebar-margins")
 	public static Margins leftSidebarMargins = new Margins(2, 2, 2, 2);
-	
-	@Comment("emi.config.tooltip.ui.left-sidebar-align")
+
+	@Comment("Where to position the left sidebar")
 	@ConfigValue("ui.left-sidebar-align")
 	public static ScreenAlign leftSidebarAlign = new ScreenAlign(ScreenAlign.Horizontal.LEFT, ScreenAlign.Vertical.TOP);
-	
-	@Comment("emi.config.tooltip.ui.left-sidebar-header")
+
+	@Comment("Whether to render the header buttons and page count for the left sidebar")
 	@ConfigValue("ui.left-sidebar-header")
 	public static HeaderType leftSidebarHeader = HeaderType.VISIBLE;
-	
+
 	@ConfigGroupEnd
-	@Comment("emi.config.tooltip.ui.left-sidebar-theme")
+	@Comment("Which theme to use for the left sidebar")
 	@ConfigValue("ui.left-sidebar-theme")
 	public static SidebarTheme leftSidebarTheme = SidebarTheme.TRANSPARENT;
-	
-	
+
+
 	// Right sidebar
-	
+
 	@ConfigGroup("ui.right-sidebar")
-	@Comment("emi.config.tooltip.ui.right-sidebar-pages")
+	@Comment("The pages in the right sidebar")
 	@ConfigValue("ui.right-sidebar-pages")
 	public static SidebarPages rightSidebarPages =
 			new SidebarPages(List.of(new SidebarPages.SidebarPage(SidebarType.INDEX), new SidebarPages.SidebarPage(SidebarType.CRAFTABLES)),
 					SidebarSettings.RIGHT);
-	
-	@Comment("emi.config.tooltip.ui.right-sidebar-subpanels")
+
+	@Comment("The subpanels in the right sidebar")
 	@ConfigValue("ui.right-sidebar-subpanels")
 	public static SidebarSubpanels rightSidebarSubpanels = new SidebarSubpanels(List.of(), SidebarSettings.RIGHT);
-	
-	@Comment("emi.config.tooltip.ui.right-sidebar-size")
+
+	@Comment("How many columns and rows of ingredients to limit the right sidebar to")
 	@ConfigValue("ui.right-sidebar-size")
-	public static IntGroup rightSidebarSize = new IntGroup("emi.sidebar.size.", List.of("columns", "rows"), IntList.of(12, 100));
-	
-	@Comment("emi.config.tooltip.ui.right-sidebar-margins")
+	public static IntGroup rightSidebarSize = new IntGroup("emi.sidebar.size.", List.of("columns", "rows"), new ArrayList<>(Arrays.asList(12, 100)));
+
+	@Comment("How much space to maintain between the right sidebar and obstructions, in pixels")
 	@ConfigValue("ui.right-sidebar-margins")
 	public static Margins rightSidebarMargins = new Margins(2, 2, 2, 2);
-	
-	@Comment("emi.config.tooltip.ui.right-sidebar-align")
+
+	@Comment("Where to position the right sidebar")
 	@ConfigValue("ui.right-sidebar-align")
 	public static ScreenAlign rightSidebarAlign = new ScreenAlign(ScreenAlign.Horizontal.RIGHT, ScreenAlign.Vertical.TOP);
-	
-	@Comment("emi.config.tooltip.ui.right-sidebar-header")
+
+	@Comment("Whether to render the header buttons and page count for the right sidebar")
 	@ConfigValue("ui.right-sidebar-header")
 	public static HeaderType rightSidebarHeader = HeaderType.VISIBLE;
-	
+
 	@ConfigGroupEnd
-	@Comment("emi.config.tooltip.ui.right-sidebar-theme")
+	@Comment("Which theme to use for the right sidebar")
 	@ConfigValue("ui.right-sidebar-theme")
 	public static SidebarTheme rightSidebarTheme = SidebarTheme.TRANSPARENT;
-	
+
 	// Top sidebar
-	
+
 	@ConfigGroup("ui.top-sidebar")
-	@Comment("emi.config.tooltip.ui.top-sidebar-pages")
+	@Comment("The pages in the top sidebar")
 	@ConfigValue("ui.top-sidebar-pages")
 	public static SidebarPages topSidebarPages = new SidebarPages(List.of(), SidebarSettings.TOP);
-	
-	@Comment("emi.config.tooltip.ui.top-sidebar-subpanels")
+
+	@Comment("The subpanels in the top sidebar")
 	@ConfigValue("ui.top-sidebar-subpanels")
 	public static SidebarSubpanels topSidebarSubpanels = new SidebarSubpanels(List.of(), SidebarSettings.TOP);
-	
-	@Comment("emi.config.tooltip.ui.top-sidebar-size")
+
+	@Comment("How many columns and rows of ingredients to limit the top sidebar to")
 	@ConfigValue("ui.top-sidebar-size")
-	public static IntGroup topSidebarSize = new IntGroup("emi.sidebar.size.", List.of("columns", "rows"), IntList.of(9, 9));
-	
-	@Comment("emi.config.tooltip.ui.top-sidebar-margins")
+	public static IntGroup topSidebarSize = new IntGroup("emi.sidebar.size.", List.of("columns", "rows"), new ArrayList<>(Arrays.asList(9, 9)));
+
+	@Comment("How much space to maintain between the top sidebar and obstructions, in pixels")
 	@ConfigValue("ui.top-sidebar-margins")
 	public static Margins topSidebarMargins = new Margins(2, 2, 2, 2);
-	
-	@Comment("emi.config.tooltip.ui.top-sidebar-align")
+
+	@Comment("Where to position the top sidebar")
 	@ConfigValue("ui.top-sidebar-align")
 	public static ScreenAlign topSidebarAlign = new ScreenAlign(ScreenAlign.Horizontal.CENTER, ScreenAlign.Vertical.CENTER);
-	
-	@Comment("emi.config.tooltip.ui.top-sidebar-header")
+
+	@Comment("Whether to render the header buttons and page count for the top sidebar")
 	@ConfigValue("ui.top-sidebar-header")
 	public static HeaderType topSidebarHeader = HeaderType.VISIBLE;
-	
+
 	@ConfigGroupEnd
-	@Comment("emi.config.tooltip.ui.top-sidebar-theme")
+	@Comment("Which theme to use for the top sidebar")
 	@ConfigValue("ui.top-sidebar-theme")
 	public static SidebarTheme topSidebarTheme = SidebarTheme.TRANSPARENT;
-	
+
 	// Bottom sidebar
-	
+
 	@ConfigGroup("ui.bottom-sidebar")
-	@Comment("emi.config.tooltip.ui.bottom-sidebar-pages")
+	@Comment("The pages in the bottom sidebar")
 	@ConfigValue("ui.bottom-sidebar-pages")
 	public static SidebarPages bottomSidebarPages = new SidebarPages(List.of(), SidebarSettings.BOTTOM);
-	
-	@Comment("emi.config.tooltip.ui.bottom-sidebar-subpanels")
+
+	@Comment("The subpanels in the bottom sidebar")
 	@ConfigValue("ui.bottom-sidebar-subpanels")
 	public static SidebarSubpanels bottomSidebarSubpanels = new SidebarSubpanels(List.of(), SidebarSettings.BOTTOM);
-	
-	@Comment("emi.config.tooltip.ui.bottom-sidebar-size")
+
+	@Comment("How many columns and rows of ingredients to limit the bottom sidebar to")
 	@ConfigValue("ui.bottom-sidebar-size")
-	public static IntGroup bottomSidebarSize = new IntGroup("emi.sidebar.size.", List.of("columns", "rows"), IntList.of(9, 9));
-	
-	@Comment("emi.config.tooltip.ui.bottom-sidebar-margins")
+	public static IntGroup bottomSidebarSize = new IntGroup("emi.sidebar.size.", List.of("columns", "rows"), new ArrayList<>(Arrays.asList(9, 9)));
+
+	@Comment("How much space to maintain between the bottom sidebar and obstructions, in pixels")
 	@ConfigValue("ui.bottom-sidebar-margins")
 	public static Margins bottomSidebarMargins = new Margins(2, 2, 2, 2);
-	
-	@Comment("emi.config.tooltip.ui.bottom-sidebar-align")
+
+	@Comment("Where to position the bottom sidebar")
 	@ConfigValue("ui.bottom-sidebar-align")
 	public static ScreenAlign bottomSidebarAlign = new ScreenAlign(ScreenAlign.Horizontal.CENTER, ScreenAlign.Vertical.CENTER);
-	
-	@Comment("emi.config.tooltip.ui.bottom-sidebar-header")
+
+	@Comment("Whether to render the header buttons and page count for the bottom sidebar")
 	@ConfigValue("ui.bottom-sidebar-header")
 	public static HeaderType bottomSidebarHeader = HeaderType.VISIBLE;
-	
+
 	@ConfigGroupEnd
-	@Comment("emi.config.tooltip.ui.bottom-sidebar-theme")
+	@Comment("Which theme to use for the bottom sidebar")
 	@ConfigValue("ui.bottom-sidebar-theme")
 	public static SidebarTheme bottomSidebarTheme = SidebarTheme.TRANSPARENT;
-	
+
 	// Binds
-	@Comment("emi.config.tooltip.binds.toggle-visibility")
+	@Comment("Toggle the visibility of EMI.")
 	@ConfigValue("binds.toggle-visibility")
 	public static EmiBind toggleVisibility = new EmiBind("key.emi.toggle_visibility", EmiInput.CONTROL_MASK, GLFW.GLFW_KEY_O);
-	
-	@Comment("emi.config.tooltip.binds.focus-search")
+
+	@Comment("Focuse the search bar.")
 	@ConfigValue("binds.focus-search")
 	public static EmiBind focusSearch = new EmiBind("key.emi.focus_search", EmiInput.CONTROL_MASK, GLFW.GLFW_KEY_F);
-	
-	@Comment("emi.config.tooltip.binds.clear-search")
+
+	@Comment("Clears the search bar.")
 	@ConfigValue("binds.clear-search")
 	public static EmiBind clearSearch = new EmiBind("key.emi.clear_search", InputUtil.UNKNOWN_KEY.getCode());
-	
-	@Comment("emi.config.tooltip.binds.view-recipes")
+
+	@Comment("Display the recipes for creating a stack.")
 	@ConfigValue("binds.view-recipes")
 	public static EmiBind viewRecipes = new EmiBind("key.emi.view_recipes", new EmiBind.ModifiedKey(InputUtil.Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_R), 0),
 			new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), 0));
-	
-	@Comment("emi.config.tooltip.binds.view-uses")
+
+	@Comment("Display the recipes that can be created using a stack.")
 	@ConfigValue("binds.view-uses")
 	public static EmiBind viewUses = new EmiBind("key.emi.view_uses", new EmiBind.ModifiedKey(InputUtil.Type.KEYSYM.createFromCode(GLFW.GLFW_KEY_U), 0),
 			new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(1), 0));
-	
-	@Comment("emi.config.tooltip.binds.favorite")
+
+	@Comment("Favorite the item to display on the side of the screen opposite of recipies for quick access.")
 	@ConfigValue("binds.favorite")
 	public static EmiBind favorite = new EmiBind("key.emi.favorite", GLFW.GLFW_KEY_A);
-	
-	@Comment("emi.config.tooltip.binds.default-stack")
+
+	@Comment("Set the default recipe for a given stack in the output of a recipe to that recipe.")
 	@ConfigValue("binds.default-stack")
 	public static EmiBind defaultStack =
 			new EmiBind("key.emi.default_stack", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), EmiInput.CONTROL_MASK));
-	
-	@Comment("emi.config.tooltip.binds.view-stack-tree")
+
+	@Comment("Display the recipe tree for a given stack.")
 	@ConfigValue("binds.view-stack-tree")
 	public static EmiBind viewStackTree = new EmiBind("key.emi.view_stack_tree", InputUtil.UNKNOWN_KEY.getCode());
-	
-	@Comment("emi.config.tooltip.binds.view-tree")
+
+	@Comment("Display the recipe tree.")
 	@ConfigValue("binds.view-tree")
 	public static EmiBind viewTree = new EmiBind("key.emi.view_tree", InputUtil.UNKNOWN_KEY.getCode());
-	
-	@Comment("emi.config.tooltip.binds.back")
+
+	@Comment("Return to the previous page in EMI.")
 	@ConfigValue("binds.back")
 	public static EmiBind back = new EmiBind("key.emi.back", GLFW.GLFW_KEY_BACKSPACE);
-	
+
+	@Comment("Return to the next page in EMI after going back.")
+	@ConfigValue("binds.forward")
+	public static EmiBind forward = new EmiBind("key.emi.forward", InputUtil.UNKNOWN_KEY.getCode());
+
 	@ConfigGroup("binds.crafts")
-	@Comment("emi.config.tooltip.binds.craft-one")
+	@Comment("When on a stack with an associated recipe:\n" + "Move ingredients for a single result.")
 	@ConfigValue("binds.craft-one")
 	public static EmiBind craftOne = new EmiBind("key.emi.craft_one", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), 0));
-	
-	@Comment("emi.config.tooltip.binds.craft-all")
+
+	@Comment("When on a stack with an associated recipe:\n" + "Move ingredients for as many results as possible.")
 	@ConfigValue("binds.craft-all")
 	public static EmiBind craftAll = new EmiBind("key.emi.craft_all", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), EmiInput.SHIFT_MASK));
-	
-	@Comment("emi.config.tooltip.binds.craft-one-to-inventory")
+
+	@Comment("When on a stack with an associated recipe:\n" + "Move ingredients for a single result and put in inventory if possible.")
 	@ConfigValue("binds.craft-one-to-inventory")
 	public static EmiBind craftOneToInventory = new EmiBind("key.emi.craft_one_to_inventory", InputUtil.UNKNOWN_KEY.getCode());
-	
-	@Comment("emi.config.tooltip.binds.craft-all-to-inventory")
+
+	@Comment("When on a stack with an associated recipe:\n" + "Move ingredients for as many results as possible and put in inventory if possible.")
 	@ConfigValue("binds.craft-all-to-inventory")
 	public static EmiBind craftAllToInventory = new EmiBind("key.emi.craft_all_to_inventory", InputUtil.UNKNOWN_KEY.getCode());
-	
-	@Comment("emi.config.tooltip.binds.craft-one-to-cursor")
+
+	@Comment("When on a stack with an associated recipe:\n" + "Move ingredients for a single result and put in cursor if possible.")
 	@ConfigValue("binds.craft-one-to-cursor")
 	public static EmiBind craftOneToCursor =
 			new EmiBind("key.emi.craft_one_to_cursor", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), EmiInput.CONTROL_MASK));
-	
+
 	@ConfigGroupEnd
-	@Comment("emi.config.tooltip.binds.show-craft")
+	@Comment("Display the recipe that will be used to craft on a stack with no recipe context.")
 	@ConfigValue("binds.show-craft")
 	public static EmiBind showCraft = new EmiBind("key.emi.show_craft", GLFW.GLFW_KEY_LEFT_SHIFT);
-	
+
 	@ConfigGroup("binds.cheats")
-	@Comment("emi.config.tooltip.binds.cheat-one-to-inventory")
+	@Comment("Cheat in one of an item into the inventory.")
 	@ConfigValue("binds.cheat-one-to-inventory")
 	public static EmiBind cheatOneToInventory =
 			new EmiBind("key.emi.cheat_one_to_inventory", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(1), EmiInput.CONTROL_MASK));
-	
-	@Comment("emi.config.tooltip.binds.cheat-stack-to-inventory")
+
+	@Comment("Cheat in a stack of an item into the inventory.")
 	@ConfigValue("binds.cheat-stack-to-inventory")
 	public static EmiBind cheatStackToInventory =
 			new EmiBind("key.emi.cheat_stack_to_inventory", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), EmiInput.CONTROL_MASK));
-	
-	@Comment("emi.config.tooltip.binds.cheat-one-to-cursor")
+
+	@Comment("Cheat in one of an item into the cursor.")
 	@ConfigValue("binds.cheat-one-to-cursor")
 	public static EmiBind cheatOneToCursor =
 			new EmiBind("key.emi.cheat_one_to_cursor", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(2), EmiInput.CONTROL_MASK));
-	
-	@Comment("emi.config.tooltip.binds.cheat-stack-to-cursor")
+
+	@Comment("Cheat in a stack of an item into the cursor.")
 	@ConfigValue("binds.cheat-stack-to-cursor")
 	public static EmiBind cheatStackToCursor = new EmiBind("key.emi.cheat_stack_to_cursor", InputUtil.UNKNOWN_KEY.getCode());
-	
+
 	@ConfigGroupEnd
-	@Comment("emi.config.tooltip.binds.delete-cursor-stack")
+	@Comment("Delete the stack in the cursor when hovering the index")
 	@ConfigValue("binds.delete-cursor-stack")
 	public static EmiBind deleteCursorStack = new EmiBind("key.emi.delete_cursor_stack", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), 0));
-	
-	@Comment("emi.config.tooltip.binds.hide-stack")
+
+	@Comment("In edit mode, hide the hovered stack")
 	@ConfigValue("binds.hide-stack")
 	public static EmiBind hideStack = new EmiBind("key.emi.hide_stack", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), EmiInput.CONTROL_MASK));
-	
-	@Comment("emi.config.tooltip.binds.hide-stack-by-id")
+
+	@Comment("In edit mode, hide stacks with the hovered stack's id")
 	@ConfigValue("binds.hide-stack-by-id")
 	public static EmiBind hideStackById = new EmiBind("key.emi.hide_stack_by_id",
 			new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), EmiInput.CONTROL_MASK | EmiInput.SHIFT_MASK));
-	
+
 	// Dev
-	@Comment("emi.config.tooltip.dev.dev-mode")
+	@Comment("Whether development functions should be enabled. Not recommended for general play.")
 	@ConfigValue("dev.dev-mode")
-	public static boolean devMode = false;
-	
-	@Comment("emi.config.tooltip.dev.edit-mode")
+	public static boolean devMode = EmiAgnos.isDevelopmentEnvironment();
+
+	@Comment("Whether editing the index is enabled")
 	@ConfigValue("dev.edit-mode")
 	public static boolean editMode = false;
-	
-	@Comment("emi.config.tooltip.dev.log-untranslated-tags")
+
+	@Comment("Whether to log untranslated tags as warnings.")
 	@ConfigValue("dev.log-untranslated-tags")
-	public static boolean logUntranslatedTags = false;
-	
-	@Comment("emi.config.tooltip.dev.log-non-tag-ingredients")
+	public static boolean logUntranslatedTags = EmiAgnos.isDevelopmentEnvironment();
+
+	@Comment("Whether to log ingredients that don't have a representative tag as warnings.")
 	@ConfigValue("dev.log-non-tag-ingredients")
 	public static boolean logNonTagIngredients = false;
-	
-	@Comment("emi.config.tooltip.dev.show-recipe-ids")
+
+	@Comment("Whether hovering the output of a recipe should show the recipe's EMI ID.")
 	@ConfigValue("dev.show-recipe-ids")
 	public static boolean showRecipeIds = false;
-	
-	@Comment("emi.config.tooltip.dev.highlight-defaulted")
+
+	@Comment("Whether stacks in the index should display a highlight if they have a recipe default.")
 	@ConfigValue("dev.highlight-defaulted")
 	public static boolean highlightDefaulted = false;
-	
-	@Comment("emi.config.tooltip.dev.highlight-exclusion-areas")
+
+	@Comment("Whether to display exclusion areas")
 	@ConfigValue("dev.highlight-exclusion-areas")
 	public static boolean highlightExclusionAreas = false;
 
-	//Distraction Free Recipes
+	//Addon
 
+	//Distraction Free Recipes
 	@ConfigGroup("addon.distraction")
-	@Comment("emi.config.tooltip.addon.distraction.enable-distraction-free-mode")
+	@Comment("Turns the mod's effects on/off.")
 	@ConfigValue("addon.distraction.enable-distraction-free-mode")
 	public static boolean enableDistractionFreeMode = false;
 
-	@Comment("emi.config.tooltip.addon.distraction.lower_opacity")
+	@Comment("Lowers the opacity of the search bar to make it blend in more.")
 	@ConfigValue("addon.distraction.lower_opacity")
 	@ConfigGroupEnd()
 	public static boolean lowerOpacity = false;
@@ -473,6 +474,12 @@ public class EmiConfig {
 			if (config.exists() && config.isFile()) {
 				QDCSS css = QDCSS.load(config);
 				loadConfig(css);
+			} else {
+				File defaultConfig = new File(EmiAgnos.getConfigDirectory().getParent().toFile(), "defaultconfigs/emi.css");
+				if (defaultConfig.exists() && defaultConfig.isFile()) {
+					QDCSS css = QDCSS.load(defaultConfig);
+					loadConfig(css);
+				}
 			}
 			if (startupConfig == null) {
 				startupConfig = getSavedConfig();
@@ -684,6 +691,7 @@ public class EmiConfig {
 			List<String> strings = Lists.newArrayList(css.getAll(annot));
 			for (int i = 0; i < strings.size(); i++) {
 				String s = strings.get(i);
+				s = s.substring(1, s.length() - 1);
 				strings.set(i, s);
 			}
 			((EmiBind) field.get(null)).setKey(strings);

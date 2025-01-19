@@ -23,7 +23,7 @@ public class IntGroupWidget extends ConfigEntryWidget {
 		List<Element> children = Lists.newArrayList();
 		for (int i = 0; i < group.size; i++) {
 			final int f = i;
-			IntEdit edit = new IntEdit(width, () -> group.values.getInt(f), v -> {
+			IntEdit edit = new IntEdit(width, () -> group.values.get(f), v -> {
 				group.values.set(f, v);
 				mutator.set(group);
 			});
