@@ -2,6 +2,7 @@ package moddedmite.emi.mixin.client;
 
 import dev.emi.emi.EMIPostInit;
 import dev.emi.emi.EmiPort;
+import dev.emi.emi.platform.EmiClient;
 import dev.emi.emi.screen.EmiScreenManager;
 import moddedmite.emi.api.EMIMinecraft;
 import net.minecraft.*;

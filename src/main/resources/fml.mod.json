@@ -16,7 +16,7 @@
   ],
   "contact": {},
   "license": "MIT",
-  "icon": "emi.png",
+  "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

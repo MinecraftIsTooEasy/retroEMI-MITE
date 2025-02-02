@@ -64,7 +64,7 @@ public class QDCSS {
             this.line = line;
         }
         public String blame() {
-            return line == -1 ? "<unknown>" : "line " + line + " in " + file;
+            return line == -1 ? "<unknown>" : "line "+line+" in "+file;
         }
     }
 
@@ -216,7 +216,7 @@ public class QDCSS {
         try {
             return Optional.of(parser.apply(s.get()));
         } catch (IllegalArgumentException e) {
-            String msg = key + " must be " + error.get() + " (got " + s.get() + ") near " + getBlame(key);
+            String msg = key+" must be "+error.get()+" (got "+s.get()+") near "+getBlame(key);
             if (yapLog != null) {
                 yapLog.accept(msg);
                 return Optional.empty();
@@ -298,7 +298,7 @@ public class QDCSS {
         newData.putAll(data);
         for (Map.Entry<String, List<BlameString>> en : that.data.entrySet()) {
             if (newData.containsKey(en.getKey())) {
-                List<BlameString> merged = new ArrayList<>(newData.get(en.getKey()).size() + en.getValue().size());
+                List<BlameString> merged = new ArrayList<>(newData.get(en.getKey()).size()+en.getValue().size());
                 merged.addAll(newData.get(en.getKey()));
                 merged.addAll(en.getValue());
                 newData.put(en.getKey(), Collections.unmodifiableList(merged));
@@ -306,7 +306,7 @@ public class QDCSS {
                 newData.put(en.getKey(), en.getValue());
             }
         }
-        return new QDCSS(prelude + ", merged with " + that.prelude, Collections.unmodifiableMap(newData));
+        return new QDCSS(prelude+", merged with "+that.prelude, Collections.unmodifiableMap(newData));
     }
 
     /**
@@ -370,8 +370,8 @@ public class QDCSS {
     }
 
     private static final Pattern JUNK_PATTERN = Pattern.compile("^(\\s*(/\\*.*?\\*/)?\\s*)*$", Pattern.DOTALL);
-    private static final Pattern RULESET_PATTERN = Pattern.compile("[#.]?(@?\\w + ?)\\s*\\{(.*?)\\}", Pattern.DOTALL);
-    private static final Pattern RULE_PATTERN = Pattern.compile("(\\S + ?)\\s*:\\s*(\\\".*?\\\"|'.*?'|. + ?)\\s*(;|$)");
+    private static final Pattern RULESET_PATTERN = Pattern.compile("[#.]?(@?\\w+?)\\s*\\{(.*?)\\}", Pattern.DOTALL);
+    private static final Pattern RULE_PATTERN = Pattern.compile("(\\S+?)\\s*:\\s*(\\\".*?\\\"|'.*?'|.+?)\\s*(;|$)");
 
     public static QDCSS load(String fileName, String s) throws SyntaxErrorException {
         // vanilla CSS is a very simple grammar, so we can parse it using only regexes
@@ -381,7 +381,7 @@ public class QDCSS {
         while (ruleset.find()) {
             String skipped = s.substring(lastEnd, ruleset.start());
             if (!JUNK_PATTERN.matcher(skipped).matches()) {
-                throw new SyntaxErrorException("Expected a ruleset near line " + getLine(s, ruleset.start()) + " in " + fileName);
+                throw new SyntaxErrorException("Expected a ruleset near line "+getLine(s, ruleset.start())+" in "+fileName);
             }
             String selector = ruleset.group(1);
             String rules = ruleset.group(2);
@@ -390,7 +390,7 @@ public class QDCSS {
             while (rule.find()) {
                 String skippedRule = rules.substring(lastRulesEnd, rule.start());
                 if (!JUNK_PATTERN.matcher(skippedRule).matches()) {
-                    throw new SyntaxErrorException("Expected a rule near line " + getLine(s, ruleset.start(2) + rule.start()) + " in " + fileName);
+                    throw new SyntaxErrorException("Expected a rule near line "+getLine(s, ruleset.start(2)+rule.start())+" in "+fileName);
                 }
                 String property = rule.group(1);
                 String value;
@@ -401,22 +401,22 @@ public class QDCSS {
                 } else {
                     value = rule.group(4);
                 }
-                String key = selector + "." + property;
+                String key = selector+"."+property;
                 if (!data.containsKey(key)) {
                     data.put(key, new ArrayList<>());
                 }
-                data.get(key).add(new BlameString(value, fileName, getLine(s, ruleset.start(2) + rule.start())));
+                data.get(key).add(new BlameString(value, fileName, getLine(s, ruleset.start(2)+rule.start())));
                 lastRulesEnd = rule.end();
             }
             String skippedRule = rules.substring(lastRulesEnd);
             if (!JUNK_PATTERN.matcher(skippedRule).matches()) {
-                throw new SyntaxErrorException("Expected a rule near line " + getLine(s, ruleset.start(2) + lastRulesEnd) + " in " + fileName);
+                throw new SyntaxErrorException("Expected a rule near line "+getLine(s, ruleset.start(2)+lastRulesEnd)+" in "+fileName);
             }
             lastEnd = ruleset.end();
         }
         String skipped = s.substring(lastEnd);
         if (!JUNK_PATTERN.matcher(skipped).matches()) {
-            throw new SyntaxErrorException("Expected a ruleset or EOF near line " + getLine(s, lastEnd) + " in " + fileName);
+            throw new SyntaxErrorException("Expected a ruleset or EOF near line "+getLine(s, lastEnd)+" in "+fileName);
         }
         return new QDCSS(fileName, data);
     }
@@ -449,8 +449,8 @@ public class QDCSS {
             int bang = path.indexOf('!');
             if (bang != -1) {
                 String pre = path.substring(0, bang);
-                String post = path.substring(bang + 1);
-                path = basename(pre) + post;
+                String post = path.substring(bang+1);
+                path = basename(pre)+post;
             } else {
                 path = basename(path);
             }
@@ -459,7 +459,7 @@ public class QDCSS {
     }
 
     private static String basename(String path) {
-        return path.substring(path.lastIndexOf('/') + 1);
+        return path.substring(path.lastIndexOf('/')+1);
     }
 
     public static QDCSS load(String fileName, InputStream in) throws IOException {

@@ -276,7 +276,7 @@ public class ConfigScreen extends REMIScreen {
 	private void addJumpButtons() {
 		List<String> jumps =
 				Lists.newArrayList("general", "general.search", "ui", "ui.left-sidebar", "ui.right-sidebar", "ui.top-sidebar", "ui.bottom-sidebar", "binds",
-						"binds.crafts", "binds.cheats", "dev", "addon");
+						"binds.crafts", "binds.cheats", "dev", "addon", "addon.distraction");
 		List<List<String>> removes =
 				List.of(List.of("binds.cheats"), List.of("general.search"), List.of("ui.top-sidebar", "ui.bottom-sidebar"), List.of("binds.crafts"),
 						List.of("ui.left-sidebar", "ui.right-sidebar"), List.of("addon.distraction"));

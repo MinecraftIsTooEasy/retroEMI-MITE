@@ -30,6 +30,6 @@ public class EmiClient implements ClientModInitializer{
 
 	@Override
 	public void onInitializeClient() {
-		init();
+
 	}
 }

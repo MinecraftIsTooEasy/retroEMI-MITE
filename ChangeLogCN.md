@@ -5,6 +5,7 @@
 ## v1.1.20
 * 现在需要fishmodloader v3.4.0
 * 本mod的资源移进`/assets/emi/`中
+* 移除了MITE中重复的配方
 * 加入了对es_es,fi_fi,fr_fr,ja_jp,pt_br,ru_ru,tr_tr语言的部分支持(json格式),并且支持了`/n`换行符
 * 加入了对土耳其语的部分支持(lang格式,来自BTW Community)
 * 加入了标签的翻译

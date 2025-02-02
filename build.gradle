@@ -21,7 +21,7 @@ repositories {
 loom {
 	accessWidenerPath = file("src/main/resources/emi.accesswidener")
 	mergedMinecraftJar()
-	setFML(new File("libs\\FishModLoader-v3.0.0.jar"))
+	setFML(new File("libs\\FishModLoader-v3.4.1.jar"))
 	mods {
 		"EMI" {
 			sourceSet sourceSets.main
@@ -43,7 +43,7 @@ dependencies {
 	implementation files("libs\\gson-2.10.1.jar")
 	implementation files("libs\\PinIn-Lib-1.6.0.jar")
 	implementation files("libs\\joml-1.10.5.jar")
-	implementation files("libs\\ModMenu-1.0.0.jar")
+	implementation files("libs\\ModMenu-10.0.0.jar")
 	implementation files(loom.getFML().toPath())
 }
 
