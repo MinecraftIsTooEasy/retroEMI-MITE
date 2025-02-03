@@ -49,7 +49,6 @@ key.emi.cheat_stack_to_cursor=给予一组物品至光标
 config.emi.tooltip.binds.cheat_stack_to_cursor=作弊给予一组物品并放在光标处
 key.emi.delete_cursor_stack=删除光标处的物品
 config.emi.tooltip.binds.delete_cursor_stack=作弊删除置于光标处的那组物品
-#WIP
 key.emi.copy_recipe_id=复制配方ID
 config.emi.tooltip.binds.copy_recipe_id=将光标所指物品的配方ID复制到剪贴板
 key.emi.hide_stack=隐藏物品
@@ -57,7 +56,7 @@ config.emi.tooltip.binds.hide_stack=仅在编辑模式下生效：\n在EMI中隐
 key.emi.hide_stack_by_id=隐藏物品ID
 config.emi.tooltip.binds.hide_stack_by_id=仅在编辑模式下生效：\n在EMI中隐藏所有与光标选中物品有相同ID的物品
 
-#WIP
+#Keep it only
 emi.index_source.creative=创造模式物品栏
 emi.index_source.registered=物品注册顺序
 emi.index_source.creative_plus_registered=创造物品栏+注册顺序
@@ -305,6 +304,7 @@ emi.reloading=EMI重载中……
 emi.reloading.waiting=EMI正等待服务器发送配方信息……
 emi.reloading.error=§cEMI重载时出现严重错误，请查看日志
 emi.reloading.worry=§c延迟较大，网络还正常吗？
+emi.reloading.still_baking_recipes=§d正在处理配方...
 emi.search=搜索EMI……
 emi.search_config=搜索设置项……
 emi.delete_stack=§c删除光标上的物品
@@ -562,7 +562,7 @@ enchanted_book.info.enchantment.endurance=耐力\nUncommon级，10附魔难度\n
 
 # Addon
 config.emi.group.addon.distraction=无干扰配方
-config.emi.addon.distraction.enable_distraction_free_mode=启用无干扰模式
-config.emi.tooltip.addon.distraction.enable_distraction_free_mode=在不使用搜索时隐藏物品索引
-config.emi.addon.distraction.lower_opacity=更低的搜索框不透明度
-config.emi.tooltip.addon.distraction.lower_opacity=降低搜索栏的不透明度，使其更融为一体
+config.emi.addon.enable_distraction_free_mode=启用无干扰模式
+config.emi.tooltip.addon.enable_distraction_free_mode=在不使用搜索时隐藏物品索引
+config.emi.addon.lower_opacity=更低的搜索框不透明度
+config.emi.tooltip.addon.lower_opacity=降低搜索栏的不透明度，使其更融为一体

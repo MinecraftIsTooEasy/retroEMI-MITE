@@ -93,7 +93,7 @@ public class EmiRecipeFiller {
 				break;
 			}
 		}
-		if (ret == null || ret instanceof CoercedRecipeHandler) {
+		if (ret == null || (ret instanceof CoercedRecipeHandler && !(screen instanceof GuiInventory))) {
 			EmiRecipeHandler<T> extra = (EmiRecipeHandler<T>) extraHandlers.apply(screen.inventorySlots, recipe);
 			if (extra != null) {
 				ret = extra;

@@ -1,6 +1,7 @@
 package dev.emi.emi;
 
 import com.google.common.collect.Sets;
+import dev.emi.emi.api.EmiInitRegistry;
 import moddedmite.emi.MITEPlugin;
 import dev.emi.emi.api.widget.GeneratedSlotWidget;
 import dev.emi.emi.config.EffectLocation;
@@ -68,6 +69,13 @@ public class VanillaPlugin implements EmiPlugin {
 		};
 		FUEL = new EmiRecipeCategory(new ResourceLocation("emi:fuel"), flame, flame, EmiRecipeSorting.compareInputThenOutput());
 		INFO = new EmiRecipeCategory(new ResourceLocation("emi:info"), EmiStack.of(Item.writableBook), simplifiedRenderer(208, 224), EmiRecipeSorting.none());
+	}
+
+	@Override
+	public void initialize(EmiInitRegistry registry) {
+		registry.addIngredientSerializer(ItemEmiStack.class, new ItemEmiStackSerializer());
+//		registry.addIngredientSerializer(FluidEmiStack.class, new FluidEmiStackSerializer());
+		registry.addIngredientSerializer(TagEmiIngredient.class, new TagEmiIngredientSerializer());
 	}
 	
 	@Override
@@ -326,7 +334,7 @@ public class VanillaPlugin implements EmiPlugin {
 				))
 				.build());
 		addRecipeSafe(registry, () -> EmiWorldInteractionRecipe.builder()
-				.id(synthetic("world/fluid_interaction", "minecraft/coblestone"))
+				.id(synthetic("world/fluid_interaction", "minecraft/cobblestone"))
 				.leftInput(waterCatalyst)
 				.rightInput(lavaCatalyst, false)
 				.output(EmiStack.of(Block.cobblestone))

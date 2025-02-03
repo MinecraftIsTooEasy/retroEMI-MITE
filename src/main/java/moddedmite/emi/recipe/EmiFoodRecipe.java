@@ -16,7 +16,7 @@ import java.util.List;
 
 public class EmiFoodRecipe implements EmiRecipe {
 	private ResourceLocation VANILLA = new ResourceLocation("textures/gui/icons.png");
-	private ResourceLocation TEXTURE = new ResourceLocation("textures/gui/icons_food.png");
+	private ResourceLocation TEXTURE = new ResourceLocation("emi", "textures/gui/icons_food.png");
 	private ResourceLocation BEEF = new ResourceLocation("textures/items/beef_cooked.png");
 	private ResourceLocation CARROT = new ResourceLocation("textures/items/carrot.png");
 	private ResourceLocation SUGAR = new ResourceLocation("textures/items/sugar.png");

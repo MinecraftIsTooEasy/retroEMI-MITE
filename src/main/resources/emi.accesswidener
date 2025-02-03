@@ -19,3 +19,5 @@ accessible field net/minecraft/Minecraft fullscreen Z
 accessible field net/minecraft/Material durability F
 accessible field net/minecraft/Skill id I
 accessible method net/minecraft/CraftingManager addShapelessRecipe (Lnet/minecraft/ItemStack;Z[Ljava/lang/Object;)Lnet/minecraft/ShapelessRecipes;
+accessible field net/minecraft/FontRenderer textColor I
+accessible field net/minecraft/FontRenderer alpha F

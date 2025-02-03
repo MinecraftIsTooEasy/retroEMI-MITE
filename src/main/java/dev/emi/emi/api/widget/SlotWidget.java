@@ -322,15 +322,21 @@ public class SlotWidget extends Widget {
 	}
 	
 	private boolean slotInteraction(Function<EmiBind, Boolean> function) {
+		EmiRecipe recipe = getRecipe();
 		if (canResolve()) {
 			if (function.apply(EmiConfig.defaultStack)) {
-				BoM.addRecipe(RecipeScreen.resolve, getRecipe());
+				BoM.addRecipe(RecipeScreen.resolve, recipe);
+				EmiHistory.pop();
+				return true;
+			} else if (function.apply(EmiConfig.viewRecipes)) {
+				BoM.addResolution(RecipeScreen.resolve, recipe);
 				EmiHistory.pop();
 				return true;
 			}
-			else if (function.apply(EmiConfig.viewRecipes)) {
-				BoM.addResolution(RecipeScreen.resolve, getRecipe());
-				EmiHistory.pop();
+		} else if (recipe != null && recipe.supportsRecipeTree()) {
+			if (function.apply(EmiConfig.defaultStack)) {
+				BoM.addRecipe(getStack(), getRecipe());
+				BoM.addRecipe(getStack(), recipe);
 				return true;
 			}
 		}

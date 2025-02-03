@@ -2,6 +2,8 @@ package dev.emi.emi.registry;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import dev.emi.emi.config.EmiConfig;
+import dev.emi.emi.config.IndexSource;
 import dev.emi.emi.data.EmiRemoveFromIndex;
 import dev.emi.emi.data.IndexStackData;
 import dev.emi.emi.runtime.EmiHidden;
@@ -11,12 +13,12 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
+import net.minecraft.Minecraft;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -36,6 +38,7 @@ public class EmiStackList {
 		List<IndexGroup> groups = Lists.newArrayList();
 		IndexGroup itemGroup = new IndexGroup();
 		List<ItemStack> stackList = Lists.newArrayList();
+
 		for (Item item : Item.itemsList) {
 			if (item == null) continue;
 			item.getSubItems(item.itemID, item.getCreativeTab(), stackList);
@@ -45,15 +48,16 @@ public class EmiStackList {
 			stackList.clear();
 		}
 		groups.add(itemGroup);
+
 		IndexGroup fluidGroup = new IndexGroup();
-	//	for (var fluid : LiquidDictionary.getLiquids().entrySet()) {
-	//		EmiStack fs = EmiStack.of(Fluid.of(fluid.getValue()));
-	//		fluidGroup.stacks.add(fs);
-	//	}
+		//	for (var fluid : LiquidDictionary.getLiquids().entrySet()) {
+		//		EmiStack fs = EmiStack.of(Fluid.of(fluid.getValue()));
+		//		fluidGroup.stacks.add(fs);
+		//	}
 		groups.add(fluidGroup);
 
 		Set<EmiStack> added = Sets.newHashSet();
-		
+
 		stacks = Lists.newLinkedList();
 		for (IndexGroup group : groups) {
 			if (group.shouldDisplay()) {

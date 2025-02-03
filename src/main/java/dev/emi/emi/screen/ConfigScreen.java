@@ -278,8 +278,8 @@ public class ConfigScreen extends REMIScreen {
 				Lists.newArrayList("general", "general.search", "ui", "ui.left-sidebar", "ui.right-sidebar", "ui.top-sidebar", "ui.bottom-sidebar", "binds",
 						"binds.crafts", "binds.cheats", "dev", "addon", "addon.distraction");
 		List<List<String>> removes =
-				List.of(List.of("binds.cheats"), List.of("general.search"), List.of("ui.top-sidebar", "ui.bottom-sidebar"), List.of("binds.crafts"),
-						List.of("ui.left-sidebar", "ui.right-sidebar"), List.of("addon.distraction"));
+				List.of(List.of("addon.distraction"), List.of("binds.cheats"), List.of("general.search"), List.of("ui.top-sidebar", "ui.bottom-sidebar"),
+						List.of("binds.crafts"), List.of("ui.left-sidebar", "ui.right-sidebar"));
 		int space = list.getLogicalHeight() - 10;
 		for (List<String> r : removes) {
 			if (jumps.size() * 16 > space) {

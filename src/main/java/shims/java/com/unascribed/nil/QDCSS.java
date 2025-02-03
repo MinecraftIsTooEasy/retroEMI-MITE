@@ -1,14 +1,12 @@
 package shims.java.com.unascribed.nil;
 
-import net.minecraft.SyntaxErrorException;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.URL;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,23 +28,29 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.collect.Lists;
+
 /**
  * A quick-and-dirty "CSS" parser.
  */
 public class QDCSS {
-
     public static class QDCSSException extends IllegalArgumentException {
         public QDCSSException() {}
         public QDCSSException(String message, Throwable cause) { super(message, cause); }
         public QDCSSException(String s) { super(s); }
         public QDCSSException(Throwable cause) { super(cause); }
     }
-
     public static class BadValueException extends QDCSSException {
         public BadValueException() {}
         public BadValueException(String message, Throwable cause) { super(message, cause); }
         public BadValueException(String s) { super(s); }
         public BadValueException(Throwable cause) { super(cause); }
+    }
+    public static class SyntaxErrorException extends QDCSSException {
+        public SyntaxErrorException() {}
+        public SyntaxErrorException(String message, Throwable cause) { super(message, cause); }
+        public SyntaxErrorException(String s) { super(s); }
+        public SyntaxErrorException(Throwable cause) { super(cause); }
     }
 
     private static class BlameString {
@@ -180,10 +184,6 @@ public class QDCSS {
 
     public Optional<Boolean> getBoolean(String key) throws BadValueException {
         return getParsed(key, this::strictParseBoolean, () -> "true/on or false/off");
-    }
-
-    public String getPrelude() {
-        return prelude;
     }
 
     private boolean strictParseBoolean(String s) {
@@ -370,7 +370,7 @@ public class QDCSS {
     }
 
     private static final Pattern JUNK_PATTERN = Pattern.compile("^(\\s*(/\\*.*?\\*/)?\\s*)*$", Pattern.DOTALL);
-    private static final Pattern RULESET_PATTERN = Pattern.compile("[#.]?(@?\\w+?)\\s*\\{(.*?)\\}", Pattern.DOTALL);
+    private static final Pattern RULESET_PATTERN = Pattern.compile("[#.]?(\\w+?)\\s*\\{(.*?)\\}", Pattern.DOTALL);
     private static final Pattern RULE_PATTERN = Pattern.compile("(\\S+?)\\s*:\\s*(\\\".*?\\\"|'.*?'|.+?)\\s*(;|$)");
 
     public static QDCSS load(String fileName, String s) throws SyntaxErrorException {
@@ -393,17 +393,10 @@ public class QDCSS {
                     throw new SyntaxErrorException("Expected a rule near line "+getLine(s, ruleset.start(2)+rule.start())+" in "+fileName);
                 }
                 String property = rule.group(1);
-                String value;
-                if (rule.group(2) != null) {
-                    value = rule.group(2);
-                } else if (rule.group(3) != null) {
-                    value = rule.group(3);
-                } else {
-                    value = rule.group(4);
-                }
+                String value = rule.group(2);
                 String key = selector+"."+property;
                 if (!data.containsKey(key)) {
-                    data.put(key, new ArrayList<>());
+                    data.put(key, Lists.newArrayList());
                 }
                 data.get(key).add(new BlameString(value, fileName, getLine(s, ruleset.start(2)+rule.start())));
                 lastRulesEnd = rule.end();
@@ -443,38 +436,23 @@ public class QDCSS {
         }
     }
 
-    public static QDCSS load(URL u) throws IOException {
-        try (InputStream in = u.openStream()) {
-            String path = u.getPath();
-            int bang = path.indexOf('!');
-            if (bang != -1) {
-                String pre = path.substring(0, bang);
-                String post = path.substring(bang+1);
-                path = basename(pre)+post;
-            } else {
-                path = basename(path);
-            }
-            return load(path, in);
-        }
-    }
-
-    private static String basename(String path) {
-        return path.substring(path.lastIndexOf('/')+1);
-    }
-
     public static QDCSS load(String fileName, InputStream in) throws IOException {
         return load(fileName, new InputStreamReader(in, StandardCharsets.UTF_8));
     }
 
     public static QDCSS load(String fileName, Reader r) throws IOException {
-        char[] buf = new char[512];
-        StringBuilder sb = new StringBuilder();
-        while (true) {
-            int read = r.read(buf);
-            if (read < 0) break;
-            sb.append(buf, 0, read);
+        // i have written this driver loop too many fucking times
+        // the curse of developing for retro versions
+        StringWriter sw = new StringWriter();
+        try (r) {
+            char[] buf = new char[512];
+            while (true) {
+                int read = r.read(buf);
+                if (read < 0) break;
+                sw.write(buf, 0, read);
+            }
         }
-        return load(fileName, sb.toString());
+        return load(fileName, sw.toString());
     }
 
 }

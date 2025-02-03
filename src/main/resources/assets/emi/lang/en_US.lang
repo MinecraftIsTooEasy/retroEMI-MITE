@@ -27,6 +27,7 @@ key.emi.cheat_stack_to_inventory=Cheat Stack to Inventory
 key.emi.cheat_one_to_cursor=Cheat One to Cursor
 key.emi.cheat_stack_to_cursor=Cheat Stack to Cursor
 key.emi.delete_cursor_stack=Delete Cursor Stack
+key.emi.copy_recipe_id=Copy Recipe ID
 key.emi.hide_stack=Hide Stack
 key.emi.hide_stack_by_id=Hide Stack by ID
 
@@ -454,9 +455,12 @@ tag.wildcard.Oak Leaves.18=Leaves
 tag.wildcard.Sandstone.24=Sandstone
 tag.wildcard.Wool.35=Wools
 tag.wildcard.Rose.38=Flowers
+tag.wildcard.Stone Slab.43=Stone Slabs
 tag.wildcard.Stone Slab.44=Stone Slabs
+tag.wildcard.Stone Slab.45=Stone Slabs
 tag.wildcard.Stone Monster Egg.97=Infested Blocks
 tag.wildcard.Stone Bricks.98=Stone Bricks
+tag.wildcard.Oak Wood Slab.125=Wood Slabs
 tag.wildcard.Oak Wood Slab.126=Wood Slabs
 tag.wildcard.Cobblestone Wall.139=Walls
 tag.wildcard.Iron Anvil.145=Iron Anvils
@@ -537,7 +541,7 @@ enchanted_book.info.enchantment.endurance=Stamina\nUncommon level, 10Enchantment
 # Addon
 
 config.emi.group.addon.distraction=Distraction Free Recipe
-config.emi.addon.distraction.enable_distraction_free_mode=Enable Distraction_Free Mode
-config.emi.addon.distraction.lower_opacity=Lower Opacity ?
-config.emi.tooltip.addon.distraction.enable_distraction_free_mode=Turns the mod's effects on/off.
-config.emi.tooltip.addon.distraction.lower_opacity=Lowers the opacity of the search bar to make it blend in more.
+config.emi.addon.enable_distraction_free_mode=Enable Distraction_Free Mode
+config.emi.addon.lower_opacity=Lower Opacity ?
+config.emi.tooltip.addon.enable_distraction_free_mode=Turns the mod's effects on/off.
+config.emi.tooltip.addon.lower_opacity=Lowers the opacity of the search bar to make it blend in more.

@@ -60,7 +60,7 @@ public class BoM {
 				else if (status == DefaultStatus.PARTIAL) {
 					JsonArray arr = new JsonArray();
 					for (EmiStack stack : recipe.getOutputs()) {
-						if (getRecipe(stack) == recipe) {
+						if (recipe.equals(getRecipe(stack))) {
 							JsonElement el = EmiIngredientSerializer.getSerialized(stack);
 							if (el != null) {
 								arr.add(el);
@@ -186,6 +186,9 @@ public class BoM {
 	}
 	
 	public static void addRecipe(EmiIngredient stack, EmiRecipe recipe) {
+		if (recipe instanceof EmiResolutionRecipe err) {
+			stack = err.ingredient;
+		}
 		addedRecipes.put(stack, recipe);
 		EmiPersistentData.save();
 		recalculate();

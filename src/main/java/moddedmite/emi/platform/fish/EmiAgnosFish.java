@@ -4,6 +4,7 @@ import dev.emi.emi.InputPair;
 import dev.emi.emi.Prototype;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.runtime.EmiLog;
 import moddedmite.emi.MITEPlugin;
 import dev.emi.emi.VanillaPlugin;
 import dev.emi.emi.api.stack.EmiStack;
@@ -12,6 +13,8 @@ import dev.emi.emi.recipe.EmiBrewingRecipe;
 import dev.emi.emi.registry.EmiPluginContainer;
 import moddedmite.emi.util.TileEntityFurnaceEMI;
 import org.apache.commons.lang3.text.WordUtils;
+import shims.java.com.unascribed.retroemi.EmiMultiPlugin;
+import shims.java.com.unascribed.retroemi.NamedEmiPlugin;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import shims.java.net.minecraft.text.Text;
 import shims.java.net.minecraft.util.SyntheticIdentifier;
@@ -27,6 +30,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EmiAgnosFish extends EmiAgnos {
 	static {
@@ -113,7 +117,28 @@ public class EmiAgnosFish extends EmiAgnos {
 
 		return plugins;
 	}
-	
+
+	private Stream<EmiPluginContainer> createPlugin(String clazzName, String id) {
+		try {
+			var clazz = Class.forName(clazzName);
+			if (!EmiPlugin.class.isAssignableFrom(clazz) && !EmiMultiPlugin.class.isAssignableFrom(clazz)) {
+				EmiLog.warn("Registered emi entrypoint for nilmod {} does not implement EmiPlugin");
+				return null;
+			}
+			if (!Runnable.class.isAssignableFrom(clazz)) {
+				EmiLog.warn("Registered emi entrypoint for nilmod {} does not implement Runnable (this is required for NilLoader entrypoint compliance)");
+				return null;
+			}
+			var inst = clazz.getConstructor().newInstance();
+			Stream<EmiPlugin> stream = inst instanceof EmiPlugin ep ? Stream.of(ep) : Stream.empty();
+			if (inst instanceof EmiMultiPlugin emp) stream = Stream.concat(stream, emp.getChildPlugins());
+			return stream.map(ep -> new EmiPluginContainer(ep, ep instanceof NamedEmiPlugin n ? id + "/" + n.getName() : id));
+		} catch (Throwable t) {
+			EmiLog.warn("Unexpected error while attempting to create plugin for nilmod {}");
+			return null;
+		}
+	}
+
 	@Override
 	protected void addBrewingRecipesAgnos(EmiRegistry registry) {
 		TileEntityBrewingStand tebs = new TileEntityBrewingStand();

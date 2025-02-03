@@ -13,7 +13,7 @@ import net.minecraft.Slot;
 
 import java.util.List;
 
-public class EmiClient implements ClientModInitializer{
+public class EmiClient {
 	public static boolean onServer = false;
 
 	public static void init() {
@@ -26,10 +26,5 @@ public class EmiClient implements ClientModInitializer{
 		List<Slot> crafting = handler.getCraftingSlots(recipe, screenHandler);
 		Slot output = handler.getOutputSlot(screenHandler);
 		EmiNetwork.sendToServer(new FillRecipeC2SPacket(screenHandler, action, handler.getInputSources(screenHandler), crafting, output, stacks));
-	}
-
-	@Override
-	public void onInitializeClient() {
-
 	}
 }

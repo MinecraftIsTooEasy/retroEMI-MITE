@@ -47,6 +47,10 @@ public class EmiConfig {
 	@ConfigValue("general.help-level")
 	public static HelpLevel helpLevel = HelpLevel.NORMAL;
 
+//	@Comment("Where EMI should pull stacks from to populate the index.")
+//	@ConfigValue("general.index-source")
+//	public static IndexSource indexSource = IndexSource.CREATIVE;
+
 	@ConfigGroup("general.search")
 	@Comment("Which sidebar should be searched using the search bar.")
 	@ConfigValue("general.search-sidebar")
@@ -408,6 +412,10 @@ public class EmiConfig {
 	@ConfigValue("binds.delete-cursor-stack")
 	public static EmiBind deleteCursorStack = new EmiBind("key.emi.delete_cursor_stack", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), 0));
 
+	@Comment("Copies the hovered recipe's ID to the clipboard")
+	@ConfigValue("binds.copy-recipe-id")
+	public static EmiBind copyId = new EmiBind("key.emi.copy_recipe_id", InputUtil.UNKNOWN_KEY.getCode());
+
 	@Comment("In edit mode, hide the hovered stack")
 	@ConfigValue("binds.hide-stack")
 	public static EmiBind hideStack = new EmiBind("key.emi.hide_stack", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), EmiInput.CONTROL_MASK));
@@ -451,11 +459,11 @@ public class EmiConfig {
 	//Distraction Free Recipes
 	@ConfigGroup("addon.distraction")
 	@Comment("Turns the mod's effects on/off.")
-	@ConfigValue("addon.distraction.enable-distraction-free-mode")
+	@ConfigValue("addon.enable-distraction-free-mode")
 	public static boolean enableDistractionFreeMode = false;
 
 	@Comment("Lowers the opacity of the search bar to make it blend in more.")
-	@ConfigValue("addon.distraction.lower_opacity")
+	@ConfigValue("addon.lower_opacity")
 	@ConfigGroupEnd()
 	public static boolean lowerOpacity = false;
 	

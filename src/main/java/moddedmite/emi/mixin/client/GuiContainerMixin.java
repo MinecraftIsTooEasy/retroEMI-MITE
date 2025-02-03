@@ -1,6 +1,6 @@
 package moddedmite.emi.mixin.client;
 
-import dev.emi.emi.Hooks;
+import shims.java.com.unascribed.retroemi.REMIMixinHooks;
 import dev.emi.emi.screen.EmiScreenManager;
 import moddedmite.emi.api.EMIGuiContainerCreative;
 import moddedmite.emi.api.EMISearchInput;
@@ -36,7 +36,7 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
                     shift = At.Shift.AFTER
             ))
     private void renderEMIBackground(int par1, int par2, float par3, CallbackInfo ci) {
-        Hooks.renderBackground(par1, par2); //render EMI background
+        REMIMixinHooks.renderBackground(par1, par2); //render EMI background
     }
 
     @Inject(
@@ -47,13 +47,13 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
                     shift = At.Shift.AFTER
             ))
     private void renderForegroundPost(int par1, int par2, float par3, CallbackInfo ci) {
-        Hooks.renderForegroundPre(par1, par2, this.mc);
-        Hooks.renderForegroundPost(par1, par2, this.mc);
+        REMIMixinHooks.renderForegroundPre(par1, par2, this.mc);
+        REMIMixinHooks.renderForegroundPost(par1, par2, this.mc);
     }
 
     @Inject(method = "drawSlotInventory", at = @At(value = "RETURN"))
     private void drawSlot(Slot par1Slot, CallbackInfo ci) {
-        Hooks.drawSlot(par1Slot);
+        REMIMixinHooks.drawSlot(par1Slot);
     }
 
     @Inject(method = "keyTyped", at = @At("HEAD"), cancellable = true)

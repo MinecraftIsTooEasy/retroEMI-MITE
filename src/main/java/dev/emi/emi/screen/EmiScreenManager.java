@@ -40,6 +40,9 @@ import shims.java.org.lwjgl.glfw.GLFW;
 import net.minecraft.*;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.StringSelection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
@@ -63,6 +66,7 @@ public class EmiScreenManager {
 					new SidebarPanel(SidebarSide.TOP, EmiConfig.topSidebarPages), new SidebarPanel(SidebarSide.BOTTOM, EmiConfig.bottomSidebarPages));
 	// The last stack that was used to draw a tooltip, cleared each frame
 	public static ItemStack lastStackTooltipRendered;
+	private static long lastPlayerInventorySync = 0;
 	public static EmiPlayerInventory lastPlayerInventory;
 	public static int lastMouseX, lastMouseY;
 	// The stack that was clicked on, for determining when a drag properly starts
@@ -93,19 +97,9 @@ public class EmiScreenManager {
 	}
 	
 	public static void recalculate() {
-		EmiPlayerInventory inv = EmiPlayerInventory.of(client.thePlayer);
+		updateCraftables();
 		SidebarPanel searchPanel = getSearchPanel();
-		if (searchPanel.space != null) {
-			if (!inv.isEqual(lastPlayerInventory)) {
-				lastPlayerInventory = inv;
-				EmiSidebars.craftables = lastPlayerInventory.getCraftables();
-				searchPanel.space.batcher.repopulate();
-				if (searchPanel.getType() == SidebarType.CRAFTABLES) {
-					EmiSearch.update();
-				}
-				EmiFavorites.updateSynthetic(inv);
-				repopulatePanels(SidebarType.CRAFTABLES);
-			}
+			if (searchPanel != null && searchPanel.space != null) {
 			if (searchedStacks != EmiSearch.stacks) {
 				searchPanel.space.batcher.repopulate();
 				searchedStacks = EmiSearch.stacks;
@@ -185,6 +179,30 @@ public class EmiScreenManager {
 					SidebarSettings.BOTTOM);
 			
 			updateSidebarButtons();
+		}
+	}
+
+	private static void updateCraftables() {
+		int minDelay = 400;
+		if (hasSidebarVisible(SidebarType.CRAFTABLES)) {
+			minDelay = 50;
+		}
+		if (lastPlayerInventory == null || Math.abs(System.currentTimeMillis() - lastPlayerInventorySync) >= minDelay) {
+			lastPlayerInventorySync = System.currentTimeMillis();
+			EmiPlayerInventory inv = EmiPlayerInventory.of(client.thePlayer);
+			SidebarPanel searchPanel = getSearchPanel();
+			if (!inv.isEqual(lastPlayerInventory)) {
+				lastPlayerInventory = inv;
+				EmiSidebars.craftables = lastPlayerInventory.getCraftables();
+				if (searchPanel != null && searchPanel.space != null) {
+					searchPanel.space.batcher.repopulate();
+					if (searchPanel.getType() == SidebarType.CRAFTABLES) {
+						EmiSearch.update();
+					}
+				}
+				EmiFavorites.updateSynthetic(inv);
+				repopulatePanels(SidebarType.CRAFTABLES);
+			}
 		}
 	}
 	
@@ -384,6 +402,17 @@ public class EmiScreenManager {
 		}
 		return null;
 	}
+
+	public static boolean hasSidebarVisible(SidebarType type) {
+		for (SidebarPanel panel : panels) {
+			for (ScreenSpace space : panel.getSpaces()) {
+				if (type == space.getType()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public static boolean hasSidebarAvailable(SidebarType type) {
 		for (SidebarPanel panel : panels) {
@@ -575,7 +604,6 @@ public class EmiScreenManager {
 			client.mcProfiler.endSection();
 		}
 		
-		renderDevMode(context, mouseX, mouseY, delta, screen);
 		client.mcProfiler.endSection();
 		
 		renderExclusionAreas(context, mouseX, mouseY, delta, screen);
@@ -1101,6 +1129,9 @@ public class EmiScreenManager {
 				return true;
 			}
 		}
+		if (recipeInteraction(context, function)) {
+			return true;
+		}
 		return false;
 	}
 	
@@ -1163,7 +1194,25 @@ public class EmiScreenManager {
 		}
 		return false;
 	}
-	
+
+	public static boolean recipeInteraction(EmiRecipe recipe, Function<EmiBind, Boolean> function) {
+		if (recipe == null) {
+			return false;
+		}
+		if (function.apply(EmiConfig.favorite) && recipe.getOutputs().size() > 0) {
+			EmiFavorites.addFavorite(recipe.getOutputs().get(0), recipe);
+			repopulatePanels(SidebarType.FAVORITES);
+			return true;
+		} else if (function.apply(EmiConfig.copyId)) {
+			Minecraft.getMinecraft().sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+			StringSelection ss = new StringSelection("" + recipe.getId());
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, (ClipboardOwner) null);
+			return true;
+		}
+		return false;
+	}
+
+
 	public static void toggleVisibility(boolean notify) {
 		EmiConfig.enabled = !EmiConfig.enabled;
 		EmiConfig.writeConfig();

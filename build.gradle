@@ -3,7 +3,7 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
+version = project.version
 group = project.maven_group
 
 base {
@@ -43,7 +43,7 @@ dependencies {
 	implementation files("libs\\gson-2.10.1.jar")
 	implementation files("libs\\PinIn-Lib-1.6.0.jar")
 	implementation files("libs\\joml-1.10.5.jar")
-	implementation files("libs\\ModMenu-10.0.0.jar")
+	implementation files("libs\\modmenu-10.0.0.jar")
 	implementation files(loom.getFML().toPath())
 }
 
@@ -87,11 +87,11 @@ publishing {
 
 allprojects {
 	base.archivesName = rootProject.archives_base_name
-	ext.mavenVersion = "${rootProject.mod_version}"
-	if (System.getenv("RELEASE") == null) {
-		ext.mavenVersion += "-SNAPSHOT"
-	}
+	ext.mavenVersion = "${rootProject.version}"
+//	if (System.getenv("RELEASE") == null) {
+//		ext.mavenVersion += "-SNAPSHOT"
+//	}
 	ext.mavenVersion += "+${rootProject.minecraft_version}"
-	version = "${project.ext.mavenVersion}+${project.enabled_platforms}-dev"
+	version = "${project.ext.mavenVersion}+${project.enabled_platforms}"
 	group = rootProject.maven_group
 }

@@ -1,6 +1,6 @@
 package moddedmite.emi.mixin.inventory;
 
-import dev.emi.emi.Hooks;
+import shims.java.com.unascribed.retroemi.REMIMixinHooks;
 import moddedmite.emi.api.EMISlotCrafting;
 import net.minecraft.EntityPlayer;
 import net.minecraft.IInventory;
@@ -25,6 +25,6 @@ public class SlotCraftingMixin implements EMISlotCrafting {
 
     @Inject(method = "onCrafting(Lnet/minecraft/ItemStack;)V", at = @At("HEAD"))
     private void onCraftRenderEMI(ItemStack par1ItemStack, CallbackInfo ci) {
-        Hooks.onCrafting(this.thePlayer, this.craftMatrix);
+        REMIMixinHooks.onCrafting(this.thePlayer, this.craftMatrix);
     }
 }

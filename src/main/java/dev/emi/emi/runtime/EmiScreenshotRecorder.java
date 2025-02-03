@@ -2,6 +2,7 @@ package dev.emi.emi.runtime;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.IntBuffer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.function.Consumer;
 
 import net.minecraft.Minecraft;
+import net.minecraft.ScaledResolution;
 import net.minecraft.Tessellator;
 import org.joml.Matrix4f;
 
@@ -27,6 +29,8 @@ import org.joml.Matrix4fStack;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import shims.java.net.minecraft.text.Style;
+import shims.java.net.minecraft.text.Text;
 
 import javax.imageio.ImageIO;
 
@@ -50,164 +54,88 @@ public class EmiScreenshotRecorder {
      * @param height   the height of the screenshot, not counting EMI-config scale.
      * @param renderer a function to render the things being screenshotted.
      */
-//    public static void saveScreenshot(String path, int width, int height, Runnable renderer) {
-//        if (!RenderSystem.isOnRenderThread()) {
-//            RenderSystem.recordRenderCall(() -> saveScreenshotInner(path, width, height, renderer));
-//        } else {
-//            saveScreenshotInner(path, width, height, renderer);
-//        }
-//    }
-//
-//    private static void saveScreenshotInner(String path, int width, int height, Runnable renderer) {
-//        Minecraft client = Minecraft.getMinecraft();
-//
-//        int scale;
-//        if (EmiConfig.recipeScreenshotScale < 1) {
-//            scale = EmiPort.getGuiScale(client);
-//        } else {
-//            scale = EmiConfig.recipeScreenshotScale;
-//        }
-//
-//        Tessellator tessellator = new Tessellator();
-////        Framebuffer framebuffer = new SimpleFramebuffer(width * scale, height * scale, true, Minecraft.isRunningOnMac);
-//        tessellator.setColorRGBA_F(0f, 0f, 0f, 0f);
-//        framebuffer.clear(Minecraft.isRunningOnMac);
-//
-//        tessellator.draw();
-//
-//        Matrix4fStack view = RenderSystem.getModelViewStack();
-//        view.pushMatrix();
-//        view.identity();
-//        view.translate(-1.0f, 1.0f, 0.0f);
-//        view.scale(2f / width, -2f / height, -1f / 1000f);
-//        view.translate(0.0f, 0.0f, 10.0f);
-//        RenderSystem.applyModelViewMatrix();
-//
-//        Matrix4f backupProj = RenderSystem.getProjectionMatrix();
-//        RenderSystem.setProjectionMatrix(new Matrix4f().identity(), VertexSorter.BY_Z);
-//
-//        renderer.run();
-//
-//        RenderSystem.setProjectionMatrix(backupProj, VertexSorter.BY_Z);
-//        view.popMatrix();
-//        RenderSystem.applyModelViewMatrix();
-//
-//        framebuffer.endWrite();
-//        client.getFramebuffer().beginWrite(true);
-//
-//        saveScreenshotInner(client.runDirectory, path, framebuffer,
-//                message -> client.execute(() -> client.inGameHud.getChatHud().addMessage(message)));
-//    }
-//
-//    private static void saveScreenshotInner(File gameDirectory, String suggestedPath, Framebuffer framebuffer, Consumer<Text> messageReceiver) {
-//        NativeImage nativeImage = takeScreenshot(framebuffer);
-//
-//        File screenshots = new File(gameDirectory, SCREENSHOTS_DIRNAME);
-//        screenshots.mkdir();
-//
-//        String filename = getScreenshotFilename(screenshots, suggestedPath);
-//        File file = new File(screenshots, filename);
-//
-//        // Make sure the parent file exists. Note: `/`s in suggestedPath are valid, as they indicate subdirectories. Java even translates this
-//        // correctly on Windows.
-//        File parent = file.getParentFile();
-//        parent.mkdirs();
-//
-//        Util.getIoWorkerExecutor().execute(() -> {
-//            try {
-//                nativeImage.writeTo(file);
-//
-//                Text text = EmiPort.literal(filename,
-//                        Style.EMPTY.withUnderline(true).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file.getAbsolutePath())));
-//                messageReceiver.accept(EmiPort.translatable("screenshot.success", text));
-//            } catch (Throwable e) {
-//                EmiLog.error("Failed to write screenshot");
-//                e.printStackTrace();
-//                messageReceiver.accept(EmiPort.translatable("screenshot.failure", e.getMessage()));
-//            } finally {
-//                nativeImage.close();
-//            }
-//        });
-//    }
-//
-//    private static NativeImage takeScreenshot(Framebuffer framebuffer) {
-//        int i = framebuffer.textureWidth;
-//        int j = framebuffer.textureHeight;
-//        NativeImage nativeImage = new NativeImage(i, j, false);
-//        RenderSystem.bindTexture(framebuffer.getColorAttachment());
-//        nativeImage.loadFromTextureImage(0, false);
-//        nativeImage.mirrorVertically();
-//        return nativeImage;
-//    }
+    public static void saveScreenshot(String path, int x, int y, int width, int height, Runnable renderer) {
+        Minecraft client = Minecraft.getMinecraft();
+        int scale;
+        if (EmiConfig.recipeScreenshotScale < 1) {
+            scale = EmiPort.getGuiScale(client);
+        } else {
+            scale = EmiConfig.recipeScreenshotScale;
+        }
 
-    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
-    private static IntBuffer field_74293_b;
-    private static int[] field_74294_c;
+        GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT | GL11.GL_TRANSFORM_BIT);
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glPushMatrix();
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        GL11.glPushMatrix();
 
-
-    public static String saveScreenshot(File par0File, int par1, int par2) {
-        return func_74292_a(par0File, (String)null, par1, par2);
-    }
-
-    public static String func_74292_a(File par0File, String par1Str, int par2, int par3) {
         try {
-            File var4 = new File(par0File, "screenshots");
-            var4.mkdir();
-            int var5 = par2 * par3;
+            GL11.glViewport(0, 0, width * scale, height * scale);
+            GL11.glMatrixMode(GL11.GL_PROJECTION);
+            GL11.glLoadIdentity();
+            GL11.glOrtho(0, width, height, 0, 1000.0D, 3000.0D);
+            GL11.glMatrixMode(GL11.GL_MODELVIEW);
+            GL11.glLoadIdentity();
+            GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
 
-            if (field_74293_b == null || field_74293_b.capacity() < var5) {
-                field_74293_b = BufferUtils.createIntBuffer(var5);
-                field_74294_c = new int[var5];
-            }
+            renderer.run();
+
+            int bufferSize = width * height;
+            IntBuffer pixelBuffer = BufferUtils.createIntBuffer(bufferSize);
+            int[] pixelValues = new int[bufferSize];
 
             GL11.glPixelStorei(GL11.GL_PACK_ALIGNMENT, 1);
             GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
-            field_74293_b.clear();
-            GL11.glReadPixels(0, 0, par2, par3, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, field_74293_b);
-            field_74293_b.get(field_74294_c);
-            func_74289_a(field_74294_c, par2, par3);
-            BufferedImage var6 = new BufferedImage(par2, par3, 1);
-            var6.setRGB(0, 0, par2, par3, field_74294_c, 0, par2);
-            File var7;
+            GL11.glReadPixels(x, y, width, height, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, pixelBuffer);
+            pixelBuffer.get(pixelValues);
 
-            if (par1Str == null) {
-                var7 = func_74290_a(var4);
-            } else {
-                var7 = new File(var4, par1Str);
-            }
+            saveScreenshotInner(client.mcDataDir, path, pixelValues, width, height, message -> client.ingameGUI.getChatGUI().addToSentMessages(String.valueOf(message)));
+        } finally {
+            GL11.glMatrixMode(GL11.GL_PROJECTION);
+            GL11.glPopMatrix();
+            GL11.glMatrixMode(GL11.GL_MODELVIEW);
+            GL11.glPopMatrix();
+            GL11.glPopAttrib();
 
-            ImageIO.write(var6, "png", var7);
-            return "Saved screenshot as " + var7.getName();
-        } catch (Exception var8) {
-            var8.printStackTrace();
-            return "Failed to save: " + var8;
+            client.entityRenderer.updateRenderer();
         }
     }
 
-    private static File func_74290_a(File par0File) {
-        String var2 = dateFormat.format(new Date()).toString();
-        int var3 = 1;
+    private static void saveScreenshotInner(File gameDirectory, String suggestedPath, int[] pixels, int width, int height, Consumer<Text> messageReceiver) {
+        int[] flipped = new int[pixels.length];
+        for (int row = 0; row < height; row++) {
+            System.arraycopy(pixels, row * width, flipped, (height - 1 - row) * width, width);
+        }
 
-        while (true) {
-            File var1 = new File(par0File, var2 + (var3 == 1 ? "" : "_" + var3) + ".png");
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        image.setRGB(0, 0, width, height, flipped, 0, width);
 
-            if (!var1.exists()) {
-                return var1;
-            }
+        File screenshotDir = new File(gameDirectory, "screenshots");
+        screenshotDir.mkdir();
 
-            ++var3;
+        String filename = getScreenshotFilename(screenshotDir, suggestedPath);
+        File file = new File(screenshotDir, filename);
+
+        try {
+            ImageIO.write(image, "PNG", file);
+            Text text = EmiPort.literal(filename,
+                    Style.EMPTY.withUnderline(true)
+//                            .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file.getAbsolutePath()))
+            );
+            messageReceiver.accept(EmiPort.translatable("screenshot.success", text));
+        } catch (IOException e) {
+            EmiLog.error("Failed to write screenshot");
+            e.printStackTrace();
+            messageReceiver.accept(EmiPort.translatable("screenshot.failure", e.getMessage()));
         }
     }
 
-    private static void func_74289_a(int[] par0ArrayOfInteger, int par1, int par2) {
-        int[] var3 = new int[par1];
-        int var4 = par2 / 2;
-
-        for (int var5 = 0; var5 < var4; ++var5) {
-            System.arraycopy(par0ArrayOfInteger, var5 * par1, var3, 0, par1);
-            System.arraycopy(par0ArrayOfInteger, (par2 - 1 - var5) * par1, par0ArrayOfInteger, var5 * par1, par1);
-            System.arraycopy(var3, 0, par0ArrayOfInteger, (par2 - 1 - var5) * par1, par1);
+    private static String getScreenshotFilename(File directory, String path) {
+        int i = 1;
+        while ((new File(directory, path + (i == 1 ? "" : "_" + i) + ".png")).exists()) {
+            ++i;
         }
+        return path + (i == 1 ? "" : "_" + i) + ".png";
     }
 }
 

@@ -2,6 +2,9 @@ package dev.emi.emi.search;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import dev.emi.emi.api.recipe.EmiRecipe;
+import dev.emi.emi.api.widget.SlotWidget;
+import dev.emi.emi.bom.BoM;
 import dev.emi.emi.config.EmiConfig;
 import dev.emi.emi.data.EmiData;
 import dev.emi.emi.registry.EmiStackList;
@@ -65,20 +68,22 @@ public class EmiSearch {
 					}
 				}
 				ResourceLocation id = stack.getId();
+				EmiRecipe recipe = BoM.getRecipe(stack);
 				if (id != null) {
 					mods.add(stack, ModIdentification.getMod(stack.getItemStack()).toLowerCase().replace(" ", ""));
+				}
+				//TODO search recipe id
+				if (recipe != null) {
+					names.add(stack, recipe.getId().toString());
 				}
 				String idString = "";
 				if (stack.getItemStack().itemID < 10) {
 					idString = "000" + stack.getItemStack().itemID;
-				}
-				else if (stack.getItemStack().itemID < 100) {
+				} else if (stack.getItemStack().itemID < 100) {
 					idString = "00" + stack.getItemStack().itemID;
-				}
-				else if (stack.getItemStack().itemID < 1000) {
+				} else if (stack.getItemStack().itemID < 1000) {
 					idString = "0" + stack.getItemStack().itemID;
-				}
-				else {
+				} else {
 					idString = String.valueOf(stack.getItemStack().itemID);
 				}
 				ids.add(stack, idString + "/" + stack.getItemStack().getItemSubtype());

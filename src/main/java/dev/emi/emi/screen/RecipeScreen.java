@@ -22,7 +22,6 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.RecipeFillButtonWidget;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.Widget;
-import org.lwjgl.opengl.GL11;
 import shims.java.com.unascribed.retroemi.REMIScreen;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
@@ -403,6 +402,7 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 			try {
 				int ox = mx - group.x();
 				int oy = my - group.y();
+				boolean groupHovered = new Bounds(group.x(), group.y(), group.getWidth(), group.getHeight()).contains(mx, my);
 				for (Widget widget : group.widgets) {
 					if (widget.getBounds().contains(ox, oy)) {
 						if (widget instanceof SlotWidget slot) {
@@ -413,10 +413,13 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 								return true;
 							}
 						}
+						groupHovered = true;
 					}
 				}
-			}
-			catch (Throwable e) {
+				if (groupHovered && EmiScreenManager.recipeInteraction(group.recipe, bind -> bind.matchesMouse(button))) {
+					return true;
+				}
+			} catch (Throwable e) {
 				e.printStackTrace();
 				group.error(e);
 			}
@@ -529,15 +532,19 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 			try {
 				int mx = EmiScreenManager.lastMouseX - group.x();
 				int my = EmiScreenManager.lastMouseY - group.y();
+				boolean groupHovered = new Bounds(group.x(), group.y(), group.getWidth(), group.getHeight()).contains(EmiScreenManager.lastMouseX, EmiScreenManager.lastMouseY);
 				for (Widget widget : group.widgets) {
 					if (widget.getBounds().contains(mx, my)) {
 						if (widget.keyPressed(keyCode, scanCode, modifiers)) {
 							return true;
 						}
+						groupHovered = true;
 					}
 				}
-			}
-			catch (Throwable e) {
+				if (groupHovered && EmiScreenManager.recipeInteraction(group.recipe, bind -> bind.matchesKey(keyCode, scanCode))) {
+					return true;
+				}
+			} catch (Throwable e) {
 				e.printStackTrace();
 				group.error(e);
 			}

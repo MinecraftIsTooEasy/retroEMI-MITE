@@ -6,11 +6,12 @@
   "description": "A featureful and accessible item and recipe viewer",
   "authors": [
     "Emi",
-    "Katherine",
-    "Bagel",
+    "unascribed",
     "Xy_Lose"
   ],
   "contributors": [
+    "Katherine",
+    "Bagel",
     "limingzxc",
     "Huix"
   ],
@@ -23,7 +24,7 @@
       "moddedmite.emi.platform.fish.EmiMainFish"
     ],
     "client": [
-      "dev.emi.emi.platform.EmiClient"
+      "moddedmite.emi.platform.fish.EmiClientFish"
     ],
     "server": [],
     "emi": [

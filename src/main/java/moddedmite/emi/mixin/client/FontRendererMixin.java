@@ -1,7 +1,10 @@
 package moddedmite.emi.mixin.client;
 
-import net.minecraft.*;
+import com.llamalad7.mixinextras.sugar.Local;
 import org.lwjgl.opengl.GL11;
+import shims.java.com.unascribed.retroemi.REMIMixinHooks;
+import net.minecraft.*;
+import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -34,30 +37,9 @@ public abstract class FontRendererMixin {
         return Short.MAX_VALUE;
     }
 
-    /**
-     * Hook for EMI
-     */
-    @Unique
-    public int applyCustomFormatCodes(String str, boolean shadow, int i) {
-        if (str.charAt(i + 1) == 'x') {
-            int next = str.indexOf(String.valueOf('\u00a7') + "x", i + 1);
-            if (next != -1) {
-                String s = str.substring(i + 1, next);
-                int color = Integer.parseInt(s.replace(String.valueOf('\u00a7'), "").substring(1), 16);
-                if (shadow) {
-                    color = (color & 16579836) >> 2 | color & -16777216;
-                }
-                this.textColor = color;
-                GL11.glColor4f((color >> 16) / 255.0F, (color >> 8 & 255) / 255.0F, (color & 255) / 255.0F, this.alpha);
-                i += s.length() + 1;
-            }
-        }
-        return i;
-    }
-
-//    @Inject(method = "renderStringAtPos", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 0, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILSOFT)
-//    private void applyCustomFormatCodes(String par1Str, boolean par2, CallbackInfo ci, int var3, char var4, int var6, EnumChatFormatting enum_chat_formatting) {
-//        var3 = this.applyCustomFormatCodes(par1Str, par2, var3);
+//    @Inject(method = "renderStringAtPos", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 0, shift = At.Shift.AFTER))
+//    private void applyCustomFormatCodes(String par1Str, boolean par2, CallbackInfo ci, @Local(ordinal = 0) int var3) {
+//        var3 = REMIMixinHooks.applyCustomFormatCodes(ReflectHelper.dyCast(this), par1Str, par2, var3);
 //    }
 
     @Inject(method = "renderStringAtPos", at = @At("HEAD"), cancellable = true)
@@ -90,7 +72,7 @@ public abstract class FontRendererMixin {
 
                     this.textColor = var6;
                     GL11.glColor4f((float) (var6 >> 16) / 255.0F, (float) (var6 >> 8 & 255) / 255.0F, (float) (var6 & 255) / 255.0F, this.alpha);
-                    var3 = applyCustomFormatCodes(par1Str, par2, var3);
+                    var3 = REMIMixinHooks.applyCustomFormatCodes(ReflectHelper.dyCast(this), par1Str, par2, var3);
                 } else if (var12 == EnumChatFormatting.OBFUSCATED) {
                     this.randomStyle = true;
                 } else if (var12 == EnumChatFormatting.BOLD) {
