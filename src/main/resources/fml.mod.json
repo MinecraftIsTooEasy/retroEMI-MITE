@@ -32,7 +32,7 @@
       "moddedmite.emi.MITEPlugin"
     ],
     "modmenu": [
-      "dev.emi.emi.compat.EmiModMenu"
+      "moddedmite.emi.compat.EmiModMenu"
     ]
   },
   "custom": {

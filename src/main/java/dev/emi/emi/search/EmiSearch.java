@@ -71,6 +71,7 @@ public class EmiSearch {
 				EmiRecipe recipe = BoM.getRecipe(stack);
 				if (id != null) {
 					mods.add(stack, ModIdentification.getMod(stack.getItemStack()).toLowerCase().replace(" ", ""));
+					names.add(stack, id.toString());
 				}
 				//TODO search recipe id
 				if (recipe != null) {
