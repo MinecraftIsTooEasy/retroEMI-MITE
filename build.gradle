@@ -39,6 +39,7 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.fmlMCPMappings()
 
+	implementation("org.slf4j:log4j-over-slf4j:2.0.13")
 	implementation files("libs\\fastutil-8.5.12.jar")
 	implementation files("libs\\gson-2.10.1.jar")
 	implementation files("libs\\PinIn-Lib-1.6.0.jar")

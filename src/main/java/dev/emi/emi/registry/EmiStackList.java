@@ -85,8 +85,7 @@ public class EmiStackList {
 				}
 				return false;
 			} catch (Throwable t) {
-				EmiLog.error("Stack threw error while baking");
-				t.printStackTrace();
+				EmiLog.error("Stack threw error while baking", t);
 				return true;
 			}
 		});

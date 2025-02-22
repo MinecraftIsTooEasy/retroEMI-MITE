@@ -32,8 +32,7 @@ public class RecipeDefaultLoader implements EmiResourceReloadListener, ResourceM
 			}
 		}
 		catch (Exception e) {
-			EmiLog.error("Error loading recipe default file");
-			e.printStackTrace();
+			EmiLog.error("Error loading recipe default file", e);
 		}
 		BoM.setDefaults(defaults);
 	}

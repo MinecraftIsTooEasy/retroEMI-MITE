@@ -49,8 +49,7 @@ public class MITEPlugin implements EmiPlugin {
 			registry.addRecipe(supplier.get());
 		}
 		catch (Throwable e) {
-			EmiReloadLog.warn("Exception when parsing EMI recipe (no ID available)");
-			EmiReloadLog.error(e);
+			EmiReloadLog.warn("Exception when parsing EMI recipe (no ID available)", e);
 		}
 	}
 	
@@ -59,8 +58,7 @@ public class MITEPlugin implements EmiPlugin {
 			registry.addRecipe(supplier.get());
 		}
 		catch (Throwable e) {
-			EmiReloadLog.warn("Exception when parsing MITE recipe " + recipe);
-			EmiReloadLog.error(e);
+			EmiReloadLog.warn("Exception when parsing MITE recipe " + recipe, e);
 		}
 	}
 	

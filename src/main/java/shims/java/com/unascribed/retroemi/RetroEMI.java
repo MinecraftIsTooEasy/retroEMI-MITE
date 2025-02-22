@@ -260,10 +260,8 @@ public class RetroEMI {
 					}
 				}
 			}
-		}
-		catch (Exception e) {
-			EmiLog.error("Error while handling mouse event");
-			e.printStackTrace();
+		} catch (Exception e) {
+			EmiLog.error("Error while handling mouse event", e);
 		}
 		return false;
 	}
@@ -290,10 +288,8 @@ public class RetroEMI {
 					//					}
 				}
 			}
-		}
-		catch (Exception e) {
-			EmiLog.error("Error while handling key press");
-			e.printStackTrace();
+		} catch (Exception e) {
+			EmiLog.error("Error while handling key press", e);
 		}
 		return false;
 	}

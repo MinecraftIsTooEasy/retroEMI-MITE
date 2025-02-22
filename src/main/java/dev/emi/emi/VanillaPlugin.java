@@ -435,20 +435,16 @@ public class VanillaPlugin implements EmiPlugin {
 	private static void addRecipeSafe(EmiRegistry registry, Supplier<EmiRecipe> supplier) {
 		try {
 			registry.addRecipe(supplier.get());
-		}
-		catch (Throwable e) {
-			EmiReloadLog.warn("Exception when parsing EMI recipe (no ID available)");
-			EmiReloadLog.error(e);
+		} catch (Throwable e) {
+			EmiReloadLog.warn("Exception when parsing EMI recipe (no ID available)", e);
 		}
 	}
 	
 	private static void addRecipeSafe(EmiRegistry registry, Supplier<EmiRecipe> supplier, IRecipe recipe) {
 		try {
 			registry.addRecipe(supplier.get());
-		}
-		catch (Throwable e) {
-			EmiReloadLog.warn("Exception when parsing vanilla recipe " + recipe);
-			EmiReloadLog.error(e);
+		} catch (Throwable e) {
+			EmiReloadLog.warn("Exception when parsing vanilla recipe " + recipe, e);
 		}
 	}
 	

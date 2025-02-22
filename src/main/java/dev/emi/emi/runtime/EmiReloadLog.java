@@ -25,6 +25,12 @@ public class EmiReloadLog {
 		pendingWarningCount++;
 	}
 
+	public static void warn(String warning, Throwable t) {
+		pendingWarnings.add(warning);
+		EmiLog.error(warning, t);
+		pendingWarningCount++;
+	}
+
 	public static void info(String info) {
 		pendingWarnings.add(info);
 		EmiLog.info(info);

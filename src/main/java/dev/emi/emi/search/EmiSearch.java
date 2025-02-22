@@ -88,10 +88,8 @@ public class EmiSearch {
 					idString = String.valueOf(stack.getItemStack().itemID);
 				}
 				ids.add(stack, idString + "/" + stack.getItemStack().getItemSubtype());
-			}
-			catch (Exception e) {
-				EmiLog.error("EMI caught an exception while baking search for " + stack);
-				EmiLog.error(e);
+			} catch (Exception e) {
+				EmiLog.error("EMI caught an exception while baking search for " + stack, e);
 			}
 		}
 		for (Supplier<dev.emi.emi.data.EmiAlias> supplier : EmiData.aliases) {
@@ -286,8 +284,7 @@ public class EmiSearch {
 				apply(this, Lists.newArrayList(stacks));
 			}
 			catch (Exception e) {
-				EmiLog.error("Error when attempting to search:");
-				e.printStackTrace();
+				EmiLog.error("Error when attempting to search:", e);
 			}
 		}
 	}
