@@ -10,6 +10,8 @@ import net.minecraft.Container;
 import net.minecraft.CraftingManager;
 import net.minecraft.GuiScreen;
 import net.minecraft.ResourceLocation;
+import org.jetbrains.annotations.ApiStatus;
+import shims.java.net.minecraft.text.Text;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -88,7 +90,7 @@ public interface EmiRegistry {
 	}
 	
 	/**
-	 * @deprecated Use {@link EmiPlugin#initialize()} and {@link EmiInitRegistry#addIngredientSerializer()}
+	 * @deprecated Use {@link EmiPlugin#initialize(EmiInitRegistry)} and {@link EmiInitRegistry#addIngredientSerializer(Class, EmiIngredientSerializer)}
 	 */
 	@Deprecated
 	<T extends EmiIngredient> void addIngredientSerializer(Class<T> clazz, EmiIngredientSerializer<T> serializer);
@@ -166,6 +168,16 @@ public interface EmiRegistry {
 	default void setDefaultComparison(EmiStack stack, Comparison comparison) {
 		setDefaultComparison(stack.getKey(), old -> comparison);
 	}
+
+	/**
+	 * Adds a search alias for a given stack.
+	 * Aliases are treated the same as the stack's name when searching.
+	 * Aliases should be text the player would look up trying to find the given stack, but wouldn't match the stack's name.
+	 * @param stack A stack that can be searched with the provided alias.
+	 * @param text The alias for the given stack.
+	 */
+	@ApiStatus.Experimental
+	void addAlias(EmiIngredient stack, Text text);
 	
 	/**
 	 * Adds a recipe handler to a specified type of screen handler.

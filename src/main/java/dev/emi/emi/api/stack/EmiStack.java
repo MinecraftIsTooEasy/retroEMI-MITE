@@ -76,7 +76,7 @@ public abstract class EmiStack implements EmiIngredient {
 		this.chance = chance;
 		return this;
 	}
-	
+
 	public abstract NBTTagCompound getNbt();
 	
 	public boolean hasNbt() {

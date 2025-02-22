@@ -457,11 +457,6 @@ public class EmiConfig {
 	//Addon
 
 	//Distraction Free Recipes
-	@ConfigGroup("addon.distraction")
-	@Comment("Turns the mod's effects on/off.")
-	@ConfigValue("addon.enable-distraction-free-mode")
-	public static boolean enableDistractionFreeMode = false;
-
 	@Comment("Lowers the opacity of the search bar to make it blend in more.")
 	@ConfigValue("addon.lower_opacity")
 	@ConfigGroupEnd()

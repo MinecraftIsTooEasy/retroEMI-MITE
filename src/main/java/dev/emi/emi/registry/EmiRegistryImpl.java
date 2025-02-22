@@ -1,6 +1,7 @@
 package dev.emi.emi.registry;
 
 import com.google.common.collect.Lists;
+import dev.emi.emi.data.EmiAlias;
 import dev.emi.emi.runtime.EmiReloadLog;
 import dev.emi.emi.api.EmiDragDropHandler;
 import dev.emi.emi.api.EmiExclusionArea;
@@ -15,7 +16,9 @@ import dev.emi.emi.api.stack.serializer.EmiIngredientSerializer;
 import net.minecraft.Container;
 import net.minecraft.CraftingManager;
 import net.minecraft.GuiScreen;
+import shims.java.net.minecraft.text.Text;
 
+import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -125,5 +128,10 @@ public class EmiRegistryImpl implements EmiRegistry {
 	@Override
 	public void setDefaultComparison(Object key, Function<Comparison, Comparison> comparison) {
 		EmiComparisonDefaults.comparisons.put(key, comparison.apply(EmiComparisonDefaults.get(key)));
+	}
+
+	@Override
+	public void addAlias(EmiIngredient stack, Text text) {
+		EmiStackList.registryAliases.add(new EmiAlias.Baked(List.of(stack), List.of(text)));
 	}
 }

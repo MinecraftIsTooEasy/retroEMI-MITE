@@ -51,6 +51,7 @@ public class EmiReloadManager {
 
 	public static void clear() {
 		synchronized (EmiReloadManager.class) {
+			loadedResourcesMask = 0;
 			clear = true;
 			status = 0;
 			reloadWorry = Long.MAX_VALUE;

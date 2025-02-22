@@ -15,7 +15,19 @@ import java.util.List;
 public class ConfigPresets {
 	
 	// Sidebars
-	
+
+	@Comment("Use the right sidebar as the index, but only while searching")
+	@ConfigValue("presets.low-distraction")
+	public static Runnable lowDistraction = () -> {
+		EmiConfig.searchSidebarFocus = SidebarType.INDEX;
+		EmiConfig.emptySearchSidebarFocus = SidebarType.EMPTY;
+
+		setPages(EmiConfig.rightSidebarPages, List.of(
+				new SidebarPages.SidebarPage(SidebarType.INDEX),
+				new SidebarPages.SidebarPage(SidebarType.EMPTY)
+		));
+	};
+
 	@ConfigGroup("presets.sidebars")
 	@Comment("Use index and craftables on the right panel, craftable by default, and index when searching")
 	@ConfigValue("presets.empty-search-craftable")

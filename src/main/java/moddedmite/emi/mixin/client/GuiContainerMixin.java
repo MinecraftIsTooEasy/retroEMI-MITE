@@ -1,13 +1,10 @@
 package moddedmite.emi.mixin.client;
 
+import net.minecraft.*;
 import shims.java.com.unascribed.retroemi.REMIMixinHooks;
 import dev.emi.emi.screen.EmiScreenManager;
 import moddedmite.emi.api.EMIGuiContainerCreative;
 import moddedmite.emi.api.EMISearchInput;
-import net.minecraft.Container;
-import net.minecraft.GuiContainer;
-import net.minecraft.GuiScreen;
-import net.minecraft.Slot;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,7 +22,9 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
 
     @Inject(method = "initGui", at = @At("TAIL"))
     private void addEMIWidgets(CallbackInfo ci) {
-        EmiScreenManager.addWidgets(this);
+        if ((Object) this instanceof GuiContainer hs && Minecraft.getMinecraft().currentScreen == hs) {
+            EmiScreenManager.addWidgets(this);
+        }
     }
 
     @Inject(

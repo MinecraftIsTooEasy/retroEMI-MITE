@@ -3,6 +3,9 @@ package dev.emi.emi.api.stack;
 import net.minecraft.ItemStack;
 import net.minecraft.NBTTagCompound;
 
+import java.util.Objects;
+import java.util.function.Function;
+
 public class Comparison {
 	public static final Comparison DEFAULT_COMPARISON = Comparison.of((a, b) -> getEffectiveMeta(a.getItemStack()) == getEffectiveMeta(b.getItemStack()));
 	private static final Comparison COMPARE_NBT = Comparison.of((a, b) -> {
@@ -42,6 +45,13 @@ public class Comparison {
 	}
 	
 	public static Comparison compareNbt() {
+		return COMPARE_NBT;
+	}
+
+	/**
+	 * Creates a comparison method where stacks are distinct based on NBT
+	 */
+	public static Comparison compareComponents() {
 		return COMPARE_NBT;
 	}
 	

@@ -1,5 +1,6 @@
 package dev.emi.emi;
 
+import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.data.EmiRemoveFromIndex;
 import dev.emi.emi.data.EmiTagExclusionsLoader;
 import dev.emi.emi.data.RecipeDefaultLoader;
@@ -96,5 +97,9 @@ public final class EmiPort {
 		manager.registerReloadListener(new RecipeDefaultLoader());
 		manager.registerReloadListener(new EmiRemoveFromIndex());
 		manager.registerReloadListener(new EmiTagExclusionsLoader());
+	}
+
+	public static Comparison compareStrict() {
+		return Comparison.compareComponents();
 	}
 }

@@ -2,10 +2,12 @@ package dev.emi.emi.search;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import dev.emi.emi.EmiPort;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.bom.BoM;
 import dev.emi.emi.config.EmiConfig;
+import dev.emi.emi.data.EmiAlias;
 import dev.emi.emi.data.EmiData;
 import dev.emi.emi.registry.EmiStackList;
 import dev.emi.emi.runtime.EmiLog;
@@ -41,7 +43,7 @@ public class EmiSearch {
 	public static Set<EmiStack> bakedStacks;
 	public static SuffixArray<EmiStack> names, tooltips, mods, aliases, ids;
 	
-	public static <EmiAlias> void bake() {
+	public static void bake() {
 		SuffixArray<EmiStack> names = new SuffixArray<EmiStack>();
 		SuffixArray<EmiStack> tooltips = new SuffixArray<EmiStack>();
 		SuffixArray<EmiStack> mods = new SuffixArray<EmiStack>();
@@ -102,6 +104,15 @@ public class EmiSearch {
 				for (EmiIngredient ing : alias.stacks()) {
 					for (EmiStack stack : ing.getEmiStacks()) {
 						aliases.add(stack.copy().comparison(Comparison.compareNbt()), text);
+					}
+				}
+			}
+		}
+		for (EmiAlias.Baked alias : EmiStackList.registryAliases) {
+			for (Text text : alias.text()) {
+				for (EmiIngredient ing : alias.stacks()) {
+					for (EmiStack stack : ing.getEmiStacks()) {
+						aliases.add(stack.copy().comparison(EmiPort.compareStrict()), text.getString().toLowerCase());
 					}
 				}
 			}

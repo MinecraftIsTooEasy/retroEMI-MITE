@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import dev.emi.emi.config.EmiConfig;
 import dev.emi.emi.config.IndexSource;
+import dev.emi.emi.data.EmiAlias;
 import dev.emi.emi.data.EmiRemoveFromIndex;
 import dev.emi.emi.data.IndexStackData;
 import dev.emi.emi.runtime.EmiHidden;
@@ -23,6 +24,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class EmiStackList {
+	public static List<EmiAlias.Baked> registryAliases = Lists.newArrayList();
 	public static List<Predicate<EmiStack>> invalidators = Lists.newArrayList();
 	public static List<EmiStack> stacks = Collections.emptyList();
 	public static List<EmiStack> filteredStacks = Collections.emptyList();
@@ -30,6 +32,7 @@ public class EmiStackList {
 
 	public static void clear() {
 		invalidators.clear();
+		registryAliases.clear();
 		stacks = Collections.emptyList();
 		indices.clear();
 	}

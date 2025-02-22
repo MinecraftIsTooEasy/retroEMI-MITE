@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EmiBind {
+	public static final EmiBind LEFT_CLICK = new EmiBind("", new EmiBind.ModifiedKey(InputUtil.Type.MOUSE.createFromCode(0), 0));
 	public static final int MAX_BINDS = 4;
 	public final String translationKey;
 	public final List<ModifiedKey> defaultKeys;
