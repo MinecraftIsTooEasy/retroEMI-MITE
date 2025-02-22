@@ -1,11 +1,11 @@
 package dev.emi.emi.runtime;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EmiLog {
 
-	public static final Logger LOG = LoggerFactory.getLogger("EMI");
+	public static final Logger LOG = LogManager.getLogger("EMI");
 
 	public static void info(String str) {
 		LOG.info("[EMI] " + str);
