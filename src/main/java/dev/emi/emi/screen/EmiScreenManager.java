@@ -1544,9 +1544,6 @@ public class EmiScreenManager {
 			if (getType() == SidebarType.CHESS && (space.tw != 8 || space.th != 8)) {
 				return false;
 			}
-			if (this.getType() == SidebarType.INDEX && EmiScreenManager.search.getText().isEmpty()) {
-				return false;
-			}
 			return !isDisabled() && space.pageSize > 0 && pages.pages.size() > 0;
 		}
 		
