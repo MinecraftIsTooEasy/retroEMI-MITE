@@ -7,7 +7,7 @@ import dev.emi.emi.input.EmiBind;
 import dev.emi.emi.input.EmiInput;
 import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.runtime.EmiLog;
-import shims.java.com.unascribed.nil.QDCSS;
+import dev.emi.emi.com.unascribed.qdcss.QDCSS;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.util.InputUtil;
 import shims.java.org.lwjgl.glfw.GLFW;

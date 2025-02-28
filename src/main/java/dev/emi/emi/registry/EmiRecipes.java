@@ -138,43 +138,41 @@ public class EmiRecipes {
 				}
 			}
 
-			if (EmiConfig.devMode) {
-				for (ResourceLocation id : duplicateIds.keySet()) {
-					EmiReloadLog.warn(duplicateIds.getInt(id) + " recipes loaded with the same id: " + id);
-				}
+			for (ResourceLocation id : duplicateIds.keySet()) {
+				EmiReloadLog.warn(duplicateIds.getInt(id) + " recipes loaded with the same id: " + id);
+			}
 
-				for (EmiRecipeCategory category : byCategory.keySet()) {
-					String key = EmiUtil.translateId("emi.category.", category.getId());
-					if (category.getName().equals(EmiPort.translatable(key)) && !StringTranslate.getInstance().containsTranslateKey(key)) {
-						EmiReloadLog.warn("Untranslated recipe category " + category.getId());
-					}
-					List<EmiRecipe> cRecipes = byCategory.get(category);
-					Comparator<EmiRecipe> sort = EmiRecipeCategoryProperties.getSort(category);
-					if (doSort && sort != EmiRecipeSorting.none()) {
-						cRecipes = cRecipes.stream().sorted(sort).collect(Collectors.toList());
-					}
-					byCategory.put(category, cRecipes);
-					for (EmiRecipe recipe : cRecipes) {
-						recipe.getInputs().stream().flatMap(i -> i.getEmiStacks().stream()).forEach(i -> byInput
-								.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
-						recipe.getCatalysts().stream().flatMap(i -> i.getEmiStacks().stream()).forEach(i -> byInput
-								.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
-						recipe.getOutputs().forEach(i -> byOutput
-								.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
-					}
+			for (EmiRecipeCategory category : byCategory.keySet()) {
+				String key = EmiUtil.translateId("emi.category.", category.getId());
+				if (category.getName().equals(EmiPort.translatable(key)) && !StringTranslate.getInstance().containsTranslateKey(key)) {
+					EmiReloadLog.warn("Untranslated recipe category " + category.getId());
 				}
-				this.byInput = byInput.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, m -> {
-					return new ArrayList<>(m.getValue());
-				}));
-				this.byOutput = byOutput.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, m -> {
-					return new ArrayList<>(m.getValue());
-				}));
-				workstations.replaceAll((c, v) -> workstations.get(c).stream().distinct().collect(Collectors.toList()));
-				for (Map.Entry<EmiRecipeCategory, List<EmiRecipe>> entry : byCategory.entrySet()) {
-					for (EmiIngredient ingredient : workstations.getOrDefault(entry.getKey(), Collections.emptyList())) {
-						for (EmiStack stack : ingredient.getEmiStacks()) {
-							byWorkstation.computeIfAbsent(stack, (s) -> Lists.newArrayList()).addAll(entry.getValue());
-						}
+				List<EmiRecipe> cRecipes = byCategory.get(category);
+				Comparator<EmiRecipe> sort = EmiRecipeCategoryProperties.getSort(category);
+				if (doSort && sort != EmiRecipeSorting.none()) {
+					cRecipes = cRecipes.stream().sorted(sort).collect(Collectors.toList());
+				}
+				byCategory.put(category, cRecipes);
+				for (EmiRecipe recipe : cRecipes) {
+					recipe.getInputs().stream().flatMap(i -> i.getEmiStacks().stream()).forEach(i -> byInput
+							.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
+					recipe.getCatalysts().stream().flatMap(i -> i.getEmiStacks().stream()).forEach(i -> byInput
+							.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
+					recipe.getOutputs().forEach(i -> byOutput
+							.computeIfAbsent(i, b -> Sets.newLinkedHashSet()).add(recipe));
+				}
+			}
+			this.byInput = byInput.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, m -> {
+				return new ArrayList<>(m.getValue());
+			}));
+			this.byOutput = byOutput.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, m -> {
+				return new ArrayList<>(m.getValue());
+			}));
+			workstations.replaceAll((c, v) -> workstations.get(c).stream().distinct().collect(Collectors.toList()));
+			for (Map.Entry<EmiRecipeCategory, List<EmiRecipe>> entry : byCategory.entrySet()) {
+				for (EmiIngredient ingredient : workstations.getOrDefault(entry.getKey(), Collections.emptyList())) {
+					for (EmiStack stack : ingredient.getEmiStacks()) {
+						byWorkstation.computeIfAbsent(stack, (s) -> Lists.newArrayList()).addAll(entry.getValue());
 					}
 				}
 			}

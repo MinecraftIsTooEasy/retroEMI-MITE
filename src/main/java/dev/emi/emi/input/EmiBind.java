@@ -107,8 +107,7 @@ public class EmiBind {
 					if (boundKey.key.getCategory() == InputUtil.Type.SCANCODE && boundKey.key.getCode() == scanCode) {
 						return true;
 					}
-				}
-				else {
+				} else {
 					if (boundKey.key.getCategory() == InputUtil.Type.KEYSYM && boundKey.key.getCode() == keyCode) {
 						return true;
 					}

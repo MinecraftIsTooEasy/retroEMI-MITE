@@ -30,8 +30,7 @@ public class RecipeDefaultLoader implements EmiResourceReloadListener, ResourceM
 				JsonObject json = JsonHelper.deserialize(GSON, reader, JsonObject.class);
 				loadDefaults(defaults, json);
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			EmiLog.error("Error loading recipe default file", e);
 		}
 		BoM.setDefaults(defaults);

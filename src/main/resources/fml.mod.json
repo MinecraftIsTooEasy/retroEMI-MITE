@@ -31,8 +31,9 @@
       "dev.emi.emi.VanillaPlugin",
       "moddedmite.emi.MITEPlugin"
     ],
+    "nei": [],
     "modmenu": [
-      "moddedmite.emi.compat.EmiModMenu"
+      "dev.emi.emi.compat.EmiModMenu"
     ]
   },
   "custom": {

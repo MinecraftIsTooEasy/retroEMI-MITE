@@ -1,4 +1,4 @@
-package shims.java.com.unascribed.nil;
+package dev.emi.emi.com.unascribed.qdcss;
 
 import java.io.File;
 import java.io.FileInputStream;

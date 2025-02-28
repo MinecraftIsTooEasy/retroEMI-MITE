@@ -6,10 +6,11 @@
 * 现在需要fishmodloader v3.4.0
 * 本mod的资源移进`/assets/emi/`中
 * 移除了MITE中重复的配方
-* 加入了对es_es,fi_fi,fr_fr,ja_jp,pt_br,ru_ru,tr_tr语言的部分支持(json格式),并且支持了`/n`换行符
+* 加入了对es_es,fi_fi,fr_fr,ja_jp,pt_br,ru_ru,tr_tr语言的部分支持(json格式),并且支持了`\n`换行符
 * 加入了对土耳其语的部分支持(lang格式,来自BTW Community)
 * 加入了标签的翻译
 * 完善了截图配方
+* 为大多数物品添加了默认配方(意味着可直接使用配方树)
 * 移除了启用无干扰配方配置项
 * 重新加入了高效工作配置预设
 * 加入了复制配方ID的按键(EMI 1.0.28)
@@ -134,7 +135,8 @@
 ---
 
 ## v1.0.0
-* 移植自Better Than Wolves Community Edition的EMI
+* 移植自Better Than Wolves Community Edition的retroEMI
+  * 原分支为rewindmc的retroEMI
 * 加入了中文输入
 * 加入了汉化
 * 加入了一个小彩蛋

@@ -3,6 +3,7 @@ package dev.emi.emi.screen.widget;
 import dev.emi.emi.EmiPort;
 import dev.emi.emi.EmiRenderHelper;
 import dev.emi.emi.runtime.EmiDrawContext;
+import org.lwjgl.opengl.GL11;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import shims.java.net.minecraft.client.gui.widget.ButtonWidget;
 import shims.java.net.minecraft.client.util.math.MatrixStack;
@@ -65,7 +66,7 @@ public class SizedButtonWidget extends ButtonWidget {
 	
 	@Override
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-//		glColor4f(1, 1, 1, 1);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
 		EmiDrawContext context = EmiDrawContext.instance();
 		glEnable(GL_DEPTH_TEST);
 		context.drawTexture(texture, this.x, this.y, getU(mouseX, mouseY), getV(mouseX, mouseY), this.width, this.height);

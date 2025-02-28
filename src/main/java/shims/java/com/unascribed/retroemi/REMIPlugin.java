@@ -9,6 +9,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.platform.EmiAgnos;
+import moddedmite.emi.MITEPlugin;
 import net.minecraft.ItemStack;
 import net.minecraft.CraftingManager;
 import net.minecraft.IRecipe;
@@ -17,8 +18,9 @@ import shims.java.com.unascribed.retroemi.integ.MiscPlugin;
 
 public class REMIPlugin implements EmiMultiPlugin, Runnable{
 
-    private final Map<String, Class<? extends EmiPlugin>> children = shims.java.Map.of(
-            null, VanillaPlugin.class,
+    private final Map<String, Class<? extends EmiPlugin>> children = Map.of(
+            "Minecraft", VanillaPlugin.class,
+            "MITE", MITEPlugin.class,
             "", MiscPlugin.class
 //            "Forestry", ForestryPlugin.class,
 //            "IC2", IC2Plugin.class,

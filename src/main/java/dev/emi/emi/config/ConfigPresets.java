@@ -6,7 +6,7 @@ import dev.emi.emi.config.EmiConfig.ConfigValue;
 import dev.emi.emi.input.EmiBind;
 import dev.emi.emi.input.EmiInput;
 import net.minecraft.Minecraft;
-import shims.java.com.unascribed.nil.QDCSS;
+import dev.emi.emi.com.unascribed.qdcss.QDCSS;
 import shims.java.net.minecraft.client.util.InputUtil;
 import shims.java.org.lwjgl.glfw.GLFW;
 

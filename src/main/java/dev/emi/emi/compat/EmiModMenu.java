@@ -1,4 +1,4 @@
-package moddedmite.emi.compat;
+package dev.emi.emi.compat;
 
 import dev.emi.emi.screen.ConfigScreen;
 import io.github.prospector.modmenu.api.ConfigScreenFactory;

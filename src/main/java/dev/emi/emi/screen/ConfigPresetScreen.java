@@ -9,7 +9,7 @@ import dev.emi.emi.config.EmiConfig.ConfigValue;
 import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.screen.widget.config.EmiNameWidget;
 import dev.emi.emi.screen.widget.config.ListWidget;
-import shims.java.com.unascribed.nil.QDCSS;
+import dev.emi.emi.com.unascribed.qdcss.QDCSS;
 import shims.java.com.unascribed.retroemi.REMIScreen;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.Element;

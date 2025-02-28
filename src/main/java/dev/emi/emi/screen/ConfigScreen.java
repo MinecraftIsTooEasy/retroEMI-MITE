@@ -17,8 +17,7 @@ import dev.emi.emi.screen.widget.SizedButtonWidget;
 import dev.emi.emi.screen.widget.config.*;
 import dev.emi.emi.search.EmiSearch;
 import dev.emi.emi.api.render.EmiTooltipComponents;
-import org.lwjgl.opengl.GL11;
-import shims.java.com.unascribed.nil.QDCSS;
+import dev.emi.emi.com.unascribed.qdcss.QDCSS;
 import shims.java.com.unascribed.retroemi.REMIScreen;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.gui.DrawContext;
@@ -39,8 +38,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
-import static org.lwjgl.opengl.GL11.glColor4f;
 
 public class ConfigScreen extends REMIScreen {
 	private static final int maxWidth = 240;
