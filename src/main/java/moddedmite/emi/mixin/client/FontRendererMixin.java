@@ -1,6 +1,6 @@
 package moddedmite.emi.mixin.client;
 
-import com.llamalad7.mixinextras.sugar.Local;
+import net.xiaoyu233.fml.FishModLoader;
 import org.lwjgl.opengl.GL11;
 import shims.java.com.unascribed.retroemi.REMIMixinHooks;
 import net.minecraft.*;
@@ -32,19 +32,14 @@ public abstract class FontRendererMixin {
     @Shadow private boolean unicodeFlag;
     @Shadow public int FONT_HEIGHT;
 
-    @ModifyConstant(method = {"<init>"}, constant = {@Constant(intValue = 256)})
-    private int modifyChanceTableSize(int val) {
-        return Short.MAX_VALUE;
-    }
-
-//    @Inject(method = "renderStringAtPos", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 0, shift = At.Shift.AFTER))
-//    private void applyCustomFormatCodes(String par1Str, boolean par2, CallbackInfo ci, @Local(ordinal = 0) int var3) {
-//        var3 = REMIMixinHooks.applyCustomFormatCodes(ReflectHelper.dyCast(this), par1Str, par2, var3);
+//    @ModifyConstant(method = {"<init>"}, constant = {@Constant(intValue = 256)})
+//    private int modifyChanceTableSize(int val) {
+//        return Short.MAX_VALUE;
 //    }
 
     @Inject(method = "renderStringAtPos", at = @At("HEAD"), cancellable = true)
     private void applyCustomFormatCodes(String par1Str, boolean par2, CallbackInfo ci) {
-        if (Style.EMPTY != null)
+        if (Style.EMPTY != null && !FishModLoader.hasMod("better_game_setting"))
             ci.cancel();
         for (int var3 = 0; var3 < par1Str.length(); ++var3) {
             char var4 = par1Str.charAt(var3);

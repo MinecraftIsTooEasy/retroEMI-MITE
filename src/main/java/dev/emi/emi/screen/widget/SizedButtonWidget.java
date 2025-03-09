@@ -66,12 +66,12 @@ public class SizedButtonWidget extends ButtonWidget {
 	
 	@Override
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		GL11.glColor4f(1F, 1F, 1F, 1F);
 		EmiDrawContext context = EmiDrawContext.instance();
 		glEnable(GL_DEPTH_TEST);
 		context.drawTexture(texture, this.x, this.y, getU(mouseX, mouseY), getV(mouseX, mouseY), this.width, this.height);
 		if (this.isMouseOver(mouseX, mouseY) && text != null && this.active) {
 			context.push();
+			GL11.glColor4f(1F, 1F, 1F, 1F);
 			glDisable(GL_DEPTH_TEST);
 			Minecraft client = Minecraft.getMinecraft();
 			EmiRenderHelper.drawTooltip(client.currentScreen, context,
