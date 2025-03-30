@@ -1,6 +1,5 @@
 package dev.emi.emi.search;
 
-import net.xiaoyu233.fml.FishModLoader;
 import shims.java.net.minecraft.text.Style;
 
 import java.util.function.Function;
@@ -13,13 +12,13 @@ public enum QueryType {
 	TAG("#", 0x55ff55, 0x55ff55, 0x41eace, 0x0098ea, TagQuery::new, RegexTagQuery::new),
 	ITEM_ID("^", 0xff55ee, 0xff55ee, 0xfc74a6, 0xff2676, ItemIDQuery::new, RegexIDQuery::new),
 	;
-	
+
 	public final String prefix;
 	public final Style color, slashColor, regexColor, escapeColor;
 	public final Function<String, Query> queryConstructor, regexQueryConstructor;
-	
-	private QueryType(String prefix, int color, int slashColor, int regexColor, int escapeColor, Function<String, Query> queryConstructor,
-			Function<String, Query> regexQueryConstructor) {
+
+	private QueryType(String prefix, int color, int slashColor, int regexColor, int escapeColor,
+					  Function<String, Query> queryConstructor, Function<String, Query> regexQueryConstructor) {
 		this.prefix = prefix;
 		this.color = Style.EMPTY.withColor(color);
 		this.slashColor = Style.EMPTY.withColor(slashColor);
@@ -28,7 +27,7 @@ public enum QueryType {
 		this.queryConstructor = queryConstructor;
 		this.regexQueryConstructor = regexQueryConstructor;
 	}
-	
+
 	public static QueryType fromString(String s) {
 		for (int i = QueryType.values().length - 1; i >= 0; i--) {
 			QueryType type = QueryType.values()[i];

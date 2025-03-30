@@ -2,9 +2,12 @@ package dev.emi.emi.search;
 
 import com.google.common.collect.Sets;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.config.EmiConfig;
+import net.minecraft.Minecraft;
 import net.xiaoyu233.fml.FishModLoader;
 import shims.java.net.minecraft.text.Text;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class PinyinQuery extends Query {
@@ -19,7 +22,7 @@ public class PinyinQuery extends Query {
     @Override
     public boolean matches(EmiStack stack) {
         boolean contains = false;
-        if (FishModLoader.hasMod("pinin")) {
+        if (FishModLoader.hasMod("pinin") && EmiConfig.searchNameByPinyin && Objects.equals(Minecraft.theMinecraft.gameSettings.language, "zh_CN")) {
             try {
                 contains = me.towdium.pinin.PinyinMatch.contains(PinyinQuery.getText(stack).getString(), this.name);
             }

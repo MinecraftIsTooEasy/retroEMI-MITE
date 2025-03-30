@@ -42,7 +42,7 @@ public class EmiSearch {
 	public static volatile CompiledQuery compiledQuery;
 	public static Set<EmiStack> bakedStacks;
 	public static SuffixArray<EmiStack> names, tooltips, mods, aliases, ids;
-	
+
 	public static void bake() {
 		SuffixArray<EmiStack> names = new SuffixArray<EmiStack>();
 		SuffixArray<EmiStack> tooltips = new SuffixArray<EmiStack>();
@@ -130,22 +130,22 @@ public class EmiSearch {
 		EmiSearch.bakedStacks = bakedStacks;
 		EmiSearch.ids = ids;
 	}
-	
+
 	public static void update() {
 		search(EmiScreenManager.search.getText());
 	}
-	
+
 	public static void search(String query) {
 		synchronized (EmiSearch.class) {
 			SearchWorker worker = new SearchWorker(query, EmiScreenManager.getSearchSource());
 			currentWorker = worker;
-			
+
 			searchThread = new Thread(worker);
 			searchThread.setDaemon(true);
 			searchThread.start();
 		}
 	}
-	
+
 	public static void apply(SearchWorker worker, List<? extends EmiIngredient> stacks) {
 		synchronized (EmiSearch.class) {
 			if (worker == currentWorker) {
@@ -155,10 +155,10 @@ public class EmiSearch {
 			}
 		}
 	}
-	
+
 	public static class CompiledQuery {
 		public final Query fullQuery;
-		
+
 		public CompiledQuery(String query) {
 			List<Query> full = Lists.newArrayList();
 			List<Query> queries = Lists.newArrayList();
@@ -187,7 +187,7 @@ public class EmiSearch {
 					List<Function<String, Query>> regexConstructors = Lists.newArrayList();
 					constructors.add(constructor);
 					regexConstructors.add(regexConstructor);
-					
+
 					if (EmiConfig.searchTooltipByDefault) {
 						constructors.add(QueryType.TOOLTIP.queryConstructor);
 						regexConstructors.add(QueryType.TOOLTIP.regexQueryConstructor);
@@ -227,11 +227,11 @@ public class EmiSearch {
 				fullQuery = null;
 			}
 		}
-		
+
 		public boolean isEmpty() {
 			return fullQuery == null;
 		}
-		
+
 		public boolean test(EmiStack stack) {
 			if (fullQuery == null) {
 				return true;
@@ -243,7 +243,7 @@ public class EmiSearch {
 				return fullQuery.matchesUnbaked(stack);
 			}
 		}
-		
+
 		private static void addQuery(String s, boolean negated, List<Query> queries, Function<String, Query> normal, Function<String, Query> regex) {
 			Query q;
 			if (s.length() > 1 && s.startsWith("/") && s.endsWith("/")) {
@@ -256,16 +256,16 @@ public class EmiSearch {
 			queries.add(q);
 		}
 	}
-	
+
 	private static class SearchWorker implements Runnable {
 		private final String query;
 		private final List<? extends EmiIngredient> source;
-		
+
 		public SearchWorker(String query, List<? extends EmiIngredient> source) {
 			this.query = query;
 			this.source = source;
 		}
-		
+
 		@Override
 		public void run() {
 			try {

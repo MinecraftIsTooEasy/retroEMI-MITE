@@ -1,8 +1,11 @@
 package dev.emi.emi.search;
 
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.config.EmiConfig;
+import net.minecraft.Minecraft;
 import net.xiaoyu233.fml.FishModLoader;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,7 +30,7 @@ public class RegexPinyinQuery extends Query {
         Matcher m = null;
         if (m == null)
             return false;
-        if (FishModLoader.hasMod("pinin")) {
+        if (FishModLoader.hasMod("pinin") && EmiConfig.searchNameByPinyin && Objects.equals(Minecraft.theMinecraft.gameSettings.language, "zh_CN")) {
             try {
                 m = this.pattern.matcher(me.towdium.pinin.PinyinMatch.toPinyin(PinyinQuery.getText(stack).getString()));
             }
