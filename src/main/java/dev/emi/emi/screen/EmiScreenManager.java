@@ -571,6 +571,7 @@ public class EmiScreenManager {
 		recalculate();
 		GuiScreen screen = client.currentScreen;
 		if (screen == null) {
+			client.mcProfiler.endSection();
 			return;
 		}
 		boolean visible = !isDisabled();

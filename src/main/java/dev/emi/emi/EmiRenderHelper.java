@@ -10,6 +10,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Widget;
 import dev.emi.emi.api.widget.WidgetHolder;
+import dev.emi.emi.config.EmiConfig;
 import dev.emi.emi.registry.EmiRecipeFiller;
 import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.screen.EmiScreenManager;
@@ -31,7 +32,7 @@ import java.util.List;
 import static org.lwjgl.opengl.GL11.*;
 
 public class EmiRenderHelper {
-	public static final DecimalFormat TEXT_FORMAT = new DecimalFormat("0.##");
+	public static final DecimalFormat TEXT_FORMAT = new DecimalFormat("#,###.##");
 	public static final Text EMPTY_TEXT = EmiPort.literal("");
 	public static final ResourceLocation WIDGETS = new ResourceLocation("emi", "textures/gui/widgets.png");
 	public static final ResourceLocation BUTTONS = new ResourceLocation("emi", "textures/gui/buttons.png");
@@ -211,13 +212,19 @@ public class EmiRenderHelper {
 		if (stack.isEmpty() || amount == 0) {
 			return EMPTY_TEXT;
 		}
-		return EmiPort.literal("" + amount);
+//		if (stack.getEmiStacks().get(0).getKey() instanceof Fluid) {
+//			return getFluidAmount(amount);
+//		}
+		return EmiPort.literal(TEXT_FORMAT.format(amount));
 	}
 
 	public static Text getAmountText(EmiIngredient stack, double amount) {
 		if (stack.isEmpty() || amount == 0) {
 			return EMPTY_TEXT;
 		}
+//		if (stack.getEmiStacks().get(0).getKey() instanceof Fluid) {
+//			return EmiConfig.fluidUnit.translate(amount);
+//		}
 		return EmiPort.literal(TEXT_FORMAT.format(amount));
 	}
 

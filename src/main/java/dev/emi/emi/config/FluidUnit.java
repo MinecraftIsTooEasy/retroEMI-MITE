@@ -24,12 +24,11 @@ public enum FluidUnit implements ConfigEnum {
 		translation = EmiPort.translatable("emi.unit." + name);
 		this.translator = translator;
 	}
-	
-	private static int literDivisor() {
+
+	public  static int literDivisor() {
 		if (EmiAgnos.isForge()) {
 			return 1;
-		}
-		else {
+		} else {
 			return 81;
 		}
 	}

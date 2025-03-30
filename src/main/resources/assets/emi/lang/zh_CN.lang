@@ -360,6 +360,9 @@ tooltip.emi.recipe_tree=配方树
 
 tooltip.emi.config.global=使用全局EMI设置，而非每个游戏实例独立设置
 
+tooltip.emi.synfav.obtained=已获得%s/%s
+tooltip.emi.synfav.remaining=剩余%s
+tooltip.emi.synfav.batches_remaining=剩余%s次合成
 tooltip.emi.synfav.uncraftable=无法制作§c任何§r份物品
 tooltip.emi.synfav.partially_craftable=可以制作§d部分§r份物品
 tooltip.emi.synfav.fully_craftable=可以制作§a全部 %1$s §r份物品

@@ -97,8 +97,7 @@ public class FillRecipeC2SPacket implements EmiPacket {
 		for (int i : this.crafting) {
 			if (i >= 0 && i < handler.inventorySlots.size()) {
 				crafting.add(handler.getSlot(i));
-			}
-			else {
+			} else {
 				crafting.add(null);
 			}
 		}
@@ -132,7 +131,7 @@ public class FillRecipeC2SPacket implements EmiPacket {
 					}
 					else {
 						Slot s = crafting.get(i);
-						if (s != null && s.isItemValid(stack) && stack.stackSize <= s.getSlotStackLimit()) {
+						if (s != null && s.isItemValid(stack) && stack.stackSize <= s.getSlotStackLimit() && stack.stackSize < stack.getMaxStackSize()) {
 							s.putStack(stack);
 						}
 						else {

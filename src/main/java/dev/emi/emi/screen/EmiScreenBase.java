@@ -17,6 +17,10 @@
 //        return bounds;
 //    }
 //
+//    public boolean isEmpty() {
+//        return screen == null;
+//    }
+//
 //    public static EmiScreenBase getCurrent() {
 //        Minecraft client = Minecraft.getMinecraft();
 //        GuiScreen screen = client.currentScreen;
@@ -36,6 +40,6 @@
 //        } else if (screen instanceof RecipeScreen rs) {
 //            return new EmiScreenBase(rs, rs.getBounds());
 //        }
-//        return null;
+//        return new EmiScreenBase(null, Bounds.EMPTY);;
 //    }
 //}

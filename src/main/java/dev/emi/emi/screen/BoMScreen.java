@@ -238,8 +238,7 @@ public class BoMScreen extends REMIScreen {
 			context.drawTexture(EmiRenderHelper.WIDGETS, mode.x(), mode.y(), BoM.craftingMode ? 16 : 0, 146, mode.width(), mode.height());
 			GL11.glColor4f(1f, 1f, 1f, 1f);
 			batcher.draw();
-		}
-		else {
+		} else {
 			context.drawCenteredText(EmiPort.translatable("emi.tree_welcome", EmiRenderHelper.getEmiText()), 0, -72);
 			context.drawCenteredText(EmiPort.translatable("emi.no_tree"), 0, -48);
 			context.drawCenteredText(EmiPort.translatable("emi.random_tree"), 0, -24);
@@ -509,14 +508,20 @@ public class BoMScreen extends REMIScreen {
 		int mx = (int) ((mouseX - width / 2) / scale - offX);
 		int my = (int) ((mouseY - height / 2) / scale - offY);
 		if (BoM.tree != null && batches.contains(mx, my)) {
+			long adjustment = (long) amount;
 			if (EmiInput.isShiftDown()) {
-				amount *= 16;
+				adjustment *= 16;
+			} else if (EmiInput.isControlDown()) {
+				if (amount > 0) {
+					adjustment = BoM.tree.batches;
+				} else {
+					adjustment = -BoM.tree.batches / 2;
+				}
 			}
-			if (BoM.tree.batches == 1 && amount > 1) {
-				BoM.tree.batches = (int) amount;
-			}
-			else {
-				BoM.tree.batches += (int) amount;
+			if (BoM.tree.batches == 1 && adjustment > 1) {
+				BoM.tree.batches = adjustment;
+			} else {
+				BoM.tree.batches += adjustment;
 			}
 			BoM.tree.batches = Math.max(1, BoM.tree.batches);
 			recalculateTree();
