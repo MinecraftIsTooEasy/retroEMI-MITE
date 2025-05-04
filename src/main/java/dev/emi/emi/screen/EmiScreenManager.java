@@ -812,8 +812,7 @@ public class EmiScreenManager {
 			search.x = (screen.width - 160) / 2;
 			search.y = screen.height - 21;
 			search.setWidth(160);
-		}
-		else {
+		} else {
 			if (EmiConfig.searchSidebar == SidebarSide.RIGHT) {
 				search.x = panels.get(1).space.tx;
 				search.y = screen.height - 21;
