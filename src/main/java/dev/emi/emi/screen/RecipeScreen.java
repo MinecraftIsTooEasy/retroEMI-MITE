@@ -155,7 +155,7 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 		this.renderBackground(context.raw());
 		context.resetColor();
 		EmiRenderHelper.drawNinePatch(context, TEXTURE, x, y, backgroundWidth, backgroundHeight, 0, 0, 4, 1);
-		
+
 		int tp = tabPage * tabPageSize;
 		int off = 0;
 		for (int i = tp; i < tabs.size() && i < tp + tabPageSize; i++) {
@@ -164,15 +164,15 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 			EmiRenderHelper.drawNinePatch(context, TEXTURE, x + tabOff + off * 24 + 16, y - 24 - sOff, 24, 27 + sOff, i == this.tab ? 9 : 18, 0, 4, 1);
 			tab.category.render(context.raw(), x + tabOff + off++ * 24 + 20, y - 20 - (i == this.tab ? 2 : 0), delta);
 		}
-		
+
 		EmiRenderHelper.drawNinePatch(context, TEXTURE, x + 19 + buttonOff, y + 5, minimumWidth - 38, 12, 0, 16, 3, 6);
 		//EmiRenderHelper.drawScroll(context, x + 19 + buttonOff, y + 5 + 10, minimumWidth - 38, 2, tab, tabs.size(), -1);
 		EmiRenderHelper.drawNinePatch(context, TEXTURE, x + 19 + buttonOff, y + 19, minimumWidth - 38, 12, 0, 16, 3, 6);
 		//EmiRenderHelper.drawScroll(context, x + 19 + buttonOff, y + 19 + 10, minimumWidth - 38, 2, page, tabs.get(tab).getPageCount(), -1);
-		
+
 		boolean categoryHovered = mouseX >= x + 19 + buttonOff && mouseY >= y + 5 && mouseX < x + minimumWidth + buttonOff - 19 && mouseY < y + 5 + 12;
 		int categoryNameColor = categoryHovered ? 0x22ffff : 0xffffff;
-		
+
 		RecipeTab tab = tabs.get(this.tab);
 		Text text = tab.category.getName();
 		if (client.fontRenderer.getStringWidth(text.asString()) > minimumWidth - 40) {
@@ -182,7 +182,7 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 		context.drawCenteredTextWithShadow(text, x + backgroundWidth / 2, y + 7, categoryNameColor);
 		context.drawCenteredTextWithShadow(EmiRenderHelper.getPageText(this.page + 1, tab.getPageCount(), minimumWidth - 40), x + backgroundWidth / 2, y + 21,
 				0xffffff);
-		
+
 		List<EmiIngredient> workstations = EmiApi.getRecipeManager().getWorkstations(tab.category);
 		int workstationAmount = Math.min(workstations.size(), getMaxWorkstations());
 		if (workstationAmount > 0 || resolve != null) {
@@ -193,11 +193,9 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 			}
 			if (EmiConfig.workstationLocation == SidebarSide.LEFT) {
 				EmiRenderHelper.drawNinePatch(context, TEXTURE, bounds.x() - 5, bounds.y() - 5, 28, 10 + 18 * workstationAmount + offset, 36, 0, 5, 1);
-			}
-			else if (EmiConfig.workstationLocation == SidebarSide.RIGHT) {
+			} else if (EmiConfig.workstationLocation == SidebarSide.RIGHT) {
 				EmiRenderHelper.drawNinePatch(context, TEXTURE, bounds.x() - 5, bounds.y() - 5, 28, 10 + 18 * workstationAmount + offset, 47, 0, 5, 1);
-			}
-			else if (EmiConfig.workstationLocation == SidebarSide.BOTTOM) {
+			} else if (EmiConfig.workstationLocation == SidebarSide.BOTTOM) {
 				EmiRenderHelper.drawNinePatch(context, TEXTURE, bounds.x() - 5, bounds.y() - 5, 10 + 18 * workstationAmount + offset, 28, 58, 0, 5, 1);
 			}
 		}
@@ -210,8 +208,7 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 				for (Widget widget : group.widgets) {
 					widget.render(context.raw(), mx, my, delta);
 				}
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				e.printStackTrace();
 				group.error(e);
 			}
@@ -223,8 +220,7 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 						if (handler != null) {
 							handler.render(group.recipe, new EmiCraftContext(hs, handler.getInventory(hs), EmiCraftContext.Type.FILL_BUTTON), group.widgets,
 									context.raw());
-						}
-						else if (EmiScreenManager.lastPlayerInventory != null) {
+						} else if (EmiScreenManager.lastPlayerInventory != null) {
 							StandardRecipeHandler.renderMissing(group.recipe, EmiScreenManager.lastPlayerInventory, group.widgets, context.raw());
 						}
 						break;
@@ -256,13 +252,12 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 						}
 					}
 				}
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				e.printStackTrace();
 				group.error(e);
 			}
 		}
-		
+
 		RecipeTab rTab = getTabAt(mouseX, mouseY);
 		if (rTab != null) {
 			EmiRenderHelper.drawTooltip(this, context, rTab.category.getTooltip(), mouseX, mouseY);
@@ -551,8 +546,7 @@ public class RecipeScreen extends REMIScreen implements EmiScreen {
 		}
 		if (keyCode == GLFW.GLFW_KEY_LEFT) {
 			setPage(tabPage, tab - 1, 0);
-		}
-		else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
+		} else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
 			setPage(tabPage, tab + 1, 0);
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);

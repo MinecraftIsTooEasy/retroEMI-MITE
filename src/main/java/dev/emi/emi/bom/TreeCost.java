@@ -36,27 +36,15 @@ public class TreeCost {
 		calculateCost(node, batches * node.amount, ChanceState.DEFAULT, true);
 	}
 	
-	public static boolean isCatalyst(EmiIngredient ing) {
-		if (ing.getEmiStacks().size() == 1) {
-			EmiStack stack = ing.getEmiStacks().get(0);
-			if (stack.equals(stack.getRemainder())) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	private void addCost(EmiIngredient stack, long amount, long minBatch, ChanceState chance) {
 		if (chance.chanced()) {
 			if (chanceCosts.containsKey(stack)) {
 				chanceCosts.get(stack).merge(amount, chance.chance());
-			}
-			else {
+			} else {
 				chanceCosts.put(stack, new ChanceMaterialCost(stack, amount, chance.chance()));
 			}
 			chanceCosts.get(stack).minBatch(minBatch);
-		}
-		else {
+		} else {
 			if (costs.containsKey(stack)) {
 				costs.get(stack).amount += amount;
 			}
@@ -180,14 +168,17 @@ public class TreeCost {
 			node.totalNeeded = 0;
 			node.neededBatches = 0;
 		}
-		EmiRecipe recipe = node.recipe;
-		if (recipe instanceof EmiResolutionRecipe) {
-			calculateCost(node.children.get(0), amount, chance, trackProgress);
-			return;
-		}
-		boolean catalyst = isCatalyst(node.ingredient);
+		boolean catalyst = node.catalyst;
 		if (catalyst) {
 			amount = node.amount;
+		}
+		EmiRecipe recipe = node.recipe;
+		if (recipe instanceof EmiResolutionRecipe err) {
+			calculateCost(node.children.get(0), amount, chance, trackProgress);
+			if (catalyst) {
+				addRemainder(err.stack, amount, chance);
+			}
+			return;
 		}
 		long original = amount;
 		List<EmiStack> ingredientStacks = node.ingredient.getEmiStacks();
@@ -239,15 +230,21 @@ public class TreeCost {
 			}
 			
 			for (MaterialNode n : node.children) {
-				if (n.ingredient.getEmiStacks().size() == 1) {
-					EmiStack r = n.ingredient.getEmiStacks().get(0).getRemainder();
-					if (!r.isEmpty()) {
-						addRemainder(r, minBatches * n.amount * r.getAmount(), produced.consume(n.consumeChance));
+//				if (n.ingredient.getEmiStacks().size() == 1) {
+//					EmiStack r = n.ingredient.getEmiStacks().get(0).getRemainder();
+//					if (!r.isEmpty()) {
+//						addRemainder(r, minBatches * n.amount * r.getAmount(), produced.consume(n.consumeChance));
+//					}
+//				}
+				if (!n.remainder.isEmpty() && n.remainderAmount > 0) {
+					if (n.catalyst) {
+						addRemainder(n.remainder, n.remainderAmount, produced.consume(n.consumeChance));
+					} else {
+						addRemainder(n.remainder, minBatches * n.remainderAmount, produced.consume(n.consumeChance));
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			addCost(node.ingredient, amount, node.amount, chance);
 		}
 	}

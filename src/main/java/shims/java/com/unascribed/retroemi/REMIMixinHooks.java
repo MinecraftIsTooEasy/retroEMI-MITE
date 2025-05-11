@@ -55,6 +55,7 @@ public class REMIMixinHooks {
 			}
 		}
 	}
+
 	//SlotCrafting
 	public static void onCrafting(EntityPlayer thePlayer, IInventory craftMatrix) {
 		World world = thePlayer.worldObj;

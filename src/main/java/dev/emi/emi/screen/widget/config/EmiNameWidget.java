@@ -25,7 +25,7 @@ public class EmiNameWidget implements Drawable {
 					"Expounded Minutia Introspection".split(" "), "Exciting Minecraft Information".split(" "), "Expropriated Matter Insights".split(" "),
 					"Efficiently Managed Inventory".split(" "), "Eerily Many Ingredients".split(" "), "Eventually Made Impressive".split(" "),
 					"Exceptionally Motionless Interface".split(" "), "Emi's Magic Inventory".split(" "), "Egad, My Items!".split(" "),
-					"Exploring Modified: Iridescent".split(" "), "E M I".split(" "), "Eager Madi1718 Illness".split(" "), "Erbi Madi1919 Idiot".split(" "));
+					"Exploring Modified: Iridescent".split(" "), "E M I".split(" "), "Easy Minecraft Individual".split(" "));
 	public int x, y;
 	
 	public EmiNameWidget(int x, int y) {

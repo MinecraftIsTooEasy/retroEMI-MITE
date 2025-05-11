@@ -553,8 +553,5 @@ enchanted_book.info.enchantment.butchering=Slaughter\nUncommon level, 10Enchantm
 enchanted_book.info.enchantment.endurance=Stamina\nUncommon level, 10Enchantment difficulty\nReduces hunger speed by 20% per level when destroying, placing blocks, attacking, throwing, farming, and drawing bows. The highest level IV can be used on the breastplate
 
 # Addon
-
-config.emi.group.addon.distraction=Distraction Free Recipe
 config.emi.addon.lower_opacity=Lower Opacity ?
-config.emi.tooltip.addon.enable_distraction_free_mode=Turns the mod's effects on/off.
-config.emi.tooltip.addon.lower_opacity=Lowers the opacity of the search bar to make it blend in more.
+config.emi.addon.mite_craft_info=Show MITE Craft Info

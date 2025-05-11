@@ -180,7 +180,7 @@ public class ConfigScreen extends REMIScreen {
 					ConfigEntryWidget entry = null;
 					if (field.getType() == boolean.class) {
 						entry = new BooleanWidget(translation, getFieldTooltip(field), searchSupplier, new Mutator<Boolean>() {
-							
+
 							public Boolean getValue() {
 								try {
 									return field.getBoolean(null);
@@ -189,7 +189,7 @@ public class ConfigScreen extends REMIScreen {
 								}
 								return false;
 							}
-							
+
 							public void setValue(Boolean value) {
 								try {
 									field.setBoolean(null, value);
@@ -198,10 +198,9 @@ public class ConfigScreen extends REMIScreen {
 								}
 							}
 						});
-					}
-					else if (field.getType() == int.class) {
+					} else if (field.getType() == int.class) {
 						entry = new IntWidget(translation, getFieldTooltip(field), searchSupplier, new Mutator<Integer>() {
-							
+
 							public Integer getValue() {
 								try {
 									return field.getInt(null);
@@ -210,7 +209,7 @@ public class ConfigScreen extends REMIScreen {
 								}
 								return -1;
 							}
-							
+
 							public void setValue(Integer value) {
 								try {
 									field.setInt(null, value);
@@ -219,23 +218,17 @@ public class ConfigScreen extends REMIScreen {
 								}
 							}
 						});
-					}
-					else if (field.getType() == EmiBind.class) {
+					} else if (field.getType() == EmiBind.class) {
 						entry = new EmiBindWidget(this, getFieldTooltip(field), searchSupplier, (EmiBind) field.get(null));
-					}
-					else if (field.getType() == ScreenAlign.class) {
+					} else if (field.getType() == ScreenAlign.class) {
 						entry = new ScreenAlignWidget(translation, getFieldTooltip(field), searchSupplier, objectMutator(field));
-					}
-					else if (field.getType() == SidebarPages.class) {
+					} else if (field.getType() == SidebarPages.class) {
 						entry = new SidebarPagesWidget(translation, getFieldTooltip(field), searchSupplier, objectMutator(field));
-					}
-					else if (field.getType() == SidebarSubpanels.class) {
+					} else if (field.getType() == SidebarSubpanels.class) {
 						entry = new SidebarSubpanelsWidget(translation, getFieldTooltip(field), searchSupplier, objectMutator(field));
-					}
-					else if (IntGroup.class.isAssignableFrom(field.getType())) {
+					} else if (IntGroup.class.isAssignableFrom(field.getType())) {
 						entry = new IntGroupWidget(translation, getFieldTooltip(field), searchSupplier, objectMutator(field));
-					}
-					else if (ConfigEnum.class.isAssignableFrom(field.getType())) {
+					} else if (ConfigEnum.class.isAssignableFrom(field.getType())) {
 						entry = new EnumWidget(translation, getFieldTooltip(field), searchSupplier, objectMutator(field), (Predicate<ConfigEnum>) predicate);
 					}
 					boolean endGroup = field.getAnnotation(ConfigGroupEnd.class) != null;
@@ -258,8 +251,7 @@ public class ConfigScreen extends REMIScreen {
 					}
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -273,7 +265,7 @@ public class ConfigScreen extends REMIScreen {
 	private void addJumpButtons() {
 		List<String> jumps =
 				Lists.newArrayList("general", "general.search", "ui", "ui.left-sidebar", "ui.right-sidebar", "ui.top-sidebar", "ui.bottom-sidebar", "binds",
-						"binds.crafts", "binds.cheats", "dev", "addon", "addon.distraction");
+						"binds.crafts", "binds.cheats", "dev", "addon");
 		List<List<String>> removes =
 				List.of(List.of("addon.distraction"), List.of("binds.cheats"), List.of("general.search"), List.of("ui.top-sidebar", "ui.bottom-sidebar"),
 						List.of("binds.crafts"), List.of("ui.left-sidebar", "ui.right-sidebar"));
@@ -290,8 +282,7 @@ public class ConfigScreen extends REMIScreen {
 			if (newGroup) {
 				v += 16;
 				u = 0;
-			}
-			else {
+			} else {
 				u += 16;
 			}
 			this.addDrawableChild(new ConfigJumpButton(2 + (newGroup ? 0 : 8), y, u, v, w -> jump(s),

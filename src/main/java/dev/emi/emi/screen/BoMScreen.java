@@ -304,10 +304,9 @@ public class BoMScreen extends REMIScreen {
 	}
 	
 	public TreeVolume addNewNodes(MaterialNode node, long multiplier, long divisor, int depth, ChanceState chance) {
-		if (TreeCost.isCatalyst(node.ingredient)) {
+		if (node.catalyst) {
 			multiplier = node.amount;
-		}
-		else {
+		} else {
 			multiplier = node.amount * (int) Math.ceil(multiplier / (float) divisor);
 		}
 		if (node.recipe != null && node.children.size() > 0 && node.state == FoldState.EXPANDED) {
@@ -441,8 +440,7 @@ public class BoMScreen extends REMIScreen {
 			if (button == 1 && hover.node != null && hover.node.recipe != null) {
 				if (EmiInput.isShiftDown()) {
 					BoM.tree.addResolution(hover.node.ingredient, null);
-				}
-				else if (!(hover.node.recipe instanceof EmiResolutionRecipe)) {
+				} else if (!(hover.node.recipe instanceof EmiResolutionRecipe)) {
 					if (hover.node.state == FoldState.EXPANDED) {
 						hover.node.state = FoldState.COLLAPSED;
 					}
@@ -459,8 +457,7 @@ public class BoMScreen extends REMIScreen {
 						recalculateTree();
 					}
 					return true;
-				}
-				else {
+				} else {
 					if (button == 0) {
 						EmiApi.displayRecipes(hover.stack);
 						RecipeScreen.resolve = hover.stack;
@@ -575,8 +572,7 @@ public class BoMScreen extends REMIScreen {
 			Text totalText;
 			if (cost instanceof ChanceMaterialCost cmc) {
 				totalText = EmiPort.append(EmiPort.literal("≈"), EmiRenderHelper.getAmountText(cost.ingredient, adjusted)).formatted(Formatting.GOLD);
-			}
-			else {
+			} else {
 				totalText = EmiRenderHelper.getAmountText(cost.ingredient, adjusted);
 			}
 			if (!remainder && BoM.craftingMode) {
@@ -750,8 +746,7 @@ public class BoMScreen extends REMIScreen {
 			if (BoM.craftingMode) {
 				if (node.progress == ProgressState.COMPLETED) {
 					GL11.glColor4f(0.1f, 0.8f, 0.5f, 1f);
-				}
-				else if (node.progress == ProgressState.PARTIAL) {
+				} else if (node.progress == ProgressState.PARTIAL) {
 					GL11.glColor4f(0.8f, 0.2f, 0.9f, 1f);
 				}
 			}

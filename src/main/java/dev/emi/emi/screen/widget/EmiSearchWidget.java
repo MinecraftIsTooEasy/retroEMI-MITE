@@ -146,6 +146,9 @@ public class EmiSearchWidget extends TextFieldWidget {
 	
 	@Override
 	public void setFocused(boolean focused) {
+		if (focused == isFocused) {
+			return;
+		}
 		isFocused = focused;
 		super.setFocused(focused);
 		EmiScreenManager.updateSearchSidebar();

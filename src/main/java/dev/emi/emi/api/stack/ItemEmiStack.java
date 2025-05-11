@@ -11,6 +11,8 @@ import dev.emi.emi.screen.StackBatcher;
 import dev.emi.emi.api.render.EmiRender;
 import moddedmite.emi.util.ModIdentification;
 import net.xiaoyu233.fml.FishModLoader;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import shims.java.com.unascribed.retroemi.ItemStacks;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.gui.DrawContext;
@@ -24,8 +26,8 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
-import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.GL_RESCALE_NORMAL;
 
 @ApiStatus.Internal
 public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
@@ -99,6 +101,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 		EmiDrawContext context = EmiDrawContext.wrap(draw);
 		ItemStack stack = getItemStack();
 		if ((flags & RENDER_ICON) != 0) {
+			glEnable(GL_RESCALE_NORMAL);
 			glEnable(GL_DEPTH_TEST);
 			RenderHelper.enableGUIStandardItemLighting();
 			if (stack.getItem() instanceof ItemBlock && stack.getItemSubtype() == 32767) stack.setItemSubtype(0);

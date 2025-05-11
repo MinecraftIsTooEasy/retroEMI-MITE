@@ -1,4 +1,4 @@
-# EMI-MITE
+# Ease Minecraft Is: Too Easy
 EMI is a featureful and accessible item and recipe viewer for Minecraft.
 * Fork form [Rewind/retroEMI](https://git.sleeping.town/Rewind/retroEMI)
 * Synced some updates for EMI 1.0.24+

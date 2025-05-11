@@ -1260,8 +1260,7 @@ public class EmiScreenManager {
 		if (EmiClient.onServer) {
 			EmiNetwork.sendToServer(new CreateItemC2SPacket(mode, is));
 			return true;
-		}
-		else {
+		} else {
 			if (!ItemStacks.isEmpty(is)) {
 				int id = is.itemID;
 				String command = "/give @p " + id + " " + amount + " " + is.getItemSubtype();

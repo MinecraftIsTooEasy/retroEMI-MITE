@@ -41,14 +41,12 @@ public class Util {
             System.exit(-1);
         }
 
-        EmiLog.error(String.format(Locale.ROOT, "Caught exception in thread %s", thread));
-        EmiLog.error(t.getMessage());
+        EmiLog.error(String.format(Locale.ROOT, "Caught exception in thread %s", thread), t);
     }
 
     public static <T extends Throwable> T throwOrPause(T t) {
         if (FishModLoader.isDevelopmentEnvironment()) {
-            EmiLog.error("Trying to throw a fatal exception, pausing in IDE");
-            EmiLog.error(t.getMessage());
+            EmiLog.error("Trying to throw a fatal exception, pausing in IDE", t);
             pause(t.getMessage());
         }
 
@@ -60,7 +58,7 @@ public class Util {
         EmiLog.warn("Did you remember to set a breakpoint here?");
         boolean bl = Duration.between(instant, Instant.now()).toMillis() > 500L;
         if (!bl) {
-            EmiLog.debug(message);
+            EmiLog.warn(message);
         }
 
     }

@@ -39,7 +39,7 @@ public abstract class FontRendererMixin {
 
     @Inject(method = "renderStringAtPos", at = @At("HEAD"), cancellable = true)
     private void applyCustomFormatCodes(String par1Str, boolean par2, CallbackInfo ci) {
-        if (Style.EMPTY != null && !FishModLoader.hasMod("better_game_setting"))
+        if (!Style.EMPTY.equals(new Style("")) && FishModLoader.hasMod("better_game_setting"))
             ci.cancel();
         for (int var3 = 0; var3 < par1Str.length(); ++var3) {
             char var4 = par1Str.charAt(var3);

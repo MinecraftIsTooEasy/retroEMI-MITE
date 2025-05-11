@@ -459,8 +459,12 @@ public class EmiConfig {
 	//Distraction Free Recipes
 	@Comment("Lowers the opacity of the search bar to make it blend in more.")
 	@ConfigValue("addon.lower_opacity")
-	@ConfigGroupEnd()
 	public static boolean lowerOpacity = false;
+
+	//MITE
+	@Comment("Show craft difficult and craft time")
+	@ConfigValue("addon.mite_craft_info")
+	public static boolean MITECraftInfo = false;
 	
 	// Persistent (currently empty)
 	

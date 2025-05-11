@@ -2,6 +2,7 @@ package shims.java.net.minecraft.client.gui.widget;
 
 import dev.emi.emi.config.EmiConfig;
 import dev.emi.emi.input.EmiInput;
+import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.Drawable;
 import shims.java.net.minecraft.client.util.math.MatrixStack;
 import shims.java.net.minecraft.text.OrderedText;
@@ -378,7 +379,7 @@ public class TextFieldWidget extends ClickableWidget implements Drawable {
 	}
 
 	@Override
-	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	public void renderWidget(DrawContext raw, int mouseX, int mouseY, float delta) {
 		int i;
 		if (!this.isVisible()) {
 			return;
@@ -435,11 +436,11 @@ public class TextFieldWidget extends ClickableWidget implements Drawable {
 		}
 		if (k != j) {
 			int p = l + this.textRenderer.getStringWidth(string.substring(0, k));
-			this.drawSelectionHighlight(matrices, o, m - 1, p - 1, m + 1 + this.textRenderer.FONT_HEIGHT);
+			this.drawSelectionHighlight(raw, o, m - 1, p - 1, m + 1 + this.textRenderer.FONT_HEIGHT);
 		}
 	}
 
-	private void drawSelectionHighlight(MatrixStack matrices, int x1, int y1, int x2, int y2) {
+	private void drawSelectionHighlight(DrawContext context, int x1, int y1, int x2, int y2) {
 		int i;
 		if (x1 < x2) {
 			i = x1;

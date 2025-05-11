@@ -43,13 +43,12 @@ public class ResolutionButtonWidget extends ButtonWidget {
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	public void renderWidget(DrawContext raw, int mouseX, int mouseY, float delta) {
 		EmiDrawContext context = EmiDrawContext.instance();
 		int u = 0;
 		if (this.isHovered()) {
 			u = 18;
-		}
-		else {
+		} else {
 			Widget widget = hoveredWidget.get();
 			if ((widget instanceof SlotWidget slot && slot.getRecipe() != null) || widget instanceof RecipeDefaultButtonWidget) {
 				u = 36;

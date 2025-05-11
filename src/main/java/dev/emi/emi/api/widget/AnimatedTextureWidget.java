@@ -40,20 +40,17 @@ public class AnimatedTextureWidget extends TextureWidget {
 				mu = u + regionWidth * subTime / time;
 				mw = width - (mx - x);
 				mrw = regionWidth - (mu - u);
-			}
-			else {
+			} else {
 				mw = width * subTime / time;
 				mrw = regionWidth * subTime / time;
 			}
-		}
-		else {
+		} else {
 			if (endToStart) {
 				my = y + height * subTime / time;
 				mv = v + regionHeight * subTime / time;
 				mh = height - (my - y);
 				mrh = regionHeight - (mv - v);
-			}
-			else {
+			} else {
 				mh = height * subTime / time;
 				mrh = regionHeight * subTime / time;
 			}

@@ -1,5 +1,11 @@
 package shims.java.net.minecraft.client.gui.widget;
 
+import dev.emi.emi.runtime.EmiDrawContext;
+import net.minecraft.MathHelper;
+import net.minecraft.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import shims.java.com.mojang.blaze3d.systems.RenderSystem;
+import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import shims.java.net.minecraft.client.util.math.MatrixStack;
 import shims.java.net.minecraft.text.MutableText;
@@ -21,8 +27,7 @@ public class ButtonWidget
 	protected static final NarrationSupplier DEFAULT_NARRATION_SUPPLIER = textSupplier -> (MutableText) textSupplier.get();
 	protected final PressAction onPress;
 	protected final NarrationSupplier narrationSupplier;
-	
-	private final GuiButton delegate = new GuiButton(0, 0, 0, 0, 0, "");
+	protected static final ResourceLocation buttonTextures = new ResourceLocation("textures/gui/widgets.png");
 
 	public static Builder builder(Text message, PressAction onPress) {
 		return new Builder(message, onPress);
@@ -34,16 +39,22 @@ public class ButtonWidget
 		this.narrationSupplier = narrationSupplier;
 	}
 
-	@Override
-	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float tickDelta) {
-		delegate.xPosition = getX();
-		delegate.yPosition = getY();
-		delegate.width = width;
-		delegate.height = height;
-		delegate.displayString = getMessage().asString();
-		delegate.drawButton(Minecraft.getMinecraft(), mouseX, mouseY);
+	public void renderWidget(DrawContext raw, int mouseX, int mouseY, float delta) {
+		EmiDrawContext context = EmiDrawContext.instance();
+		context.pop();
+		context.setColor(1.0F, 1.0F, 1.0F, this.alpha);
+		RenderSystem.enableBlend();
+		RenderSystem.enableDepthTest();
+		context.drawTexture(buttonTextures, this.getX(), this.getY(), 0, 46 + this.getHoverState() * 20, this.width / 2, this.height);
+		context.drawTexture(buttonTextures, this.getX() + this.width / 2, this.getY(), 200 - (this.width - this.width / 2), 46 + this.getHoverState() * 20, this.width - this.width / 2, this.height);
+		int i = 0xFFFFFF;
+		if (!this.active) i = 0xA0A0A0;
+		else if (this.isHovered()) i = 0xFFFFFA0;
+		context.drawCenteredTextWithShadow(this.getMessage(),this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, i | MathHelper.ceiling_double_int(this.alpha * 255.0F) << 24);
+		context.push();
+		context.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 	}
-	
+
 	@Override
 	public void onClick(double mouseX, double mouseY) {
 		onPress();
@@ -51,6 +62,16 @@ public class ButtonWidget
 
 	public void onPress() {
 		this.onPress.onPress(this);
+	}
+
+	protected int getHoverState() {
+		byte state = 1;
+		if (!this.active) {
+			state = 0;
+		} else if (this.hovered) {
+			state = 2;
+		}
+		return state;
 	}
 
 	@Environment(value = EnvType.CLIENT)

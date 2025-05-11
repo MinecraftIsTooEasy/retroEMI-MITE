@@ -63,8 +63,7 @@ public class FillRecipeC2SPacket implements EmiPacket {
 		if (output != -1) {
 			buf.writeBoolean(true);
 			buf.writeVarInt(output);
-		}
-		else {
+		} else {
 			buf.writeBoolean(false);
 		}
 		buf.writeVarInt(stacks.size());
@@ -128,13 +127,11 @@ public class FillRecipeC2SPacket implements EmiPacket {
 							RetroEMI.offerOrDrop(player, stack);
 						}
 						return;
-					}
-					else {
+					} else {
 						Slot s = crafting.get(i);
-						if (s != null && s.isItemValid(stack) && stack.stackSize <= s.getSlotStackLimit() && stack.stackSize < stack.getMaxStackSize()) {
+						if (s != null && s.isItemValid(stack) && stack.stackSize <= s.getSlotStackLimit() && stack.stackSize <= stack.getMaxStackSize()) {
 							s.putStack(stack);
-						}
-						else {
+						} else {
 							RetroEMI.offerOrDrop(player, stack);
 						}
 					}
@@ -142,13 +139,11 @@ public class FillRecipeC2SPacket implements EmiPacket {
 				if (output != null) {
 					if (action == 1) {
 						handler.slotClick(output.slotNumber, 0, 0, false, player);
-					}
-					else if (action == 2) {
+					} else if (action == 2) {
 						handler.slotClick(output.slotNumber, 0, 1, false, player);
 					}
 				}
-			}
-			finally {
+			} finally {
 				for (ItemStack stack : rubble) {
 					RetroEMI.offerOrDrop(player, stack);
 				}

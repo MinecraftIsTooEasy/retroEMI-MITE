@@ -578,6 +578,7 @@ enchanted_book.info.enchantment.butchering=屠宰\nUncommon级，10附魔难度\
 enchanted_book.info.enchantment.endurance=耐力\nUncommon级，10附魔难度\n每级降低破坏、放置方块、攻击、投掷、耕地、拉弓时20%的饥饿速度。最高等级IV\n可用于胸甲
 
 # Addon
-config.emi.group.addon.distraction=无干扰配方
 config.emi.addon.lower_opacity=更低的搜索框不透明度
 config.emi.tooltip.addon.lower_opacity=降低搜索栏的不透明度，使其更融为一体
+config.emi.addon.mite_craft_info=显示MITE合成信息
+config.emi.tooltip.addon.mite_craft_info=显示合成难度与合成时间

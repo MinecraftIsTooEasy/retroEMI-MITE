@@ -2,6 +2,7 @@ package dev.emi.emi;
 
 import com.google.common.collect.Sets;
 import dev.emi.emi.api.EmiInitRegistry;
+import dev.emi.emi.stack.serializer.ListEmiIngredientSerializer;
 import moddedmite.emi.MITEPlugin;
 import dev.emi.emi.api.widget.GeneratedSlotWidget;
 import dev.emi.emi.config.EffectLocation;
@@ -44,38 +45,43 @@ import static dev.emi.emi.api.recipe.VanillaEmiRecipeCategories.*;
 
 @EmiEntrypoint
 public class VanillaPlugin implements EmiPlugin {
-	public static EmiRecipeCategory TAG =
-			new EmiRecipeCategory(new ResourceLocation("emi:tag"), EmiStack.of(Item.itemsList[Block.oreIron.blockID]), simplifiedRenderer(240, 208),
-					EmiRecipeSorting.none());
-	
-	public static EmiRecipeCategory INGREDIENT =
-			new EmiRecipeCategory(new ResourceLocation("emi:ingredient"), EmiStack.of(Item.compass), simplifiedRenderer(240, 208));
-	public static EmiRecipeCategory RESOLUTION =
-			new EmiRecipeCategory(new ResourceLocation("emi:resolution"), EmiStack.of(Item.compass), simplifiedRenderer(240, 208));
+	public static EmiRecipeCategory TAG = new EmiRecipeCategory(new ResourceLocation("emi:tag"),
+			EmiStack.of(Item.nameTag), simplifiedRenderer(240, 208), EmiRecipeSorting.none());
+
+	public static EmiRecipeCategory INGREDIENT = new EmiRecipeCategory(new ResourceLocation("emi:ingredient"),
+			EmiStack.of(Item.compass), simplifiedRenderer(240, 208));
+	public static EmiRecipeCategory RESOLUTION = new EmiRecipeCategory(new ResourceLocation("emi:resolution"),
+			EmiStack.of(Item.compass), simplifiedRenderer(240, 208));
 	
 	static {
-		CRAFTING = new EmiRecipeCategory(new ResourceLocation("minecraft:crafting"), EmiStack.of(Block.workbench), simplifiedRenderer(240, 240),
-				EmiRecipeSorting.compareOutputThenInput());
-		SMELTING = new EmiRecipeCategory(new ResourceLocation("minecraft:smelting"), EmiStack.of(Block.furnaceIdle), simplifiedRenderer(224, 240),
-				EmiRecipeSorting.compareOutputThenInput());
-		ANVIL_REPAIRING = new EmiRecipeCategory(new ResourceLocation("emi:anvil_repairing"), EmiStack.of(Block.anvil), simplifiedRenderer(240, 224),
-				EmiRecipeSorting.none());
-		BREWING = new EmiRecipeCategory(new ResourceLocation("minecraft:brewing"), EmiStack.of(Item.brewingStand), simplifiedRenderer(224, 224),
-				EmiRecipeSorting.none());
-		WORLD_INTERACTION = new EmiRecipeCategory(new ResourceLocation("emi:world_interaction"), EmiStack.of(Item.itemsList[Block.grass.blockID]),
-				simplifiedRenderer(208, 224), EmiRecipeSorting.none());
+		CRAFTING = new EmiRecipeCategory(new ResourceLocation("minecraft:crafting"),
+				EmiStack.of(Block.workbench), simplifiedRenderer(240, 240), EmiRecipeSorting.compareOutputThenInput());
+		SMELTING = new EmiRecipeCategory(new ResourceLocation("minecraft:smelting"),
+				EmiStack.of(Block.furnaceIdle), simplifiedRenderer(224, 240), EmiRecipeSorting.compareOutputThenInput());
+		ANVIL_REPAIRING = new EmiRecipeCategory(new ResourceLocation("emi:anvil_repairing"),
+				EmiStack.of(Block.anvil), simplifiedRenderer(240, 224), EmiRecipeSorting.none());
+		BREWING = new EmiRecipeCategory(new ResourceLocation("minecraft:brewing"),
+				EmiStack.of(Item.brewingStand), simplifiedRenderer(224, 224), EmiRecipeSorting.none());
+		WORLD_INTERACTION = new EmiRecipeCategory(new ResourceLocation("emi:world_interaction"),
+				EmiStack.of(Item.itemsList[Block.grass.blockID]), simplifiedRenderer(208, 224), EmiRecipeSorting.none());
 		EmiRenderable flame = (matrices, x, y, delta) -> {
 			EmiTexture.FULL_FLAME.render(matrices, x + 1, y + 1, delta);
 		};
 		FUEL = new EmiRecipeCategory(new ResourceLocation("emi:fuel"), flame, flame, EmiRecipeSorting.compareInputThenOutput());
-		INFO = new EmiRecipeCategory(new ResourceLocation("emi:info"), EmiStack.of(Item.writableBook), simplifiedRenderer(208, 224), EmiRecipeSorting.none());
+		INFO = new EmiRecipeCategory(new ResourceLocation("emi:info"),
+				EmiStack.of(Item.writableBook), simplifiedRenderer(208, 224), EmiRecipeSorting.none());
 	}
+
 
 	@Override
 	public void initialize(EmiInitRegistry registry) {
 		registry.addIngredientSerializer(ItemEmiStack.class, new ItemEmiStackSerializer());
 //		registry.addIngredientSerializer(FluidEmiStack.class, new FluidEmiStackSerializer());
 		registry.addIngredientSerializer(TagEmiIngredient.class, new TagEmiIngredientSerializer());
+		registry.addIngredientSerializer(ListEmiIngredient.class, new ListEmiIngredientSerializer());
+
+//		registry.addRegistryAdapter(EmiRegistryAdapter.simple(Item.class, EmiPort.getItemRegistry(), EmiStack::of));
+//		registry.addRegistryAdapter(EmiRegistryAdapter.simple(Fluid.class, EmiPort.getFluidRegistry(), EmiStack::of));
 	}
 	
 	@Override
@@ -139,6 +145,12 @@ public class VanillaPlugin implements EmiPlugin {
 						if (EmiConfig.effectLocation == EffectLocation.TOP) {
 							int size = collection.size();
 							top = ((EMIGuiContainerCreative) inv).getGuiTop() - 34;
+							if (((Object) screen) instanceof GuiContainerCreative) {
+								top -= 28;
+								if (EmiAgnos.isForge()) {
+									top -= 22;
+								}
+							}
 							int xOff = 34;
 							if (size == 1) {
 								xOff = 122;
@@ -454,17 +466,22 @@ public class VanillaPlugin implements EmiPlugin {
 			context.drawTexture(EmiRenderHelper.WIDGETS, x, y, u, v, 16, 16);
 		};
 	}
-	
-	private EmiRecipe basicWorld(EmiIngredient left, EmiIngredient right, EmiStack output, ResourceLocation id) {
+
+	private static void addConcreteRecipe(EmiRegistry registry, Block powder, EmiStack water, Block result) {
+		addRecipeSafe(registry, () -> basicWorld(EmiStack.of(powder), water, EmiStack.of(result),
+			synthetic("world/concrete", EmiUtil.subId(result))));
+	}
+
+	private static EmiRecipe basicWorld(EmiIngredient left, EmiIngredient right, EmiStack output, ResourceLocation id) {
 		return basicWorld(left, right, output, id, true);
 	}
-	
-	private EmiRecipe basicWorld(EmiIngredient left, EmiIngredient right, EmiStack output, ResourceLocation id, boolean catalyst) {
+
+	private static EmiRecipe basicWorld(EmiIngredient left, EmiIngredient right, EmiStack output, ResourceLocation id, boolean catalyst) {
 		return EmiWorldInteractionRecipe.builder()
-				.id(id)
-				.leftInput(left)
-				.rightInput(right, catalyst)
-				.output(output)
-				.build();
+			.id(id)
+			.leftInput(left)
+			.rightInput(right, catalyst)
+			.output(output)
+			.build();
 	}
 }

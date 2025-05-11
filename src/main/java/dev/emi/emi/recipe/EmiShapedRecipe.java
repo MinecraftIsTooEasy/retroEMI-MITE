@@ -7,6 +7,7 @@ import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import dev.emi.emi.config.EmiConfig;
 import moddedmite.emi.api.EMIInventoryCrafting;
 import moddedmite.emi.api.EMIShapedRecipes;
 import shims.java.com.unascribed.retroemi.RetroEMI;
@@ -88,9 +89,11 @@ public class EmiShapedRecipe extends EmiCraftingRecipe {
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
 		super.addWidgets(widgets);
-		DecimalFormat decimalFormat = new DecimalFormat("0.00");
-		float crafting_time = (float) ((Math.pow((crafting_difficulty - 100), 0.74) + 100) / 20);
-		widgets.addText(EmiPort.translatable("emi.craft_difficult.items", String.format("%d", crafting_difficulty)), 55, 45, 0xFFFFFFFF, true);
-		widgets.addText(EmiPort.translatable("emi.craft_time.items", String.format("%s", decimalFormat.format(crafting_time))), 55, 35, 0xFFFFFFFF, true);
+		if (EmiConfig.MITECraftInfo) {
+			DecimalFormat decimalFormat = new DecimalFormat("0.00");
+			float crafting_time = (float) ((Math.pow((crafting_difficulty - 100), 0.74) + 100) / 20);
+			widgets.addText(EmiPort.translatable("emi.craft_difficult.items", String.format("%d", crafting_difficulty)), 55, 45, 0xFFFFFFFF, true);
+			widgets.addText(EmiPort.translatable("emi.craft_time.items", String.format("%s", decimalFormat.format(crafting_time))), 55, 35, 0xFFFFFFFF, true);
+		}
 	}
 }

@@ -119,8 +119,7 @@ public abstract class EmiStack implements EmiIngredient {
 		Comparison b = stack.comparison == Comparison.DEFAULT_COMPARISON ? EmiComparisonDefaults.get(stack.getKey()) : stack.comparison;
 		if (a == b) {
 			return a.compare(this, stack);
-		}
-		else {
+		} else {
 			return a.compare(this, stack) && b.compare(this, stack);
 		}
 	}
@@ -159,8 +158,7 @@ public abstract class EmiStack implements EmiIngredient {
 	public boolean equals(Object obj) {
 		if (obj instanceof EmiStack stack) {
 			return this.isEqual(stack);
-		}
-		else if (obj instanceof EmiIngredient stack) {
+		} else if (obj instanceof EmiIngredient stack) {
 			return EmiIngredient.areEqual(this, stack);
 		}
 		return false;

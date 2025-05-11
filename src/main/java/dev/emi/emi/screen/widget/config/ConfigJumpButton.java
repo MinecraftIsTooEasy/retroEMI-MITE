@@ -1,7 +1,9 @@
 package dev.emi.emi.screen.widget.config;
 
 import dev.emi.emi.EmiRenderHelper;
+import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.screen.widget.SizedButtonWidget;
+import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.widget.ButtonWidget;
 import shims.java.net.minecraft.client.util.math.MatrixStack;
 import shims.java.net.minecraft.text.Text;
@@ -21,13 +23,19 @@ public class ConfigJumpButton extends SizedButtonWidget {
 	protected int getV(int mouseX, int mouseY) {
 		return this.v;
 	}
-	
+
 	@Override
-	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	public void renderWidget(DrawContext raw, int mouseX, int mouseY, float delta) {
+		EmiDrawContext context = EmiDrawContext.wrap(raw);
 		if (this.isMouseOver(mouseX, mouseY)) {
-			glColor4f(0.5f, 0.6f, 1f, 1f);
+			context.setColor(0.5F, 0.6F, 1F);
+		} else {
+			context.setColor(1.0F, 1.0F, 1.0F);
 		}
-		super.renderButton(matrices, mouseX, mouseY, delta);
-		glColor4f(1f, 1f, 1f, 1f);
+		context.push();
+		context.matrices().translate(0, 0, 100);
+		super.renderWidget(raw, mouseX, mouseY, delta);
+		context.pop();
+		context.resetColor();
 	}
 }

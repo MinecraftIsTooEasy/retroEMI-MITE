@@ -79,7 +79,7 @@ public abstract class ClickableWidget extends Gui implements Drawable, Element {
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
 		this.hovered = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
-		this.renderButton(draw.getMatrices(), mouseX, mouseY, delta);
+		this.renderWidget(draw, mouseX, mouseY, delta);
 		this.applyTooltip();
 	}
 
@@ -113,7 +113,7 @@ public abstract class ClickableWidget extends Gui implements Drawable, Element {
 		this.tooltipDelay = delay;
 	}
 
-	public abstract void renderButton(MatrixStack var1, int var2, int var3, float var4);
+	public abstract void renderWidget(DrawContext raw, int mouseX, int mouseY, float delta);
 
 	public void drawTexture(MatrixStack matrices, ResourceLocation texture, int x, int y, int u, int v, int hoveredVOffset, int width, int height, int textureWidth, int textureHeight) {
 		int i = v;
