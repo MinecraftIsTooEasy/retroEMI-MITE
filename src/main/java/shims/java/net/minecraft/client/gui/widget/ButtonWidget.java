@@ -40,7 +40,7 @@ public class ButtonWidget
 	}
 
 	public void renderWidget(DrawContext raw, int mouseX, int mouseY, float delta) {
-		EmiDrawContext context = EmiDrawContext.instance();
+		EmiDrawContext context = EmiDrawContext.wrap(raw);
 		context.pop();
 		context.setColor(1.0F, 1.0F, 1.0F, this.alpha);
 		RenderSystem.enableBlend();

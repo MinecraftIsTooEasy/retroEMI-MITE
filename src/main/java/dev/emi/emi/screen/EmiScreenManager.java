@@ -632,7 +632,6 @@ public class EmiScreenManager {
 	
 	private static void renderWidgets(EmiDrawContext context, int mouseX, int mouseY, float delta, GuiScreen screen) {
 		glColor4f(1, 1, 1, 1); // hijacked screen may leak state
-		glDisable(GL_LIGHTING); // weather rendering leaks state
 		context.push();
 		context.matrices().translate(0, 0, 100);
 		emi.render(context.raw(), mouseX, mouseY, delta);

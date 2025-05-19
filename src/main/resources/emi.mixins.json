@@ -17,6 +17,8 @@
   ],
   "mixins": [
     "block.BlockMixin",
+    "client.EntityRendererMixin",
+    "client.InventoryEffectRendererMixin",
     "crafting.CraftingManagerMixin",
     "crafting.InventoryCraftingMixin",
     "inventory.SlotCraftingMixin",

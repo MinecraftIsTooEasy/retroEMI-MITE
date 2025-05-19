@@ -22,6 +22,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.RecipeFillButtonWidget;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.Widget;
+import org.lwjgl.opengl.GL11;
 import shims.java.com.unascribed.retroemi.REMIScreen;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;

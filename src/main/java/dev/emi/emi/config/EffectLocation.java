@@ -4,7 +4,12 @@ import dev.emi.emi.EmiPort;
 import shims.java.net.minecraft.text.Text;
 
 public enum EffectLocation implements ConfigEnum {
-	TOP("top", false), LEFT_COMPRESSED("left-compressed", true), RIGHT_COMPRESSED("right-compressed", true), LEFT("left", false), RIGHT("right", false),
+	TOP("top", false),
+	LEFT_COMPRESSED("left-compressed", true),
+	RIGHT_COMPRESSED("right-compressed", true),
+	LEFT("left", false),
+	RIGHT("right", false),
+	HIDDEN("hidden", false)
 	;
 	
 	public final String name;

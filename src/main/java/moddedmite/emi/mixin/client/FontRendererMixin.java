@@ -1,18 +1,16 @@
 package moddedmite.emi.mixin.client;
 
-import net.xiaoyu233.fml.FishModLoader;
 import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import shims.java.com.unascribed.retroemi.REMIMixinHooks;
 import net.minecraft.*;
 import net.xiaoyu233.fml.util.ReflectHelper;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import shims.java.net.minecraft.text.Style;
 
 import java.util.Random;
 
-@Mixin(value = FontRenderer.class, priority = 2000)
+@Mixin(value = FontRenderer.class, priority = 999)
 public abstract class FontRendererMixin {
     @Shadow private int textColor;
     @Shadow private float alpha;
@@ -23,7 +21,6 @@ public abstract class FontRendererMixin {
     @Shadow private boolean italicStyle;
     @Shadow private float posX;
     @Shadow private float posY;
-    @Shadow protected abstract float renderCharAtPos(int par1, char par2, boolean par3);
     @Shadow private float red;
     @Shadow private float blue;
     @Shadow private float green;
@@ -31,16 +28,19 @@ public abstract class FontRendererMixin {
     @Shadow private int[] charWidth;
     @Shadow private boolean unicodeFlag;
     @Shadow public int FONT_HEIGHT;
+    @Shadow protected abstract float renderCharAtPos(int par1, char par2, boolean par3);
 
 //    @ModifyConstant(method = {"<init>"}, constant = {@Constant(intValue = 256)})
 //    private int modifyChanceTableSize(int val) {
 //        return Short.MAX_VALUE;
 //    }
 
-    @Inject(method = "renderStringAtPos", at = @At("HEAD"), cancellable = true)
-    private void applyCustomFormatCodes(String par1Str, boolean par2, CallbackInfo ci) {
-        if (!Style.EMPTY.equals(new Style("")) && FishModLoader.hasMod("better_game_setting"))
-            ci.cancel();
+    /**
+     * @author Xy_Lose
+     * @reason Apply custom format codes
+     */
+    @Overwrite
+    private void renderStringAtPos(String par1Str, boolean par2) {
         for (int var3 = 0; var3 < par1Str.length(); ++var3) {
             char var4 = par1Str.charAt(var3);
             int var6;

@@ -3,6 +3,8 @@ package dev.emi.emi.screen.widget;
 import dev.emi.emi.EmiPort;
 import dev.emi.emi.EmiRenderHelper;
 import dev.emi.emi.runtime.EmiDrawContext;
+import dev.emi.emi.screen.RecipeScreen;
+import net.minecraft.GuiContainer;
 import org.lwjgl.opengl.GL11;
 import shims.java.com.mojang.blaze3d.systems.RenderSystem;
 import shims.java.net.minecraft.client.gui.DrawContext;
@@ -59,8 +61,7 @@ public class SizedButtonWidget extends ButtonWidget {
 		this.active = this.isActive.getAsBoolean();
 		if (!this.active) {
 			v += this.height * 2;
-		}
-		else if (this.isMouseOver(mouseX, mouseY)) {
+		} else if (this.isMouseOver(mouseX, mouseY)) {
 			v += this.height;
 		}
 		return v;
@@ -70,6 +71,8 @@ public class SizedButtonWidget extends ButtonWidget {
 	public void renderWidget(DrawContext raw, int mouseX, int mouseY, float delta) {
 		EmiDrawContext context = EmiDrawContext.wrap(raw);
 		RenderSystem.enableDepthTest();
+		if (Minecraft.getMinecraft().currentScreen instanceof RecipeScreen)
+			context.resetColor();
 		context.drawTexture(texture, this.x, this.y, getU(mouseX, mouseY), getV(mouseX, mouseY), this.width, this.height);
 		if (this.isMouseOver(mouseX, mouseY) && text != null && this.active) {
 			context.push();

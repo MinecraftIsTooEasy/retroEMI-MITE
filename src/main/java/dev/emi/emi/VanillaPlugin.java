@@ -128,7 +128,7 @@ public class VanillaPlugin implements EmiPlugin {
 		});
 
 		registry.addGenericExclusionArea((screen, consumer) -> {
-			if (screen instanceof GuiInventory inv) {
+			if (screen instanceof InventoryEffectRenderer inv) {
 				Minecraft client = Minecraft.getMinecraft();
 				Collection collection = client.thePlayer.getActivePotionEffects();
 				if (!collection.isEmpty()) {
@@ -145,7 +145,7 @@ public class VanillaPlugin implements EmiPlugin {
 						if (EmiConfig.effectLocation == EffectLocation.TOP) {
 							int size = collection.size();
 							top = ((EMIGuiContainerCreative) inv).getGuiTop() - 34;
-							if (((Object) screen) instanceof GuiContainerCreative) {
+							if (screen instanceof GuiContainerCreative) {
 								top -= 28;
 								if (EmiAgnos.isForge()) {
 									top -= 22;
