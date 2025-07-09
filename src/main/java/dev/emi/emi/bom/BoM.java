@@ -50,14 +50,12 @@ public class BoM {
 						addedTags.add(el.getAsString(), val);
 					}
 				}
-			}
-			else if (recipe != null && recipe.getId() != null && !placed.contains(recipe.getId())) {
+			} else if (recipe != null && recipe.getId() != null && !placed.contains(recipe.getId())) {
 				DefaultStatus status = getRecipeStatus(recipe);
 				placed.add(recipe.getId());
 				if (status == DefaultStatus.FULL) {
 					added.add(new JsonPrimitive(recipe.getId().toString()));
-				}
-				else if (status == DefaultStatus.PARTIAL) {
+				} else if (status == DefaultStatus.PARTIAL) {
 					JsonArray arr = new JsonArray();
 					for (EmiStack stack : recipe.getOutputs()) {
 						if (recipe.equals(getRecipe(stack))) {
@@ -147,11 +145,9 @@ public class BoM {
 		}
 		if (found == 0) {
 			return DefaultStatus.EMPTY;
-		}
-		else if (found >= recipe.getOutputs().size()) {
+		} else if (found >= recipe.getOutputs().size()) {
 			return DefaultStatus.FULL;
-		}
-		else {
+		} else {
 			return DefaultStatus.PARTIAL;
 		}
 	}

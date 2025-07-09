@@ -105,8 +105,7 @@ public class EmiChess {
 					}
 					restart();
 				}
-			}
-			else {
+			} else {
 				int pending = chess.pendingPromotion;
 				int dir = position > 31 ? -8 : 8;
 				if (pending != -1) {
@@ -166,8 +165,7 @@ public class EmiChess {
 				if (move.type() > 2) {
 					get().promotionStart = move.start();
 					get().pendingPromotion = move.end();
-				}
-				else {
+				} else {
 					chess.doMove(move);
 				}
 				get().started = true;
@@ -202,34 +200,28 @@ public class EmiChess {
 			if (EmiScreenManager.hasSidebarAvailable(SidebarType.CHESS)) {
 				chess.pending = uuid;
 				client.thePlayer.addChatMessage(EmiPort.translatable("emi.chess.multiplayer.invited", player.getCommandSenderName()).asString());
-			}
-			else {
+			} else {
 				sendNetwork(uuid, -4, 0, 0);
 			}
-		}
-		else if (type == -2) {
+		} else if (type == -2) {
 			if (chess.started) {
 				sendNetwork(uuid, -3, 0, 0);
-			}
-			else {
+			} else {
 				if (uuid.equals(chess.opponent)) {
 					client.thePlayer.addChatMessage(EmiPort.translatable("emi.chess.multiplayer.accepted", player.getCommandSenderName()).asString());
 					chess.generator = new NetworkedMoveGenerator(PieceColor.BLACK);
 				}
 			}
-		}
-		else if (type == -3) {
+		} else if (type == -3) {
 			if (uuid.equals(chess.opponent)) {
 				client.thePlayer.addChatMessage(EmiPort.translatable("emi.chess.multiplayer.cancelled", player.getCommandSenderName()).asString());
 				restart();
 			}
-		}
-		else if (type == -4) {
+		} else if (type == -4) {
 			if (uuid.equals(chess.opponent)) {
 				client.thePlayer.addChatMessage(EmiPort.translatable("emi.chess.multiplayer.unavailable", player.getCommandSenderName()).asString());
 			}
-		}
-		else if (chess.generator instanceof NetworkedMoveGenerator nmg && chess.opponent.equals(uuid)) {
+		} else if (chess.generator instanceof NetworkedMoveGenerator nmg && chess.opponent.equals(uuid)) {
 			ChessMove desired = ChessMove.of(start, end, type);
 			if (chess.turn == chess.generator.color) {
 				ChessBoard board = getBoard();

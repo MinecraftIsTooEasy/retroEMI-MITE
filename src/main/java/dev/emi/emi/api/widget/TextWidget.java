@@ -1,7 +1,6 @@
 package dev.emi.emi.api.widget;
 
 import dev.emi.emi.runtime.EmiDrawContext;
-import dev.emi.emi.screen.Bounds;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.text.OrderedText;
 import net.minecraft.Minecraft;
@@ -14,7 +13,7 @@ public class TextWidget extends Widget {
 	protected final boolean shadow;
 	protected Alignment horizontalAlignment = Alignment.START;
 	protected Alignment verticalAlignment = Alignment.START;
-	
+
 	public TextWidget(OrderedText text, int x, int y, int color, boolean shadow) {
 		this.text = text;
 		this.x = x;
@@ -22,17 +21,17 @@ public class TextWidget extends Widget {
 		this.color = color;
 		this.shadow = shadow;
 	}
-	
+
 	public TextWidget horizontalAlign(Alignment alignment) {
 		this.horizontalAlignment = alignment;
 		return this;
 	}
-	
+
 	public TextWidget verticalAlign(Alignment alignment) {
 		this.verticalAlignment = alignment;
 		return this;
 	}
-	
+
 	@Override
 	public Bounds getBounds() {
 		int width = CLIENT.fontRenderer.getStringWidth(text.asString());
@@ -40,7 +39,7 @@ public class TextWidget extends Widget {
 		int yOff = verticalAlignment.offset(CLIENT.fontRenderer.FONT_HEIGHT);
 		return new Bounds(x + xOff, y + yOff, width, CLIENT.fontRenderer.FONT_HEIGHT);
 	}
-	
+
 	@Override
 	public void render(DrawContext draw, int mouseX, int mouseY, float delta) {
 		EmiDrawContext context = EmiDrawContext.wrap(draw);
@@ -50,13 +49,12 @@ public class TextWidget extends Widget {
 		context.matrices().translate(xOff, yOff, 300);
 		if (shadow) {
 			context.drawTextWithShadow(text, x, y, color);
-		}
-		else {
+		} else {
 			context.drawText(text, x, y, color);
 		}
 		context.pop();
 	}
-	
+
 	public enum Alignment {
 		START, CENTER, END;
 		

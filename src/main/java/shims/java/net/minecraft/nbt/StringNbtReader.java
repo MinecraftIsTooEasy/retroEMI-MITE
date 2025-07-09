@@ -16,7 +16,7 @@ public class StringNbtReader {
 	}
 	
 	public static String encode(NBTTagCompound nbt) {
-        return "{{binnbt:"+Base64.getEncoder().encodeToString(CompressedStreamTools.compress(nbt))+"}}";
+        return "{{binnbt:" + Base64.getEncoder().encodeToString(CompressedStreamTools.compress(nbt)) + "}}";
     }
 
 }

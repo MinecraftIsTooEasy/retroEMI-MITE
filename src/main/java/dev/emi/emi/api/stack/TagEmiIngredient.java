@@ -30,7 +30,7 @@ public class TagEmiIngredient implements EmiIngredient {
 	public final TagKey<?> key;
 	private long amount;
 	private float chance = 1;
-	
+
 	@ApiStatus.Internal
 	public TagEmiIngredient(TagKey<?> key, long amount) {
 		this(key, fromKey(key), amount);
@@ -42,7 +42,7 @@ public class TagEmiIngredient implements EmiIngredient {
 		}
 		throw new UnsupportedOperationException("Unsupported tag registry " + key);
 	}
-	
+
 	@ApiStatus.Internal
 	public TagEmiIngredient(TagKey<?> key, List<EmiStack> stacks, long amount) {
 		this.id = key.id();
@@ -50,64 +50,63 @@ public class TagEmiIngredient implements EmiIngredient {
 		this.stacks = stacks;
 		this.amount = amount;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof TagEmiIngredient tag && tag.key.equals(this.key);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return id.hashCode();
 	}
-	
+
 	@Override
 	public EmiIngredient copy() {
 		EmiIngredient stack = new TagEmiIngredient(key, amount);
 		stack.setChance(chance);
 		return stack;
 	}
-	
+
 	@Override
 	public List<EmiStack> getEmiStacks() {
 		return stacks;
 	}
-	
+
 	@Override
 	public long getAmount() {
 		return amount;
 	}
-	
+
 	@Override
 	public EmiIngredient setAmount(long amount) {
 		this.amount = amount;
 		return this;
 	}
-	
+
 	@Override
 	public float getChance() {
 		return chance;
 	}
-	
+
 	@Override
 	public EmiIngredient setChance(float chance) {
 		this.chance = chance;
 		return this;
 	}
-	
+
 	@Override
 	public void render(DrawContext draw, int x, int y, float delta, int flags) {
 		EmiDrawContext context = EmiDrawContext.wrap(draw);
 		Minecraft client = Minecraft.getMinecraft();
-		
+
 		if ((flags & RENDER_ICON) != 0) {
 			if (!EmiTags.hasCustomModel(key)) {
 				if (stacks.size() > 0) {
 					stacks.get(0).render(context.raw(), x, y, delta, -1 ^ RENDER_AMOUNT);
 				}
-			}
-			else {
-				// TODO tag textures, (todo from RetroEMI)
+			} else {
+				// TODO tag textures
 			}
 		}
 		if ((flags & RENDER_AMOUNT) != 0) {

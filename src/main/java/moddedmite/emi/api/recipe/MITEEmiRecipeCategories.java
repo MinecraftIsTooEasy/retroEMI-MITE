@@ -1,4 +1,6 @@
-package dev.emi.emi.api.recipe;
+package moddedmite.emi.api.recipe;
+
+import dev.emi.emi.api.recipe.EmiRecipeCategory;
 
 public class MITEEmiRecipeCategories {
 	public static EmiRecipeCategory FOOD;

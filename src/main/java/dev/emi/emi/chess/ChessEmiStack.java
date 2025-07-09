@@ -6,6 +6,7 @@ import dev.emi.emi.EmiRenderHelper;
 import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.api.stack.EmiStack;
+import shims.java.com.mojang.blaze3d.systems.RenderSystem;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import shims.java.net.minecraft.text.Text;
@@ -30,21 +31,18 @@ class ChessEmiStack extends EmiStack {
 	public void render(DrawContext raw, int x, int y, float delta, int flags) {
 		EmiDrawContext context = EmiDrawContext.wrap(raw);
 		ChessPiece piece = EmiChess.getBoard().get(position);
-		GL11.glEnable(GL_DEPTH_TEST);
+		RenderSystem.enableDepthTest();
 		EmiChess chess = EmiChess.get();
 		if (chess.pendingPromotion != -1) {
 			PieceType type = null;
 			int dir = chess.pendingPromotion > 31 ? -8 : 8;
 			if (position == chess.pendingPromotion) {
 				type = PieceType.QUEEN;
-			}
-			else if (position == chess.pendingPromotion + dir) {
+			} else if (position == chess.pendingPromotion + dir) {
 				type = PieceType.KNIGHT;
-			}
-			else if (position == chess.pendingPromotion + dir * 2) {
+			} else if (position == chess.pendingPromotion + dir * 2) {
 				type = PieceType.ROOK;
-			}
-			else if (position == chess.pendingPromotion + dir * 3) {
+			} else if (position == chess.pendingPromotion + dir * 3) {
 				type = PieceType.BISHOP;
 			}
 			if (type != null) {
@@ -74,6 +72,7 @@ class ChessEmiStack extends EmiStack {
 		if (piece != null) {
 			context.push();
 			context.matrices().translate(0, 0, 100);
+			context.resetColor();
 			context.drawTexture(EmiRenderHelper.PIECES, x, y, 100, piece.type().u, piece.color() == PieceColor.BLACK ? 0 : 16, 16, 16, 256, 256);
 			context.pop();
 		}
@@ -130,8 +129,7 @@ class ChessEmiStack extends EmiStack {
 						}
 					}
 				}
-			}
-			else {
+			} else {
 				if (piece.type() == PieceType.KING && piece.color() == PieceColor.WHITE) {
 					list.add(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.chess.tooltip.restart"))));
 				}

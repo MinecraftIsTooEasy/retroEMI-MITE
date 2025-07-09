@@ -11,7 +11,7 @@ public class HoveredTooltipPositioner implements TooltipPositioner {
 
 	@Override
 	public Vec2i getPosition(GuiScreen screen, int x, int y, int w, int h) {
-		Vec2i v = new Vec2i(x+12, y-12);
+		Vec2i v = new Vec2i(x + 12, y - 12);
 		preventOverflow(screen, v, w, h);
 		return v;
 	}

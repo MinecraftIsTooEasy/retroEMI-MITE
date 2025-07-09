@@ -40,8 +40,7 @@ public class FillRecipeC2SPacket implements EmiPacket {
 		}
 		if (buf.readBoolean()) {
 			output = buf.readVarInt();
-		}
-		else {
+		} else {
 			output = -1;
 		}
 		int size = buf.readVarInt();
@@ -224,8 +223,7 @@ public class FillRecipeC2SPacket implements EmiPacket {
 				if (st.stackSize <= wanted) {
 					grabbed += st.stackSize;
 					s.putStack(ItemStacks.EMPTY);
-				}
-				else {
+				} else {
 					grabbed = amount;
 					st.stackSize = (st.stackSize - wanted);
 				}

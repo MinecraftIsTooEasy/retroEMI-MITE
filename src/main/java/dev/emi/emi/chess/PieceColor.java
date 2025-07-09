@@ -1,7 +1,8 @@
 package dev.emi.emi.chess;
 
 enum PieceColor {
-	WHITE, BLACK,
+	WHITE,
+	BLACK,
 	;
 	
 	public PieceColor opposite() {

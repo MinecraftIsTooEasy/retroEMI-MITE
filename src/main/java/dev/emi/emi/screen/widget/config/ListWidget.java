@@ -2,6 +2,7 @@ package dev.emi.emi.screen.widget.config;
 
 import com.google.common.collect.Lists;
 import dev.emi.emi.EmiPort;
+import shims.java.com.mojang.blaze3d.systems.RenderSystem;
 import shims.java.net.minecraft.client.gui.AbstractParentElement;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.Drawable;
@@ -176,7 +177,7 @@ public class ListWidget extends AbstractParentElement implements Drawable {
 		{ // Render horizontal shadows
 			Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("textures/gui/options_background.png"));
 			glColor4f(64 / 255f, 64 / 255f, 64 / 255f, 1);
-			glEnable(GL_DEPTH_TEST);
+			RenderSystem.enableDepthTest();
 			glDepthFunc(GL_ALWAYS);
 			tess.startDrawingQuads();
 			tess.addVertexWithUV((double) this.left, (double) this.top, -100.0, 0.0F, (float) this.top / 32.0F);
@@ -189,9 +190,9 @@ public class ListWidget extends AbstractParentElement implements Drawable {
 			tess.addVertexWithUV((double) this.left, (double) this.bottom, -100.0, 0.0F, (float) this.bottom / 32.0F);
 			tess.draw();
 			glDepthFunc(GL_LEQUAL);
-			glDisable(GL_DEPTH_TEST);
+			RenderSystem.disableDepthTest();
 			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE);
-			glEnable(GL_BLEND);
+			RenderSystem.enableBlend();
 			glDisable(GL_TEXTURE_2D);
 			glShadeModel(GL_SMOOTH);
 			n = 4;
@@ -244,7 +245,7 @@ public class ListWidget extends AbstractParentElement implements Drawable {
 			tess.draw();
 			glEnable(GL_TEXTURE_2D);
 		}
-		glDisable(GL_BLEND);
+		RenderSystem.disableBlend();
 	}
 	
 	public void centerScrollOn(Entry entry) {
@@ -361,11 +362,9 @@ public class ListWidget extends AbstractParentElement implements Drawable {
 		}
 		if (mouseY < (double) this.top) {
 			this.setScrollAmount(0.0);
-		}
-		else if (mouseY > (double) this.bottom) {
+		} else if (mouseY > (double) this.bottom) {
 			this.setScrollAmount(this.getMaxScroll());
-		}
-		else {
+		} else {
 			double d = Math.max(1, this.getMaxScroll());
 			int i = this.bottom - this.top;
 			int j = MathHelper.clamp_int((int) ((float) (i * i) / (float) this.getMaxPosition()), 32, i - 8);
@@ -564,7 +563,8 @@ public class ListWidget extends AbstractParentElement implements Drawable {
 	}
 	
 	protected static enum MoveDirection {
-		UP, DOWN;
+		UP,
+		DOWN;
 		
 	}
 	

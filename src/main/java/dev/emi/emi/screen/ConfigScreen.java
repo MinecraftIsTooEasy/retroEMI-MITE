@@ -378,21 +378,18 @@ public class ConfigScreen extends REMIScreen {
 		if (activeBind != null) {
 			if (EmiInput.maskFromCode(keyCode) != 0) {
 				pushModifier(keyCode);
-			}
-			else {
+			} else {
 				pushModifier(0);
 				if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
 					activeBind.setBind(activeBindOffset, new EmiBind.ModifiedKey(InputUtil.UNKNOWN_KEY, 0));
-				}
-				else {
+				} else {
 					activeBind.setBind(activeBindOffset, new ModifiedKey(InputUtil.Type.KEYSYM.createFromCode(keyCode), activeModifiers));
 				}
 				activeBind = null;
 				updateChanges();
 			}
 			return true;
-		}
-		else {
+		} else {
 			// Element nesting causes crashing for cycling, for some reason
 			if (keyCode == GLFW.GLFW_KEY_TAB) {
 				return false;
@@ -405,8 +402,7 @@ public class ConfigScreen extends REMIScreen {
 					EmiPort.focus(tfw, false);
 					return true;
 				}
-			}
-			else {
+			} else {
 				if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
 					this.close();
 					return true;

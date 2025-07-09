@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import dev.emi.emi.EmiPort;
 import dev.emi.emi.api.recipe.EmiRecipe;
-import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.bom.BoM;
 import dev.emi.emi.config.EmiConfig;
 import dev.emi.emi.data.EmiAlias;
@@ -16,7 +15,7 @@ import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import moddedmite.emi.util.ModIdentification;
+import moddedmite.emi.util.ModIdentifier;
 import net.xiaoyu233.fml.FishModLoader;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.search.SuffixArray;
@@ -35,7 +34,19 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class EmiSearch {
-	public static final Pattern TOKENS = Pattern.compile("(-?[@#]?\\/(\\\\.|[^\\\\\\/])+\\/|[^\\s]+)");
+	public static final Pattern TOKENS = Pattern.compile(
+			"-?[@#$]?" // Any query can be negated or prefixed with type
+				+ "(" // Query contents
+					+ "\\/(\\\\.|[^\\\\\\/])+\\/" // Any regex contents, for example `/some thing/`
+					+ "|"
+					+ "\\\"(\\.|[^\\\"])+\\\"" // Any quoted contents, for example, `"some thing"`
+					+ "|"
+					+ "[^\\s|]+" // Any raw contents, split on space
+					+ "|"
+					+ "\\|" // Literal OR symbol
+					+ "|"
+					+ "\\&" // Literal AND symbol (currently ignored since queries AND by deafult, but parsed)
+				+ ")");
 	private static volatile SearchWorker currentWorker = null;
 	public static volatile Thread searchThread = null;
 	public static volatile List<? extends EmiIngredient> stacks = EmiStackList.stacks;
@@ -72,7 +83,7 @@ public class EmiSearch {
 				ResourceLocation id = stack.getId();
 				EmiRecipe recipe = BoM.getRecipe(stack);
 				if (id != null) {
-					mods.add(stack, ModIdentification.getMod(stack.getItemStack()).toLowerCase().replace(" ", ""));
+					mods.add(stack, ModIdentifier.getMod(stack.getItemStack()).toLowerCase().replace(" ", ""));
 					names.add(stack, id.toString());
 				}
 				//TODO search recipe id
@@ -94,8 +105,8 @@ public class EmiSearch {
 				EmiLog.error("EMI caught an exception while baking search for " + stack, e);
 			}
 		}
-		for (Supplier<dev.emi.emi.data.EmiAlias> supplier : EmiData.aliases) {
-			dev.emi.emi.data.EmiAlias alias = supplier.get();
+		for (Supplier<EmiAlias> supplier : EmiData.aliases) {
+			EmiAlias alias = supplier.get();
 			for (String key : alias.keys()) {
 				if (!StringTranslate.getInstance().containsTranslateKey(key)) {
 					EmiReloadLog.warn("Untranslated alias " + key);
@@ -208,7 +219,7 @@ public class EmiSearch {
 						constructors.add(QueryType.ITEM_ID.queryConstructor);
 						regexConstructors.add(QueryType.ITEM_ID.regexQueryConstructor);
 					}
-					// TODO add config, (todo from RetroEMI)
+					// TODO add config
 					constructors.add(AliasQuery::new);
 					if (constructors.size() > 1) {
 						constructor = name -> new LogicalOrQuery(constructors.stream().map(c -> c.apply(name)).collect(Collectors.toList()));
@@ -222,8 +233,7 @@ public class EmiSearch {
 			}
 			if (!full.isEmpty()) {
 				fullQuery = new LogicalOrQuery(full);
-			}
-			else {
+			} else {
 				fullQuery = null;
 			}
 		}
@@ -235,11 +245,9 @@ public class EmiSearch {
 		public boolean test(EmiStack stack) {
 			if (fullQuery == null) {
 				return true;
-			}
-			else if (EmiSearch.bakedStacks.contains(stack)) {
+			} else if (EmiSearch.bakedStacks.contains(stack)) {
 				return fullQuery.matches(stack);
-			}
-			else {
+			} else {
 				return fullQuery.matchesUnbaked(stack);
 			}
 		}
@@ -248,8 +256,7 @@ public class EmiSearch {
 			Query q;
 			if (s.length() > 1 && s.startsWith("/") && s.endsWith("/")) {
 				q = regex.apply(s.substring(1, s.length() - 1));
-			}
-			else {
+			} else {
 				q = normal.apply(s);
 			}
 			q.negated = negated;
@@ -293,8 +300,7 @@ public class EmiSearch {
 					}
 				}
 				apply(this, Lists.newArrayList(stacks));
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				EmiLog.error("Error when attempting to search:", e);
 			}
 		}

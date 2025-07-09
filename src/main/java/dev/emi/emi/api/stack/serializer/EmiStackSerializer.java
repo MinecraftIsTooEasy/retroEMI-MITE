@@ -33,8 +33,7 @@ public interface EmiStackSerializer<T extends EmiStack> extends EmiIngredientSer
 				id = new ResourceLocation(m.group(2), m.group(3));
 				nbt = m.group(4);
 			}
-		}
-		else if (element.isJsonObject()) {
+		} else if (element.isJsonObject()) {
 			JsonObject json = element.getAsJsonObject();
 			id = new ResourceLocation(JsonHelper.getString(json, "id"));
 			nbt = JsonHelper.getString(json, "nbt", null);
@@ -61,8 +60,7 @@ public interface EmiStackSerializer<T extends EmiStack> extends EmiIngredientSer
 					stack.setRemainder(remainder);
 				}
 				return stack;
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				EmiLog.error("Error parsing NBT in deserialized stack", e);
 				return EmiStack.EMPTY;
 			}
@@ -82,8 +80,7 @@ public interface EmiStackSerializer<T extends EmiStack> extends EmiIngredientSer
 				s += nbt;
 			}
 			return new JsonPrimitive(s);
-		}
-		else {
+		} else {
 			JsonObject json = new JsonObject();
 			json.addProperty("type", getType());
 			json.addProperty("id", stack.getId().toString());

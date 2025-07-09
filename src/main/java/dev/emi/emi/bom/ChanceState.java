@@ -1,6 +1,5 @@
 package dev.emi.emi.bom;
 
-
 public record ChanceState(float chance, boolean chanced) {
 	public static ChanceState DEFAULT = new ChanceState(1, false);
 	

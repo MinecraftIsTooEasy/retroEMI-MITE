@@ -24,3 +24,4 @@ accessible field net/minecraft/FontRenderer alpha F
 accessible method net/minecraft/EnumInsulinResistanceLevel getRedAsFloat ()F
 accessible method net/minecraft/EnumInsulinResistanceLevel getGreenAsFloat ()F
 accessible method net/minecraft/EnumInsulinResistanceLevel getBlueAsFloat ()F
+accessible method net/minecraft/EnumInsulinResistanceLevel getUnlocalizedName ()Ljava/lang/String;

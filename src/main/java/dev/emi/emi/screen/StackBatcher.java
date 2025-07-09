@@ -2,17 +2,15 @@ package dev.emi.emi.screen;
 
 import dev.emi.emi.api.stack.EmiIngredient;
 import shims.java.net.minecraft.client.gui.DrawContext;
+import shims.java.net.minecraft.client.render.VertexConsumerProvider;
 
 public class StackBatcher {
 	
 	public interface Batchable {
 		boolean isSideLit();
-		
 		boolean isUnbatchable();
-		
 		void setUnbatchable();
-		
-		void renderForBatch(DrawContext draw, int x, int y, int z, float delta);
+		void renderForBatch(VertexConsumerProvider vcp, DrawContext draw, int x, int y, int z, float delta);
 	}
 	
 	public StackBatcher() {

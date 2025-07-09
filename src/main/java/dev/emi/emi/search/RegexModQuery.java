@@ -1,7 +1,7 @@
 package dev.emi.emi.search;
 
 import dev.emi.emi.api.stack.EmiStack;
-import moddedmite.emi.util.ModIdentification;
+import moddedmite.emi.util.ModIdentifier;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +25,7 @@ public class RegexModQuery extends Query {
 			return false;
 		}
 		String namespace = stack.getId().getResourceDomain();
-		String mod = ModIdentification.getMod(stack.getItemStack());
+		String mod = ModIdentifier.getMod(stack.getItemStack());
 		Matcher m = pattern.matcher(mod);
 		return m.find();
 	}

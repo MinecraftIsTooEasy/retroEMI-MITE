@@ -11,8 +11,8 @@ import java.util.List;
 
 public class EmiFishingRecipe extends EmiCraftingRecipe {
 	
-	public EmiFishingRecipe(ItemStack input, String id) {
-		super(getIngredients(input), EmiStack.of(Item.fishingRodFlint), new ResourceLocation("fishingRod", id), null);
+	public EmiFishingRecipe(ItemStack input, String id, float craftingDifficulty) {
+		super(getIngredients(input), EmiStack.of(Item.fishingRodFlint), new ResourceLocation("fishingRod", id), null, craftingDifficulty);
 	}
 	
 	private static List<EmiIngredient> getIngredients(ItemStack input) {

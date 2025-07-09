@@ -21,8 +21,7 @@ public class SidebarPages {
 		for (int i = 0; i < pages.size(); i++) {
 			if (pages.get(i).type == SidebarType.NONE || types.contains(pages.get(i).type)) {
 				pages.remove(i--);
-			}
-			else {
+			} else {
 				types.add(pages.get(i).type);
 			}
 		}
@@ -31,8 +30,7 @@ public class SidebarPages {
 			for (int i = 0; i < subpanels.size(); i++) {
 				if (subpanels.get(i).type == SidebarType.NONE || types.contains(subpanels.get(i).type)) {
 					subpanels.remove(i--);
-				}
-				else {
+				} else {
 					types.add(subpanels.get(i).type);
 				}
 			}

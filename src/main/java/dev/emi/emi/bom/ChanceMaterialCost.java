@@ -1,6 +1,5 @@
 package dev.emi.emi.bom;
 
-
 import dev.emi.emi.api.stack.EmiIngredient;
 
 public class ChanceMaterialCost extends FlatMaterialCost {

@@ -873,9 +873,17 @@
   "enchanted_book.info.enchantment.butchering": "Slaughter\nUncommon level, 10Enchantment difficulty\nIncreases the chance of meat dropping when killing passive mobs\nMax Level III\nCan be used for short swords and knives",
   "enchanted_book.info.enchantment.endurance": "Stamina\nUncommon level, 10Enchantment difficulty\nReduces hunger speed by 20% per level when destroying, placing blocks, attacking, throwing, farming, and drawing bows. The highest level IV can be used on the breastplate",
 
-  "config.emi.group.addon.distraction": "Distraction Free Recipe",
-  "config.emi.addon.enable_distraction_free_mode": "Enable Distraction_Free Mode",
+  "config.emi.general.search_id_by_default": "Search ID by Default",
+  "config.emi.general.search_name_by_pinyin": "Search Pinyin by Default",
   "config.emi.addon.lower_opacity": "Lower Opacity ?",
-  "config.emi.tooltip.addon.enable_distraction_free_mode": "Turns the mod's effects on/off.",
-  "config.emi.tooltip.addon.lower_opacity": "Lowers the opacity of the search bar to make it blend in more."
+  "config.emi.addon.mite_craft_info": "MITE Craft Info",
+  "config.emi.addon.more_workstation": "Show more Workstation",
+  "config.emi.group.addon": "Addon",
+
+  "emi.fuel_number.items": "Burns for %s items",
+  "emi.fuel_heat.items": "Heat level %s",
+  "emi.craft_difficult.items": "%s Difficulty",
+  "emi.craft_time.items": "%s S",
+  "emi.craft_level.items": "Lvl：%s",
+  "emi.exp_cost.items": "%s XP"
 }

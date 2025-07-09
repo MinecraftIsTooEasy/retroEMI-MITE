@@ -19,12 +19,12 @@ public class EmiTooltip {
 	}
 	
 	public static List<TooltipComponent> splitTranslate(String key) {
-		return Arrays.stream(RetroEMI.translate(key).split("/n")).map(s -> TooltipComponent.of(EmiPort.ordered(EmiPort.literal(s))))
+		return Arrays.stream(RetroEMI.translate(key).split("\n")).map(s -> TooltipComponent.of(EmiPort.ordered(EmiPort.literal(s))))
 				.collect(Collectors.toList());
 	}
 	
 	public static List<TooltipComponent> splitTranslate(String key, Object... objects) {
-		return Arrays.stream(RetroEMI.translate(key, objects).split("/n"))
+		return Arrays.stream(RetroEMI.translate(key, objects).split("\n"))
 				.map(s -> TooltipComponent.of(EmiPort.ordered(EmiPort.literal(s)))).collect(Collectors.toList());
 	}
 }

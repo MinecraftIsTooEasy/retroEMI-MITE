@@ -45,8 +45,7 @@ class StandardMoveGenerator extends MoveGenerator {
 				if (turn == PieceColor.BLACK) {
 					value = -value;
 				}
-			}
-			else {
+			} else {
 				value = -evaluate(board, turn.opposite(), depth - 1, -beta, -alpha);
 			}
 			board.unmove(move);

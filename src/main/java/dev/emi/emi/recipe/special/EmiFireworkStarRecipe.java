@@ -39,8 +39,7 @@ public class EmiFireworkStarRecipe extends EmiPatternCraftingRecipe {
 	public SlotWidget getInputWidget(int slot, int x, int y) {
 		if (slot == 0) {
 			return new SlotWidget(EmiStack.of(Item.gunpowder), x, y);
-		}
-		else {
+		} else {
 			final int s = slot - 1;
 			return new GeneratedSlotWidget(r -> {
 				List<ItemStack> items = getItems(r);
@@ -71,8 +70,7 @@ public class EmiFireworkStarRecipe extends EmiPatternCraftingRecipe {
 		int amount = random.nextInt(4);
 		if (amount < 2) {
 			items.add(new ItemStack(EFFECTS.get(amount)));
-		}
-		else if (amount == 2) {
+		} else if (amount == 2) {
 			items.add(new ItemStack(EFFECTS.get(0)));
 			items.add(new ItemStack(EFFECTS.get(1)));
 		}
@@ -103,27 +101,21 @@ public class EmiFireworkStarRecipe extends EmiPatternCraftingRecipe {
 		for (ItemStack item : items) {
 			if (Item.glowstone.equals(item.getItem())) {
 				explosion.setByte("Flicker", largeBall);
-			}
-			else if (Item.diamond.equals(item.getItem())) {
+			} else if (Item.diamond.equals(item.getItem())) {
 				explosion.setByte("Trail", largeBall);
-			}
-			else if (Item.fireballCharge.equals(item.getItem())) {
+			} else if (Item.fireballCharge.equals(item.getItem())) {
 				explosion.setByte("Type", largeBall);
 				hasShape = true;
-			}
-			else if (Item.goldNugget.equals(item.getItem())) {
+			} else if (Item.goldNugget.equals(item.getItem())) {
 				explosion.setByte("Type", star);
 				hasShape = true;
-			}
-			else if (Item.feather.equals(item.getItem())) {
+			} else if (Item.feather.equals(item.getItem())) {
 				explosion.setByte("Type", burst);
 				hasShape = true;
-			}
-			else if (Item.skull.equals(item.getItem())) {
+			} else if (Item.skull.equals(item.getItem())) {
 				explosion.setByte("Type", creeper);
 				hasShape = true;
-			}
-			else {
+			} else {
 				colors.add(DyeColor.values()[1].getFireworkColor());
 				colors.add(DyeColor.values()[item.getItemSubtype()].getFireworkColor());
 			}

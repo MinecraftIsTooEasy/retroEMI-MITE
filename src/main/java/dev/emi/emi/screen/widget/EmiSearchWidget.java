@@ -119,8 +119,7 @@ public class EmiSearchWidget extends TextFieldWidget {
 						styles.add(new Pair<Integer, Style>(end - 1, type.regexColor));
 					}
 					styles.add(new Pair<Integer, Style>(end, type.slashColor));
-				}
-				else {
+				} else {
 					styles.add(new Pair<Integer, Style>(end, type.color));
 				}
 				
@@ -164,8 +163,7 @@ public class EmiSearchWidget extends TextFieldWidget {
 		if (!isMouseOver(mouseX, mouseY) || !EmiConfig.enabled) {
 			setFocused(false);
 			return false;
-		}
-		else {
+		} else {
 			boolean b = super.mouseClicked(mouseX, mouseY, button == 1 ? 0 : button);
 			if (isMouseOver(mouseX, mouseY)) {
 				setFocused(true);
@@ -175,12 +173,10 @@ public class EmiSearchWidget extends TextFieldWidget {
 					if (System.currentTimeMillis() - lastClick < 500) {
 						highlight = !highlight;
 						lastClick = 0;
-					}
-					else {
+					} else {
 						lastClick = System.currentTimeMillis();
 					}
-				}
-				else if (button == 1) {
+				} else if (button == 1) {
 					this.setText("");
 					this.setFocused(true);
 				}
@@ -215,8 +211,7 @@ public class EmiSearchWidget extends TextFieldWidget {
 		accumulatedSpin += (dinnerbone ? 1 : -1) * Math.abs(System.currentTimeMillis() - lastRender);
 		if (accumulatedSpin < 0) {
 			accumulatedSpin = 0;
-		}
-		else if (accumulatedSpin > 500) {
+		} else if (accumulatedSpin > 500) {
 			accumulatedSpin = 500;
 		}
 		lastRender = System.currentTimeMillis();
@@ -249,7 +244,7 @@ public class EmiSearchWidget extends TextFieldWidget {
 				context.fill(this.x + this.width + 1, this.y - 2, 1, this.height + 4, border);
 			}
 		}
-		GL11.glColor4f(1, 1, 1, 1);
+		context.setColor(1, 1, 1, 1);
 		view.pop();
 	}
 }

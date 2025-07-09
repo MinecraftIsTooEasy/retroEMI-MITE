@@ -94,12 +94,10 @@ public class ConfigPresetScreen extends REMIScreen {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
 			this.close();
 			return true;
-		}
-		else if (this.client.gameSettings.keyBindInventory.keyCode == (keyCode)) {
+		} else if (this.client.gameSettings.keyBindInventory.keyCode == (keyCode)) {
 			this.close();
 			return true;
-		}
-		else if (keyCode == GLFW.GLFW_KEY_TAB) {
+		} else if (keyCode == GLFW.GLFW_KEY_TAB) {
 			return false;
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);

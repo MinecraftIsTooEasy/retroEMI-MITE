@@ -15,28 +15,21 @@ import dev.emi.emi.input.EmiBind;
 import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.runtime.EmiFavorites;
 import dev.emi.emi.runtime.EmiHistory;
-import dev.emi.emi.screen.Bounds;
 import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.screen.RecipeScreen;
 import dev.emi.emi.screen.tooltip.EmiTooltip;
 import dev.emi.emi.screen.tooltip.RecipeCostTooltipComponent;
-import net.minecraft.Block;
-import org.lwjgl.opengl.GL11;
+import shims.java.com.mojang.blaze3d.systems.RenderSystem;
 import shims.java.net.minecraft.client.gui.DrawContext;
-import shims.java.net.minecraft.client.gui.tooltip.TextTooltipComponent;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
-import shims.java.net.minecraft.text.MutableText;
 import shims.java.net.minecraft.text.Text;
 import shims.java.net.minecraft.util.Formatting;
-import net.minecraft.Material;
 import net.minecraft.ResourceLocation;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import static org.lwjgl.opengl.GL11.glColor4f;
 
 public class SlotWidget extends Widget {
 	protected final EmiIngredient stack;
@@ -48,22 +41,22 @@ public class SlotWidget extends Widget {
 	protected List<Supplier<TooltipComponent>> tooltipSuppliers = Lists.newArrayList();
 	protected Bounds bounds;
 	private EmiRecipe recipe;
-	
+
 	public SlotWidget(EmiIngredient stack, int x, int y) {
 		this.stack = stack;
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public EmiIngredient getStack() {
 		return stack;
 	}
-	
+
 	@ApiStatus.Internal
 	public EmiRecipe getRecipe() {
 		return recipe;
 	}
-	
+
 	/**
 	 * Whether to draw the background texture of a slot.
 	 */
@@ -71,7 +64,7 @@ public class SlotWidget extends Widget {
 		this.drawBack = drawBack;
 		return this;
 	}
-	
+
 	/**
 	 * Whether to the slot as the large 26x26 or small 18x18 slot.
 	 * This is a purely visual change.
@@ -80,7 +73,7 @@ public class SlotWidget extends Widget {
 		this.output = large;
 		return this;
 	}
-	
+
 	/**
 	 * Whether to draw a catalyst icon on the slot.
 	 */
@@ -88,14 +81,14 @@ public class SlotWidget extends Widget {
 		this.catalyst = catalyst;
 		return this;
 	}
-	
+
 	/**
 	 * Provides a function for appending {@link TooltipComponent}s to the slot's tooltip.
 	 */
 	public SlotWidget appendTooltip(Function<EmiIngredient, TooltipComponent> function) {
 		return appendTooltip(() -> function.apply(getStack()));
 	}
-	
+
 	/**
 	 * Provides a supplier for appending {@link TooltipComponent}s to the slot's tooltip.
 	 */
@@ -103,7 +96,7 @@ public class SlotWidget extends Widget {
 		tooltipSuppliers.add(supplier);
 		return this;
 	}
-	
+
 	/**
 	 * Provides a shorthand for appending text to the slot's tooltip.
 	 */
@@ -111,7 +104,7 @@ public class SlotWidget extends Widget {
 		tooltipSuppliers.add(() -> TooltipComponent.of(EmiPort.ordered(text)));
 		return this;
 	}
-	
+
 	/**
 	 * Provides EMI context that the slot contains the provided recipe's output.
 	 * This is used for resolving recipes in the recipe tree, displaying extra information in tooltips,
@@ -121,7 +114,7 @@ public class SlotWidget extends Widget {
 		this.recipe = recipe;
 		return this;
 	}
-	
+
 	/**
 	 * Sets the slot to use a custom texture.
 	 * The size of the texture drawn is 18x18, or 26x26 if the slot is large,
@@ -134,7 +127,7 @@ public class SlotWidget extends Widget {
 		this.v = v;
 		return this;
 	}
-	
+
 	/**
 	 * Sets the slot to use a custom texture and custom sizing
 	 *
@@ -147,30 +140,29 @@ public class SlotWidget extends Widget {
 		this.customHeight = height;
 		return this;
 	}
-	
+
 	@Override
 	public Bounds getBounds() {
 		if (custom) {
 			return new Bounds(x, y, customWidth, customHeight);
-		}
-		else if (output) {
+		} else if (output) {
 			return new Bounds(x, y, 26, 26);
-		}
-		else {
+		} else {
 			return new Bounds(x, y, 18, 18);
 		}
 	}
-	
+
 	@Override
 	public void render(DrawContext draw, int mouseX, int mouseY, float delta) {
 		EmiPort.setPositionTexShader();
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		EmiDrawContext context = EmiDrawContext.wrap(draw);
+		context.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		drawBackground(draw, mouseX, mouseY, delta);
 		drawStack(draw, mouseX, mouseY, delta);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		RenderSystem.disableDepthTest();
 		drawOverlay(draw, mouseX, mouseY, delta);
 	}
-	
+
 	public void drawBackground(DrawContext draw, int mouseX, int mouseY, float delta) {
 		EmiDrawContext context = EmiDrawContext.wrap(draw);
 		Bounds bounds = getBounds();
@@ -179,26 +171,24 @@ public class SlotWidget extends Widget {
 		if (drawBack) {
 			if (textureId != null) {
 				context.drawTexture(textureId, bounds.x(), bounds.y(), width, height, u, v, width, height, 256, 256);
-			}
-			else {
+			} else {
 				int v = getStack().getChance() != 1 ? bounds.height() : 0;
 				if (output) {
 					context.drawTexture(EmiRenderHelper.WIDGETS, bounds.x(), bounds.y(), 26, 26, 18, v, 26, 26, 256, 256);
-				}
-				else {
+				} else {
 					context.drawTexture(EmiRenderHelper.WIDGETS, bounds.x(), bounds.y(), 18, 18, 0, v, 18, 18, 256, 256);
 				}
 			}
 		}
 	}
-	
+
 	public void drawStack(DrawContext draw, int mouseX, int mouseY, float delta) {
 		Bounds bounds = getBounds();
 		int xOff = (bounds.width() - 16) / 2;
 		int yOff = (bounds.height() - 16) / 2;
 		getStack().render(draw, bounds.x() + xOff, bounds.y() + yOff, delta);
 	}
-	
+
 	public void drawOverlay(DrawContext draw, int mouseX, int mouseY, float delta) {
 		Bounds bounds = getBounds();
 		int width = bounds.width();
@@ -213,16 +203,16 @@ public class SlotWidget extends Widget {
 			drawSlotHighlight(draw, bounds);
 		}
 	}
-	
+
 	public boolean shouldDrawSlotHighlight(int mouseX, int mouseY) {
 		return getBounds().contains(mouseX, mouseY) && EmiConfig.showHoverOverlay;
 	}
-	
+
 	public void drawSlotHighlight(DrawContext draw, Bounds bounds) {
 //		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		EmiRenderHelper.drawSlotHightlight(EmiDrawContext.wrap(draw), bounds.x() + 1, bounds.y() + 1, bounds.width() - 2, bounds.height() - 2);
 	}
-	
+
 	@Override
 	public List<TooltipComponent> getTooltip(int mouseX, int mouseY) {
 		List<TooltipComponent> list = Lists.newArrayList();
@@ -231,38 +221,6 @@ public class SlotWidget extends Widget {
 		}
 		list.addAll(getStack().getTooltip());
 		addSlotTooltip(list);
-
-		if (Block.workbench.isValidMetadata(2) && this.getRecipe() != null && this.getRecipe().craftLevel() != null && this.getRecipe().craftLevel() != Material.air) {
-			Material material = this.getRecipe().craftLevel();
-			MutableText materialName;
-            if (material == Material.flint) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-            } else if (material == Material.copper) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-            } else if (material == Material.silver) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-            } else if (material == Material.gold) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-            } else if (material == Material.rusted_iron) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-            } else if (material == Material.iron) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-            } else if (material == Material.ancient_metal) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-            } else if (material == Material.mithril) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-            } else if (material == Material.adamantium) {
-                materialName = EmiPort.literal(material.getLocalizedName());
-			} else if (material == Material.obsidian) {
-				materialName = EmiPort.literal(material.getLocalizedName());
-            } else {
-				materialName = EmiPort.literal(material.getLocalizedName());
-			}
-			TextTooltipComponent craftLevel = new TextTooltipComponent(EmiPort.translatable("emi.craft_level") + ": " + materialName);
-
-			list.add(craftLevel);
-		}
-
 		return list;
 	}
 	

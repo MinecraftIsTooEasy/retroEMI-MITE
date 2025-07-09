@@ -66,10 +66,9 @@ public class EmiCookingRecipe implements EmiRecipe {
 		widgets.addFillingArrow(24, 5, 50 * 200).tooltip((mx, my) -> List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.cooking.time", duration / 20)))));
 		widgets.addTexture(EmiTexture.EMPTY_FLAME, 1, 24);
 		widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 1, 24, duration * 20, false, true, true);
-		widgets.addSlot(input, 0, 4);
-		widgets.addSlot(output, 56, 0).large(true).recipeContext(this);
 		if (xp != 0)
 			widgets.addText(EmiPort.ordered(EmiPort.translatable("emi.cooking.experience", xp)), 26, 28, -1, true);
-
+		widgets.addSlot(input, 0, 4);
+		widgets.addSlot(output, 56, 0).large(true).recipeContext(this);
 	}
 }

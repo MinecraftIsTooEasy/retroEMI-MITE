@@ -36,23 +36,25 @@ public enum Formatting {
 	}
 
 	public Integer getColorValue() {
-		if (this == BLACK) return 0x000000;
-		else if (this == DARK_BLUE) return 0x0000AA;
-		else if (this == DARK_GREEN) return 0x00AA00;
-		else if (this == DARK_AQUA) return 0x00AAAA;
-		else if (this == DARK_RED) return 0xAA0000;
-		else if (this == DARK_PURPLE) return 0xAA00AA;
-		else if (this == GOLD) return 0xFFAA00;
-		else if (this == GRAY) return 0xAAAAAA;
-		else if (this == DARK_GRAY) return 0x555555;
-		else if (this == BLUE) return 0x5555FF;
-		else if (this == GREEN) return 0x55FF55;
-		else if (this == AQUA) return 0x55FFFF;
-		else if (this == RED) return 0xFF5555;
-		else if (this == LIGHT_PURPLE) return 0xFF55FF;
-		else if (this == YELLOW) return 0x55FFFF;
-		else if (this == WHITE) return 0xFFFFFF;
-		else return null;
+		return switch (this) {
+			case BLACK -> 0x000000;
+			case DARK_BLUE -> 0x0000AA;
+			case DARK_GREEN -> 0x00AA00;
+			case DARK_AQUA -> 0x00AAAA;
+			case DARK_RED -> 0xAA0000;
+			case DARK_PURPLE -> 0xAA00AA;
+			case GOLD -> 0xFFAA00;
+			case GRAY -> 0xAAAAAA;
+			case DARK_GRAY -> 0x555555;
+			case BLUE -> 0x5555FF;
+			case GREEN -> 0x55FF55;
+			case AQUA -> 0x55FFFF;
+			case RED -> 0xFF5555;
+			case LIGHT_PURPLE -> 0xFF55FF;
+			case YELLOW -> 0x55FFFF;
+			case WHITE -> 0xFFFFFF;
+			default -> null;
+		};
 	}
 
 }

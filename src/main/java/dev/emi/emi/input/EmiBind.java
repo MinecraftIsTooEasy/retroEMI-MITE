@@ -57,8 +57,7 @@ public class EmiBind {
 	public Text getBindText() {
 		if (!isBound()) {
 			return EmiPort.literal("[]", Formatting.GOLD);
-		}
-		else {
+		} else {
 			ModifiedKey bind = boundKeys.get(0);
 			for (ModifiedKey key : boundKeys) {
 				if (key.key.getCategory() == InputUtil.Type.MOUSE) {

@@ -1,6 +1,7 @@
 package shims.java.net.minecraft.util;
 
 import dev.emi.emi.runtime.EmiLog;
+import moddedmite.emi.platform.fish.EmiAgnosFish;
 import net.xiaoyu233.fml.FishModLoader;
 
 import java.time.Duration;
@@ -10,7 +11,6 @@ import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-
 
 public class Util {
     private static final ExecutorService IO_WORKER_EXECUTOR = createIoWorker("IO-Worker-", false);
@@ -45,7 +45,7 @@ public class Util {
     }
 
     public static <T extends Throwable> T throwOrPause(T t) {
-        if (FishModLoader.isDevelopmentEnvironment()) {
+        if (EmiAgnosFish.isDevelopmentEnvironment()) {
             EmiLog.error("Trying to throw a fatal exception, pausing in IDE", t);
             pause(t.getMessage());
         }

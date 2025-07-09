@@ -63,8 +63,7 @@ public final class EmiPort {
 	public static InputStream getInputStream(Resource resource) {
 		try {
 			return resource.getInputStream();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}

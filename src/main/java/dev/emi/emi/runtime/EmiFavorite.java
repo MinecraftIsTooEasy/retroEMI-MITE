@@ -17,6 +17,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.BlockFluid;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
+import shims.java.net.minecraft.client.render.VertexConsumerProvider;
 import shims.java.net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import shims.java.net.minecraft.util.Formatting;
@@ -115,9 +116,9 @@ public class EmiFavorite implements EmiIngredient, Batchable {
 	}
 
 	@Override
-	public void renderForBatch(DrawContext raw, int x, int y, int z, float delta) {
+	public void renderForBatch(VertexConsumerProvider vcp, DrawContext raw, int x, int y, int z, float delta) {
 		if (stack instanceof Batchable b) {
-			b.renderForBatch(raw, x, y, z, delta);
+			b.renderForBatch(vcp, raw, x, y, z, delta);
 		}
 	}
 

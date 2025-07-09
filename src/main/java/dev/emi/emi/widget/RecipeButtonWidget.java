@@ -2,10 +2,9 @@ package dev.emi.emi.widget;
 
 import dev.emi.emi.EmiRenderHelper;
 import dev.emi.emi.runtime.EmiDrawContext;
-import dev.emi.emi.screen.Bounds;
+import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.widget.Widget;
-import org.lwjgl.opengl.GL11;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import net.minecraft.Minecraft;
 

@@ -36,33 +36,27 @@ public class EmiCommands extends CommandBase {
 						ResourceLocation id = new ResourceLocation(userInputStrings[2]);
 						send(player, VIEW_RECIPE, id);
 					}
-				}
-				else if (userInputStrings[1].equals("tree")) {
+				} else if (userInputStrings[1].equals("tree")) {
 					send(player, VIEW_TREE, null);
 				}
-			}
-			else if (userInputStrings[0].equals("tree")) {
+			} else if (userInputStrings[0].equals("tree")) {
 				if (userInputStrings[1].equals("goal")) {
 					if (userInputStrings[2].isEmpty()) {
 						throw new WrongUsageException("commands.emi.id", new Object[0]);
-					}
-					else {
+					} else {
 						ResourceLocation id = new ResourceLocation(userInputStrings[2]);
 						send(player, TREE_GOAL, id);
 					}
-				}
-				else if (userInputStrings[1].equals("resolution")) {
+				} else if (userInputStrings[1].equals("resolution")) {
 					if (userInputStrings[2].isEmpty()) {
 						throw new WrongUsageException("commands.emi.id", new Object[0]);
-					}
-					else {
+					} else {
 						ResourceLocation id = new ResourceLocation(userInputStrings[2]);
 						send(player, TREE_RESOLUTION, id);
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			throw new WrongUsageException("commands.emi.usage", new Object[0]);
 		}
 	}

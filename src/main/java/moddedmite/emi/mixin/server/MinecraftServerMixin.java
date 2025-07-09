@@ -1,7 +1,7 @@
 package moddedmite.emi.mixin.server;
 
 import dev.emi.emi.EMIPostInit;
-import moddedmite.emi.util.MinecraftServerEMI;
+import moddedmite.emi.util.MinecraftServerHelper;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,7 +15,7 @@ public class MinecraftServerMixin {
 
     @Inject(method = "main", at = @At("HEAD"))
     private static void addIsServer(String[] par0ArrayOfStr, CallbackInfo ci) {
-        MinecraftServerEMI.isServer = true;
+        MinecraftServerHelper.isServer = true;
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))

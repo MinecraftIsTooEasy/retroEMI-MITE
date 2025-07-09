@@ -36,21 +36,18 @@ public class EmiTagExclusionsLoader implements EmiResourceReloadListener, Resour
 //									ResourceLocation eid = new ResourceLocation(el.getAsString());
 //									if (key.equals("exclusions")) {
 //										exclusions.add(eid);
-//									}
-//									else {
+//									} else {
 //										exclusions.add(type, eid);
 //									}
 //								}
 //							}
 //						}
-//					}
-//					catch (Exception e) {
+//					} catch (Exception e) {
 //						EmiLog.error("Error loading tag exclusions");
 //						e.printStackTrace();
 //					}
 //				}
-//			}
-//			catch (Exception e) {
+//			} catch (Exception e) {
 //				EmiLog.error("Error loading tag exclusions");
 //				e.printStackTrace();
 //			}

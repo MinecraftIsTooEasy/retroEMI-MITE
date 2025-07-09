@@ -47,8 +47,7 @@ public class TreeCost {
 		} else {
 			if (costs.containsKey(stack)) {
 				costs.get(stack).amount += amount;
-			}
-			else {
+			} else {
 				costs.put(stack, new FlatMaterialCost(stack, amount));
 			}
 		}
@@ -64,8 +63,7 @@ public class TreeCost {
 				else {
 					chanceRemainders.put(stack, new ChanceMaterialCost(stack, amount, chance.chance()));
 				}
-			}
-			else {
+			} else {
 				if (remainders.containsKey(stack)) {
 					remainders.get(stack).amount += amount;
 				}
@@ -90,25 +88,22 @@ public class TreeCost {
 					}
 				}
 				return desired;
-			}
-			else {
+			} else {
 				given = remainderEff;
 				if (!catalyst) {
 					double leftover = remainderEff - (given * chance.chance());
 					if (leftover == 0) {
 						chanceRemainders.remove(stack);
-					}
-					else {
+					} else {
 						chancedRemainder.amount = 1;
 						chancedRemainder.chance = (float) leftover;
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			FlatMaterialCost remainder = remainders.get(stack);
 			if (remainder != null) {
-				// TODO add partial chanced remainders, (todo from RetroEMI)
+				// TODO add partial chanced remainders
 				if (remainder.amount >= desired) {
 					if (!catalyst) {
 						remainder.amount -= desired;
@@ -117,8 +112,7 @@ public class TreeCost {
 						}
 					}
 					return desired;
-				}
-				else {
+				} else {
 					if (!catalyst) {
 						remainders.remove(stack);
 					}
@@ -140,8 +134,7 @@ public class TreeCost {
 					}
 				}
 				return desired;
-			}
-			else {
+			} else {
 				if (!catalyst) {
 					remainders.remove(stack);
 				}
@@ -193,8 +186,7 @@ public class TreeCost {
 						chance = new ChanceState((float) ((amount - (scaled % 1)) * chance.chance() / amount), true);
 					}
 				}
-			}
-			else {
+			} else {
 				amount -= getRemainder(ingredientStacks.get(i), amount, catalyst);
 			}
 		}

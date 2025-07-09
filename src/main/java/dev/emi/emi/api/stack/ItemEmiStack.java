@@ -9,14 +9,13 @@ import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.screen.StackBatcher;
 import dev.emi.emi.api.render.EmiRender;
-import moddedmite.emi.util.ModIdentification;
+import moddedmite.emi.util.ModIdentifier;
 import net.xiaoyu233.fml.FishModLoader;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import shims.java.com.unascribed.retroemi.ItemStacks;
 import shims.java.com.unascribed.retroemi.RetroEMI;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
+import shims.java.net.minecraft.client.render.VertexConsumerProvider;
 import shims.java.net.minecraft.text.Text;
 import shims.java.net.minecraft.util.Formatting;
 import shims.java.net.minecraft.util.NumericIdentifier;
@@ -31,20 +30,22 @@ import static org.lwjgl.opengl.GL12.GL_RESCALE_NORMAL;
 
 @ApiStatus.Internal
 public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
+	private static final Minecraft client = Minecraft.getMinecraft();
+
 	private final ItemStack stack;
 	private boolean unbatchable;
-	
+
 	public ItemEmiStack(ItemStack stack) {
 		this(stack, stack.stackSize);
 	}
-	
+
 	public ItemEmiStack(ItemStack stack, long amount) {
 		stack = stack.copy();
 		stack.stackSize = ((int) amount);
 		this.stack = stack;
 		this.amount = amount;
 	}
-	
+
 	@Override
 	public ItemStack getItemStack() {
 		if (stack == null) {
@@ -54,7 +55,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 		
 		return stack;
 	}
-	
+
 	@Override
 	public EmiStack copy() {
 		EmiStack e = new ItemEmiStack(stack.copy(), amount);
@@ -63,27 +64,27 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 		e.comparison = comparison;
 		return e;
 	}
-	
+
 	@Override
 	public boolean isEmpty() {
 		return amount == 0 || ItemStacks.isEmpty(stack);
 	}
-	
+
 	@Override
 	public NBTTagCompound getNbt() {
 		return stack.getTagCompound();
 	}
-	
+
 	@Override
 	public Object getKey() {
 		return Prototype.of(stack);
 	}
-	
+
 	@Override
 	public ResourceLocation getId() {
 		return new NumericIdentifier(stack.itemID);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		if (stack == null) {
@@ -138,7 +139,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 	}
 	
 	@Override
-	public void renderForBatch(DrawContext draw, int x, int y, int z, float delta) {
+	public void renderForBatch(VertexConsumerProvider vcp, DrawContext draw, int x, int y, int z, float delta) {
 		//		EmiDrawContext context = EmiDrawContext.wrap(draw);
 		//		ItemStack stack = getItemStack();
 		//		ItemRenderer ir = client.getItemRenderer();
@@ -153,7 +154,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 		//			context.pop();
 		//		}
 	}
-	
+
 	@Override
 	public List<Text> getTooltipText() {
 		return ((List<String>) getItemStack().getTooltip(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().gameSettings.advancedItemTooltips, (Slot)null)).stream()
@@ -171,7 +172,7 @@ public class ItemEmiStack extends EmiStack implements StackBatcher.Batchable {
 //			list.add(TooltipComponent.of(EmiLang.literal(mod, Formatting.BLUE, Formatting.ITALIC)));
 			if (!FishModLoader.hasMod("better_tips")) {
 				if (EmiConfig.appendModId || EmiConfig.appendItemModId)
-					list.add(TooltipComponent.of(Text.literal(ModIdentification.getMod(stack)).formatted(Formatting.BLUE, Formatting.ITALIC)));
+					list.add(TooltipComponent.of(Text.literal(ModIdentifier.getMod(stack)).formatted(Formatting.BLUE, Formatting.ITALIC)));
 			}
 			list.addAll(super.getTooltip());
 		}

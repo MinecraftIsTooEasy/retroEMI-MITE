@@ -44,8 +44,7 @@ public abstract class ConfigEntryWidget extends ListWidget.Entry {
 			context.fill(x + 4, y + height / 2 - 1, 6, 2, 0xffffffff);
 			if (endGroup) {
 				context.fill(x + 2, y - 4, 2, height / 2 + 5, 0xffffffff);
-			}
-			else {
+			} else {
 				context.fill(x + 2, y - 4, 2, height + 4, 0xffffffff);
 			}
 			x += 10;

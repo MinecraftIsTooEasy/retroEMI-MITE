@@ -47,9 +47,9 @@ public class EmiConfig {
 	@ConfigValue("general.help-level")
 	public static HelpLevel helpLevel = HelpLevel.NORMAL;
 
-//	@Comment("Where EMI should pull stacks from to populate the index.")
-//	@ConfigValue("general.index-source")
-//	public static IndexSource indexSource = IndexSource.CREATIVE;
+	@Comment("Where EMI should pull stacks from to populate the index.")
+	@ConfigValue("general.index-source")
+	public static IndexSource indexSource = IndexSource.CREATIVE;
 
 	@ConfigGroup("general.search")
 	@Comment("Which sidebar should be searched using the search bar.")
@@ -462,10 +462,14 @@ public class EmiConfig {
 	public static boolean lowerOpacity = false;
 
 	//MITE
-	@Comment("Show craft difficult and craft time")
-	@ConfigValue("addon.mite_craft_info")
+	@Comment("Show craft difficult and craft time.")
+	@ConfigValue("addon.mite-craft-info")
 	public static boolean MITECraftInfo = false;
-	
+
+	@Comment("Show more workstations of different grades in workstation area.(Restart the game is required)")
+	@ConfigValue("addon.more-workstation")
+	public static boolean moreWorkstation = false;
+
 	// Persistent (currently empty)
 	
 	public static void loadConfig() {
@@ -492,8 +496,7 @@ public class EmiConfig {
 				startupConfig = getSavedConfig();
 			}
 			writeConfig();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			EmiLog.error("Error reading config", e);
 		}
 	}
@@ -511,12 +514,10 @@ public class EmiConfig {
 			if (!emi.exists()) {
 				emi.createNewFile();
 				writeConfig();
-			}
-			else {
+			} else {
 				loadConfig();
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			EmiLog.error("Error writing global config", e);
 		}
 	}
@@ -538,8 +539,7 @@ public class EmiConfig {
 					unparsed.put(key, css.getAll(key));
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			EmiLog.error("Error reading config", e);
 		}
 	}
@@ -549,8 +549,7 @@ public class EmiConfig {
 			FileWriter writer = new FileWriter(getConfigFile());
 			writer.write(getSavedConfig());
 			writer.close();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			EmiLog.error("Error writing config", e);
 		}
 	}
@@ -577,8 +576,7 @@ public class EmiConfig {
 				String text = commentText;
 				try {
 					text += writeField(key, field);
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					EmiLog.error("Error serializing config", e);
 					e.printStackTrace();
 				}
@@ -656,11 +654,9 @@ public class EmiConfig {
 			for (String line : ((MultiWriter<Object>) MULTI_WRITERS.get(type)).writeValue(field.get(null))) {
 				text += "\t" + key + ": " + line + ";\n";
 			}
-		}
-		else if (WRITERS.containsKey(type)) {
+		} else if (WRITERS.containsKey(type)) {
 			text += "\t" + key + ": " + ((Writer<Object>) WRITERS.get(type)).writeValue(field.get(null)) + ";\n";
-		}
-		else if (ConfigEnum.class.isAssignableFrom(type)) {
+		} else if (ConfigEnum.class.isAssignableFrom(type)) {
 			text += "\t" + key + ": " + ((Writer<Object>) WRITERS.get(ConfigEnum.class)).writeValue(field.get(null)) + ";\n";
 		}
 		return text;
@@ -686,16 +682,14 @@ public class EmiConfig {
 		defineType(double.class, (css, annot, field) -> field.setDouble(null, css.getDouble(annot).get()));
 		defineType(String.class, (css, annot, field) -> {
 			String s = css.get(annot).get();
-			// Nil's QDCSS handles quoted strings on its own
-			//				s = s.substring(1, s.length() - 1);
+			s = s.substring(1, s.length() - 1);
 			field.set(null, s);
 		}, (String field) -> "\"" + field + "\"");
 		defineMultiType(EmiBind.class, (css, annot, field) -> {
 			List<String> strings = Lists.newArrayList(css.getAll(annot));
 			for (int i = 0; i < strings.size(); i++) {
 				String s = strings.get(i);
-				s = s.substring(1, s.length() - 1);
-				strings.set(i, s);
+				strings.set(i, s.substring(1, s.length() - 1));
 			}
 			((EmiBind) field.get(null)).setKey(strings);
 		}, (EmiBind field) -> {
@@ -712,8 +706,7 @@ public class EmiConfig {
 			if (parts.length == 2) {
 				((ScreenAlign) field.get(null)).horizontal = ScreenAlign.Horizontal.fromName(parts[0].trim());
 				((ScreenAlign) field.get(null)).vertical = ScreenAlign.Vertical.fromName(parts[1].trim());
-			}
-			else {
+			} else {
 				((ScreenAlign) field.get(null)).horizontal = ScreenAlign.Horizontal.CENTER;
 				((ScreenAlign) field.get(null)).vertical = ScreenAlign.Vertical.CENTER;
 			}
@@ -729,8 +722,7 @@ public class EmiConfig {
 		}, (SidebarPages field) -> {
 			if (field.pages.isEmpty()) {
 				return "none";
-			}
-			else {
+			} else {
 				return field.pages.stream().map(p -> p.type.getName()).collect(Collectors.joining(", "));
 			}
 		});
@@ -750,8 +742,7 @@ public class EmiConfig {
 		}, (SidebarSubpanels field) -> {
 			if (field.subpanels.isEmpty()) {
 				return "none";
-			}
-			else {
+			} else {
 				return field.subpanels.stream().map(p -> p.type.getName() + " " + p.rows).collect(Collectors.joining(", "));
 			}
 		});
@@ -778,8 +769,7 @@ public class EmiConfig {
 					FILTERS.put(annot.value(), predicate);
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		DEFAULT_CONFIG = getSavedConfig();

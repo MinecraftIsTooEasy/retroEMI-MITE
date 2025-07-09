@@ -47,15 +47,15 @@ public class REMIScreen extends GuiScreen implements ParentElement {
 	}
 	
 	@Override
-	public final void drawScreen(int var1, int var2, float var3) {
+	public final void drawScreen(int mouseX, int mouseY, float delta) {
 		glEnable(GL_RESCALE_NORMAL);
-		render(DrawContext.INSTANCE, var1, var2, var3);
-		super.drawScreen(var1, var2, var3);
+		render(DrawContext.INSTANCE, mouseX, mouseY, delta);
+		super.drawScreen(mouseX, mouseY, delta);
 		if (mouseDown != -1) {
-			mouseDragged(var1, var2, mouseDown, var1 - lastMouseX, var2 - lastMouseY);
+			mouseDragged(mouseX, mouseY, mouseDown, mouseX - lastMouseX, mouseY - lastMouseY);
 		}
-		lastMouseX = var1;
-		lastMouseY = var2;
+		lastMouseX = mouseX;
+		lastMouseY = mouseY;
 		glDisable(GL_RESCALE_NORMAL);
 	}
 	
@@ -78,30 +78,30 @@ public class REMIScreen extends GuiScreen implements ParentElement {
 	}
 	
 	@Override
-	public final void keyTyped(char var1, int var2) {
-		if (var2 == GLFW.GLFW_KEY_ESCAPE && shouldCloseOnEsc()) {
+	public final void keyTyped(char character, int keyCode) {
+		if (keyCode == GLFW.GLFW_KEY_ESCAPE && shouldCloseOnEsc()) {
 			close();
 			return;
 		}
 		int mod = EmiInput.getCurrentModifiers();
-		keyPressed(var2, 0, mod);
-		if (var1 != 0 && !Character.isISOControl(var1)) {
-			charTyped(var1, mod);
+		keyPressed(keyCode, 0, mod);
+		if (character != 0 && !Character.isISOControl(character)) {
+			charTyped(character, mod);
 		}
 	}
 	
 	@Override
-	public final void mouseClicked(int var1, int var2, int var3) {
-		mouseClicked((double) var1, (double) var2, var3);
-		lastMouseX = var1;
-		lastMouseY = var2;
-		mouseDown = var3;
+	public final void mouseClicked(int mouseX, int mouseY, int button) {
+		mouseClicked((double) mouseX, (double) mouseY, button);
+		lastMouseX = mouseX;
+		lastMouseY = mouseY;
+		mouseDown = button;
 	}
 	
 	@Override
-	public final void mouseMovedOrUp(int var1, int var2, int var3) {
-		mouseReleased((double) var1, (double) var2, var3);
-		if (var3 == mouseDown) {
+	public final void mouseMovedOrUp(int mouseX, int mouseY, int button) {
+		mouseReleased((double) mouseX, (double) mouseY, button);
+		if (button == mouseDown) {
 			mouseDown = -1;
 		}
 	}

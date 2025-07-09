@@ -11,7 +11,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.recipe.EmiBrewingRecipe;
 import dev.emi.emi.registry.EmiPluginContainer;
-import moddedmite.emi.util.TileEntityFurnaceEMI;
+import moddedmite.emi.util.TileEntityFurnaceHelper;
 import org.apache.commons.lang3.text.WordUtils;
 import shims.java.com.unascribed.retroemi.EmiMultiPlugin;
 import shims.java.com.unascribed.retroemi.NamedEmiPlugin;
@@ -26,7 +26,6 @@ import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.*;
 import net.xiaoyu233.fml.FishModLoader;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -320,7 +319,7 @@ public class EmiAgnosFish extends EmiAgnos {
 				it.getSubItems(it.itemID, it.getCreativeTab(), pain);
 			}
 		}
-		return pain.stream().filter(TileEntityFurnaceEMI::isItemFuel0).map(Prototype::of).distinct().collect(Collectors.toMap(p -> p,
+		return pain.stream().filter(TileEntityFurnaceHelper::isItemFuelS).map(Prototype::of).distinct().collect(Collectors.toMap(p -> p,
 				p -> (p.toStack().getItem()).getBurnTime(p.toStack())));
 	}
 
@@ -333,7 +332,7 @@ public class EmiAgnosFish extends EmiAgnos {
 				it.getSubItems(it.itemID, it.getCreativeTab(), pain);
 			}
 		}
-		return pain.stream().filter(TileEntityFurnaceEMI::isItemFuel0).map(Prototype::of).distinct().collect(Collectors.toMap(p -> p,
+		return pain.stream().filter(TileEntityFurnaceHelper::isItemFuelS).map(Prototype::of).distinct().collect(Collectors.toMap(p -> p,
 				p -> (p.toStack().getItem()).getHeatLevel(p.toStack())));
 	}
 }

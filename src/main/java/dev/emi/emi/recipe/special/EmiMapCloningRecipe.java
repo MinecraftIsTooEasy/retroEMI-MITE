@@ -20,8 +20,7 @@ public class EmiMapCloningRecipe extends EmiPatternCraftingRecipe {
 	public SlotWidget getInputWidget(int slot, int x, int y) {
 		if (slot == 0) {
 			return new SlotWidget(EmiStack.of(Item.map), x, y);
-		}
-		else {
+		} else {
 			final int s = slot - 1;
 			return new GeneratedSlotWidget(r -> {
 				int amount = r.nextInt(8) + 1;

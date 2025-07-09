@@ -1,7 +1,6 @@
 package dev.emi.emi.api.widget;
 
 import dev.emi.emi.runtime.EmiDrawContext;
-import dev.emi.emi.screen.Bounds;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.ResourceLocation;
@@ -18,7 +17,7 @@ public class TextureWidget extends Widget implements WidgetTooltipHolder<Texture
 	protected final int regionWidth, regionHeight;
 	protected final int textureWidth, textureHeight;
 	private BiFunction<Integer, Integer, List<TooltipComponent>> tooltipSupplier = (mouseX, mouseY) -> Collections.emptyList();
-	
+
 	public TextureWidget(ResourceLocation texture, int x, int y, int width, int height, int u, int v, int regionWidth, int regionHeight, int textureWidth,
 			int textureHeight) {
 		this.texture = texture;
@@ -33,27 +32,27 @@ public class TextureWidget extends Widget implements WidgetTooltipHolder<Texture
 		this.textureWidth = textureWidth;
 		this.textureHeight = textureHeight;
 	}
-	
+
 	public TextureWidget(ResourceLocation texture, int x, int y, int width, int height, int u, int v) {
 		this(texture, x, y, width, height, u, v, width, height, 256, 256);
 	}
-	
+
 	@Override
 	public TextureWidget tooltip(BiFunction<Integer, Integer, List<TooltipComponent>> tooltipSupplier) {
 		this.tooltipSupplier = tooltipSupplier;
 		return this;
 	}
-	
+
 	@Override
 	public Bounds getBounds() {
 		return new Bounds(x, y, width, height);
 	}
-	
+
 	@Override
 	public List<TooltipComponent> getTooltip(int mouseX, int mouseY) {
 		return tooltipSupplier.apply(mouseX, mouseY);
 	}
-	
+
 	@Override
 	public void render(DrawContext draw, int mouseX, int mouseY, float delta) {
 		EmiDrawContext context = EmiDrawContext.wrap(draw);

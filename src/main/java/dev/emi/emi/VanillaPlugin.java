@@ -7,7 +7,6 @@ import moddedmite.emi.MITEPlugin;
 import dev.emi.emi.api.widget.GeneratedSlotWidget;
 import dev.emi.emi.config.EffectLocation;
 import dev.emi.emi.config.EmiConfig;
-import dev.emi.emi.config.FluidUnit;
 import dev.emi.emi.handler.CookingRecipeHandler;
 import dev.emi.emi.handler.CraftingRecipeHandler;
 import dev.emi.emi.handler.InventoryRecipeHandler;
@@ -18,7 +17,7 @@ import dev.emi.emi.registry.EmiStackList;
 import dev.emi.emi.registry.EmiTags;
 import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.runtime.EmiReloadLog;
-import dev.emi.emi.screen.Bounds;
+import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.stack.serializer.ItemEmiStackSerializer;
 import dev.emi.emi.stack.serializer.TagEmiIngredientSerializer;
 import dev.emi.emi.api.EmiEntrypoint;
@@ -55,7 +54,7 @@ public class VanillaPlugin implements EmiPlugin {
 	
 	static {
 		CRAFTING = new EmiRecipeCategory(new ResourceLocation("minecraft:crafting"),
-				EmiStack.of(Block.workbench), simplifiedRenderer(240, 240), EmiRecipeSorting.compareOutputThenInput());
+				EmiStack.of(new ItemStack(Block.workbench, 1, 7)), simplifiedRenderer(240, 240), EmiRecipeSorting.compareOutputThenInput());
 		SMELTING = new EmiRecipeCategory(new ResourceLocation("minecraft:smelting"),
 				EmiStack.of(Block.furnaceIdle), simplifiedRenderer(224, 240), EmiRecipeSorting.compareOutputThenInput());
 		ANVIL_REPAIRING = new EmiRecipeCategory(new ResourceLocation("emi:anvil_repairing"),
@@ -99,17 +98,22 @@ public class VanillaPlugin implements EmiPlugin {
 		registry.addCategory(INGREDIENT);
 		registry.addCategory(RESOLUTION);
 
-		for (int i = 4; i < 11; i++) {
-			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 0)));
-			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 12)));
-			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, i)));
+		if (EmiConfig.moreWorkstation) {
+			for (int i = 4; i < 11; i++) {
+				registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 0)));
+				registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 12)));
+				registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, i)));
+			}
+
+			for (Block block : Block.blocksList) {
+				if (block instanceof BlockAnvil anvil)
+					registry.addWorkstation(ANVIL_REPAIRING, EmiStack.of(anvil));
+			}
+		} else {
+			registry.addWorkstation(CRAFTING, EmiStack.of(new ItemStack(Block.workbench, 1, 7)));
+			registry.addWorkstation(ANVIL_REPAIRING, EmiStack.of(new ItemStack(Block.anvil, 1, 0)));
 		}
 
-		for (int i = 0; i < Block.blocksList.length; ++i) {
-			Block block = Block.getBlock(i);
-			if (block instanceof BlockAnvil anvil)
-				registry.addWorkstation(ANVIL_REPAIRING, EmiStack.of(anvil));
-		}
 		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceIdle));
 		registry.addWorkstation(BREWING, EmiStack.of(Item.brewingStand));
 		registry.addWorkstation(WORLD_INTERACTION, EmiStack.of(Block.grass));
@@ -131,23 +135,26 @@ public class VanillaPlugin implements EmiPlugin {
 			if (screen instanceof InventoryEffectRenderer inv) {
 				Minecraft client = Minecraft.getMinecraft();
 				Collection collection = client.thePlayer.getActivePotionEffects();
-				if (!collection.isEmpty()) {
+				int size = collection.size();
+				if (client.thePlayer.isMalnourished()) ++size;
+				if (client.thePlayer.isInsulinResistant()) ++size;
+				if (client.thePlayer.is_cursed) ++size;
+				if (size > 0) {
 					int k = 33;
-					if (collection.size() > 5) {
-						k = 132 / (collection.size() - 1);
+					if (size > 5) {
+						k = 132 / (size - 1);
 					}
 					int right = ((EMIGuiContainerCreative) inv).getGuiLeft() + ((EMIGuiContainerCreative) inv).getxSize() + 2;
 					int rightWidth = inv.width - right;
 					if (rightWidth >= 32) {
 						int top = ((EMIGuiContainerCreative) inv).getGuiTop();
-						int height = (collection.size() - 1) * k + 32;
+						int height = (size - 1) * k + 32;
 						int left, width;
 						if (EmiConfig.effectLocation == EffectLocation.TOP) {
-							int size = collection.size();
 							top = ((EMIGuiContainerCreative) inv).getGuiTop() - 34;
 							if (screen instanceof GuiContainerCreative) {
 								top -= 28;
-								if (EmiAgnos.isForge()) {
+								if (EmiAgnos.isForge() || EmiAgnos.isModLoaded("rusted_iron_core")) {
 									top -= 22;
 								}
 							}
@@ -215,11 +222,11 @@ public class VanillaPlugin implements EmiPlugin {
 						paper, paper, paper, paper
 				),
 						EmiStack.of(Item.map),
-						new ResourceLocation("minecraft", "map_extending"), false, null), recipe);
+						new ResourceLocation("minecraft", "map_extending"), false, null, recipe.getUnmodifiedDifficulty()), recipe);
 			} else if (recipe instanceof ShapedRecipes shaped) {
 				addRecipeSafe(registry, () -> new EmiShapedRecipe(shaped, (int) shaped.getUnmodifiedDifficulty()), recipe);
 			} else if (recipe instanceof ShapelessRecipes shapeless) {
-				addRecipeSafe(registry, () -> new EmiShapelessRecipe((EMIShapelessRecipes) shapeless, shapeless, (int) shapeless.getUnmodifiedDifficulty()), recipe);
+				addRecipeSafe(registry, () -> new EmiShapelessRecipe((EMIShapelessRecipes) shapeless, shapeless, shapeless.getUnmodifiedDifficulty()), recipe);
 			} else if (recipe instanceof RecipesArmorDyes dye) {
 				for (Item i : EmiArmorDyeRecipe.DYEABLE_ITEMS) {
 					if (!hiddenItems.contains(i)) {
@@ -295,9 +302,9 @@ public class VanillaPlugin implements EmiPlugin {
 			if (item instanceof ItemHoe itemHoe)
 				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemHoe), EmiStack.of(Block.tilledField), new ResourceLocation("minecraft", item + "/tilling")));
 			if (item instanceof ItemMattock itemMattock)
-				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemMattock), EmiStack.of(Block.tilledField), new ResourceLocation("mite", item + "/tilling")));
+				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemMattock), EmiStack.of(Block.tilledField), new ResourceLocation("MITE", item + "/tilling")));
 			if (item instanceof ItemMeat itemMeat && !itemMeat.is_cooked && itemMeat != Item.rottenFlesh)
-				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(itemMeat), EmiStack.of(Block.fire), EmiStack.of(itemMeat.getCookedItem()), new ResourceLocation("mite", item + String.valueOf(item.itemID) + "/fire")));
+				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(itemMeat), EmiStack.of(Block.fire), EmiStack.of(itemMeat.getCookedItem()), new ResourceLocation("MITE", item + String.valueOf(item.itemID) + "/fire")));
 		}
 
 		for (Item item : EmiArmorDyeRecipe.DYEABLE_ITEMS) {

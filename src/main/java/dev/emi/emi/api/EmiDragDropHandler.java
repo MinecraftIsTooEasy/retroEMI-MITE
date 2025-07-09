@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.runtime.EmiDrawContext;
-import dev.emi.emi.screen.Bounds;
+import dev.emi.emi.api.widget.Bounds;
 import moddedmite.emi.api.EMIGuiContainerCreative;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import net.minecraft.*;

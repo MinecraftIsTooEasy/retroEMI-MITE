@@ -116,11 +116,9 @@ public class EmiUtil {
 			EmiRecipeHandler handler = EmiRecipeFiller.getFirstValidHandler(recipe, hs);
 			if (handler != null && handler.canCraft(recipe, context)) {
 				weight += 16;
-			}
-			else if (requireCraftable) {
+			} else if (requireCraftable) {
 				continue;
-			}
-			else if (inventory.canCraft(recipe)) {
+			} else if (inventory.canCraft(recipe)) {
 				weight += 8;
 			}
 			if (BoM.isRecipeEnabled(recipe)) {
@@ -132,8 +130,7 @@ public class EmiUtil {
 			if (weight > preferredWeight) {
 				preferredWeight = weight;
 				preferred = recipe;
-			}
-			else if (weight == preferredWeight) {
+			} else if (weight == preferredWeight) {
 				if (EmiRecipeCategoryProperties.getOrder(recipe.getCategory()) < EmiRecipeCategoryProperties.getOrder(preferred.getCategory())) {
 					preferredWeight = weight;
 					preferred = recipe;

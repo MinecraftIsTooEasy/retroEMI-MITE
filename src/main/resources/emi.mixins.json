@@ -5,11 +5,13 @@
   "target": "DEFAULT",
   "minVersion": "0.8",
   "client": [
+    "client.EntityRendererMixin",
     "client.FontRendererMixin",
     "client.GuiContainerCreativeMixin",
     "client.GuiContainerMixin",
     "client.GuiScreenMixin",
     "client.GuiTextFieldMixin",
+    "client.InventoryEffectRendererMixin",
     "client.MinecraftMixin",
     "client.RenderBlockMixin",
     "client.ResourceLocationMixin",
@@ -17,8 +19,6 @@
   ],
   "mixins": [
     "block.BlockMixin",
-    "client.EntityRendererMixin",
-    "client.InventoryEffectRendererMixin",
     "crafting.CraftingManagerMixin",
     "crafting.InventoryCraftingMixin",
     "inventory.SlotCraftingMixin",

@@ -4,7 +4,7 @@ import dev.emi.emi.runtime.EmiDrawContext;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import moddedmite.emi.util.MinecraftServerEMI;
+import moddedmite.emi.util.MinecraftServerHelper;
 import shims.java.net.minecraft.text.OrderedText;
 import shims.java.net.minecraft.text.Text;
 import net.minecraft.Minecraft;
@@ -25,7 +25,7 @@ public class EmiInfoRecipe implements EmiRecipe {
 	
 	public EmiInfoRecipe(List<EmiIngredient> stacks, List<Text> text, @Nullable ResourceLocation id) {
 		this.stacks = stacks;
-		this.text = !MinecraftServerEMI.getIsServer() ? text.stream().flatMap(
+		this.text = !(MinecraftServerHelper.isServer()) ? text.stream().flatMap(
 				t -> Arrays.stream(Minecraft.getMinecraft().fontRenderer.wrapFormattedStringToWidth(t.asString().replace("\\n", "\n"), getDisplayWidth() - 4).split("\n")).map(Text::literal)
 						.map(Text::asOrderedText)).collect(Collectors.toList()) : new ArrayList<>();
 		this.id = id;
@@ -80,8 +80,7 @@ public class EmiInfoRecipe implements EmiRecipe {
 			}
 			if (i + 1 == stackCount && stacks.size() > stackCount) {
 				widgets.addSlot(EmiIngredient.of(stacks.subList(i, stacks.size())), x + 18, y);
-			}
-			else {
+			} else {
 				widgets.addSlot(stacks.get(i), x + 18, y);
 			}
 		}

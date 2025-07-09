@@ -80,6 +80,7 @@ emi.effect_location.left_compressed=Left (Compressed)
 emi.effect_location.right_compressed=Right (Compressed)
 emi.effect_location.left=Left
 emi.effect_location.right=Right
+emi.effect_location.hidden=Hidden
 emi.recipe_book_action.default=Default
 emi.recipe_book_action.toggle_craftables=Toggle Craftables
 emi.recipe_book_action.toggle_visibility=Toggle Visibility
@@ -99,7 +100,6 @@ config.emi.group.ui.top_sidebar=Top Sidebar
 config.emi.group.ui.bottom_sidebar=Bottom Sidebar
 config.emi.group.binds=Binds
 config.emi.group.dev=Dev
-config.emi.group.addon=Addon
 
 config.emi.group.binds.crafts=Crafts
 config.emi.group.binds.cheats=Cheats
@@ -231,7 +231,6 @@ emi.edit_mode.hide_one=Press %s to hide stack
 emi.edit_mode.hide_all=Press %s to hide stacks by ID
 emi.sidebar.cycle=Press %s to switch sidebars
 emi.sidebar.favorite_stack=Press %s to add/remove a favorited stack
-emi.craft_level=Craft Level
 tooltip.emi.chance.consume=Consumption chance: %s%%
 tooltip.emi.chance.produce=Production chance: %s%%
 tooltip.emi.accepts=Accepts:
@@ -320,13 +319,6 @@ emi.cooking.experience=%s XP
 emi.cooking.time=%s Seconds
 emi.grinding.experience=%s - %s XP
 emi.fuel_time.items=Smelts %s item(s)
-
-emi.fuel_time.items=Burns for %s
-emi.fuel_number.items=Burns for %s items
-emi.fuel_heat.items=Heat level %s
-emi.craft_difficult.items=%s Difficulty
-emi.craft_time.items=%s S
-emi.exp_cost.items=%s XP
 
 emi.trade.BlacksmithVillagerEntity=Requires Rank %d Blacksmith
 emi.trade.PriestVillagerEntity=Requires Rank %d Priest
@@ -555,3 +547,12 @@ enchanted_book.info.enchantment.endurance=Stamina\nUncommon level, 10Enchantment
 # Addon
 config.emi.addon.lower_opacity=Lower Opacity ?
 config.emi.addon.mite_craft_info=Show MITE Craft Info
+config.emi.addon.more_workstation=Show more Workstation
+config.emi.group.addon=Addon
+
+emi.fuel_number.items=Burns for %s items
+emi.fuel_heat.items=Heat level %s
+emi.craft_difficult.items=%s Difficulty
+emi.craft_time.items=%s S
+emi.exp_cost.items=%s XP
+emi.craft_level.items=Lvl: %s

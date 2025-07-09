@@ -4,15 +4,14 @@ import net.minecraft.server.MinecraftServer;
 
 import java.io.File;
 
-public abstract class MinecraftServerEMI extends MinecraftServer {
-
+public abstract class MinecraftServerHelper extends MinecraftServer {
     public static boolean isServer = false;
 
-    public MinecraftServerEMI(File par1File) {
+    public MinecraftServerHelper(File par1File) {
         super(par1File);
     }
 
-    public static boolean getIsServer() {
+    public static boolean isServer() {
         return isServer;
     }
 }

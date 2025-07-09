@@ -103,14 +103,12 @@ public class EmiNameWidget implements Drawable {
 			parts[0] = transformString(rand, interpolate(rand, orig[0], parts[0], p), 2);
 			parts[1] = transformString(rand, interpolate(rand, orig[1], parts[1], p), 2);
 			parts[2] = transformString(rand, interpolate(rand, orig[2], parts[2], p), 2);
-		}
-		else if (progress < 1_000) {
+		} else if (progress < 1_000) {
 			float p = 1f - ((progress - 500) / 500f);
 			parts[0] = transformString(rand, parts[0], p);
 			parts[1] = transformString(rand, parts[1], p);
 			parts[2] = transformString(rand, parts[2], p);
-		}
-		else if (progress >= 4_500) {
+		} else if (progress >= 4_500) {
 			float p = (progress - 4_500) / 500f;
 			parts[0] = transformString(rand, parts[0], p);
 			parts[1] = transformString(rand, parts[1], p);

@@ -11,7 +11,6 @@ public interface Text {
 	default String getString() {
 		return asString();
 	}
-	
 
 	static MutableText empty() {
 		return new TextImpl(() -> "", "");

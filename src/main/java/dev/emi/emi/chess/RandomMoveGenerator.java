@@ -14,8 +14,7 @@ class RandomMoveGenerator extends MoveGenerator {
 		List<ChessMove> moves = board.getLegal(board.getAllMoves(color));
 		if (moves.size() > 0) {
 			move = moves.get(RANDOM.nextInt(moves.size()));
-		}
-		else {
+		} else {
 			move = null;
 		}
 	}

@@ -10,7 +10,7 @@ import dev.emi.emi.api.recipe.EmiRecipeManager;
 import dev.emi.emi.api.recipe.EmiResolutionRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.serializer.EmiIngredientSerializer;
-import moddedmite.emi.util.MinecraftServerEMI;
+import moddedmite.emi.util.MinecraftServerHelper;
 import net.minecraft.Minecraft;
 import net.minecraft.ResourceLocation;
 
@@ -47,7 +47,7 @@ public class RecipeDefaults {
 	
 	public Map<EmiIngredient, EmiRecipe> bake() {
 		Map<EmiIngredient, EmiRecipe> map = Maps.newHashMap();
-		if (!MinecraftServerEMI.getIsServer()) {
+		if (!MinecraftServerHelper.isServer()) {
 			Minecraft client = Minecraft.getMinecraft();
 			if (client.theWorld == null) {
 				return map;

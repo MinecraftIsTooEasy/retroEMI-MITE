@@ -8,10 +8,13 @@ public enum ButtonVisibility implements ConfigEnum {
     SHOWN("shown"),
     HIDDEN("hidden"),
     ;
+
     private final String name;
+
     private ButtonVisibility(String name) {
         this.name = name;
     }
+
     public boolean resolve(boolean fallback) {
         return switch (this) {
             case AUTO -> fallback;
@@ -19,10 +22,12 @@ public enum ButtonVisibility implements ConfigEnum {
             case HIDDEN -> false;
         };
     }
+
     @Override
     public String getName() {
         return name;
     }
+
     @Override
     public Text getText() {
         return EmiPort.translatable("emi.button_visibility." + name);

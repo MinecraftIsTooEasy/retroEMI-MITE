@@ -3,7 +3,7 @@ package dev.emi.emi.api.recipe.handler;
 import dev.emi.emi.platform.EmiClient;
 import dev.emi.emi.registry.EmiRecipeFiller;
 import dev.emi.emi.runtime.EmiDrawContext;
-import dev.emi.emi.screen.Bounds;
+import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.recipe.EmiPlayerInventory;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -68,8 +68,7 @@ public interface StandardRecipeHandler<T extends Container> extends EmiRecipeHan
 			Minecraft.getMinecraft().displayGuiScreen(context.getScreen());
 			if (!EmiClient.onServer) {
 				return EmiRecipeFiller.clientFill(this, recipe, context.getScreen(), stacks, context.getDestination());
-			}
-			else {
+			} else {
 				EmiClient.sendFillRecipe(this, context.getScreen(), context.getScreenHandler().windowId, switch (context.getDestination()) {
 					case NONE -> 0;
 					case CURSOR -> 1;
@@ -98,8 +97,7 @@ public interface StandardRecipeHandler<T extends Container> extends EmiRecipeHan
 				if (sw.getRecipe() == null && availableForCrafting.containsKey(stack) && !stack.isEmpty()) {
 					if (availableForCrafting.get(stack)) {
 						//context.fill(bounds.x(), bounds.y(), bounds.width(), bounds.height(), 0x4400FF00);
-					}
-					else {
+					} else {
 						context.fill(bounds.x(), bounds.y(), bounds.width(), bounds.height(), 0x44FF0000);
 					}
 				}

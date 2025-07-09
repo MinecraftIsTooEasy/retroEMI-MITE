@@ -65,8 +65,7 @@ public class RecipeDefaultButtonWidget extends RecipeButtonWidget {
 	public boolean mouseClicked(int mouseX, int mouseY, int button) {
 		if (BoM.getRecipeStatus(recipe) == BoM.DefaultStatus.FULL) {
 			BoM.removeRecipe(recipe);
-		}
-		else {
+		} else {
 			BoM.addRecipe(recipe);
 		}
 		this.playButtonSound();

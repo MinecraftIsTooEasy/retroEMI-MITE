@@ -33,4 +33,8 @@ public class ResourceLocationMixin implements EMIResourceLocation {
     public void exists(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(true);
     }
+
+    public String toPath(String prefix) {
+        return "/" + prefix + "/" + resourceDomain +  "/" + resourcePath;
+    }
 }

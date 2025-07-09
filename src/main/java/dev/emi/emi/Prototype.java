@@ -26,7 +26,7 @@ public record Prototype(Item item, int meta) {
 
 	public String toString() {
 		if (item == null) return "Prototype[EMPTY]";
-		return "Prototype["+item.getItemDisplayName(new ItemStack(item))+"("+item.itemID+"):"+meta+"]";
+		return "Prototype[" + item.getItemDisplayName(new ItemStack(item)) + "(" + item.itemID + "):" + meta + "]";
 	}
 
 

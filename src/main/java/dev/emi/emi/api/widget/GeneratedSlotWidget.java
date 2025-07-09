@@ -15,13 +15,13 @@ public class GeneratedSlotWidget extends SlotWidget {
 	private final int unique;
 	private long lastGenerate = 0;
 	private EmiIngredient stack = null;
-	
+
 	public GeneratedSlotWidget(Function<Random, EmiIngredient> stackSupplier, int unique, int x, int y) {
 		super(EmiStack.EMPTY, x, y);
 		this.stackSupplier = stackSupplier;
 		this.unique = unique;
 	}
-	
+
 	@Override
 	public void drawOverlay(DrawContext draw, int mouseX, int mouseY, float delta) {
 		EmiDrawContext context = EmiDrawContext.wrap(draw);
@@ -34,7 +34,7 @@ public class GeneratedSlotWidget extends SlotWidget {
 		}
 		super.drawOverlay(context.raw(), mouseX, mouseY, delta);
 	}
-	
+
 	@Override
 	public EmiIngredient getStack() {
 		long time = System.currentTimeMillis() / INCREMENT;
@@ -44,7 +44,7 @@ public class GeneratedSlotWidget extends SlotWidget {
 		}
 		return stack;
 	}
-	
+
 	private Random getRandom(long time) {
 		return new Random(new Random(time ^ unique).nextInt());
 	}

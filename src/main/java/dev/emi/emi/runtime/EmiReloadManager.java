@@ -10,7 +10,7 @@ import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.search.EmiSearch;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipe;
-import moddedmite.emi.util.MinecraftServerEMI;
+import moddedmite.emi.util.MinecraftServerHelper;
 import shims.java.net.minecraft.text.Text;
 
 import java.util.Comparator;
@@ -179,7 +179,7 @@ public class EmiReloadManager {
 					step(EmiPort.literal("Finishing up"));
 					BoM.reload();
 					EmiPersistentData.load();
-					if (!MinecraftServerEMI.getIsServer()) {
+					if (!MinecraftServerHelper.isServer()) {
 						EmiSearch.bake();
 						EmiScreenManager.search.update();
 						EmiScreenManager.forceRecalculate();

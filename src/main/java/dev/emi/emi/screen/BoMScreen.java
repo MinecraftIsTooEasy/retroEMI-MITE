@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import dev.emi.emi.EmiPort;
 import dev.emi.emi.EmiRenderHelper;
 import dev.emi.emi.EmiUtil;
+import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.bom.*;
 import dev.emi.emi.config.EmiConfig;
 import dev.emi.emi.data.EmiRecipeCategoryProperties;
@@ -26,7 +27,6 @@ import dev.emi.emi.api.stack.EmiStack;
 import shims.java.com.unascribed.retroemi.REMIScreen;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
-import shims.java.net.minecraft.client.util.InputUtil;
 import shims.java.net.minecraft.client.util.math.MatrixStack;
 import shims.java.net.minecraft.text.MutableText;
 import shims.java.net.minecraft.text.Text;
@@ -36,7 +36,6 @@ import net.minecraft.GuiContainer;
 import net.minecraft.GuiScreen;
 import net.minecraft.MathHelper;
 import net.minecraft.Minecraft;
-import org.lwjgl.opengl.GL11;
 
 import java.util.Comparator;
 import java.util.List;
@@ -77,8 +76,7 @@ public class BoMScreen extends REMIScreen {
 	public void init() {
 		if (BoM.tree != null) {
 			offY = height / -3;
-		}
-		else {
+		} else {
 			offY = 0;
 		}
 		recalculateTree();
@@ -121,17 +119,14 @@ public class BoMScreen extends REMIScreen {
 					if (node instanceof ChanceMaterialCost cmc) {
 						if (!chanceProgressCosts.containsKey(node.ingredient)) {
 							cost.alreadyDone = node.getEffectiveAmount();
-						}
-						else {
+						} else {
 							ChanceMaterialCost progress = chanceProgressCosts.get(node.ingredient);
 							cost.alreadyDone = (long) Math.ceil(cmc.amount * cmc.chance - progress.amount * progress.chance);
 						}
-					}
-					else {
+					} else {
 						if (!progressCosts.containsKey(node.ingredient)) {
 							cost.alreadyDone = node.amount;
-						}
-						else {
+						} else {
 							FlatMaterialCost progress = progressCosts.get(node.ingredient);
 							cost.alreadyDone = node.amount - progress.amount;
 						}
@@ -191,7 +186,7 @@ public class BoMScreen extends REMIScreen {
 		float scale = getScale();
 		int scaledWidth = (int) (width / scale);
 		int scaledHeight = (int) (height / scale);
-		// TODO should be the ingredient width if higher, (todo from RetroEMI)
+		// TODO should be the ingredient width if higher
 		int contentWidth = nodeWidth * NODE_WIDTH;
 		int contentHeight = nodeHeight * NODE_VERTICAL_SPACING + 80;
 		int xBound = scaledWidth / 2 + contentWidth - 100;
@@ -231,12 +226,14 @@ public class BoMScreen extends REMIScreen {
 				color = 0xff8099ff;
 			}
 			context.drawTextWithShadow(EmiPort.literal("x" + BoM.tree.batches), batches.x() + 6, batches.y() + batches.height() / 2 - 4, color);
-			
+
 			if (mode.contains(mx, my)) {
-				GL11.glColor4f(0.5f, 0.6f, 1f, 1f);
+				context.setColor(0.5f, 0.6f, 1f, 1f);
+			} else {
+				context.setColor(1.0f, 1.0f, 1f, 1f);
 			}
 			context.drawTexture(EmiRenderHelper.WIDGETS, mode.x(), mode.y(), BoM.craftingMode ? 16 : 0, 146, mode.width(), mode.height());
-			GL11.glColor4f(1f, 1f, 1f, 1f);
+			context.setColor(1f, 1f, 1f, 1f);
 			batcher.draw();
 		} else {
 			context.drawCenteredText(EmiPort.translatable("emi.tree_welcome", EmiRenderHelper.getEmiText()), 0, -72);
@@ -244,15 +241,16 @@ public class BoMScreen extends REMIScreen {
 			context.drawCenteredText(EmiPort.translatable("emi.random_tree"), 0, -24);
 			context.drawCenteredText(EmiPort.translatable("emi.random_tree_input"), 0, 0);
 		}
-		
+
 		view.pop();
-		
+
 		if (help.contains(mouseX, mouseY)) {
-			GL11.glColor4f(0.5f, 0.6f, 1f, 1f);
+			context.setColor(0.5f, 0.6f, 1f, 1f);
+		} else {
+			context.setColor(1f, 1f, 1f, 1f);
 		}
 		context.drawTexture(EmiRenderHelper.WIDGETS, help.x(), help.y(), 0, 200, help.width(), help.height());
-		GL11.glColor4f(1f, 1f, 1f, 1f);
-		
+
 		Hover hover = getHoveredStack(mouseX, mouseY);
 		if (hover != null) {
 			hover.drawTooltip(this, context, mouseX, mouseY);
@@ -270,7 +268,7 @@ public class BoMScreen extends REMIScreen {
 			EmiRenderHelper.drawTooltip(this, context, list, width - 18, height - 18, width);
 		}
 	}
-	
+
 	public Hover getHoveredStack(int mx, int my) {
 		float scale = getScale();
 		mx = (int) ((mx - width / 2) / scale - offX);
@@ -288,7 +286,7 @@ public class BoMScreen extends REMIScreen {
 		}
 		return null;
 	}
-	
+
 	public int getNodeHeight(MaterialNode node) {
 		if (node.recipe != null && node.state == FoldState.EXPANDED) {
 			int i = 1;
@@ -302,7 +300,7 @@ public class BoMScreen extends REMIScreen {
 		}
 		return 1;
 	}
-	
+
 	public TreeVolume addNewNodes(MaterialNode node, long multiplier, long divisor, int depth, ChanceState chance) {
 		if (node.catalyst) {
 			multiplier = node.amount;
@@ -322,8 +320,7 @@ public class BoMScreen extends REMIScreen {
 				TreeVolume volume = addNewNodes(node.children.get(i), multiplier, node.divisor, depth + 1, consumed);
 				if (left == null) {
 					left = volume;
-				}
-				else {
+				} else {
 					left.addToRight(volume);
 				}
 			}
@@ -332,7 +329,19 @@ public class BoMScreen extends REMIScreen {
 		}
 		return new TreeVolume(node, multiplier, depth * NODE_VERTICAL_SPACING, chance);
 	}
-	
+
+	private static void drawLine(EmiDrawContext context, int x1, int y1, int x2, int y2, int color) {
+		if (x2 < x1) {
+			drawLine(context, x2, y1, x1, y2, color);
+			return;
+		}
+		if (y2 < y1) {
+			drawLine(context, x1, y2, x2, y1, color);
+			return;
+		}
+		context.fill(x1, y1, x2 - x1 + 1, y2 - y1 + 1, color);
+	}
+
 	private static void drawLine(EmiDrawContext context, int x1, int y1, int x2, int y2) {
 		if (x2 < x1) {
 			drawLine(context, x2, y1, x1, y2);
@@ -344,7 +353,7 @@ public class BoMScreen extends REMIScreen {
 		}
 		context.fill(x1, y1, x2 - x1 + 1, y2 - y1 + 1, 0xFFFFFFFF);
 	}
-	
+
 	public float getScale() {
 		zoom = MathHelper.clamp_int(zoom, -6, 4);
 		int scale = (int) EmiPort.getGuiScale(client);
@@ -355,14 +364,13 @@ public class BoMScreen extends REMIScreen {
 		}
 		return (float) desired / scale;
 	}
-	
+
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
 			this.close();
 			return true;
-		}
-		else if (this.client.gameSettings.keyBindInventory.keyCode == (keyCode)) {
+		} else if (this.client.gameSettings.keyBindInventory.keyCode == (keyCode)) {
 			this.close();
 			return true;
 		}
@@ -389,14 +397,13 @@ public class BoMScreen extends REMIScreen {
 					}
 				}
 			}
-		}
-		else if (EmiInput.isControlDown() && keyCode == GLFW.GLFW_KEY_C) {
+		} else if (EmiInput.isControlDown() && keyCode == GLFW.GLFW_KEY_C) {
 			BoM.tree = null;
 			init();
 		}
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
-	
+
 	private boolean getAutoResolutions(Hover hover, BiConsumer<EmiIngredient, EmiRecipe> consumer) {
 		EmiPlayerInventory inv = playerInv;
 		if (inv != null) {
@@ -429,7 +436,7 @@ public class BoMScreen extends REMIScreen {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		Hover hover = getHoveredStack((int) mouseX, (int) mouseY);
@@ -474,13 +481,11 @@ public class BoMScreen extends REMIScreen {
 					}
 				}
 			}
-		}
-		else if (mode.contains(mx, my)) {
+		} else if (mode.contains(mx, my)) {
 			Minecraft.getMinecraft().sndManager.playSoundFX("random.click", 1, 1);
 			BoM.craftingMode = !BoM.craftingMode;
 			recalculateTree();
-		}
-		else if (batches.contains(mx, my) && BoM.tree != null) {
+		} else if (batches.contains(mx, my) && BoM.tree != null) {
 			long ideal = BoM.tree.cost.getIdealBatch(BoM.tree.goal, 1, 1);
 			if (ideal != BoM.tree.batches) {
 				Minecraft.getMinecraft().sndManager.playSoundFX("random.click", 1, 1);
@@ -495,7 +500,7 @@ public class BoMScreen extends REMIScreen {
 		}
 		return super.mouseClicked(mouseX, mouseY, button);
 	}
-	
+
 	@Override
 	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
 		scrollAcc += amount;
@@ -527,7 +532,7 @@ public class BoMScreen extends REMIScreen {
 		zoom += (int) amount;
 		return true;
 	}
-	
+
 	@Override
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
 		if (button == 0 || button == 2) {
@@ -538,35 +543,35 @@ public class BoMScreen extends REMIScreen {
 		}
 		return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
 	}
-	
+
 	@Override
 	public boolean shouldPause() {
 		return false;
 	}
-	
+
 	@Override
 	public void close() {
 		Minecraft.getMinecraft().displayGuiScreen(old);
 	}
-	
+
 	private class Cost {
 		public FlatMaterialCost cost;
 		public int x, y;
 		public long alreadyDone = 0;
 		public boolean remainder;
-		
+
 		public Cost(FlatMaterialCost cost, int x, int y, boolean remainder) {
 			this.cost = cost;
 			this.x = x;
 			this.y = y;
 			this.remainder = remainder;
 		}
-		
+
 		public void render(EmiDrawContext context) {
 			batcher.render(cost.ingredient, context.raw(), x, y, 0, ~(EmiIngredient.RENDER_AMOUNT | EmiIngredient.RENDER_REMAINDER));
 			EmiRenderHelper.renderAmount(context, x, y, getAmountText());
 		}
-		
+
 		public Text getAmountText() {
 			long adjusted = cost.getEffectiveAmount();
 			Text totalText;
@@ -588,31 +593,31 @@ public class BoMScreen extends REMIScreen {
 			return totalText;
 		}
 	}
-	
+
 	private class Hover {
 		public EmiIngredient stack;
 		public MaterialNode node, resolve;
 		public EmiRecipeCategory category;
-		
+
 		public Hover(EmiIngredient stack) {
 			this.stack = stack;
 		}
-		
+
 		public Hover(EmiIngredient stack, MaterialNode node, MaterialNode resolve) {
 			this.stack = stack;
 			this.node = node;
 			this.resolve = resolve;
 		}
-		
+
 		public Hover(EmiRecipeCategory category, MaterialNode node) {
 			this.category = category;
 			this.node = node;
 		}
-		
+
 		public Hover(MaterialNode node) {
 			this.node = node;
 		}
-		
+
 		public boolean drawTooltip(GuiScreen screen, EmiDrawContext context, int mouseX, int mouseY) {
 			if (stack != null) {
 				List<TooltipComponent> list = Lists.newArrayList();
@@ -626,15 +631,13 @@ public class BoMScreen extends REMIScreen {
 							list.add(new RecipeTooltipComponent(recipe));
 						}
 					});
-				}
-				else if (node != null && node.recipe != null) {
+				} else if (node != null && node.recipe != null) {
 					list.add(new RecipeTooltipComponent(node.recipe));
 				}
 				if (node != null) {
 					if (node.consumeChance != 1) {
 						list.add(EmiTooltip.chance("consume", node.consumeChance));
-					}
-					else if (resolve != null && resolve.consumeChance != 1) {
+					} else if (resolve != null && resolve.consumeChance != 1) {
 						list.add(EmiTooltip.chance("consume", resolve.consumeChance));
 					}
 					if (node.produceChance != 1) {
@@ -643,15 +646,14 @@ public class BoMScreen extends REMIScreen {
 				}
 				EmiRenderHelper.drawTooltip(screen, context, list, mouseX, mouseY);
 				return true;
-			}
-			else if (category != null) {
+			} else if (category != null) {
 				EmiRenderHelper.drawTooltip(screen, context, category.getTooltip(), mouseX, mouseY);
 				return true;
 			}
 			return false;
 		}
 	}
-	
+
 	private class Node {
 		public Node parent = null;
 		public MaterialNode resolution = null;
@@ -659,13 +661,12 @@ public class BoMScreen extends REMIScreen {
 		public int width, x, y, midOffset;
 		public long amount;
 		public ChanceState chance;
-		
+
 		public Node(MaterialNode node, long amount, int x, int y, ChanceState chance) {
 			this.node = node;
 			if (node.recipe != null) {
 				width = 42;
-			}
-			else {
+			} else {
 				width = 16;
 			}
 			this.amount = amount;
@@ -676,13 +677,13 @@ public class BoMScreen extends REMIScreen {
 			width += tw;
 			midOffset = tw / -2;
 		}
-		
+
 		public void render(EmiDrawContext context, int mouseX, int mouseY, float delta) {
 			if (parent != null) {
 				context.push();
-				
-				setColor(parent.node, node.consumeChance != 1 || (resolution != null && resolution.consumeChance != 1), false);
-				
+
+				setColor(context, parent.node, node.consumeChance != 1 || (resolution != null && resolution.consumeChance != 1), false);
+
 				int nx = x;
 				int ny = y;
 				int px = parent.x;
@@ -692,11 +693,10 @@ public class BoMScreen extends REMIScreen {
 					context.drawTexture(EmiRenderHelper.WIDGETS, x - 3, y - 19, 9, 192, 7, 7);
 					drawLine(context, nx, y - 12, nx, ny - 11);
 					drawLine(context, nx, py + off, nx, y - 19);
-				}
-				else {
+				} else {
 					drawLine(context, nx, ny - 11, nx, py + off);
 				}
-				setColor(parent.node, false, false);
+				setColor(context, parent.node, false, false);
 				drawLine(context, px, py + off, nx, py + off);
 				context.pop();
 			}
@@ -707,51 +707,53 @@ public class BoMScreen extends REMIScreen {
 				int hx = x + width / 2;
 				int hy = y + 10;
 				context.push();
-				
-				setColor(node, node.produceChance != 1, false);
-				
+
+				setColor(context, node, node.produceChance != 1, false);
+
 				if (node.state != FoldState.EXPANDED) {
 					drawLine(context, x, hy + 1, x, hy + 3);
-				}
-				else {
+				} else {
 					drawLine(context, x, hy + 1, x, hy + 8);
 				}
-				
+
 				boolean hovered = mouseX >= lx && mouseY >= ly && mouseX <= hx && mouseY <= hy;
-				setColor(node, node.produceChance != 1, hovered);
-				drawLine(context, lx, ly, lx, hy);
-				drawLine(context, hx, ly, hx, hy);
-				drawLine(context, lx, ly, hx, ly);
-				drawLine(context, lx, hy, hx, hy);
+				int color = -1;
+				if (hovered) {
+					color = 0xff8099ff;
+				}
+				setColor(context, node, node.produceChance != 1, hovered);
+				drawLine(context, lx, ly, lx, hy, color);
+				drawLine(context, hx, ly, hx, hy, color);
+				drawLine(context, lx, ly, hx, ly, color);
+				drawLine(context, lx, hy, hx, hy, color);
 				EmiRecipeCategory cat = node.recipe.getCategory();
 				if (EmiRecipeCategoryProperties.getSimplifiedIcon(cat) instanceof StackBatcher.Batchable b) {
 					batcher.render(b, context.raw(), x - 18 + midOffset, y - 8, delta);
-				}
-				else {
+				} else {
 					cat.renderSimplified(context.raw(), x - 18 + midOffset, y - 8, delta);
 				}
 				xo = 11;
 				context.pop();
 			}
-			GL11.glColor4f(1f, 1f, 1f, 1f);
+			context.setColor(1f, 1f, 1f, 1f);
 			batcher.render(node.ingredient, context.raw(), x + xo - 8 + midOffset, y - 8, 0);
 			EmiRenderHelper.renderAmount(context, x + xo - 8 + midOffset, y - 8, getAmountText());
 		}
-		
-		public void setColor(MaterialNode node, boolean chanced, boolean hovered) {
-			GL11.glColor4f(1f, 1f, 1f, 1f);
+
+		public void setColor(EmiDrawContext context, MaterialNode node, boolean chanced, boolean hovered) {
+			context.setColor(1f, 1f, 1f, 1f);
 			if (chanced) {
-				GL11.glColor4f(0.8f, 0.6f, 0.1f, 1f);
+				context.setColor(0.8f, 0.6f, 0.1f, 1f);
 			}
 			if (BoM.craftingMode) {
 				if (node.progress == ProgressState.COMPLETED) {
-					GL11.glColor4f(0.1f, 0.8f, 0.5f, 1f);
+					context.setColor(0.1f, 0.8f, 0.5f, 1f);
 				} else if (node.progress == ProgressState.PARTIAL) {
-					GL11.glColor4f(0.8f, 0.2f, 0.9f, 1f);
+					context.setColor(0.8f, 0.2f, 0.9f, 1f);
 				}
 			}
 			if (hovered) {
-				GL11.glColor4f(0.5f, 0.6f, 1f, 1f);
+				context.setColor(0.5f, 0.6f, 1f, 1f);
 			}
 		}
 		
@@ -760,8 +762,7 @@ public class BoMScreen extends REMIScreen {
 				long a = Math.round(amount * chance.chance());
 				a = Math.max(a, node.amount);
 				return EmiPort.append(EmiPort.literal("≈"), EmiRenderHelper.getAmountText(node.ingredient, a)).formatted(Formatting.GOLD);
-			}
-			else {
+			} else {
 				return EmiRenderHelper.getAmountText(node.ingredient, amount);
 			}
 		}
@@ -854,8 +855,7 @@ public class BoMScreen extends REMIScreen {
 			for (int i = 0; i < other.getDepth(); i++) {
 				if (i < getDepth()) {
 					widths.get(i).right = other.getRight(i) + rOff;
-				}
-				else {
+				} else {
 					widths.add(new Width(other.getLeft(i) + rOff, other.getRight(i) + rOff));
 				}
 			}

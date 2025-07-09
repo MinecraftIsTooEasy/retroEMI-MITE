@@ -53,8 +53,7 @@ public class EmiWorldInteractionRecipe implements EmiRecipe {
 			leftSize = sizes[0];
 			rightSize = sizes[1];
 			outputSize = sizes[2];
-		}
-		else {
+		} else {
 			leftSize = left.size();
 			rightSize = right.size();
 			outputSize = outputs.size();
@@ -155,14 +154,11 @@ public class EmiWorldInteractionRecipe implements EmiRecipe {
 		public EmiWorldInteractionRecipe build() {
 			if (left.isEmpty()) {
 				throw new IllegalStateException("Cannot create a world interaction recipe without a left input");
-			}
-			else if (right.isEmpty()) {
+			} else if (right.isEmpty()) {
 				throw new IllegalStateException("Cannot create a world interaction recipe without a right input");
-			}
-			else if (output.isEmpty()) {
+			} else if (output.isEmpty()) {
 				throw new IllegalStateException("Cannot create a world interaction recipe without an output");
-			}
-			else {
+			} else {
 				return new EmiWorldInteractionRecipe(this);
 			}
 		}

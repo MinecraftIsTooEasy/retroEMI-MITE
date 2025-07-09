@@ -9,9 +9,12 @@ import javax.imageio.ImageIO;
 
 import dev.emi.emi.EmiPort;
 import dev.emi.emi.config.EmiConfig;
+import net.minecraft.ChatClickData;
+import net.minecraft.ChatLine;
 import net.minecraft.Minecraft;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+import shims.java.net.minecraft.text.ClickEvent;
 import shims.java.net.minecraft.text.Style;
 import shims.java.net.minecraft.text.Text;
 import shims.java.net.minecraft.util.Util;
@@ -37,11 +40,7 @@ public class EmiScreenshotRecorder {
      * @param renderer a function to render the things being screenshotted.
      */
     public static void saveScreenshot(String path, int width, int height, Runnable renderer) {
-//		if (!RenderSystem.isOnRenderThread()) {
-//			RenderSystem.recordRenderCall(() -> saveScreenshotInner(path, width, height, renderer));
-//		} else {
         saveScreenshotInner(path, width, height, renderer);
-//		}
     }
 
     private static void saveScreenshotInner(String path, int width, int height, Runnable renderer) {
@@ -100,9 +99,7 @@ public class EmiScreenshotRecorder {
                 ImageIO.write(framebuffer, "png", file);
 
                 Text text = EmiPort.literal(filename,
-                        Style.EMPTY.withUnderline(true)
-//                            .withClickEvent(new ChatClickData(Minecraft.getMinecraft().fontRenderer, new ChatLine(0, "", 0), 0, 0))
-                );
+                        Style.EMPTY.withUnderline(true).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file.getAbsolutePath())));
                 messageReceiver.accept(EmiPort.translatable("screenshot.success", text));
             } catch (Throwable e) {
                 EmiLog.error("Failed to write screenshot");

@@ -5,6 +5,7 @@ import dev.emi.emi.EmiPort;
 import dev.emi.emi.EmiRenderHelper;
 import dev.emi.emi.EmiUtil;
 import dev.emi.emi.api.render.EmiTooltipComponents;
+import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.bom.BoM;
 import dev.emi.emi.chess.EmiChess;
 import dev.emi.emi.config.*;
@@ -47,7 +48,6 @@ import java.awt.*;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.StringSelection;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -334,12 +334,10 @@ public class EmiScreenManager {
 						};
 						if (cy < ocy) {
 							bounds = new Bounds(bounds.x(), bounds.y(), bounds.width(), overlap.top() - bounds.top());
-						}
-						else {
+						} else {
 							bounds = new Bounds(bounds.x(), overlap.bottom(), bounds.width(), bounds.bottom() - overlap.bottom());
 						}
-					}
-					else {
+					} else {
 						int cx = bounds.x() + bounds.width() / 2;
 						int ocx = overlap.x() + overlap.width() / 2;
 						cx += switch (align.horizontal) {
@@ -349,8 +347,7 @@ public class EmiScreenManager {
 						};
 						if (cx < ocx) {
 							bounds = new Bounds(bounds.x(), bounds.y(), overlap.left() - bounds.left(), bounds.height());
-						}
-						else {
+						} else {
 							bounds = new Bounds(overlap.right(), bounds.y(), bounds.right() - overlap.right(), bounds.height());
 						}
 					}
@@ -1132,17 +1129,14 @@ public class EmiScreenManager {
 					EmiApi.focusRecipe(stack.getRecipeContext());
 				}
 				return true;
-			}
-			else if (function.apply(EmiConfig.viewUses)) {
+			} else if (function.apply(EmiConfig.viewUses)) {
 				EmiApi.displayUses(ingredient);
 				return true;
-			}
-			else if (function.apply(EmiConfig.favorite)) {
+			} else if (function.apply(EmiConfig.favorite)) {
 				EmiFavorites.addFavorite(ingredient, stack.getRecipeContext());
 				repopulatePanels(SidebarType.FAVORITES);
 				return true;
-			}
-			else if (function.apply(EmiConfig.viewStackTree) && stack.getRecipeContext() != null) {
+			} else if (function.apply(EmiConfig.viewStackTree) && stack.getRecipeContext() != null) {
 				BoM.setGoal(stack.getRecipeContext());
 				EmiApi.viewRecipeTree();
 				return true;
@@ -1262,13 +1256,15 @@ public class EmiScreenManager {
 		} else {
 			if (!ItemStacks.isEmpty(is)) {
 				int id = is.itemID;
-				String command = "/give @p " + id + " " + amount + " " + is.getItemSubtype();
-				
-				if (is.hasTagCompound()) {
-					command += is.getTagCompound().toString();
+				String command = "/give @s " + id;
+//				if (is.hasTagCompound()) {	//The dataTag parameter is not supported in 1.6.4
+//					command += is.getTagCompound().toString();
+//				}
+				command += " " + amount;
+				if (command.length() < 256) {
+					((EMIPlayerControllerMP) client.playerController).getNetClientHandler().addToSendQueue(new Packet3Chat(command));
+					return true;
 				}
-				((EMIPlayerControllerMP) client.playerController).getNetClientHandler().addToSendQueue(new Packet3Chat(command));
-				return true;
 			}
 			return false;
 		}
@@ -1635,8 +1631,7 @@ public class EmiScreenManager {
 		public List<? extends EmiIngredient> getStacks() {
 			if (search && getType() != SidebarType.CHESS) {
 				return searchedStacks;
-			}
-			else {
+			} else {
 				return EmiSidebars.getStacks(getType());
 			}
 		}

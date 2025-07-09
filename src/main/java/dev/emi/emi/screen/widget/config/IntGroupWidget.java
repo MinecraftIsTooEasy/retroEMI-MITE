@@ -38,8 +38,7 @@ public class IntGroupWidget extends ConfigEntryWidget {
 	public int getSpacing() {
 		if (group.values.size() > 2) {
 			return 19;
-		}
-		else {
+		} else {
 			return 20;
 		}
 	}
@@ -47,8 +46,7 @@ public class IntGroupWidget extends ConfigEntryWidget {
 	public int getWidth() {
 		if (group.values.size() > 2) {
 			return 40;
-		}
-		else {
+		} else {
 			return 99;
 		}
 	}

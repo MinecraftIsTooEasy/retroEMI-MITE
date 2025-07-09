@@ -11,6 +11,7 @@ import dev.emi.emi.config.EmiConfig;
 import moddedmite.emi.api.EMIInventoryCrafting;
 import moddedmite.emi.api.EMIShapedRecipes;
 import shims.java.com.unascribed.retroemi.RetroEMI;
+import shims.java.net.minecraft.text.MutableText;
 import shims.java.net.minecraft.util.SyntheticIdentifier;
 import net.minecraft.IRecipe;
 import net.minecraft.InventoryCrafting;
@@ -25,17 +26,15 @@ import java.util.stream.Collectors;
 public class EmiShapedRecipe extends EmiCraftingRecipe {
 
 	private final ShapedRecipes shaped_recipe;
-	private final int crafting_difficulty;
 
 	public EmiShapedRecipe(ShapedRecipes recipe, int craftingDifficulty) {
-		super(padIngredients((EMIShapedRecipes) recipe), EmiStack.of(EmiPort.getOutput(recipe)), new SyntheticIdentifier(recipe), false, ((EMIShapedRecipes) recipe).getSecondaryOutput(null));
-        crafting_difficulty = craftingDifficulty;
+		super(padIngredients((EMIShapedRecipes) recipe), EmiStack.of(EmiPort.getOutput(recipe)), new SyntheticIdentifier(recipe), false, ((EMIShapedRecipes) recipe).getSecondaryOutput(null), craftingDifficulty);
         setRemainders(input, recipe);
 		this.shaped_recipe = recipe;
 	}
 
 	@Override
-	public Material craftLevel() {
+	public Material getCraftLevel() {
 		return this.shaped_recipe.getMaterialToCheckToolBenchHardnessAgainst();
 	}
 
@@ -77,23 +76,11 @@ public class EmiShapedRecipe extends EmiCraftingRecipe {
 			for (int x = 0; x < 3; x++) {
 				if (x >= width || y >= height || i >= in.size()) {
 					list.add(EmiStack.EMPTY);
-				}
-				else {
+				} else {
 					list.add(in.get(i++));
 				}
 			}
 		}
 		return list;
-	}
-
-	@Override
-	public void addWidgets(WidgetHolder widgets) {
-		super.addWidgets(widgets);
-		if (EmiConfig.MITECraftInfo) {
-			DecimalFormat decimalFormat = new DecimalFormat("0.00");
-			float crafting_time = (float) ((Math.pow((crafting_difficulty - 100), 0.74) + 100) / 20);
-			widgets.addText(EmiPort.translatable("emi.craft_difficult.items", String.format("%d", crafting_difficulty)), 55, 45, 0xFFFFFFFF, true);
-			widgets.addText(EmiPort.translatable("emi.craft_time.items", String.format("%s", decimalFormat.format(crafting_time))), 55, 35, 0xFFFFFFFF, true);
-		}
 	}
 }

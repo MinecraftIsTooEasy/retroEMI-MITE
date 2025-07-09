@@ -70,8 +70,7 @@ public class RecipeDisplay {
 				recipe.addWidgets(widgets);
 				addButtons(widgets, leftButtons, 0 - 4 - 13, -14);
 				addButtons(widgets, rightButtons, width + 5, 14);
-			}
-			catch (Throwable t) {
+			} catch (Throwable t) {
 				widgets = new WidgetGroup(recipe, wx, wy, wWidth, wHeight);
 				widgets.add(new TextWidget(EmiPort.ordered(EmiPort.translatable("emi.error.recipe.render")), wWidth / 2, wHeight / 2 - 5,
 						Formatting.RED.getColorValue(), true).horizontalAlign(TextWidget.Alignment.CENTER));
@@ -80,8 +79,7 @@ public class RecipeDisplay {
 					widgets.addTooltipText(text, 0, 0, wWidth, wHeight);
 				}
 			}
-		}
-		else {
+		} else {
 			widgets.add(new TextWidget(EmiPort.ordered(EmiPort.translatable("emi.error.recipe.initialize")), wWidth / 2, wHeight / 2 - 5,
 					Formatting.RED.getColorValue(), true).horizontalAlign(TextWidget.Alignment.CENTER));
 			if (exception != null) {
@@ -133,6 +131,9 @@ public class RecipeDisplay {
 	}
 	
 	private static enum ButtonType {
-		FILL, TREE, DEFAULT, SCREENSHOT
+		FILL,
+		TREE,
+		DEFAULT,
+		SCREENSHOT
 	}
 }

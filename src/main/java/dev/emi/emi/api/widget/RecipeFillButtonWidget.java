@@ -20,7 +20,7 @@ import java.util.List;
 public class RecipeFillButtonWidget extends RecipeButtonWidget {
 	private boolean canFill;
 	private List<TooltipComponent> tooltip;
-	
+
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@ApiStatus.Internal
 	public RecipeFillButtonWidget(int x, int y, EmiRecipe recipe) {
@@ -31,8 +31,7 @@ public class RecipeFillButtonWidget extends RecipeButtonWidget {
 		tooltip = List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.inapplicable"))));
 		if (handler == null) {
 			canFill = false;
-		}
-		else {
+		} else {
 			try {
 				EmiPlayerInventory inv = handler.getInventory(hs);
 				boolean applicable = handler.supportsRecipe(recipe);
@@ -41,8 +40,7 @@ public class RecipeFillButtonWidget extends RecipeButtonWidget {
 				if (applicable) {
 					tooltip = handler.getTooltip(recipe, context);
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				canFill = false;
 				tooltip = List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.error.recipe.initialize"))));
 			}

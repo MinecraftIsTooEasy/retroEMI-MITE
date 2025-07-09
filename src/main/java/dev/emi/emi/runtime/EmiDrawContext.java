@@ -1,6 +1,7 @@
 package dev.emi.emi.runtime;
 
 import dev.emi.emi.api.stack.EmiIngredient;
+import shims.java.com.mojang.blaze3d.systems.RenderSystem;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.util.math.MatrixStack;
 import shims.java.net.minecraft.text.OrderedText;
@@ -11,11 +12,11 @@ import net.minecraft.ResourceLocation;
 import net.minecraft.Tessellator;
 import org.lwjgl.opengl.GL11;
 
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.GL_RESCALE_NORMAL;
 
 public class EmiDrawContext {
-	private final Minecraft client =  Minecraft.getMinecraft();
+	private final Minecraft client = Minecraft.getMinecraft();
 	private static final EmiDrawContext INSTANCE = new EmiDrawContext();
 	public final Gui context = new Gui();
 	
@@ -82,8 +83,43 @@ public class EmiDrawContext {
 		tess.draw();
 	}
 
-	public void fill(int x, int y, int w, int h, int color) {
-		Gui.drawRect(x, y, x + w, y + h, color);
+	public void fill(int x, int y, int width, int height, int color) {
+		this.fillInner(x, y, x + width, y + height, color);
+	}
+
+	public void fillInner(int x, int y, int w, int h, int color) {
+		int temp;
+		if (x < w) {
+			temp = x;
+			x = w;
+			w = temp;
+		}
+		if (y < h) {
+			temp = y;
+			y = h;
+			h = temp;
+		}
+
+		float alpha = (float) (color >> 24 & 0xFF) / 255.0f;
+		float red = (float) (color >> 16 & 0xFF) / 255.0f;
+		float green = (float) (color >> 8 & 0xFF) / 255.0f;
+		float blue = (float) (color & 0xFF) / 255.0f;
+
+		RenderSystem.enableBlend();
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		RenderSystem.defaultBlendFunc();
+		setColor(red, green, blue, alpha);
+
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		tess.addVertex(x, h, 0.0);
+		tess.addVertex(w, h, 0.0);
+		tess.addVertex(w, y, 0.0);
+		tess.addVertex(x, y, 0.0);
+		tess.draw();
+
+		RenderSystem.disableBlend();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
 	public void drawText(Text text, int x, int y) {

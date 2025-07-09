@@ -2,7 +2,6 @@ package dev.emi.emi.api.widget;
 
 import dev.emi.emi.EmiRenderHelper;
 import dev.emi.emi.runtime.EmiDrawContext;
-import dev.emi.emi.screen.Bounds;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import net.minecraft.Minecraft;
 import net.minecraft.ResourceLocation;
@@ -46,8 +45,7 @@ public class ButtonWidget extends Widget {
 		boolean active = this.isActive.getAsBoolean();
 		if (!active) {
 			v += height * 2;
-		}
-		else if (getBounds().contains(mouseX, mouseY)) {
+		} else if (getBounds().contains(mouseX, mouseY)) {
 			v += this.height;
 		}
 		glEnable(GL_DEPTH_TEST);

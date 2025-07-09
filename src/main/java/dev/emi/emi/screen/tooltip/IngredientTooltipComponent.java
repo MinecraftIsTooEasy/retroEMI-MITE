@@ -19,11 +19,9 @@ public class IngredientTooltipComponent implements EmiTooltipComponent {
 	public int getStackWidth() {
 		if (ingredients.size() < 4) {
 			return ingredients.size();
-		}
-		else if (ingredients.size() > 16) {
+		} else if (ingredients.size() > 16) {
 			return 8;
-		}
-		else {
+		} else {
 			return 4;
 		}
 	}

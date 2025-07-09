@@ -28,8 +28,7 @@ public class BooleanWidget extends ConfigEntryWidget {
 	public Text getText() {
 		if (mutator.get()) {
 			return EmiPort.literal("true", Formatting.GREEN);
-		}
-		else {
+		} else {
 			return EmiPort.literal("false", Formatting.RED);
 		}
 	}

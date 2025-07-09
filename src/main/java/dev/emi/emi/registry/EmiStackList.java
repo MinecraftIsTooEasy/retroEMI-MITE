@@ -2,8 +2,6 @@ package dev.emi.emi.registry;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import dev.emi.emi.config.EmiConfig;
-import dev.emi.emi.config.IndexSource;
 import dev.emi.emi.data.EmiAlias;
 import dev.emi.emi.data.EmiRemoveFromIndex;
 import dev.emi.emi.data.IndexStackData;
@@ -14,10 +12,8 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
-import net.minecraft.Minecraft;
 
 import java.util.*;
 import java.util.function.Predicate;

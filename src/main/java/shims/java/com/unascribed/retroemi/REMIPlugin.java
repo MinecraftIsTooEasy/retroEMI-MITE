@@ -16,7 +16,7 @@ import net.minecraft.IRecipe;
 import net.minecraft.ResourceLocation;
 import shims.java.com.unascribed.retroemi.integ.MiscPlugin;
 
-public class REMIPlugin implements EmiMultiPlugin, Runnable{
+public class REMIPlugin implements EmiMultiPlugin, Runnable {
 
     private final Map<String, Class<? extends EmiPlugin>> children = Map.of(
             "Minecraft", VanillaPlugin.class,

@@ -86,11 +86,9 @@ public interface EmiIngredient extends EmiRenderable {
 	public static EmiIngredient of(List<? extends EmiIngredient> list, long amount) {
 		if (list.size() == 0) {
 			return EmiStack.EMPTY;
-		}
-		else if ((list.size() == 1) && amount <= 64) {
+		} else if ((list.size() == 1) && amount <= 64) {
 			return list.get(0);
-		}
-		else if (list.size() == 1) {
+		} else if (list.size() == 1) {
 			return new ListEmiIngredient(list, amount - 64); // Surely there's a better way to do this
 		}
 		else {

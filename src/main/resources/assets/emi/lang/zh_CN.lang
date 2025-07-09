@@ -105,6 +105,7 @@ emi.effect_location.left_compressed=左侧 (挤压)
 emi.effect_location.right_compressed=右侧 (挤压)
 emi.effect_location.left=左侧
 emi.effect_location.right=右侧
+emi.effect_location.hidden=隐藏
 emi.recipe_book_action.default=原版行为
 emi.recipe_book_action.toggle_craftables=侧边栏切换至可合成物品
 emi.recipe_book_action.toggle_visibility=显示/隐藏EMI界面
@@ -126,7 +127,6 @@ config.emi.group.binds=热键
 config.emi.group.binds.crafts=合成
 config.emi.group.binds.cheats=作弊
 config.emi.group.dev=开发
-config.emi.group.addon=附属
 
 config.emi.general.enabled=启用EMI
 config.emi.tooltip.general.enabled=启用并显示EMI
@@ -338,7 +338,6 @@ emi.edit_mode.hide_one=按 %s 隐藏物品
 emi.edit_mode.hide_all=按 %s 根据ID隐藏物品
 emi.sidebar.cycle=按 %s 切换侧边栏
 emi.sidebar.favorite_stack=按 %s 添加/删除收藏的物品
-emi.craft_level=合成等级
 tooltip.emi.chance.consume=损失概率：%s%%
 tooltip.emi.chance.produce=产物概率：%s%%
 tooltip.emi.accepts=可接受：
@@ -430,13 +429,6 @@ emi.cooking.time=%s 秒
 emi.fuel_number.items=烧炼 %s 个物品
 
 emi.grinding.experience=%s - %s 经验
-
-#MITE
-emi.fuel_time.items=烧炼 %s
-emi.fuel_heat.items=热值 %s 级
-emi.craft_difficult.items=%s 难度
-emi.craft_time.items=%s 秒
-emi.exp_cost.items=%s 经验
 
 emi.trade.BlacksmithVillagerEntity=需要等级 %d 铁匠
 emi.trade.PriestVillagerEntity=需要等级 %d 牧师
@@ -582,3 +574,14 @@ config.emi.addon.lower_opacity=更低的搜索框不透明度
 config.emi.tooltip.addon.lower_opacity=降低搜索栏的不透明度，使其更融为一体
 config.emi.addon.mite_craft_info=显示MITE合成信息
 config.emi.tooltip.addon.mite_craft_info=显示合成难度与合成时间
+config.emi.addon.more_workstation=显示更多工作站
+config.emi.tooltip.addon.more_workstation=在工作站区域显示更多不同等级的工作站\n需重启游戏
+config.emi.group.addon=附属
+
+#MITE
+emi.fuel_time.items=烧炼 %s
+emi.fuel_heat.items=热值 %s 级
+emi.craft_difficult.items=%s 难度
+emi.craft_time.items=%s 秒
+emi.exp_cost.items=%s 经验
+emi.craft_level.items=等级：%s

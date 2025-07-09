@@ -24,8 +24,7 @@ public class IntEdit {
 			try {
 				if (string.trim().isEmpty()) {
 					setter.accept(0);
-				}
-				else {
+				} else {
 					setter.accept(Integer.parseInt(string));
 				}
 			}
@@ -53,8 +52,7 @@ public class IntEdit {
 	public int getInc() {
 		if (EmiInput.isShiftDown()) {
 			return 10;
-		}
-		else if (EmiInput.isControlDown()) {
+		} else if (EmiInput.isControlDown()) {
 			return 5;
 		}
 		return 1;

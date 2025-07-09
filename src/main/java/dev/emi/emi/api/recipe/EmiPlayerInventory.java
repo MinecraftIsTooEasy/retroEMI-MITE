@@ -178,8 +178,7 @@ public class EmiPlayerInventory {
 		});
 		if (other.inventory.size() != inventory.size()) {
 			return false;
-		}
-		else {
+		} else {
 			for (EmiStack stack : inventory.keySet()) {
 				if (!other.inventory.containsKey(stack) || !other.inventory.get(stack).isEqual(stack, comparison)) {
 					return false;

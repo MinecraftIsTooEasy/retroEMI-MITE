@@ -33,8 +33,7 @@ public class TagEmiIngredientSerializer implements EmiIngredientSerializer<TagEm
 				String id = m.group(3);
 				return new TagEmiIngredient(toTag(registry, id), 1);
 			}
-		}
-		else if (element.isJsonObject()) {
+		} else if (element.isJsonObject()) {
 			JsonObject json = element.getAsJsonObject();
 			String registry = json.get("registry").getAsString();
 			String id = json.get("id").getAsString();
@@ -52,8 +51,7 @@ public class TagEmiIngredientSerializer implements EmiIngredientSerializer<TagEm
 	private TagKey<?> toTag(String registry, String id) {
 		if (registry.equals("wildcard")) {
 			return new WildcardItemTag(Item.itemsList[Integer.parseInt(id.substring(id.lastIndexOf('/') + 1))]);
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException("Unknown registry " + registry);
 		}
 	}
@@ -63,8 +61,7 @@ public class TagEmiIngredientSerializer implements EmiIngredientSerializer<TagEm
 		if (stack.getAmount() == 1 && stack.getChance() == 1) {
 			String type = stack.key.getFlavor();
 			return new JsonPrimitive("#" + type + ":" + stack.key.id());
-		}
-		else {
+		} else {
 			JsonObject json = new JsonObject();
 			json.addProperty("type", "tag");
 			json.addProperty("registry", "retroemi:" + stack.key.getFlavor());

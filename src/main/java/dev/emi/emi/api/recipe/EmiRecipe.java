@@ -87,7 +87,7 @@ public interface EmiRecipe {
 		return false;
 	}
 
-	default Material craftLevel() {
+	default Material getCraftLevel() {
 		return Material.air;
 	}
 }

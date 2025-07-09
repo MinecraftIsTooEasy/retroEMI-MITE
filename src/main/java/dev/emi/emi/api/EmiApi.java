@@ -102,11 +102,9 @@ public class EmiApi {
 		GuiScreen s = Minecraft.getMinecraft().currentScreen;
 		if (s instanceof GuiContainer container) {
 			return container;
-		}
-		else if (s instanceof RecipeScreen rs) {
+		} else if (s instanceof RecipeScreen rs) {
 			return rs.old;
-		}
-		else if (s instanceof BoMScreen bs) {
+		} else if (s instanceof BoMScreen bs) {
 			return bs.old;
 		}
 		return null;
@@ -145,12 +143,10 @@ public class EmiApi {
 					}
 				}
 			}
-		}
-		else if (stack instanceof ListEmiIngredient) {
+		} else if (stack instanceof ListEmiIngredient) {
 			ListEmiIngredient list = (ListEmiIngredient) stack;
 			setPages(Collections.singletonMap(VanillaPlugin.INGREDIENT, Collections.singletonList(new EmiSyntheticIngredientRecipe(stack))), stack);
-		}
-		else if (stack.getEmiStacks().size() == 1) {
+		} else if (stack.getEmiStacks().size() == 1) {
 			EmiStack es = stack.getEmiStacks().get(0);
 			setPages(mapRecipes(pruneSources(EmiApi.getRecipeManager().getRecipesByOutput(es), es)), stack);
 			focusRecipe(BoM.getRecipe(es));
@@ -178,8 +174,7 @@ public class EmiApi {
 			GuiContainer hs = (GuiContainer) s;
 			push();
 			Minecraft.getMinecraft().displayGuiScreen(new BoMScreen(hs));
-		}
-		else if (s instanceof RecipeScreen) {
+		} else if (s instanceof RecipeScreen) {
 			RecipeScreen rs = (RecipeScreen) s;
 			push();
 			Minecraft.getMinecraft().displayGuiScreen(new BoMScreen(rs.old));
@@ -201,12 +196,10 @@ public class EmiApi {
 		if (s instanceof RecipeScreen) {
 			RecipeScreen rs = (RecipeScreen) s;
 			EmiHistory.push(rs);
-		}
-		else if (s instanceof BoMScreen) {
+		} else if (s instanceof BoMScreen) {
 			BoMScreen bs = (BoMScreen) s;
 			EmiHistory.push(bs);
-		}
-		else {
+		} else {
 			EmiHistory.clear();
 		}
 	}
@@ -272,13 +265,11 @@ public class EmiApi {
 				GuiContainer hs = (GuiContainer) s;
 				push();
 				Minecraft.getMinecraft().displayGuiScreen(new RecipeScreen(hs, recipes));
-			}
-			else if (s instanceof BoMScreen) {
+			} else if (s instanceof BoMScreen) {
 				BoMScreen bs = (BoMScreen) s;
 				push();
 				Minecraft.getMinecraft().displayGuiScreen(new RecipeScreen(bs.old, recipes));
-			}
-			else if (s instanceof RecipeScreen) {
+			} else if (s instanceof RecipeScreen) {
 				RecipeScreen rs = (RecipeScreen) s;
 				push();
 				RecipeScreen n = new RecipeScreen(rs.old, recipes);

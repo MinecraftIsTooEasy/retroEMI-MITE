@@ -1,5 +1,6 @@
 package moddedmite.emi;
 
+import dev.emi.emi.config.EmiConfig;
 import moddedmite.emi.recipe.EmiEnchantRecipe;
 import moddedmite.emi.recipe.EmiFoodRecipe;
 import dev.emi.emi.runtime.EmiReloadLog;
@@ -9,7 +10,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
-import dev.emi.emi.api.recipe.MITEEmiRecipeCategories;
+import moddedmite.emi.api.recipe.MITEEmiRecipeCategories;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiStack;
 import moddedmite.emi.util.EnchantmentNameIDTranslator;
@@ -47,8 +48,7 @@ public class MITEPlugin implements EmiPlugin {
 	private static void addRecipeSafe(EmiRegistry registry, Supplier<EmiRecipe> supplier) {
 		try {
 			registry.addRecipe(supplier.get());
-		}
-		catch (Throwable e) {
+		} catch (Throwable e) {
 			EmiReloadLog.warn("Exception when parsing EMI recipe (no ID available)", e);
 		}
 	}
@@ -56,30 +56,31 @@ public class MITEPlugin implements EmiPlugin {
 	private static void addRecipeSafe(EmiRegistry registry, Supplier<EmiRecipe> supplier, IRecipe recipe) {
 		try {
 			registry.addRecipe(supplier.get());
-		}
-		catch (Throwable e) {
+		} catch (Throwable e) {
 			EmiReloadLog.warn("Exception when parsing MITE recipe " + recipe, e);
 		}
 	}
 	
 	public static EmiRecipeCategory category(String id, EmiStack icon) {
-		return new EmiRecipeCategory(new ResourceLocation("mite", id), icon,
-				new EmiTexture(new ResourceLocation("textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16));
+		return new EmiRecipeCategory(new ResourceLocation("MITE", id), icon,
+				new EmiTexture(new ResourceLocation("emi", "textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16));
 	}
 	
 	public static EmiRecipeCategory category(String id, EmiStack icon, Comparator<EmiRecipe> comp) {
-		return new EmiRecipeCategory(new ResourceLocation("mite", id), icon,
-				new EmiTexture(new ResourceLocation("textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16), comp);
+		return new EmiRecipeCategory(new ResourceLocation("MITE", id), icon,
+				new EmiTexture(new ResourceLocation("emi", "textures/simple_icons/" + id + ".png"), 0, 0, 16, 16, 16, 16, 16, 16), comp);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void register(EmiRegistry registry) {
-		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceClayIdle));
-		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceHardenedClayIdle));
-		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceSandstoneIdle));
-		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceObsidianIdle));
-		registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceNetherrackIdle));
+		if (EmiConfig.moreWorkstation) {
+			registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceClayIdle));
+			registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceHardenedClayIdle));
+			registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceSandstoneIdle));
+			registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceObsidianIdle));
+			registry.addWorkstation(SMELTING, EmiStack.of(Block.furnaceNetherrackIdle));
+		}
 
 		registry.addCategory(MITEEmiRecipeCategories.FOOD);
 		registry.addCategory(MITEEmiRecipeCategories.ENCHANT);

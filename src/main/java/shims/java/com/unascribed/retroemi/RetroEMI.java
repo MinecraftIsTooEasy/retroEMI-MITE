@@ -8,8 +8,7 @@ import dev.emi.emi.runtime.EmiLog;
 import dev.emi.emi.screen.EmiScreen;
 import dev.emi.emi.screen.EmiScreenManager;
 import moddedmite.emi.api.EMIGuiContainerCreative;
-import moddedmite.emi.api.EMIItemStack;
-import moddedmite.emi.util.MinecraftServerEMI;
+import moddedmite.emi.util.MinecraftServerHelper;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipBackgroundRenderer;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import shims.java.net.minecraft.client.gui.tooltip.TooltipPositioner;
@@ -18,8 +17,6 @@ import shims.java.net.minecraft.tag.WildcardItemTag;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.*;
-import net.xiaoyu233.fml.api.block.IBlock;
-import net.xiaoyu233.fml.api.item.IItem;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -38,10 +35,9 @@ public class RetroEMI {
 	private static final List<Runnable> tickQueue = new ArrayList<>();
 	
 	private RetroEMI() {
-		if (!MinecraftServerEMI.getIsServer()) {
+		if (!MinecraftServerHelper.isServer()) {
 			itemRenderer = new RenderItem();
-		}
-		else {
+		} else {
 			itemRenderer = null;
 		}
 	}
@@ -91,8 +87,7 @@ public class RetroEMI {
 					li.add(buf.toString());
 					buf.setLength(0);
 					w = 0;
-				}
-				else {
+				} else {
 					if (w != -1) {
 						buf.append(" ");
 					}
@@ -238,8 +233,7 @@ public class RetroEMI {
 							return true;
 						}
 					}
-				}
-				else {
+				} else {
 					if (Mouse.getEventButtonState()) {
 						heldButtons.add(button);
 						if (EmiScreenManager.mouseClicked(mx, my, button)) {
@@ -281,8 +275,7 @@ public class RetroEMI {
 					if (EmiScreenManager.keyPressed(Keyboard.getEventKey() , 0, EmiInput.getCurrentModifiers())) {
 						return true;
 					}
-				}
-				else {
+				} else {
 					//					if (EmiScreenManager.keyReleased(Keyboard.getEventKey(), 0, EmiInput.getCurrentModifiers())) {
 					//						return true;
 					//					}
@@ -299,8 +292,7 @@ public class RetroEMI {
 			EmiIngredient item = EmiIngredient.of(new WildcardItemTag(stack.getItem()));
 			if (item.getEmiStacks().size() == 1) {
 				return item;
-			}
-			else {
+			} else {
 				return EmiIngredient.of(List.of(item), 65); // Stack size of 1
 			}
 		}
@@ -312,8 +304,7 @@ public class RetroEMI {
 			EmiIngredient item = EmiIngredient.of(new WildcardItemTag(stack.getItem()));
 			if (item.getEmiStacks().size() == 1) {
 				return item;
-			}
-			else {
+			} else {
 				return EmiIngredient.of(List.of(item), stack.stackSize + 64);
 			}
 		}

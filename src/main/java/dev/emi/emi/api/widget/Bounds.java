@@ -1,4 +1,4 @@
-package dev.emi.emi.screen;
+package dev.emi.emi.api.widget;
 
 
 public record Bounds(int x, int y, int width, int height) {

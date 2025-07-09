@@ -7,11 +7,11 @@
   "authors": [
     "Emi",
     "unascribed",
+    "Bagel",
     "Xy_Lose"
   ],
   "contributors": [
     "Katherine",
-    "Bagel",
     "limingzxc",
     "Huix"
   ],
@@ -40,6 +40,12 @@
     "loom:injected_interfaces": {
       "net/minecraft/ItemStack": [
         "moddedmite/emi/api/EMIItemStack"
+      ],
+      "net/minecraft/Block": [
+        "moddedmite/emi/api/EMIBlock"
+      ],
+      "net/minecraft/Item": [
+        "moddedmite/emi/api/EMIItem"
       ]
     }
   },
@@ -49,7 +55,8 @@
   "accessWidener": "emi.accesswidener",
   "depends": {
     "minecraft": "1.6.4-mite",
-    "fishmodloader": ">=3.4.0"
+    "fishmodloader": ">=3.4.0",
+    "rusted_iron_core": ">=1.3.5"
   },
   "suggests": {
     "hwite": ">=1.4.7",

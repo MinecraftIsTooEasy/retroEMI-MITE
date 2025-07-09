@@ -20,11 +20,9 @@ public class TagTooltipComponent implements EmiTooltipComponent {
 	public int getStackWidth() {
 		if (stacks.size() < 4) {
 			return stacks.size();
-		}
-		else if (stacks.size() > 16) {
+		} else if (stacks.size() > 16) {
 			return 8;
-		}
-		else {
+		} else {
 			return 4;
 		}
 	}

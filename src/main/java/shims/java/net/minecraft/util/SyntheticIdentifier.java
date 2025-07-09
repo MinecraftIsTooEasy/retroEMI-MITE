@@ -28,18 +28,14 @@ public class SyntheticIdentifier extends ResourceLocation {
 	private static String generateId(Object o) {
 		if (o == null) {
 			return "null:null";
-		}
-		else if (o instanceof ShapedRecipes sr) {
+		} else if (o instanceof ShapedRecipes sr) {
 			return "shaped:/" + ((EMIShapedRecipes)sr).getRecipeWidth() + "x" + ((EMIShapedRecipes)sr).getRecipeHeight() + "/" + describeFlat(((EMIShapedRecipes)sr).getRecipeItems()) + "/" +
 					describe(sr.getRecipeOutput());
-		}
-		else if (o instanceof ShapelessRecipes sr) {
+		} else if (o instanceof ShapelessRecipes sr) {
 			return "shapeless:/" + describeFlat(((EMIShapelessRecipes)sr).getRecipeItems()) + "/" + describe(sr.getRecipeOutput());
-		}
-		else if (o instanceof EmiCraftingRecipe cr) {
+		} else if (o instanceof EmiCraftingRecipe cr) {
 			return "crafting:/" + describeFlat(cr.getInputs()) + "/" + describe(cr.getOutputs());
-		}
-		else if (o instanceof EmiFoodRecipe fr) {
+		} else if (o instanceof EmiFoodRecipe fr) {
 			return "food:/" + describe(fr.getFoodItem());
 		}
 		return "unknown:/" + describe(o);
@@ -60,33 +56,24 @@ public class SyntheticIdentifier extends ResourceLocation {
 	public static String describe(Object o) {
 		if (o == null) {
 			return "null";
-		}
-		else if (o instanceof EmiStack es) {
+		} else if (o instanceof EmiStack es) {
 			return describe(es.getItemStack());
-		}
-		else if (o instanceof EmiIngredient ei) {
+		} else if (o instanceof EmiIngredient ei) {
 			return ei.getEmiStacks().stream().map(SyntheticIdentifier::describe).collect(Collectors.joining("/", "[", "]"));
-		}
-		else if (o instanceof ItemStack is) {
+		} else if (o instanceof ItemStack is) {
 			return is.itemID + "." + is.getItemSubtype() + (is.hasTagCompound() ? StringNbtReader.encode(is.getTagCompound()) : "");
-		}
-		else if (o instanceof Block) {
+		} else if (o instanceof Block) {
 			return describe(new ItemStack((Block) o));
-		}
-		else if (o instanceof String) {
+		} else if (o instanceof String) {
 			return (String) o;
-		}
-		else if (o instanceof List<?> l) {
+		} else if (o instanceof List<?> l) {
 			return l.stream().map(SyntheticIdentifier::describe).collect(Collectors.joining("/", "[", "]"));
-		}
-		else if (o instanceof Object[]) {
+		} else if (o instanceof Object[]) {
 			Object[] arr = (Object[]) o;
 			return Arrays.stream(arr).map(SyntheticIdentifier::describe).collect(Collectors.joining("/", "[", "]"));
-		}
-		else if (o instanceof Prototype p) {
+		} else if (o instanceof Prototype p) {
 			return p.item() == null ? "0.0" : p.item().itemID + "." + p.meta();
-		}
-		else {
+		} else {
 			return o.getClass().getSimpleName() + "@" + Integer.toHexString(System.identityHashCode(o));
 		}
 	}

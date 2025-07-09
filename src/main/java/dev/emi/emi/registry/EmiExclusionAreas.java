@@ -3,7 +3,7 @@ package dev.emi.emi.registry;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import dev.emi.emi.runtime.EmiLog;
-import dev.emi.emi.screen.Bounds;
+import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.screen.EmiScreen;
 import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.api.EmiExclusionArea;
