@@ -8,6 +8,7 @@ import dev.emi.emi.config.EmiConfig;
 import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.runtime.EmiDrawContext;
 import huix.glacier.api.extension.creativetab.GlacierCreativeTabs;
+import moddedmite.rustedironcore.api.interfaces.IPotion;
 import net.minecraft.*;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import org.lwjgl.input.Mouse;
@@ -315,6 +316,7 @@ public abstract class InventoryEffectRendererMixin extends GuiContainer {
                 GL11.glPushMatrix();
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 GL11.glDisable(GL11.GL_LIGHTING);
+                this.drawMITEEffectTooltip(mouseX, mouseY, wide);
             }
             if (this.mc.thePlayer.isMalnourished()) {
                 this.mc.getTextureManager().bindTexture(field_110408_a);
@@ -434,16 +436,10 @@ public abstract class InventoryEffectRendererMixin extends GuiContainer {
             int statusIconIndex = potionType.getStatusIconIndex();
             this.drawTexturedModalRect(x + 6, y + 7, statusIconIndex % 8 * 18, 198 + statusIconIndex / 8 * 18, 18, 18);
         }
-//        if (EmiAgnos.isModLoaded("rusted_iron_core")) {
-//            try {
-                if (((moddedmite.rustedironcore.api.interfaces.IPotion) potionType).ric$UsesIndividualTexture()) {
-                    this.mc.getTextureManager().bindTexture(((moddedmite.rustedironcore.api.interfaces.IPotion) potionType).ric$GetTexture());
-                    this.drawTexturedModalRect2(x + 6, y + 7, 18, 18);
-                }
-//            } catch (Exception e) {
-//                EmiLog.error(e.getMessage(), e);
-//            }
-//        }
+        if (((IPotion) potionType).ric$UsesIndividualTexture()) {
+            this.mc.getTextureManager().bindTexture(((IPotion) potionType).ric$GetTexture());
+            this.drawTexturedModalRect2(x + 6, y + 7, 18, 18);
+        }
     }
 
     @Unique

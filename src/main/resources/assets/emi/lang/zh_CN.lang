@@ -465,9 +465,9 @@ emi.category.minecraft.smithing=锻造
 emi.category.emi.grinding=磨刀
 emi.category.emi.composting=堆肥
 
-emi.category.mite.trading=交易
-emi.category.mite.food=食物
-emi.category.mite.enchant=附魔
+emi.category.MITE.trading=交易
+emi.category.MITE.food=食物
+emi.category.MITE.enchant=附魔
 
 alias.emi.workbench=工作台
 alias.emi.crafting_table=工作台

@@ -986,6 +986,10 @@
   "config.emi.tooltip.addon.more_workstation": "在工作站区域显示更多不同等级的工作站\n需重启游戏",
   "config.emi.group.addon": "附属",
 
+  "emi.category.MITE.trading": "交易",
+  "emi.category.MITE.food": "食物",
+  "emi.category.MITE.enchant": "附魔",
+
   "emi.fuel_time.items": "烧炼 %s",
   "emi.fuel_heat.items": "热值 %s 级",
   "emi.craft_difficult.items": "%s 难度",

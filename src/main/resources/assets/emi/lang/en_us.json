@@ -880,6 +880,10 @@
   "config.emi.addon.more_workstation": "Show more Workstation",
   "config.emi.group.addon": "Addon",
 
+  "emi.category.MITE.trading": "Trading",
+  "emi.category.MITE.food": "Food",
+  "emi.category.MITE.enchant": "Enchant",
+
   "emi.fuel_number.items": "Burns for %s items",
   "emi.fuel_heat.items": "Heat level %s",
   "emi.craft_difficult.items": "%s Difficulty",

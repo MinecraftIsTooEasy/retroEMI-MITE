@@ -355,9 +355,9 @@ emi.category.minecraft.smithing=Smithing
 emi.category.emi.grinding=Grinding
 emi.category.emi.composting=Composting
 
-emi.category.mite.food=Foods
-emi.category.mite.trading=Trading
-emi.category.mite.enchant=Enchant
+emi.category.MITE.food=Foods
+emi.category.MITE.trading=Trading
+emi.category.MITE.enchant=Enchant
 
 alias.emi.workbench=Workbench
 alias.emi.crafting_table=Crafting Table

@@ -138,8 +138,10 @@ public class EmiRecipes {
 				}
 			}
 
-			for (ResourceLocation id : duplicateIds.keySet()) {
-				EmiReloadLog.warn(duplicateIds.getInt(id) + " recipes loaded with the same id: " + id);
+			if (EmiConfig.devMode) {
+				for (ResourceLocation id : duplicateIds.keySet()) {
+					EmiReloadLog.warn(duplicateIds.getInt(id) + " recipes loaded with the same id: " + id);
+				}
 			}
 
 			for (EmiRecipeCategory category : byCategory.keySet()) {
