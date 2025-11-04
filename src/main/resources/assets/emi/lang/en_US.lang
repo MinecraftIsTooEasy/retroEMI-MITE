@@ -107,6 +107,7 @@ config.emi.group.binds.cheats=Cheats
 config.emi.general.enabled=Enabled
 config.emi.general.cheat_mode=Cheat Mode
 config.emi.general.help_level=Help Level
+config.emi.general.index_source=Index Source
 config.emi.general.search_sidebar=Search Sidebar
 config.emi.general.search_tooltip_by_default=Search Tooltip by Default
 config.emi.general.search_mod_name_by_default=Search Mod Name by Default
@@ -546,8 +547,7 @@ enchanted_book.info.enchantment.butchering=Slaughter\nUncommon level, 10Enchantm
 enchanted_book.info.enchantment.endurance=Stamina\nUncommon level, 10Enchantment difficulty\nReduces hunger speed by 20% per level when destroying, placing blocks, attacking, throwing, farming, and drawing bows. The highest level IV can be used on the breastplate
 
 # Addon
-config.emi.addon.lower_opacity=Lower Opacity ?
-config.emi.addon.mite_craft_info=Show MITE Craft Info
+config.emi.addon.lower_opacity=Lower Opacity
 config.emi.addon.more_workstation=Show more Workstation
 config.emi.group.addon=Addon
 
