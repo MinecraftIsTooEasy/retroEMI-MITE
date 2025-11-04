@@ -1,6 +1,8 @@
 package moddedmite.emi;
 
+import dev.emi.emi.EmiRenderHelper;
 import dev.emi.emi.config.EmiConfig;
+import moddedmite.emi.recipe.EmiCompostingRecipe;
 import moddedmite.emi.recipe.EmiEnchantRecipe;
 import moddedmite.emi.recipe.EmiFoodRecipe;
 import dev.emi.emi.runtime.EmiReloadLog;
@@ -27,13 +29,13 @@ import static dev.emi.emi.api.recipe.VanillaEmiRecipeCategories.SMELTING;
 
 @EmiEntrypoint
 public class MITEPlugin implements EmiPlugin {
-
-	public static final ResourceLocation WIDGETS = new ResourceLocation("textures/recipe/widgets.png");
-	public static final EmiTexture SMALL_PLUS = new EmiTexture(WIDGETS, 36, 0, 7, 7);
+	public static final EmiTexture SMALL_PLUS = new EmiTexture(EmiRenderHelper.WIDGETS, 111, 0, 7, 7);
 
 	static {
 		MITEEmiRecipeCategories.ENCHANT = category("enchant", EmiStack.of(Block.enchantmentTable));
 		MITEEmiRecipeCategories.FOOD = category("food", EmiStack.of(Item.carrot), Comparator.comparingInt(a -> ((EmiFoodRecipe) a).getHunger()));
+		MITEEmiRecipeCategories.COMPOSTING = category("composting", EmiStack.of(Item.wormRaw),
+				Comparator.comparingDouble(value -> ((EmiCompostingRecipe) value).compostValue));
 //		Comparator<EmiRecipe> tradeComparitor = Comparator.comparingInt(a -> ((EmiTradeRecipe) a).professionId); //Silly generics, tricks are for kids
 //		MITEEmiRecipeCategories.TRADING = category("trading", EmiStack.of(Item.emerald), tradeComparitor.thenComparingInt(a -> {
 //			int level = ((EmiTradeRecipe) a).tradeLevel;
@@ -84,12 +86,32 @@ public class MITEPlugin implements EmiPlugin {
 
 		registry.addCategory(MITEEmiRecipeCategories.FOOD);
 		registry.addCategory(MITEEmiRecipeCategories.ENCHANT);
+		registry.addCategory(MITEEmiRecipeCategories.COMPOSTING);
 //		registry.addCategory(MITEEmiRecipeCategories.TRADING);
 
-//		//Foods
+		// Foods and compost
 		for (Item it : Item.itemsList) { // There must be a better way to do this than iterating the registry... right?
-			if (it != null && (it.getNutrition() > 0 || it.getSatiation(null) > 0)) {
+			// Null check
+			if (it == null) {
+				continue;
+			}
+
+			// Food
+			if (it.getNutrition() > 0 || it.getSatiation(null) > 0) {
 				addRecipeSafe(registry, () -> new EmiFoodRecipe(new ItemStack(it)));
+			}
+
+			// Compost
+			if (it.getCompostingValue() > 0F) {
+				ItemStack recipeStack;
+
+				// Handle recipe stack
+				if (it.getHasSubtypes())
+					recipeStack = new ItemStack(it, 1, Short.MAX_VALUE);
+				else
+					recipeStack = new ItemStack(it);
+
+				addRecipeSafe(registry, () -> new EmiCompostingRecipe(recipeStack));
 			}
 		}
 

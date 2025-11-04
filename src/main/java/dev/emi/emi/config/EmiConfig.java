@@ -461,11 +461,6 @@ public class EmiConfig {
 	@ConfigValue("addon.lower_opacity")
 	public static boolean lowerOpacity = false;
 
-	//MITE
-	@Comment("Show craft difficult and craft time.")
-	@ConfigValue("addon.mite-craft-info")
-	public static boolean MITECraftInfo = false;
-
 	@Comment("Show more workstations of different grades in workstation area.(Restart the game is required)")
 	@ConfigValue("addon.more-workstation")
 	public static boolean moreWorkstation = false;

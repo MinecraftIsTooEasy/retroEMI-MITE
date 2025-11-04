@@ -28,6 +28,7 @@ import net.xiaoyu233.fml.FishModLoader;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,9 +57,18 @@ public class EmiAgnosFish extends EmiAgnos {
 
 	@Override
 	protected String getModNameAgnos(String namespace) {
+		// Overrides
 		if (namespace.equals("c")) {
 			return "Common";
 		}
+		if (namespace.toLowerCase(Locale.ROOT).equals("minecraft")) {
+			return "Minecraft";
+		}
+		if (namespace.toLowerCase(Locale.ROOT).equals("mite")) {
+			return "MiTE";
+		}
+
+		// Default functionality
 		Optional<ModContainer> container = FishModLoader.getModContainer(namespace);
 		if (container.isPresent()) {
 			return container.get().getMetadata().getName();

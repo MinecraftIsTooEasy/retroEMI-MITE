@@ -1,15 +1,12 @@
 package dev.emi.emi.runtime;
 
 import dev.emi.emi.api.stack.EmiIngredient;
+import net.minecraft.*;
 import shims.java.com.mojang.blaze3d.systems.RenderSystem;
 import shims.java.net.minecraft.client.gui.DrawContext;
 import shims.java.net.minecraft.client.util.math.MatrixStack;
 import shims.java.net.minecraft.text.OrderedText;
 import shims.java.net.minecraft.text.Text;
-import net.minecraft.Gui;
-import net.minecraft.Minecraft;
-import net.minecraft.ResourceLocation;
-import net.minecraft.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -127,10 +124,12 @@ public class EmiDrawContext {
 	}
 
 	public void drawText(Text text, int x, int y, int color) {
+		RenderHelper.disableStandardItemLighting();
 		client.fontRenderer.drawString(text.asString(), x, y, color);
 	}
 
 	public void drawText(OrderedText text, int x, int y, int color) {
+		RenderHelper.disableStandardItemLighting();
 		client.fontRenderer.drawString(text.asString(), x, y, color);
 	}
 
@@ -139,10 +138,12 @@ public class EmiDrawContext {
 	}
 
 	public void drawTextWithShadow(Text text, int x, int y, int color) {
+		RenderHelper.disableStandardItemLighting();
 		client.fontRenderer.drawStringWithShadow(text.asString(), x, y, color);
 	}
 
 	public void drawTextWithShadow(OrderedText text, int x, int y, int color) {
+		RenderHelper.disableStandardItemLighting();
 		client.fontRenderer.drawStringWithShadow(text.asString(), x, y, color);
 	}
 
@@ -151,6 +152,7 @@ public class EmiDrawContext {
 	}
 
 	public void drawCenteredText(Text text, int x, int y, int color) {
+		RenderHelper.disableStandardItemLighting();
 		client.fontRenderer.drawString(text.asString(), x - client.fontRenderer.getStringWidth(text.asString()) / 2, y, color);
 	}
 
@@ -159,6 +161,7 @@ public class EmiDrawContext {
 	}
 
 	public void drawCenteredTextWithShadow(Text text, int x, int y, int color) {
+		RenderHelper.disableStandardItemLighting();
 		client.fontRenderer.drawStringWithShadow(text.asString(), x - client.fontRenderer.getStringWidth(text.asString()) / 2, y, color);
 	}
 

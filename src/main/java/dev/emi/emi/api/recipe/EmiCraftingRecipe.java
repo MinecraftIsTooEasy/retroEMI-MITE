@@ -1,6 +1,7 @@
 package dev.emi.emi.api.recipe;
 
 import dev.emi.emi.EmiPort;
+import dev.emi.emi.api.widget.FillingArrowWidget;
 import dev.emi.emi.config.EmiConfig;
 import dev.emi.emi.screen.tooltip.EmiSecondaryOutputComponent;
 import moddedmite.emi.MITEPlugin;
@@ -8,17 +9,21 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.Block;
-import net.minecraft.Material;
+import net.minecraft.*;
+import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import shims.java.com.unascribed.retroemi.ItemStacks;
-import net.minecraft.ItemStack;
-import net.minecraft.ResourceLocation;
+import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import shims.java.net.minecraft.text.MutableText;
+import shims.java.net.minecraft.text.Style;
+import shims.java.net.minecraft.text.Text;
+import shims.java.net.minecraft.util.Formatting;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmiCraftingRecipe implements EmiRecipe {
 	protected final ResourceLocation id;
@@ -91,7 +96,34 @@ public class EmiCraftingRecipe implements EmiRecipe {
 	
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		widgets.addTexture(EmiTexture.EMPTY_ARROW, 60, 18);
+		List<TooltipComponent> components = new ArrayList<>();
+
+		// Get crafting duration
+		int crafting_period = Minecraft.getMinecraft()
+				.thePlayer
+				.getCraftingPeriod(crafting_difficulty);
+		String duration = DurationFormatUtils.formatDuration(crafting_period * 50L, "m:ss", true);
+		components.add(TooltipComponent.of(EmiPort.translatable("emi.craft_time.items", duration)));
+
+		// Get crafting level
+		Material level = this.getCraftLevel();
+
+		if (level != null && level != Material.air) {
+			if (level == Material.wood)
+				level = Material.flint;
+
+			MutableText text = EmiPort.literal(level.getCapitalizedName());
+			String translated = EmiPort.translatable("emi.craft_level.items", text).asString();
+			String[] set = WordUtils.wrap(translated, 24).split("\n");
+			components.addAll(Arrays.stream(set).map(s -> Formatting.GOLD + s).map(EmiPort::literal).map(TooltipComponent::of).toList());
+		} else {
+			components.add(TooltipComponent.of(Text.translatable("emi.craft_level.none.items")));
+		}
+
+		// Add arrow
+		widgets.addFillingArrow(60, 18, crafting_period * 50)
+				.tooltip(components);
+
 		if (shapeless) {
 			widgets.addTexture(EmiTexture.SHAPELESS, 97, 0);
 		}
@@ -116,15 +148,5 @@ public class EmiCraftingRecipe implements EmiRecipe {
 			widgets.addTexture(MITEPlugin.SMALL_PLUS, 84, 23).tooltip(List.of(new EmiSecondaryOutputComponent(secondaryOutputs)));
 		}
 		widgets.addSlot(output, 92, 14).large(true).recipeContext(this);
-
-		if (EmiConfig.MITECraftInfo) {
-			DecimalFormat decimalFormat = new DecimalFormat("#.#");
-			float crafting_time = (float) ((Math.pow((crafting_difficulty - 100), 0.74) + 100) / 20);
-			widgets.addText(EmiPort.translatable("emi.craft_difficult.items", String.format("%s", decimalFormat.format(crafting_difficulty))), 55, 45, -1, true);
-			widgets.addText(EmiPort.translatable("emi.craft_time.items", String.format("%s", decimalFormat.format(crafting_time))), 55, 35, -1, true);
-			if (!Block.workbench.isValidMetadata(2) || this.getCraftLevel() == null || this.getCraftLevel() == Material.air || this.getCraftLevel() == Material.rusted_iron || this.getCraftLevel() == Material.wood) return;
-			MutableText materialName = EmiPort.literal(this.getCraftLevel().getLocalizedName());
-			widgets.addText(EmiPort.translatable("emi.craft_level.items", materialName), 55, 0, -1, true);
-		}
 	}
 }

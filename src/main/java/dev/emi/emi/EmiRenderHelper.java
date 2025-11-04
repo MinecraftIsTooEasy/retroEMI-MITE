@@ -260,6 +260,7 @@ public class EmiRenderHelper {
 	public static void renderTag(EmiIngredient ingredient, EmiDrawContext context, int x, int y) {
 		if (ingredient.getEmiStacks().size() > 1) {
 			glEnable(GL_DEPTH_TEST);
+			glColor4f(1F, 1F, 1F, 1F);
 			context.push();
 			context.matrices().translate(0, 0, 200);
 			context.drawTexture(WIDGETS, x, y + 12, 0, 252, 4, 4);

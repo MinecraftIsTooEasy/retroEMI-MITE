@@ -8,11 +8,11 @@ public class ModIdentifier {
     public static String getMod(ItemStack itemStack) {
         int id = itemStack.itemID;
         if (itemStack.isBlock()) {
-            if (isMITEBlock(id)) return "§9§oMITE";
+            if (isMITEBlock(id)) return "§9§oMiTE";
             else if (isMinecraftBlock(id)) return "§9§oMinecraft";
             return (((IBlock) itemStack.getItemAsBlock().getBlock())).getNamespace();
         } else {
-            if (isMITEItem(id)) return "§9§oMITE";
+            if (isMITEItem(id)) return "§9§oMiTE";
             else if (isMinecraftItem(id)) return "§9§oMinecraft";
             return ((IItem) itemStack.getItem()).getNamespace();
         }
