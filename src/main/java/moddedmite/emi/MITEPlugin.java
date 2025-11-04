@@ -33,7 +33,7 @@ public class MITEPlugin implements EmiPlugin {
 
 	static {
 		MITEEmiRecipeCategories.ENCHANT = category("enchant", EmiStack.of(Block.enchantmentTable));
-		MITEEmiRecipeCategories.FOOD = category("food", EmiStack.of(Item.carrot), Comparator.comparingInt(a -> ((EmiFoodRecipe) a).getHunger()));
+		MITEEmiRecipeCategories.FOOD = category("food", EmiStack.of(Item.carrot), Comparator.comparingInt(a -> ((EmiFoodRecipe) a).getNutrition()));
 		MITEEmiRecipeCategories.COMPOSTING = category("composting", EmiStack.of(Item.wormRaw),
 				Comparator.comparingDouble(value -> ((EmiCompostingRecipe) value).compostValue));
 //		Comparator<EmiRecipe> tradeComparitor = Comparator.comparingInt(a -> ((EmiTradeRecipe) a).professionId); //Silly generics, tricks are for kids

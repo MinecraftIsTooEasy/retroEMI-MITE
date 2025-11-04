@@ -2,10 +2,14 @@ package moddedmite.emi.recipe;
 
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.widget.SlotWidget;
+import dev.emi.emi.runtime.EmiLog;
 import moddedmite.emi.api.recipe.MITEEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
+import shims.java.net.minecraft.text.Text;
 import shims.java.net.minecraft.util.SyntheticIdentifier;
 import net.minecraft.Item;
 import net.minecraft.ItemStack;
@@ -13,17 +17,15 @@ import net.minecraft.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 
 public class EmiFoodRecipe implements EmiRecipe {
-	private ResourceLocation VANILLA = new ResourceLocation("textures/gui/icons.png");
-	private ResourceLocation TEXTURE = new ResourceLocation("emi", "textures/gui/icons_food.png");
-	private ResourceLocation BEEF = new ResourceLocation("textures/items/beef_cooked.png");
-	private ResourceLocation CARROT = new ResourceLocation("textures/items/carrot.png");
-	private ResourceLocation SUGAR = new ResourceLocation("textures/items/sugar.png");
+	private final ResourceLocation VANILLA = new ResourceLocation("textures/gui/icons.png");
+	private final ResourceLocation TEXTURE = new ResourceLocation("emi", "textures/gui/icons_food.png");
 
 	private int y = 5;
-	private final int hunger;
-	private final int saturationModifier;
+	private final int nutrition;
+	private final int saturation;
 	private final int phytonutrients;
 	private final int protein;
 	private final int sugar;
@@ -31,11 +33,11 @@ public class EmiFoodRecipe implements EmiRecipe {
 	
 	public EmiFoodRecipe(ItemStack foodStack) {
 		Item food = foodStack.getItem();
-		this.hunger = food.getNutrition();
-		this.saturationModifier = food.getSatiation(null); //unsure how to implement
+		this.nutrition = food.getNutrition();
+		this.saturation = food.getSatiation(null); //unsure how to implement
 		this.phytonutrients = food.getPhytonutrients() / 8000;
 		this.protein = food.getProtein() / 8000;
-		this.sugar = food.getSugarContent() / 8000;
+		this.sugar = food.getSugarContent() / 1000;
 
 		this.foodItem = EmiStack.of(foodStack);
 	}
@@ -74,94 +76,90 @@ public class EmiFoodRecipe implements EmiRecipe {
 	public int getDisplayWidth() {
 		return 120;
 	}
-	
+
 	@Override
 	public int getDisplayHeight() {
-		return 58;
+		int rowHeight = 10;
+		int padding = 8;
+		return Math.max(10, getVisibleRowCount() * rowHeight + padding);
 	}
 	
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		int i;
+		drawFoodValueBar(widgets, nutrition, 16, 52, 61, 27, true);
+		drawFoodValueBar(widgets, saturation, 34, 43, 52, 18, false);
+		drawFoodValueBar(widgets, phytonutrients, 61, 70, 79, 18, false);
+		drawFoodValueBar(widgets, protein, 88, 97, 106, 18, false);
 
-		for (i = 0; i < hunger / 2; i++) {
-			widgets.addTexture(VANILLA, (10 * i) + 25, y, 9, 9, 16, 27);
-			if (!(i - 1 == hunger / 2)) {
-				widgets.addTexture(VANILLA, (10 * i) + 25, y, 9, 9, 52, 27);
-			}
+		for (int i = 0; i < sugar; i++) {
+			int x = (10 * i) + 25;
+			widgets.addTexture(TEXTURE, x, y, 9, 9, 115, 18);
+			widgets.addTexture(TEXTURE, x, y, 9, 9, 124, 18);
 		}
-		if (hunger % 2 != 0) {
-            int haunchUCoord = 61;
-			int haunchXCoord = (10 * i) + 25;
-			widgets.addTexture(VANILLA, haunchXCoord, y, 9, 9, 16, 27);
-			widgets.addTexture(VANILLA, haunchXCoord, y, 9, 9, haunchUCoord, 27);
-		}
-		checkY(hunger);
-
-		for (i = 0; i < saturationModifier / 2; i++) {
-			widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 34, 18);
-			if (!(i - 1 == saturationModifier / 2)) {
-				widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 43, 18);
-			}
-		}
-		if (saturationModifier % 2 != 0) {
-            int haunchUCoord = 52;
-			int haunchXCoord = (10 * i) + 25;
-			widgets.addTexture(TEXTURE, haunchXCoord, y, 9, 9, 34, 18);
-			widgets.addTexture(TEXTURE, haunchXCoord, y, 9, 9, haunchUCoord , 27 - 9);
-		}
-		checkY(saturationModifier);
-
-		for (i = 0; i < phytonutrients / 2; i++) {
-			widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 61, 18);
-			if (!(i - 1 == phytonutrients / 2)) {
-				widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 70, 18);
-			}
-		}
-		if (phytonutrients % 2 != 0) {
-			int haunchUCoord = 79;
-			int haunchXCoord = (10 * i) + 25;
-			widgets.addTexture(TEXTURE, haunchXCoord, y, 9, 9, 61, 18);
-			widgets.addTexture(TEXTURE, haunchXCoord, y, 9, 9, haunchUCoord , 27 - 9);
-		}
-		checkY(phytonutrients);
-
-		for (i = 0; i < protein / 2; i++) {
-			widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 88, 18);
-			if (!(i - 1 == protein / 2)) {
-				widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 97, 18);
-			}
-		}
-		if (protein % 2 != 0) {
-			int haunchUCoord = 106;
-			int haunchXCoord = (10 * i) + 25;
-			widgets.addTexture(TEXTURE, haunchXCoord, y, 9, 9, 88, 18);
-			widgets.addTexture(TEXTURE, haunchXCoord, y, 9, 9, haunchUCoord , 27 - 9);
-		}
-		checkY(protein);
-
-		for (i = 0; i < sugar; i++) {
-			widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 115, 18);
-			widgets.addTexture(TEXTURE, (10 * i) + 25, y, 9, 9, 124, 18);
-		}
-
 		checkY(sugar);
-
 		this.y = 5;
-		widgets.addSlot(foodItem, 0, 0).recipeContext(this);
+
+		Map<String, Integer> foodInfo = Map.of(
+				"emi.nutrition.items", nutrition,
+				"emi.saturation.items", saturation,
+				"emi.phytonutrients.items", phytonutrients * 8000,
+				"emi.protein.items", protein * 8000,
+				"emi.sugar.items", sugar * 1000
+		);
+
+		SlotWidget slot = widgets.addSlot(foodItem, 2, this.getDisplayHeight() / 2 - 8).recipeContext(this);
+		foodInfo.entrySet().stream().filter(entry -> entry.getValue() > 0)
+				.forEach(entry -> slot.appendTooltip(() ->
+						TooltipComponent.of(Text.translatable(entry.getKey(), entry.getValue()))));
 	}
 	
-	public int getHunger() {
-		return hunger;
+	public int getNutrition() {
+		return nutrition;
 	}
 	
 	public EmiStack getFoodItem() {
 		return foodItem;
 	}
 
-	public void checkY(int value) {
+	private void checkY(int value) {
 		if (value > 0) {
 			this.y += 10;
 		}
+	}
+
+	private int getVisibleRowCount() {
+		int rows = 0;
+		if (nutrition > 0) rows++;
+		if (saturation > 0) rows++;
+		if (phytonutrients > 0) rows++;
+		if (protein > 0) rows++;
+		if (sugar > 0) rows++;
+		return rows;
+	}
+
+	private void drawFoodValueBar(WidgetHolder widgets, int amount, int fullU1, int fullU2, int halfU, int v, boolean useVanilla) {
+		for (int i = 0; i < amount / 2; i++) {
+			int x = (10 * i) + 25;
+			if (useVanilla) {
+				widgets.addTexture(VANILLA, x, y, 9, 9, fullU1, v);
+				widgets.addTexture(VANILLA, x, y, 9, 9, fullU2, v);
+			} else {
+				widgets.addTexture(TEXTURE, x, y, 9, 9, fullU1, v);
+				widgets.addTexture(TEXTURE, x, y, 9, 9, fullU2, v);
+			}
+		}
+
+		if (amount % 2 != 0) {
+			int x = (10 * (amount / 2)) + 25;
+			if (useVanilla) {
+				widgets.addTexture(VANILLA, x, y, 9, 9, fullU1, v);
+				widgets.addTexture(VANILLA, x, y, 9, 9, halfU, v);
+			} else {
+				widgets.addTexture(TEXTURE, x, y, 9, 9, fullU1, v);
+				widgets.addTexture(TEXTURE, x, y, 9, 9, halfU, v);
+			}
+		}
+
+		checkY(amount);
 	}
 }

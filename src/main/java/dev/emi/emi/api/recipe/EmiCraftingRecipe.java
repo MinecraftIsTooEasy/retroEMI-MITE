@@ -112,9 +112,9 @@ public class EmiCraftingRecipe implements EmiRecipe {
 			if (level == Material.wood)
 				level = Material.flint;
 
-			MutableText text = EmiPort.literal(level.getCapitalizedName());
+			MutableText text = EmiPort.literal(level.getLocalizedName());
 			String translated = EmiPort.translatable("emi.craft_level.items", text).asString();
-			String[] set = WordUtils.wrap(translated, 24).split("\n");
+			String[] set = WordUtils.wrap(translated, 24).split("\\r?\\n");
 			components.addAll(Arrays.stream(set).map(s -> Formatting.GOLD + s).map(EmiPort::literal).map(TooltipComponent::of).toList());
 		} else {
 			components.add(TooltipComponent.of(Text.translatable("emi.craft_level.none.items")));

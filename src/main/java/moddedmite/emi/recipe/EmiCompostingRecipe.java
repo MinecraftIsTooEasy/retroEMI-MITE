@@ -69,7 +69,8 @@ public class EmiCompostingRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, 28, 4);
+        widgets.addTexture(EmiTexture.EMPTY_ARROW, 28, 4)
+                .tooltip(List.of(TooltipComponent.of(EmiPort.translatable("emi.compost_value.items", (int) (this.compostValue * 100)))));
 
         int arrowX = EmiTexture.FULL_ARROW.width;
         arrowX = (int) Math.min(arrowX * this.compostValue, arrowX);
@@ -77,8 +78,7 @@ public class EmiCompostingRecipe implements EmiRecipe {
         int uU = EmiTexture.FULL_ARROW.u;
         int uV = EmiTexture.FULL_ARROW.v;
 
-        widgets.addTexture(EmiRenderHelper.WIDGETS, 28, 4, arrowX, arrowY, uU, uV)
-                .tooltip(List.of(TooltipComponent.of(EmiPort.translatable("emi.compost_value.items", (int) (this.compostValue * 100)))));
+        widgets.addTexture(EmiRenderHelper.WIDGETS, 28, 4, arrowX, arrowY, uU, uV);
         widgets.addSlot(input, 2, 3);
         widgets.addSlot(EmiStack.of(Item.manure)
                 .setAmount(Math.max((long) Math.floor(compostValue), 1)), 62, 3);

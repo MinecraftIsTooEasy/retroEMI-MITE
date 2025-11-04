@@ -10,6 +10,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
+import shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import shims.java.net.minecraft.util.SyntheticIdentifier;
 
 import java.util.List;
@@ -47,23 +48,19 @@ public class EmiEnchantRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 72;
+        return 82;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 32;
+        return 24;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        int r = 184 - (int) (120.0F);
-        int g = 226 - (int) (66.0F);
-        int b = 3 + (int) (29.0F);
-        int color = (r << 16) + (g << 8) + b;
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, 25, 12);
-        widgets.addText(EmiPort.translatable("emi.exp_cost.items", String.format("%1d", experienceCost)), 25, 2, color, true);
-        widgets.addSlot(enchantItem, 0, 12);
-        widgets.addSlot(enchantedItem, 54, 12);
+        widgets.addTexture(EmiTexture.EMPTY_ARROW, 28, 4)
+                .tooltip(List.of(TooltipComponent.of(EmiPort.translatable("emi.exp_cost.items", String.format("%1d", experienceCost)))));
+        widgets.addSlot(enchantItem, 2, 3);
+        widgets.addSlot(enchantedItem, 62, 3);
     }
 }
