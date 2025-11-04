@@ -358,6 +358,7 @@ emi.category.emi.composting=Composting
 emi.category.MITE.food=Foods
 emi.category.MITE.trading=Trading
 emi.category.MITE.enchant=Enchant
+emi.category.MITE.composting=Composting
 
 alias.emi.workbench=Workbench
 alias.emi.crafting_table=Crafting Table
@@ -557,3 +558,4 @@ emi.craft_time.items=Time per craft: %s
 emi.exp_cost.items=%s XP
 emi.craft_level.items=Requires %s Workbench or greater
 emi.craft_level.none.items=Can be crafted anywhere
+emi.compost_value.items=Compost value: %s%%
