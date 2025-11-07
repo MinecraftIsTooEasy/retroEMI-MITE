@@ -16,19 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Item.class)
 public class ItemMixin implements EMIItem {
-    @Unique
-    protected int defaultFurnaceBurnTime = 0;
-
-    @Override
-    public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-        return false;
-    }
-
-    @Override
-    public int getFurnaceBurnTime(int iItemDamage) {
-        return defaultFurnaceBurnTime;
-    }
-
     @Override
     public Item hideFromEMI() {
         if (FishModLoader.getEnvironmentType().equals(EnvType.CLIENT)) {
@@ -37,16 +24,5 @@ public class ItemMixin implements EMIItem {
             }
         }
         return ReflectHelper.dyCast(this);
-    }
-
-
-    @Inject(method = "<clinit>", at = @At(value = "TAIL"))
-    private static void addToCreativeTab(CallbackInfo ci) {
-        ((EMIItem) Item.fragsCreeper).hideFromEMI();
-        ((EMIItem) Item.fragsInfernalCreeper).hideFromEMI();
-        ((EMIItem) Item.referencedBook).hideFromEMI();
-        ((EMIItem) Item.fragsNetherspawn).hideFromEMI();
-        ((EMIItem) Item.thrownWeb).hideFromEMI();
-        ((EMIItem) Item.genericFood).hideFromEMI();
     }
 }

@@ -86,10 +86,10 @@ public class EmiFoodRecipe implements EmiRecipe {
 	
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		drawFoodValueBar(widgets, nutrition, 16, 52, 61, 27, true);
-		drawFoodValueBar(widgets, saturation, 34, 43, 52, 18, false);
-		drawFoodValueBar(widgets, phytonutrients, 61, 70, 79, 18, false);
-		drawFoodValueBar(widgets, protein, 88, 97, 106, 18, false);
+		drawFoodValueBar(widgets, nutrition, 16, 52, 61, 27, VANILLA);
+		drawFoodValueBar(widgets, saturation, 34, 43, 52, 18, TEXTURE);
+		drawFoodValueBar(widgets, phytonutrients, 61, 70, 79, 18, TEXTURE);
+		drawFoodValueBar(widgets, protein, 88, 97, 106, 18, TEXTURE);
 
 		for (int i = 0; i < sugar; i++) {
 			int x = (10 * i) + 25;
@@ -137,27 +137,17 @@ public class EmiFoodRecipe implements EmiRecipe {
 		return rows;
 	}
 
-	private void drawFoodValueBar(WidgetHolder widgets, int amount, int fullU1, int fullU2, int halfU, int v, boolean useVanilla) {
+	private void drawFoodValueBar(WidgetHolder widgets, int amount, int bgU, int fullU, int halfU, int v, ResourceLocation texture) {
 		for (int i = 0; i < amount / 2; i++) {
 			int x = (10 * i) + 25;
-			if (useVanilla) {
-				widgets.addTexture(VANILLA, x, y, 9, 9, fullU1, v);
-				widgets.addTexture(VANILLA, x, y, 9, 9, fullU2, v);
-			} else {
-				widgets.addTexture(TEXTURE, x, y, 9, 9, fullU1, v);
-				widgets.addTexture(TEXTURE, x, y, 9, 9, fullU2, v);
-			}
+			widgets.addTexture(texture, x, y, 9, 9, bgU, v);
+			widgets.addTexture(texture, x, y, 9, 9, fullU, v);
 		}
 
 		if (amount % 2 != 0) {
 			int x = (10 * (amount / 2)) + 25;
-			if (useVanilla) {
-				widgets.addTexture(VANILLA, x, y, 9, 9, fullU1, v);
-				widgets.addTexture(VANILLA, x, y, 9, 9, halfU, v);
-			} else {
-				widgets.addTexture(TEXTURE, x, y, 9, 9, fullU1, v);
-				widgets.addTexture(TEXTURE, x, y, 9, 9, halfU, v);
-			}
+			widgets.addTexture(texture, x, y, 9, 9, bgU, v);
+			widgets.addTexture(texture, x, y, 9, 9, halfU, v);
 		}
 
 		checkY(amount);

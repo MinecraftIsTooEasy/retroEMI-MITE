@@ -7,8 +7,11 @@ public interface EMIItemStack {
     default boolean isItemEqual(ItemStack par1ItemStack) {
         return false;
     }
+
+    @Deprecated(since = "1.1.24")
     default Item hideFromEMI() {
         return null;
     }
-    default public void setEnchanted() {}
+
+    default void setEnchanted() {}
 }

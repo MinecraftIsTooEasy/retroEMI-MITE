@@ -15,16 +15,14 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import moddedmite.emi.api.recipe.MITEEmiRecipeCategories;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiStack;
-import moddedmite.emi.util.EnchantmentNameIDTranslator;
 import shims.java.net.minecraft.text.Text;
 import net.minecraft.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
+import static dev.emi.emi.VanillaPlugin.basicWorld;
 import static dev.emi.emi.api.recipe.VanillaEmiRecipeCategories.SMELTING;
 
 @EmiEntrypoint
@@ -120,6 +118,83 @@ public class MITEPlugin implements EmiPlugin {
 
 		addInfoRecipes(registry);
 		addWorldRecipes(registry);
+
+		{ //hidden stacks
+			{ //blocks
+				registry.removeEmiStacks(EmiStack.of(Block.waterMoving));
+				registry.removeEmiStacks(EmiStack.of(Block.waterStill));
+				registry.removeEmiStacks(EmiStack.of(Block.lavaMoving));
+				registry.removeEmiStacks(EmiStack.of(Block.lavaStill));
+				registry.removeEmiStacks(EmiStack.of(Block.pistonExtension));
+				registry.removeEmiStacks(EmiStack.of(Block.pistonMoving));
+				registry.removeEmiStacks(EmiStack.of(Block.stoneDoubleSlab));
+				registry.removeEmiStacks(EmiStack.of(Block.bed));
+				registry.removeEmiStacks(EmiStack.of(Block.mushroomBrown));
+				registry.removeEmiStacks(EmiStack.of(Block.mushroomRed));
+				registry.removeEmiStacks(EmiStack.of(Block.redstoneWire));
+				registry.removeEmiStacks(EmiStack.of(Block.crops));
+				registry.removeEmiStacks(EmiStack.of(Block.tilledField));
+				registry.removeEmiStacks(EmiStack.of(Block.furnaceBurning));
+				registry.removeEmiStacks(EmiStack.of(Block.signPost));
+				registry.removeEmiStacks(EmiStack.of(Block.doorWood));
+				registry.removeEmiStacks(EmiStack.of(Block.signWall));
+				registry.removeEmiStacks(EmiStack.of(Block.doorIron));
+				registry.removeEmiStacks(EmiStack.of(Block.oreRedstoneGlowing));
+				registry.removeEmiStacks(EmiStack.of(Block.torchRedstoneIdle));
+				registry.removeEmiStacks(EmiStack.of(Block.reed));
+				registry.removeEmiStacks(EmiStack.of(Block.cake));
+				registry.removeEmiStacks(EmiStack.of(Block.redstoneRepeaterIdle));
+				registry.removeEmiStacks(EmiStack.of(Block.redstoneRepeaterActive));
+				registry.removeEmiStacks(EmiStack.of(Block.pumpkinStem));
+				registry.removeEmiStacks(EmiStack.of(Block.melonStem));
+				registry.removeEmiStacks(EmiStack.of(Block.mushroomCapBrown));
+				registry.removeEmiStacks(EmiStack.of(Block.mushroomCapRed));
+				registry.removeEmiStacks(EmiStack.of(Block.endPortal));
+				registry.removeEmiStacks(EmiStack.of(Block.brewingStand));
+				registry.removeEmiStacks(EmiStack.of(Block.cauldron));
+				registry.removeEmiStacks(EmiStack.of(Block.redstoneLampIdle));
+				registry.removeEmiStacks(EmiStack.of(Block.redstoneLampActive));
+				registry.removeEmiStacks(EmiStack.of(Block.woodDoubleSlab));
+				registry.removeEmiStacks(EmiStack.of(Block.carrot));
+				registry.removeEmiStacks(EmiStack.of(Block.potato));
+				registry.removeEmiStacks(EmiStack.of(Block.skull));
+				registry.removeEmiStacks(EmiStack.of(Block.redstoneComparatorActive));
+				registry.removeEmiStacks(EmiStack.of(Block.furnaceClayBurning));
+				registry.removeEmiStacks(EmiStack.of(Block.furnaceSandstoneBurning));
+				registry.removeEmiStacks(EmiStack.of(Block.furnaceObsidianBurning));
+				registry.removeEmiStacks(EmiStack.of(Block.furnaceNetherrackBurning));
+				registry.removeEmiStacks(EmiStack.of(Block.obsidianDoubleSlab));
+				registry.removeEmiStacks(EmiStack.of(Block.onions));
+				registry.removeEmiStacks(EmiStack.of(Block.cropsDead));
+				registry.removeEmiStacks(EmiStack.of(Block.carrotDead));
+				registry.removeEmiStacks(EmiStack.of(Block.potatoDead));
+				registry.removeEmiStacks(EmiStack.of(Block.onionsDead));
+				registry.removeEmiStacks(EmiStack.of(Block.flowerPotMulti));
+				registry.removeEmiStacks(EmiStack.of(Block.bush));
+				registry.removeEmiStacks(EmiStack.of(Block.furnaceHardenedClayBurning));
+				registry.removeEmiStacks(EmiStack.of(Block.netherStalk));
+				registry.removeEmiStacks(EmiStack.of(Block.tripWire));
+				registry.removeEmiStacks(EmiStack.of(Block.cocoaPlant));
+				registry.removeEmiStacks(EmiStack.of(Block.flowerPot));
+				registry.removeEmiStacks(EmiStack.of(Block.redstoneComparatorIdle));
+				registry.removeEmiStacks(EmiStack.of(Block.doorCopper));
+				registry.removeEmiStacks(EmiStack.of(Block.doorSilver));
+				registry.removeEmiStacks(EmiStack.of(Block.doorGold));
+				registry.removeEmiStacks(EmiStack.of(Block.doorAncientMetal));
+				registry.removeEmiStacks(EmiStack.of(Block.doorMithril));
+				registry.removeEmiStacks(EmiStack.of(Block.doorAdamantium));
+				registry.removeEmiStacks(EmiStack.of(Block.spark));
+				registry.removeEmiStacks(EmiStack.of(Block.portal));
+			}
+			{ //items
+				registry.removeEmiStacks(EmiStack.of(Item.fragsCreeper));
+				registry.removeEmiStacks(EmiStack.of(Item.fragsInfernalCreeper));
+				registry.removeEmiStacks(EmiStack.of(Item.referencedBook));
+				registry.removeEmiStacks(EmiStack.of(Item.fragsNetherspawn));
+				registry.removeEmiStacks(EmiStack.of(Item.thrownWeb));
+				registry.removeEmiStacks(EmiStack.of(Item.genericFood));
+			}
+		}
 	}
 
 	private void addInfoRecipes(EmiRegistry registry) {
@@ -127,16 +202,20 @@ public class MITEPlugin implements EmiPlugin {
 		info(registry, Block.gravel, 0, "mite.gravel.info");
 
 		// Enchantment
-		HashSet<Integer> enchantmentSet = new HashSet<>();
-		for (int i = 0; i < Enchantment.enchantmentsList.length; ++i) {
-			Enchantment enchantment = EnchantmentNameIDTranslator.getEnchantmentByText(i);
-			if (enchantment != null && !enchantmentSet.contains(enchantment.effectId)) {
-				enchantmentSet.add(enchantment.effectId);
-				info(registry, Item.enchantedBook.getEnchantedItemStack(
-						new EnchantmentData(enchantment, enchantment.getNumLevels())),
-						"enchanted_book.info." + enchantment.getName());
-			}
-		}
+		Arrays.stream(Enchantment.enchantmentsList)
+				.filter(Objects::nonNull)
+				.collect(Collectors.toMap(
+						enchantment -> enchantment.effectId,
+						enchantment -> enchantment,
+						(existing, replacement) -> existing
+				))
+				.values()
+				.forEach(enchantment ->
+						info(registry,
+								Item.enchantedBook.getEnchantedItemStack(
+										new EnchantmentData(enchantment, enchantment.getNumLevels())),
+								"enchanted_book.info." + enchantment.getName())
+				);
 	}
 	
 	private void info(EmiRegistry registry, Item item, String info) {
@@ -160,13 +239,11 @@ public class MITEPlugin implements EmiPlugin {
 	}
 	
 	private void addWorldRecipes(EmiRegistry registry) {
-		List<ItemStack> woodTypes = new ArrayList<>();
-//		Block.wood.getSubBlocks(Block.wood.blockID, Block.wood.getCreativeTabToDisplayOn(), woodTypes);
-//		registry.addRecipe(EmiWorldInteractionRecipe.builder().id(new ResourceLocation("emi", "/world/block_interaction/btw/crafting_stump"))
-//				.leftInput(EmiStack.of(Item.ironChisel)).rightInput(EmiIngredient.of(woodTypes.stream().map(EmiStack::of).toList()), false, (sw) -> {
-//					sw.appendTooltip(Text.translatable("emi.world_interaction.btw.crafting_stump"));
-//					return sw;
-//				}).output(EmiStack.of(Block.workbench)).supportsRecipeTree(false).build());
-
+		for (Item item : Item.itemsList) {
+			if (item instanceof ItemMattock itemMattock)
+				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemMattock), EmiStack.of(Block.tilledField), new ResourceLocation("mite", item + "/tilling")));
+			if (item instanceof ItemMeat meat && !meat.is_cooked && meat != Item.rottenFlesh)
+				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(meat), EmiStack.of(Block.fire), EmiStack.of(meat.getCookedItem()), new ResourceLocation("mite", item + String.valueOf(item.itemID) + "/barbecue")));
+		}
 	}
 }

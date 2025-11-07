@@ -131,11 +131,11 @@ public class EmiAgnosFish extends EmiAgnos {
 		try {
 			var clazz = Class.forName(clazzName);
 			if (!EmiPlugin.class.isAssignableFrom(clazz) && !EmiMultiPlugin.class.isAssignableFrom(clazz)) {
-				EmiLog.warn("Registered emi entrypoint for nilmod {} does not implement EmiPlugin");
+				EmiLog.warn("Registered emi entrypoint for fishmod {} does not implement EmiPlugin");
 				return null;
 			}
 			if (!Runnable.class.isAssignableFrom(clazz)) {
-				EmiLog.warn("Registered emi entrypoint for nilmod {} does not implement Runnable (this is required for NilLoader entrypoint compliance)");
+				EmiLog.warn("Registered emi entrypoint for fishmod {} does not implement Runnable (this is required for FishModLoader entrypoint compliance)");
 				return null;
 			}
 			var inst = clazz.getConstructor().newInstance();
@@ -143,7 +143,7 @@ public class EmiAgnosFish extends EmiAgnos {
 			if (inst instanceof EmiMultiPlugin emp) stream = Stream.concat(stream, emp.getChildPlugins());
 			return stream.map(ep -> new EmiPluginContainer(ep, ep instanceof NamedEmiPlugin n ? id + "/" + n.getName() : id));
 		} catch (Throwable t) {
-			EmiLog.warn("Unexpected error while attempting to create plugin for nilmod {}");
+			EmiLog.warn("Unexpected error while attempting to create plugin for fishmod {}");
 			return null;
 		}
 	}

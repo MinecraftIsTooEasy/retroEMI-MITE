@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin implements EMIItemStack {
-    @Shadow public int damage;
+    @Shadow private int damage;
     @Shadow public int itemID;
     @Shadow public NBTTagCompound stackTagCompound;
 

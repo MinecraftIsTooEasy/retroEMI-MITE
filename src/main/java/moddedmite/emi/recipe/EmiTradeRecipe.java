@@ -21,22 +21,20 @@
 //import java.util.Random;
 //
 //public class EmiTradeRecipe implements EmiRecipe {
-//	private final ResourceLocation TEXTURE = new ResourceLocation("emi", "textures/recipe/btwwidgets.png");
+//	private final ResourceLocation TEXTURE = new ResourceLocation("emi", "textures/recipe/widgets.png");
 //	private Random rand = new Random();
 //	private final MerchantRecipeList trade;
 //	private final Class<?> professionClass;
 //	public final int tradeLevel;
-//	public final boolean isLevelUp;
 //	public final int professionId;
-//	private final TradeItem firstInput;
-//	private final TradeItem secondInput;
-//	private final TradeItem output;
+//	private final ItemStack firstInput;
+//	private final ItemStack secondInput;
+//	private final ItemStack output;
 //
-//	public EmiTradeRecipe(MerchantRecipeList trade, int profession, boolean isLevelUp) {
+//	public EmiTradeRecipe(MerchantRecipeList trade, int profession) {
 //		this.trade = trade;
 //		this.professionId = profession;
-//		this.isLevelUp = isLevelUp;
-//		this.professionClass = EntityVillager.professionMap.get(profession);
+////		this.professionClass = EntityVillager.professionMap.get(profession);
 //		this.firstInput = getFirstInput(trade);
 //		this.secondInput = getSecondInput(trade);
 //		this.output = getOutput(trade);

@@ -85,8 +85,6 @@ public class VanillaPlugin implements EmiPlugin {
 	
 	@Override
 	public void register(EmiRegistry registry) {
-		registry.addIngredientSerializer(ItemEmiStack.class, new ItemEmiStackSerializer());
-		registry.addIngredientSerializer(TagEmiIngredient.class, new TagEmiIngredientSerializer());
 		registry.addCategory(CRAFTING);
 		registry.addCategory(SMELTING);
 		registry.addCategory(ANVIL_REPAIRING);
@@ -297,14 +295,9 @@ public class VanillaPlugin implements EmiPlugin {
 
 		EmiAgnos.addBrewingRecipes(registry);
 
-		for (int i = 0; i < Item.itemsList.length; ++i) {
-			Item item = Item.getItem(i);
+		for (Item item : Item.itemsList) {
 			if (item instanceof ItemHoe itemHoe)
 				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemHoe), EmiStack.of(Block.tilledField), new ResourceLocation("minecraft", item + "/tilling")));
-			if (item instanceof ItemMattock itemMattock)
-				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(Block.dirt), EmiStack.of(itemMattock), EmiStack.of(Block.tilledField), new ResourceLocation("MITE", item + "/tilling")));
-			if (item instanceof ItemMeat itemMeat && !itemMeat.is_cooked && itemMeat != Item.rottenFlesh)
-				addRecipeSafe(registry, () -> basicWorld(EmiStack.of(itemMeat), EmiStack.of(Block.fire), EmiStack.of(itemMeat.getCookedItem()), new ResourceLocation("MITE", item + String.valueOf(item.itemID) + "/fire")));
 		}
 
 		for (Item item : EmiArmorDyeRecipe.DYEABLE_ITEMS) {
@@ -479,7 +472,7 @@ public class VanillaPlugin implements EmiPlugin {
 			synthetic("world/concrete", EmiUtil.subId(result))));
 	}
 
-	private static EmiRecipe basicWorld(EmiIngredient left, EmiIngredient right, EmiStack output, ResourceLocation id) {
+	public static EmiRecipe basicWorld(EmiIngredient left, EmiIngredient right, EmiStack output, ResourceLocation id) {
 		return basicWorld(left, right, output, id, true);
 	}
 

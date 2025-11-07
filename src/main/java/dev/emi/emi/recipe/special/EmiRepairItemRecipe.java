@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class EmiRepairItemRecipe extends EmiPatternCraftingRecipe {
 	public static final List<Item> TOOLS =
-			Arrays.stream(Item.itemsList).filter(i -> i != null && ((EMIItem) i).getIsRepairable(new ItemStack(i), new ItemStack(i))).collect(Collectors.toList());
+			Arrays.stream(Item.itemsList).filter(i -> i != null && i.isRepairable()).collect(Collectors.toList());
 	private final Item tool;
 	
 	public EmiRepairItemRecipe(Item tool, ResourceLocation id) {
