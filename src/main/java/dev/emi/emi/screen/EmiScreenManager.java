@@ -1004,8 +1004,7 @@ public class EmiScreenManager {
 		if (EmiInput.isControlDown() && keyCode == GLFW.GLFW_KEY_Y) {
 			EmiApi.displayAllRecipes();
 			return true;
-		}
-		else {
+		} else {
 			recalculate();
 			if (stackInteraction(getHoveredStack(lastMouseX, lastMouseY, true), bind -> bind.matchesKey(keyCode, scanCode))) {
 				return true;
@@ -1025,26 +1024,25 @@ public class EmiScreenManager {
 			for (Element e : ps.children()) {
 				if (e instanceof TextFieldWidget tfw && tfw.isActive() && tfw.visible) {
 					return true;
-				}
-				else if (e instanceof ParentElement p) {
+				} else if (e instanceof ParentElement p) {
 					return hasFocusedTextField(p, depthBail - 1);
 				}
 			}
-		}
-		else {
+		} else {
 			// Haha, I'm in danger
 			for (java.lang.reflect.Field f : parent.getClass().getDeclaredFields()) {
 				f.setAccessible(true);
-				if (GuiTextField.class.isAssignableFrom(f.getType())) {
-					try {
-						if (f.get(parent) instanceof GuiTextField wtf) {
-							if (((EMIGuiTextField)wtf).getIsEnabled() && wtf.isFocused()) {
-								return true;
-							}
+				if (!(GuiTextField.class.isAssignableFrom(f.getType()))) {
+					continue;
+				}
+				try {
+					if (f.get(parent) instanceof GuiTextField wtf) {
+						if (((EMIGuiTextField) wtf).getIsEnabled() && wtf.isFocused()) {
+							return true;
 						}
 					}
-					catch (Throwable e) {
-					}
+				}
+				catch (Throwable e) {
 				}
 			}
 		}

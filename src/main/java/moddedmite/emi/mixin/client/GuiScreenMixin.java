@@ -11,10 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiScreen.class)
 public class GuiScreenMixin implements EMISearchInput {
-    @Unique
-    private boolean emiSearchInput = false;
-    @Unique
-    private boolean emiMouseInput = false;
+    @Unique private boolean emiSearchInput = false;
+    @Unique private boolean emiMouseInput = false;
 
     @Inject(method = "handleMouseInput", at = @At("HEAD"))
     public void handleMouseInputEMI(CallbackInfo ci) {

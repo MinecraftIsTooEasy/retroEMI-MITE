@@ -13,8 +13,10 @@ import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import moddedmite.emi.api.recipe.MITEEmiRecipeCategories;
+import moddedmite.rustedironcore.api.event.Handlers;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiStack;
+import moddedmite.rustedironcore.api.event.listener.ITooltipListener;
 import shims.java.net.minecraft.text.Text;
 import net.minecraft.*;
 
@@ -198,8 +200,30 @@ public class MITEPlugin implements EmiPlugin {
 	}
 
 	private void addInfoRecipes(EmiRegistry registry) {
-
 		info(registry, Block.gravel, 0, "mite.gravel.info");
+
+		for (Item it : Item.itemsList) {
+			if (it != null) {
+				ItemStack stack = it.getItemStackForStatsIcon();
+				List<String> tooltip = new ArrayList<>();
+				try {
+					Handlers.Tooltip.onTooltipHead(stack, tooltip, null, true, null);
+					Handlers.Tooltip.onTooltipNeck(stack, tooltip, null, true, null);
+					Handlers.Tooltip.onTooltipBody(stack, tooltip, null, true, null);
+					Handlers.Tooltip.onTooltipWaist(stack, tooltip, null, true, null);
+					Handlers.Tooltip.onTooltipTail(stack, tooltip, null, true, null);
+
+					if (!tooltip.isEmpty()) {
+						List<Text> textList = tooltip.stream().map(Text::literal).collect(Collectors.toList());
+
+						registry.addRecipe(new EmiInfoRecipe(List.of(EmiStack.of(stack)), textList,
+								new ResourceLocation("ric", "item_info/" + it.getUnlocalizedName())));
+					}
+				} catch (Exception e) {
+					EmiReloadLog.warn("Failed to get tooltip for item: " + it.getUnlocalizedName(), e);
+				}
+			}
+		}
 
 		// Enchantment
 		Arrays.stream(Enchantment.enchantmentsList)

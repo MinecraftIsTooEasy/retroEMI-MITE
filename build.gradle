@@ -45,7 +45,7 @@ dependencies {
 	implementation files("libs\\joml-1.10.5.jar")
 	implementation files("libs\\modmenu-10.0.0.jar")
 	implementation files("libs\\conditional-mixin.jar")
-	implementation files("libs\\RustedIronCore.jar")
+	implementation files("D:\\Projects\\IDEA\\Minecraft\\MITE\\RustedIronCore-1.4.1.jar")
 	implementation files(loom.getFML().toPath())
 }
 

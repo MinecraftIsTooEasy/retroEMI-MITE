@@ -2,6 +2,11 @@
 
 ---
 
+## v1.1.25
+* 添加了RustedIronCore的`onTooltip`系列注册的提示信息自动转化为EMI信息
+
+---
+
 ## v1.1.24
 * 加入了堆肥标签页，可显示虫子转化食物为肥料详细信息（jeffyjamzhd）
 * 优化了合成标签页的MITE合成信息显示（jeffyjamzhd）
