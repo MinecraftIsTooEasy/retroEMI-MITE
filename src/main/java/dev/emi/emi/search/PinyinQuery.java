@@ -28,6 +28,9 @@ public class PinyinQuery extends Query {
             }
             catch (Exception ignored) {
             }
+            if (!contains) {
+                contains = valid.contains(stack);
+            }
         } else {
             contains = valid.contains(stack);
         }

@@ -99,9 +99,17 @@ public class EmiCraftingRecipe implements EmiRecipe {
 		List<TooltipComponent> components = new ArrayList<>();
 
 		// Get crafting duration
-		int crafting_period = Minecraft.getMinecraft()
-				.thePlayer
-				.getCraftingPeriod(crafting_difficulty);
+		ClientPlayer player = Minecraft.getMinecraft().thePlayer != null ? Minecraft.getMinecraft().thePlayer : null;
+		int crafting_period;
+		if (player != null) {
+			try {
+				crafting_period = player.getCraftingPeriod(crafting_difficulty);
+			} catch (Exception exception) {
+				crafting_period = ClientPlayer.calcUnmodifiedCraftingPeriod(crafting_difficulty);
+			}
+		} else {
+			crafting_period = ClientPlayer.calcUnmodifiedCraftingPeriod(crafting_difficulty);
+		}
 		String duration = DurationFormatUtils.formatDuration(crafting_period * 50L, "m:ss", true);
 		components.add(TooltipComponent.of(EmiPort.translatable("emi.craft_time.items", duration)));
 

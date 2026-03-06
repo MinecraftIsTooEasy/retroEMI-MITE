@@ -2,6 +2,14 @@
 
 ---
 
+## v1.1.25
+* Added automatic conversion of RustedIronCore's `onTooltip` series registration tooltips to EMI information.
+* Fixed some search issues.
+* Fixed an issue where items could not be collected.
+* Fixed an issue where pressing U to view usage displayed a rendering error when opening the workbench interface.
+
+---
+
 ## v1.1.24
 * Added compost tab, showing detailed information about insect conversion of food into fertilizer (jeffyjamzhd)
 * Optimized crafting tab MITE crafting information display (jeffyjamzhd)

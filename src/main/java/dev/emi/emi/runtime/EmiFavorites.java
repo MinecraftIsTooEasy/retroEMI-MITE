@@ -121,7 +121,10 @@ public class EmiFavorites {
 			}
 			favorite = fav;
 		} else {
-			stack = EmiIngredientSerializer.getDeserialized(EmiIngredientSerializer.getSerialized(stack));
+			JsonElement serialized = EmiIngredientSerializer.getSerialized(stack);
+			if (serialized != null) {
+				stack = EmiIngredientSerializer.getDeserialized(serialized);
+			}
 			if (stack.isEmpty()) {
 				return;
 			}
@@ -156,7 +159,10 @@ public class EmiFavorites {
 				favorites.add(f);
 			}
 		} else {
-			stack = EmiIngredientSerializer.getDeserialized(EmiIngredientSerializer.getSerialized(stack));
+			JsonElement serialized = EmiIngredientSerializer.getSerialized(stack);
+			if (serialized != null) {
+				stack = EmiIngredientSerializer.getDeserialized(serialized);
+			}
 			if (stack instanceof EmiStack es && context != null && context.getId() != null) {
 				es = es.copy();
 				if (es instanceof ItemEmiStack ies) {
