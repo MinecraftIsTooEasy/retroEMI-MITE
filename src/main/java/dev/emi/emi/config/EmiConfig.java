@@ -352,6 +352,10 @@ public class EmiConfig {
 	@ConfigValue("binds.view-tree")
 	public static EmiBind viewTree = new EmiBind("key.emi.view_tree", InputUtil.UNKNOWN_KEY.getCode());
 
+	@Comment("Open the runegate calculator screen.")
+	@ConfigValue("binds.runegate-calculator")
+	public static EmiBind runegateCalculator = new EmiBind("key.emi.runegate_calculator", EmiInput.CONTROL_MASK, GLFW.GLFW_KEY_G);
+
 	@Comment("Return to the previous page in EMI.")
 	@ConfigValue("binds.back")
 	public static EmiBind back = new EmiBind("key.emi.back", GLFW.GLFW_KEY_BACKSPACE);

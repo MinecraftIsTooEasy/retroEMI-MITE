@@ -5,6 +5,7 @@ import dev.emi.emi.config.EmiConfig;
 import moddedmite.emi.recipe.EmiCompostingRecipe;
 import moddedmite.emi.recipe.EmiEnchantRecipe;
 import moddedmite.emi.recipe.EmiFoodRecipe;
+import moddedmite.emi.recipe.EmiRunegateCalculatorRecipe;
 import dev.emi.emi.runtime.EmiReloadLog;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
@@ -15,6 +16,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import moddedmite.emi.api.recipe.MITEEmiRecipeCategories;
 import moddedmite.rustedironcore.api.event.Handlers;
 import dev.emi.emi.api.render.EmiTexture;
+import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import moddedmite.rustedironcore.api.event.listener.ITooltipListener;
 import shims.java.net.minecraft.text.Text;
@@ -36,6 +38,7 @@ public class MITEPlugin implements EmiPlugin {
 		MITEEmiRecipeCategories.FOOD = category("food", EmiStack.of(Item.carrot), Comparator.comparingInt(a -> ((EmiFoodRecipe) a).getNutrition()));
 		MITEEmiRecipeCategories.COMPOSTING = category("composting", EmiStack.of(Item.wormRaw),
 				Comparator.comparingDouble(value -> ((EmiCompostingRecipe) value).compostValue));
+		MITEEmiRecipeCategories.RUNEGATE = category("runegate", EmiStack.of(new ItemStack(Block.runestoneMithril, 1, 0)));
 //		Comparator<EmiRecipe> tradeComparitor = Comparator.comparingInt(a -> ((EmiTradeRecipe) a).professionId); //Silly generics, tricks are for kids
 //		MITEEmiRecipeCategories.TRADING = category("trading", EmiStack.of(Item.emerald), tradeComparitor.thenComparingInt(a -> {
 //			int level = ((EmiTradeRecipe) a).tradeLevel;
@@ -87,6 +90,7 @@ public class MITEPlugin implements EmiPlugin {
 		registry.addCategory(MITEEmiRecipeCategories.FOOD);
 		registry.addCategory(MITEEmiRecipeCategories.ENCHANT);
 		registry.addCategory(MITEEmiRecipeCategories.COMPOSTING);
+		registry.addCategory(MITEEmiRecipeCategories.RUNEGATE);
 //		registry.addCategory(MITEEmiRecipeCategories.TRADING);
 
 		// Foods and compost
@@ -117,6 +121,7 @@ public class MITEPlugin implements EmiPlugin {
 
 		addRecipeSafe(registry, () -> new EmiEnchantRecipe(EmiStack.of(new ItemStack(Item.appleGold, 1, 0)), EmiStack.of(new ItemStack(Item.appleGold, 1, 1)), 200));
 		addRecipeSafe(registry, () -> new EmiEnchantRecipe(EmiStack.of(new ItemStack(Item.potion, 1, 0)), EmiStack.of(new ItemStack(Item.expBottle, 1, 1)), 200));
+		addRecipeSafe(registry, EmiRunegateCalculatorRecipe::new);
 
 		addInfoRecipes(registry);
 		addWorldRecipes(registry);
@@ -201,6 +206,7 @@ public class MITEPlugin implements EmiPlugin {
 
 	private void addInfoRecipes(EmiRegistry registry) {
 		info(registry, Block.gravel, 0, "mite.gravel.info");
+		addRunegateInfoRecipes(registry);
 
 		for (Item it : Item.itemsList) {
 			if (it != null) {
@@ -240,6 +246,22 @@ public class MITEPlugin implements EmiPlugin {
 										new EnchantmentData(enchantment, enchantment.getNumLevels())),
 								"enchanted_book.info." + enchantment.getName())
 				);
+	}
+
+	private void addRunegateInfoRecipes(EmiRegistry registry) {
+		info(registry, Block.obsidian, "mite.portal.obsidian.info");
+
+		List<EmiIngredient> mithrilRunestones = new ArrayList<>();
+		List<EmiIngredient> adamantiumRunestones = new ArrayList<>();
+		for (int metadata = 0; metadata < 16; metadata++) {
+			mithrilRunestones.add(EmiStack.of(new ItemStack(Block.runestoneMithril, 1, metadata)));
+			adamantiumRunestones.add(EmiStack.of(new ItemStack(Block.runestoneAdamantium, 1, metadata)));
+		}
+
+		registry.addRecipe(new EmiInfoRecipe(mithrilRunestones, List.of(Text.translatable("mite.runestone.mithril.info")),
+				new ResourceLocation("mite", "info/runestone_mithril")));
+		registry.addRecipe(new EmiInfoRecipe(adamantiumRunestones, List.of(Text.translatable("mite.runestone.adamantium.info")),
+				new ResourceLocation("mite", "info/runestone_adamantium")));
 	}
 	
 	private void info(EmiRegistry registry, Item item, String info) {

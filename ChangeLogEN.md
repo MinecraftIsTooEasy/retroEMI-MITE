@@ -2,6 +2,12 @@
 
 ---
 
+
+## v1.1.26
+* Added some information about the portal mechanics, and a rune calculator. Open your inventory and press Ctrl + G to open it.
+
+---
+
 ## v1.1.25
 * Added automatic conversion of RustedIronCore's `onTooltip` series registration tooltips to EMI information.
 * Fixed some search issues.

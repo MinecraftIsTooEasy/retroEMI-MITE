@@ -28,6 +28,7 @@ import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.stack.EmiStackInteraction;
+import moddedmite.emi.screen.RunegateCalculatorScreen;
 import moddedmite.emi.api.EMIGuiTextField;
 import moddedmite.emi.api.EMIPlayerControllerMP;
 import shims.java.com.mojang.blaze3d.systems.RenderSystem;
@@ -1072,6 +1073,11 @@ public class EmiScreenManager {
 		if (function.apply(EmiConfig.viewTree)) {
 			EmiApi.viewRecipeTree();
 			return true;
+		} else if (function.apply(EmiConfig.runegateCalculator)) {
+			if (client.currentScreen != null) {
+				client.displayGuiScreen(new RunegateCalculatorScreen(client.currentScreen));
+				return true;
+			}
 		} else if (function.apply(EmiConfig.back)) {
 			if (!EmiHistory.isEmpty()) {
 				EmiHistory.pop();

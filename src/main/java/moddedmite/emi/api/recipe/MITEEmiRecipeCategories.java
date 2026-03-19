@@ -7,4 +7,5 @@ public class MITEEmiRecipeCategories {
 	public static EmiRecipeCategory ENCHANT;
 	public static EmiRecipeCategory TRADING;
 	public static EmiRecipeCategory COMPOSTING;
+	public static EmiRecipeCategory RUNEGATE;
 }
