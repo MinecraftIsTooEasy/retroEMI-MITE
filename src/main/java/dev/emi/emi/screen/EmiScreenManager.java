@@ -1254,24 +1254,11 @@ public class EmiScreenManager {
 			client.thePlayer.inventory.setItemStack(is);
 			return true;
 		}
-		if (EmiClient.onServer) {
+		if (!ItemStacks.isEmpty(is)) {
 			EmiNetwork.sendToServer(new CreateItemC2SPacket(mode, is));
 			return true;
-		} else {
-			if (!ItemStacks.isEmpty(is)) {
-				int id = is.itemID;
-				String command = "/give @s " + id;
-//				if (is.hasTagCompound()) {	//The dataTag parameter is not supported in 1.6.4
-//					command += is.getTagCompound().toString();
-//				}
-				command += " " + amount;
-				if (command.length() < 256) {
-					((EMIPlayerControllerMP) client.playerController).getNetClientHandler().addToSendQueue(new Packet3Chat(command));
-					return true;
-				}
-			}
-			return false;
 		}
+		return false;
 	}
 	
 	private static boolean deleteCursor(int mx, int my) {
