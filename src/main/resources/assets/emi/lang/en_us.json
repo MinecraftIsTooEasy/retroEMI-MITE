@@ -901,6 +901,7 @@
   "screen.emi.runegate.reverse_short": "Go",
   "screen.emi.runegate.reset_radius": "R",
   "screen.emi.runegate.radius": "Radius",
+  "screen.emi.runegate.material": "Material",
   "screen.emi.runegate.mode": "Mode",
   "screen.emi.runegate.coord": "Coords",
   "screen.emi.runegate.coord.current": "Current",

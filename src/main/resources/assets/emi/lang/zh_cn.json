@@ -1009,6 +1009,7 @@
   "screen.emi.runegate.reverse_short": "算",
   "screen.emi.runegate.reset_radius": "重置",
   "screen.emi.runegate.radius": "域半径",
+  "screen.emi.runegate.material": "材质",
   "screen.emi.runegate.mode": "模式",
   "screen.emi.runegate.coord": "坐标系",
   "screen.emi.runegate.coord.current": "当前",

@@ -12,23 +12,38 @@ import java.util.Random;
 public final class RunegateCalculator {
 
 	public static final int MAX_SEED = 0xFFFF;
-	public static final int MITHRIL_FALLBACK_RADIUS = 5000;
-	public static final int ADAMANTIUM_FALLBACK_RADIUS = 40000;
-	public static final String[] MAGIC_NAMES =
-			new String[]{"Nul", "Quas", "Por", "An", "Nox", "Flam", "Vas", "Des", "Ort", "Tym", "Corp", "Lor", "Mani", "Jux", "Ylem", "Sanct"};
+	public static final int MITHRIL_DEFAULT_DOMAIN_RADIUS = 5000;
+	public static final int ADAMANTIUM_DEFAULT_DOMAIN_RADIUS = 40000;
+	public static final String[] MAGIC_NAMES = new String[] {"Nul", "Quas", "Por", "An", "Nox", "Flam", "Vas", "Des", "Ort", "Tym", "Corp", "Lor", "Mani", "Jux", "Ylem", "Sanct"};
+	private static final int RUNE_MASK = 15;
+	private static final int MAX_ATTEMPTS = 4;
 
 	private RunegateCalculator() {}
 
 	public enum RunestoneMaterial {
-		MITHRIL(Material.mithril, "Mithril"),
-		ADAMANTIUM(Material.adamantium, "Adamantium");
+		MITHRIL(Material.mithril, "Mithril", MITHRIL_DEFAULT_DOMAIN_RADIUS),
+		ADAMANTIUM(Material.adamantium, "Adamantium", ADAMANTIUM_DEFAULT_DOMAIN_RADIUS);
 
-		public final Material material;
-		public final String displayName;
+		private final Material material;
+		private final String displayName;
+		private final int defaultDomainRadius;
 
-		RunestoneMaterial(Material material, String displayName) {
+		RunestoneMaterial(Material material, String displayName, int defaultDomainRadius) {
 			this.material = material;
 			this.displayName = displayName;
+			this.defaultDomainRadius = defaultDomainRadius;
+		}
+
+		public Material material() {
+			return material;
+		}
+
+		public String displayName() {
+			return displayName;
+		}
+
+		public int defaultDomainRadius() {
+			return defaultDomainRadius;
 		}
 	}
 
@@ -37,93 +52,80 @@ public final class RunegateCalculator {
 		boolean isOcean(int x, int z);
 	}
 
-	public static final class Destination {
-		public final int x;
-		public final int z;
-		public final int attempts;
+	public record Point(int x, int z) {
+	}
 
-		public Destination(int x, int z, int attempts) {
-			this.x = x;
-			this.z = z;
-			this.attempts = attempts;
+	public record Destination(int x, int z, int attempts) {
+		public Point point() {
+			return new Point(x, z);
 		}
 	}
 
-	public static final class AttemptPoint {
-		public final int attempt;
-		public final int x;
-		public final int z;
-		public final boolean ocean;
+	public record AttemptPoint(int attempt, int x, int z, boolean ocean) {
+		private AttemptPoint(int attempt, Point point, boolean ocean) {
+			this(attempt, point.x(), point.z(), ocean);
+		}
 
-		public AttemptPoint(int attempt, int x, int z, boolean ocean) {
-			this.attempt = attempt;
-			this.x = x;
-			this.z = z;
-			this.ocean = ocean;
+		public Point point() {
+			return new Point(x, z);
 		}
 	}
 
-	public static final class DestinationTrace {
-		public final Destination destination;
-		public final List<AttemptPoint> attempts;
-
-		public DestinationTrace(Destination destination, List<AttemptPoint> attempts) {
-			this.destination = destination;
-			this.attempts = attempts;
+	public record DestinationTrace(Destination destination, List<AttemptPoint> attempts) {
+		public DestinationTrace {
+			attempts = List.copyOf(attempts);
 		}
 	}
 
-	public static final class Combination {
-		public final int seed;
-		public final int lowerLeft;
-		public final int lowerRight;
-		public final int upperLeft;
-		public final int upperRight;
-
-		public Combination(int seed, int lowerLeft, int lowerRight, int upperLeft, int upperRight) {
-			this.seed = seed & MAX_SEED;
-			this.lowerLeft = lowerLeft & 15;
-			this.lowerRight = lowerRight & 15;
-			this.upperLeft = upperLeft & 15;
-			this.upperRight = upperRight & 15;
+	public record Combination(int seed, int lowerLeft, int lowerRight, int upperLeft, int upperRight) {
+		public Combination {
+			seed &= MAX_SEED;
+			lowerLeft &= RUNE_MASK;
+			lowerRight &= RUNE_MASK;
+			upperLeft &= RUNE_MASK;
+			upperRight &= RUNE_MASK;
 		}
 	}
 
-	public static final class ReverseMatch {
-		public final Combination combination;
-		public final int destinationX;
-		public final int destinationZ;
-		public final int selectedAttempt;
-		public final long distanceSq;
+	public record ReverseMatch(Combination combination, Destination destination, long distanceSq) {
+		public int destinationX() {
+			return destination.x();
+		}
 
-		public ReverseMatch(Combination combination, int destinationX, int destinationZ, int selectedAttempt, long distanceSq) {
-			this.combination = combination;
-			this.destinationX = destinationX;
-			this.destinationZ = destinationZ;
-			this.selectedAttempt = selectedAttempt;
-			this.distanceSq = distanceSq;
+		public int destinationZ() {
+			return destination.z();
+		}
+
+		public int selectedAttempt() {
+			return destination.attempts();
 		}
 	}
 
-	public static final class ReverseAnalysis {
-		public final List<ReverseMatch> inRadius;
-		public final int inRadiusTotal;
-		public final List<ReverseMatch> nearest;
+	public record ReverseAnalysis(List<ReverseMatch> inRadius, int inRadiusTotal, List<ReverseMatch> nearest) {
+		public ReverseAnalysis {
+			inRadius = List.copyOf(inRadius);
+			nearest = List.copyOf(nearest);
+		}
 
-		public ReverseAnalysis(List<ReverseMatch> inRadius, int inRadiusTotal, List<ReverseMatch> nearest) {
-			this.inRadius = inRadius;
-			this.inRadiusTotal = inRadiusTotal;
-			this.nearest = nearest;
+		public boolean hasInRadiusMatches() {
+			return inRadiusTotal > 0;
+		}
+
+		public boolean isTruncated() {
+			return inRadiusTotal > inRadius.size();
 		}
 	}
 
 	public static int composeSeed(int lowerLeft, int lowerRight, int upperLeft, int upperRight) {
-		return (lowerLeft & 15) | ((lowerRight & 15) << 4) | ((upperLeft & 15) << 8) | ((upperRight & 15) << 12);
+		return (lowerLeft & RUNE_MASK)
+				| ((lowerRight & RUNE_MASK) << 4)
+				| ((upperLeft & RUNE_MASK) << 8)
+				| ((upperRight & RUNE_MASK) << 12);
 	}
 
 	public static Combination decodeSeed(int seed) {
 		int masked = seed & MAX_SEED;
-		return new Combination(masked, masked & 15, (masked >> 4) & 15, (masked >> 8) & 15, (masked >> 12) & 15);
+		return new Combination(masked, masked & RUNE_MASK, (masked >> 4) & RUNE_MASK, (masked >> 8) & RUNE_MASK, (masked >> 12) & RUNE_MASK);
 	}
 
 	public static Destination calculateDestination(int seed, RunestoneMaterial material, int domainRadius, OceanPredicate oceanPredicate) {
@@ -131,7 +133,7 @@ public final class RunegateCalculator {
 	}
 
 	public static Destination calculateDestination(int seed, RunestoneMaterial material, int domainRadius, OceanPredicate oceanPredicate, int centerX, int centerZ) {
-		return traceDestination(seed, material, domainRadius, oceanPredicate, centerX, centerZ).destination;
+		return traceDestination(seed, material, domainRadius, oceanPredicate, centerX, centerZ).destination();
 	}
 
 	public static DestinationTrace traceDestination(int seed, RunestoneMaterial material, int domainRadius, OceanPredicate oceanPredicate) {
@@ -139,36 +141,27 @@ public final class RunegateCalculator {
 	}
 
 	public static DestinationTrace traceDestination(int seed, RunestoneMaterial material, int domainRadius, OceanPredicate oceanPredicate, int centerX, int centerZ) {
-		int x = 0;
-		int z = 0;
-		int attempts = 0;
 		List<AttemptPoint> generated = new ArrayList<>(4);
 		int maskedSeed = seed & MAX_SEED;
 		if (maskedSeed == 0) {
 			return new DestinationTrace(new Destination(centerX, centerZ, 0), generated);
 		}
 
-		int radius = Math.max(domainRadius, 1);
-		int adamantiumInnerRadius = radius / 2;
+		Point center = new Point(centerX, centerZ);
+		Destination destination = new Destination(centerX, centerZ, 0);
+		OceanPredicate predicate = safeOceanPredicate(oceanPredicate);
+		int radius = sanitizeRadius(domainRadius);
 		Random random = new Random(maskedSeed);
-		for (int i = 0; i < 4; i++) {
-			attempts = i + 1;
-			x = centerX + random.nextInt(radius * 2) - radius;
-			z = centerZ + random.nextInt(radius * 2) - radius;
-
-			// Match MITE source exactly: compare against (radius / 2) with integer division.
-			while (material == RunestoneMaterial.ADAMANTIUM && distanceFromCenter(x, z, centerX, centerZ) < (double) adamantiumInnerRadius) {
-				x = centerX + random.nextInt(radius * 2) - radius;
-				z = centerZ + random.nextInt(radius * 2) - radius;
-			}
-
-			boolean ocean = oceanPredicate.isOcean(x, z);
-			generated.add(new AttemptPoint(attempts, x, z, ocean));
+		for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+			Point point = nextCandidate(random, material, radius, center);
+			boolean ocean = predicate.isOcean(point.x(), point.z());
+			generated.add(new AttemptPoint(attempt, point, ocean));
+			destination = new Destination(point.x(), point.z(), attempt);
 			if (!ocean) {
 				break;
 			}
 		}
-		return new DestinationTrace(new Destination(x, z, attempts), generated);
+		return new DestinationTrace(destination, generated);
 	}
 
 	public static List<Combination> reverseDestination(int x, int z, RunestoneMaterial material, int domainRadius, OceanPredicate oceanPredicate, int maxResults) {
@@ -189,7 +182,7 @@ public final class RunegateCalculator {
 		long maxDistanceSq = (long) radius * (long) radius;
 		for (int seed = 0; seed <= MAX_SEED; seed++) {
 			Destination destination = calculateDestination(seed, material, domainRadius, oceanPredicate, centerX, centerZ);
-			if (distanceSquared(destination.x, destination.z, x, z) <= maxDistanceSq) {
+			if (distanceSquared(destination.x(), destination.z(), x, z) <= maxDistanceSq) {
 				matches.add(decodeSeed(seed));
 				if (maxResults > 0 && matches.size() >= maxResults) {
 					break;
@@ -204,7 +197,7 @@ public final class RunegateCalculator {
 	}
 
 	public static List<ReverseMatch> reverseNearest(int x, int z, RunestoneMaterial material, int domainRadius, OceanPredicate oceanPredicate, int maxResults, int centerX, int centerZ) {
-		return reverseAnalyze(x, z, 0, material, domainRadius, oceanPredicate, maxResults, centerX, centerZ).nearest;
+		return reverseAnalyze(x, z, 0, material, domainRadius, oceanPredicate, maxResults, centerX, centerZ).nearest();
 	}
 
 	public static ReverseAnalysis reverseAnalyze(int x, int z, int matchRadius, RunestoneMaterial material, int domainRadius, OceanPredicate oceanPredicate, int maxResults) {
@@ -217,31 +210,26 @@ public final class RunegateCalculator {
 
 	public static ReverseAnalysis reverseAnalyze(int x, int z, int matchRadius, RunestoneMaterial material, int domainRadius, OceanPredicate oceanPredicate, int maxResults, boolean requireSelectedFirstAttempt, int centerX, int centerZ) {
 		int limit = Math.max(maxResults, 1);
-		long maxDistanceSq = (long) Math.max(matchRadius, 0) * Math.max(matchRadius, 0);
+		long maxDistanceSq = square(Math.max(matchRadius, 0));
 		List<ReverseMatch> candidates = new ArrayList<>(MAX_SEED + 1);
 		for (int seed = 0; seed <= MAX_SEED; seed++) {
 			Destination destination = requireSelectedFirstAttempt
 					? firstAttemptDestination(seed, material, domainRadius, centerX, centerZ)
-					: traceDestination(seed, material, domainRadius, oceanPredicate, centerX, centerZ).destination;
-			candidates.add(new ReverseMatch(
-					decodeSeed(seed),
-					destination.x,
-					destination.z,
-					destination.attempts,
-					distanceSquared(destination.x, destination.z, x, z)));
+					: calculateDestination(seed, material, domainRadius, oceanPredicate, centerX, centerZ);
+			candidates.add(new ReverseMatch(decodeSeed(seed), destination, distanceSquared(destination.x(), destination.z(), x, z)));
 		}
 		if (candidates.isEmpty()) {
 			return new ReverseAnalysis(List.of(), 0, List.of());
 		}
 		candidates.sort(Comparator
-				.comparingLong((ReverseMatch match) -> match.distanceSq)
-				.thenComparingInt(match -> match.combination.seed));
+				.comparingLong(ReverseMatch::distanceSq)
+				.thenComparingInt(match -> match.combination().seed()));
 
 		List<ReverseMatch> nearest = new ArrayList<>(candidates.subList(0, Math.min(limit, candidates.size())));
 		List<ReverseMatch> inRadius = new ArrayList<>();
 		int inRadiusTotal = 0;
 		for (ReverseMatch match : candidates) {
-			if (match.distanceSq <= maxDistanceSq) {
+			if (match.distanceSq() <= maxDistanceSq) {
 				inRadiusTotal++;
 				if (inRadius.size() < limit) {
 					inRadius.add(match);
@@ -254,14 +242,13 @@ public final class RunegateCalculator {
 	}
 
 	public static int resolveDomainRadius(World world, RunestoneMaterial material) {
-		int fallback = material == RunestoneMaterial.ADAMANTIUM ? ADAMANTIUM_FALLBACK_RADIUS : MITHRIL_FALLBACK_RADIUS;
 		if (world == null) {
-			return fallback;
+			return material.defaultDomainRadius();
 		}
 		try {
-			return world.getRunegateDomainRadius(material.material);
+			return world.getRunegateDomainRadius(material.material());
 		} catch (Throwable ignored) {
-			return fallback;
+			return material.defaultDomainRadius();
 		}
 	}
 
@@ -273,11 +260,11 @@ public final class RunegateCalculator {
 	}
 
 	public static String magicName(int metadata) {
-		return MAGIC_NAMES[metadata & 15];
+		return MAGIC_NAMES[metadata & RUNE_MASK];
 	}
 
 	public static String describeCorner(int metadata) {
-		int sanitized = metadata & 15;
+		int sanitized = metadata & RUNE_MASK;
 		return magicName(sanitized) + "(" + sanitized + ")";
 	}
 
@@ -287,10 +274,10 @@ public final class RunegateCalculator {
 
 	public static String arrangementCode(Combination combination) {
 		return String.format("%X%X%X%X",
-				combination.lowerLeft & 15,
-				combination.lowerRight & 15,
-				combination.upperLeft & 15,
-				combination.upperRight & 15);
+				combination.lowerLeft(),
+				combination.lowerRight(),
+				combination.upperLeft(),
+				combination.upperRight());
 	}
 
 	private static Destination firstAttemptDestination(int seed, RunestoneMaterial material, int domainRadius, int centerX, int centerZ) {
@@ -298,22 +285,37 @@ public final class RunegateCalculator {
 		if (maskedSeed == 0) {
 			return new Destination(centerX, centerZ, 0);
 		}
-		int radius = Math.max(domainRadius, 1);
-		int adamantiumInnerRadius = radius / 2;
 		Random random = new Random(maskedSeed);
-		int x = centerX + random.nextInt(radius * 2) - radius;
-		int z = centerZ + random.nextInt(radius * 2) - radius;
-		while (material == RunestoneMaterial.ADAMANTIUM && distanceFromCenter(x, z, centerX, centerZ) < (double) adamantiumInnerRadius) {
-			x = centerX + random.nextInt(radius * 2) - radius;
-			z = centerZ + random.nextInt(radius * 2) - radius;
-		}
-		return new Destination(x, z, 1);
+		Point point = nextCandidate(random, material, sanitizeRadius(domainRadius), new Point(centerX, centerZ));
+		return new Destination(point.x(), point.z(), 1);
 	}
 
-	private static double distanceFromCenter(int x, int z, int centerX, int centerZ) {
-		int dx = x - centerX;
-		int dz = z - centerZ;
-		return Math.sqrt((double) dx * dx + (double) dz * dz);
+	private static Point nextCandidate(Random random, RunestoneMaterial material, int radius, Point center) {
+		Point point;
+		int innerRadius = material == RunestoneMaterial.ADAMANTIUM ? radius / 2 : 0;
+		do {
+			point = randomPoint(random, radius, center);
+			// MITE compares against (radius / 2) after integer division.
+		} while (innerRadius > 0 && distanceSquared(point.x(), point.z(), center.x(), center.z()) < square(innerRadius));
+		return point;
+	}
+
+	private static Point randomPoint(Random random, int radius, Point center) {
+		return new Point(
+				center.x() + random.nextInt(radius * 2) - radius,
+				center.z() + random.nextInt(radius * 2) - radius);
+	}
+
+	private static OceanPredicate safeOceanPredicate(OceanPredicate oceanPredicate) {
+		return oceanPredicate == null ? (x, z) -> false : oceanPredicate;
+	}
+
+	private static int sanitizeRadius(int radius) {
+		return Math.max(radius, 1);
+	}
+
+	private static long square(int value) {
+		return (long) value * (long) value;
 	}
 
 	private static long distanceSquared(int x1, int z1, int x2, int z2) {
