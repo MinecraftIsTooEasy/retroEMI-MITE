@@ -3,6 +3,13 @@
 ---
 
 
+## v1.1.27
+* Fixed recipe filling issues.
+* Improved the runegate calculator interface.
+
+---
+
+
 ## v1.1.26
 * Added some information about the portal mechanics, and a rune calculator. Open your inventory and press Ctrl + G to open it.
 
