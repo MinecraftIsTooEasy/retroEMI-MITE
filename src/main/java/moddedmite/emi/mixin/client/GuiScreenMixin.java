@@ -14,9 +14,12 @@ public class GuiScreenMixin implements EMISearchInput {
     @Unique private boolean emiSearchInput = false;
     @Unique private boolean emiMouseInput = false;
 
-    @Inject(method = "handleMouseInput", at = @At("HEAD"))
+    @Inject(method = "handleMouseInput", at = @At("HEAD"), cancellable = true)
     public void handleMouseInputEMI(CallbackInfo ci) {
         this.emiMouseInput = RetroEMI.handleMouseInput();
+        if (this.emiMouseInput) {
+            ci.cancel();
+        }
     }
 
     @Inject(method = "handleKeyboardInput", at = @At(value = "INVOKE", target = "Lorg/lwjgl/input/Keyboard;getEventKeyState()Z", shift = At.Shift.AFTER))

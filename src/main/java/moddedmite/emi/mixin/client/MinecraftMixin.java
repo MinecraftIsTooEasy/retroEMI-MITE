@@ -2,16 +2,18 @@ package moddedmite.emi.mixin.client;
 
 import dev.emi.emi.EMIPostInit;
 import dev.emi.emi.EmiPort;
+import dev.emi.emi.screen.BoMScreen;
 import dev.emi.emi.screen.EmiScreenManager;
+import dev.emi.emi.screen.RecipeScreen;
 import moddedmite.emi.api.EMIMinecraft;
 import net.minecraft.*;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import shims.java.com.unascribed.retroemi.REMIMixinHooks;
 
 import java.io.File;
 import java.net.Proxy;
@@ -38,6 +40,16 @@ public abstract class MinecraftMixin implements EMIMinecraft {
     @Inject(method = "<init>", at = @At("RETURN"))
     public void initEMIClient(Session par1Session, int par2, int par3, boolean par4, boolean par5, File par6File, File par7File, File par8File, Proxy par9Proxy, String par10Str, CallbackInfo ci) {
         EMIPostInit.initEMI();
+    }
+
+    @Inject(method = "displayGuiScreen", at = @At("HEAD"))
+    private void keepContainerOpenForEMIScreen(GuiScreen screen, CallbackInfo ci) {
+        REMIMixinHooks.setKeepContainerOpenForEmiScreen(screen instanceof RecipeScreen || screen instanceof BoMScreen);
+    }
+
+    @Inject(method = "displayGuiScreen", at = @At("TAIL"))
+    private void clearKeepContainerOpenForEMIScreen(GuiScreen screen, CallbackInfo ci) {
+        REMIMixinHooks.setKeepContainerOpenForEmiScreen(false);
     }
 
     @Redirect(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/GuiScreen;allowsImposedChat()Z"))

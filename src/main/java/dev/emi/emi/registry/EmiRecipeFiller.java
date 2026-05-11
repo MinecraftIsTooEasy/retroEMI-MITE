@@ -105,6 +105,9 @@ public class EmiRecipeFiller {
 	public static <T extends Container> boolean performFill(EmiRecipe recipe, GuiContainer screen, EmiFillAction action, int amount) {
 		EmiRecipeHandler<T> handler = getFirstValidHandler(recipe, screen);
 		if (handler != null && handler.supportsRecipe(recipe)) {
+			if (action == EmiFillAction.FILL && handler instanceof StandardRecipeHandler<T> standard && recipeAlreadyPresent(recipe, standard, screen)) {
+				return false;
+			}
 			EmiPlayerInventory inv = handler.getInventory(screen);
 			EmiCraftContext<T> context = new EmiCraftContext<T>(screen, inv, EmiCraftContext.Type.FILL_BUTTON, switch (action) {
 				case FILL -> EmiCraftContext.Destination.NONE;
@@ -205,7 +208,7 @@ public class EmiRecipeFiller {
 						maxAmount = Math.min(maxAmount, ui.max);
 					}
 				}
-				maxAmount = Math.min(maxAmount, amount + batchesAlreadyPresent(recipe, handler, screen));
+				maxAmount = Math.min(maxAmount, Math.max(amount, inputBatchesAlreadyPresent(recipe, handler, screen)));
 
 				if (maxAmount == 0) {
 					return null;
@@ -231,7 +234,93 @@ public class EmiRecipeFiller {
 		return null;
 	}
 
-	public static <T extends Container> int batchesAlreadyPresent(EmiRecipe recipe, StandardRecipeHandler<T> handler, GuiContainer screen) {
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public static boolean recipeAlreadyPresent(EmiRecipe recipe, GuiContainer screen) {
+		EmiRecipeHandler handler = getFirstValidHandler(recipe, screen);
+		return handler instanceof StandardRecipeHandler standard && recipeAlreadyPresent(recipe, standard, screen);
+	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public static boolean recipeAlreadyPresent(EmiRecipe recipe, StandardRecipeHandler handler, GuiContainer screen) {
+		if (recipe == null || handler == null || screen == null) {
+			return false;
+		}
+		Container screenHandler = screen.inventorySlots;
+		Slot output = handler.getOutputSlot(screenHandler);
+		if (output != null && !ItemStacks.isEmpty(output.getStack()) && recipe.getOutputs().size() > 0
+				&& !RetroEMI.canCombine(output.getStack(), recipe.getOutputs().get(0).getItemStack())) {
+			return false;
+		}
+		List<Slot> slots = handler.getCraftingSlots(recipe, screenHandler);
+		if (recipe instanceof EmiCraftingRecipe crafting && crafting.shapeless) {
+			return shapelessRecipeAlreadyPresent(recipe, slots);
+		}
+		return shapedRecipeAlreadyPresent(recipe, slots);
+	}
+
+	private static boolean shapedRecipeAlreadyPresent(EmiRecipe recipe, List<Slot> slots) {
+		List<EmiIngredient> inputs = recipe.getInputs();
+		for (int i = 0; i < slots.size(); i++) {
+			EmiIngredient input = i < inputs.size() ? inputs.get(i) : EmiStack.EMPTY;
+			if (!slotMatchesIngredient(slots.get(i), input)) {
+				return false;
+			}
+		}
+		for (int i = slots.size(); i < inputs.size(); i++) {
+			if (!inputs.get(i).isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean shapelessRecipeAlreadyPresent(EmiRecipe recipe, List<Slot> slots) {
+		List<EmiIngredient> inputs = recipe.getInputs();
+		boolean[] used = new boolean[inputs.size()];
+		for (Slot slot : slots) {
+			ItemStack stack = slot == null ? ItemStacks.EMPTY : slot.getStack();
+			if (ItemStacks.isEmpty(stack)) {
+				continue;
+			}
+			boolean matched = false;
+			for (int i = 0; i < inputs.size(); i++) {
+				if (!used[i] && !inputs.get(i).isEmpty() && slotMatchesIngredient(slot, inputs.get(i))) {
+					used[i] = true;
+					matched = true;
+					break;
+				}
+			}
+			if (!matched) {
+				return false;
+			}
+		}
+		for (int i = 0; i < inputs.size(); i++) {
+			if (!inputs.get(i).isEmpty() && !used[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean slotMatchesIngredient(Slot slot, EmiIngredient ingredient) {
+		ItemStack actual = slot == null ? ItemStacks.EMPTY : slot.getStack();
+		if (ingredient.isEmpty()) {
+			return ItemStacks.isEmpty(actual);
+		}
+		if (ItemStacks.isEmpty(actual)) {
+			return false;
+		}
+		int amount = (int) Math.max(1L, Math.min((long) Integer.MAX_VALUE, ingredient.getAmount()));
+		EmiStack actualStack = EmiStack.of(actual);
+		for (EmiStack stack : ingredient.getEmiStacks()) {
+			if (!stack.isEmpty() && actualStack.isEqual(stack) && actual.stackSize >= amount) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static <T extends Container> int inputBatchesAlreadyPresent(EmiRecipe recipe, StandardRecipeHandler<T> handler, GuiContainer screen) {
 		List<EmiIngredient> inputs = recipe.getInputs();
 		List<ItemStack> stacks = Lists.newArrayList();
 		Slot output = handler.getOutputSlot((T)screen.inventorySlots);
@@ -277,21 +366,54 @@ public class EmiRecipeFiller {
 		return 0;
 	}
 
+	public static boolean craftingSlotsMatch(List<Slot> crafting, List<ItemStack> stacks) {
+		for (int i = 0; i < crafting.size(); i++) {
+			ItemStack desired = i < stacks.size() ? stacks.get(i) : ItemStacks.EMPTY;
+			if (!slotMatches(crafting.get(i), desired)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean slotMatches(Slot slot, ItemStack desired) {
+		ItemStack actual = slot == null ? ItemStacks.EMPTY : slot.getStack();
+		if (ItemStacks.isEmpty(desired)) {
+			return ItemStacks.isEmpty(actual);
+		}
+		return !ItemStacks.isEmpty(actual) && RetroEMI.canCombine(actual, desired) && actual.stackSize >= desired.stackSize;
+	}
+
+	public static ItemStack getDesiredStackForSlot(Slot slot, List<Slot> crafting, List<ItemStack> stacks) {
+		if (slot == null) {
+			return ItemStacks.EMPTY;
+		}
+		for (int i = 0; i < crafting.size(); i++) {
+			if (crafting.get(i) == slot) {
+				return i < stacks.size() ? stacks.get(i) : ItemStacks.EMPTY;
+			}
+		}
+		return ItemStacks.EMPTY;
+	}
+
 	public static <T extends Container> boolean clientFill(StandardRecipeHandler<T> handler, EmiRecipe recipe,
 		GuiContainer screen, List<ItemStack> stacks, EmiCraftContext.Destination destination) {
 		Minecraft client = Minecraft.getMinecraft();
 		T screenHandler = (T) screen.inventorySlots;
 		if (handler != null && client.thePlayer.inventory.getItemStack() == null) {
+			List<Slot> slots = handler.getCraftingSlots(recipe, screenHandler);
+			if (destination == EmiCraftContext.Destination.NONE && craftingSlotsMatch(slots, stacks)) {
+				return true;
+			}
 			PlayerControllerMP manager = client.playerController;
 			EntityPlayer player = client.thePlayer;
 			List<Slot> clear = handler.getCraftingSlots(screenHandler);
 			for (Slot slot : clear) {
-				if (slot != null) {
+				if (slot != null && !slotMatches(slot, getDesiredStackForSlot(slot, slots, stacks))) {
 					manager.windowClick(screenHandler.windowId, slot.slotNumber, 0, 1, player);
 				}
 			}
 			List<Slot> inputs = handler.getInputSources(screenHandler);
-			List<Slot> slots = handler.getCraftingSlots(recipe, screenHandler);
 			outer:
 			for (int i = 0; i < stacks.size(); i++) {
 				ItemStack stack = stacks.get(i);
@@ -307,6 +429,9 @@ public class EmiRecipeFiller {
 				}
 				if (crafting == null) {
 					return false;
+				}
+				if (slotMatches(crafting, stack)) {
+					continue;
 				}
 				
 				int needed = stack.stackSize;

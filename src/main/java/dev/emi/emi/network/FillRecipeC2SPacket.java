@@ -1,6 +1,7 @@
 package dev.emi.emi.network;
 
 import com.google.common.collect.Lists;
+import dev.emi.emi.registry.EmiRecipeFiller;
 import dev.emi.emi.runtime.EmiLog;
 import shims.java.com.unascribed.retroemi.ItemStacks;
 import shims.java.com.unascribed.retroemi.RetroEMI;
@@ -105,47 +106,59 @@ public class FillRecipeC2SPacket implements EmiPacket {
 			}
 		}
 		if (crafting.size() >= stacks.size()) {
-			List<ItemStack> rubble = Lists.newArrayList();
-			for (int i = 0; i < crafting.size(); i++) {
-				Slot s = crafting.get(i);
-				if (s != null && s.canTakeStack(player) && !ItemStacks.isEmpty(s.getStack())) {
-					rubble.add(s.getStack().copy());
-					s.putStack(ItemStacks.EMPTY);
-				}
+			if (action == 0 && EmiRecipeFiller.craftingSlotsMatch(crafting, stacks)) {
+				return;
 			}
+			List<ItemStack> rubble = Lists.newArrayList();
 			try {
-				for (int i = 0; i < stacks.size(); i++) {
-					ItemStack stack = stacks.get(i);
-					if (ItemStacks.isEmpty(stack)) {
-						continue;
-					}
-					int gotten = grabMatching(player, slots, rubble, crafting, stack);
-					if (gotten != stack.stackSize) {
-						if (gotten > 0) {
-							stack.stackSize = (gotten);
-							RetroEMI.offerOrDrop(player, stack);
-						}
-						return;
-					} else {
-						Slot s = crafting.get(i);
-						if (s != null && s.isItemValid(stack) && stack.stackSize <= s.getSlotStackLimit() && stack.stackSize <= stack.getMaxStackSize()) {
-							s.putStack(stack);
-						} else {
-							RetroEMI.offerOrDrop(player, stack);
-						}
+				for (int i = 0; i < crafting.size(); i++) {
+					Slot slot = crafting.get(i);
+					ItemStack desired = i < stacks.size() ? stacks.get(i) : ItemStacks.EMPTY;
+					if (slot != null && slot.canTakeStack(player) && !ItemStacks.isEmpty(slot.getStack())
+							&& !EmiRecipeFiller.slotMatches(slot, desired)) {
+						rubble.add(slot.getStack().copy());
+						slot.putStack(ItemStacks.EMPTY);
 					}
 				}
-				if (output != null) {
-					if (action == 1) {
-						handler.slotClick(output.slotNumber, 0, 0, false, player);
-					} else if (action == 2) {
-						handler.slotClick(output.slotNumber, 0, 1, false, player);
+				try {
+					for (int i = 0; i < stacks.size(); i++) {
+						ItemStack stack = stacks.get(i);
+						if (ItemStacks.isEmpty(stack)) {
+							continue;
+						}
+						Slot slot = crafting.get(i);
+						if (EmiRecipeFiller.slotMatches(slot, stack)) {
+							continue;
+						}
+						int gotten = grabMatching(player, slots, rubble, crafting, stack);
+						if (gotten != stack.stackSize) {
+							if (gotten > 0) {
+								stack.stackSize = (gotten);
+								RetroEMI.offerOrDrop(player, stack);
+							}
+							return;
+						} else {
+							if (slot != null && slot.isItemValid(stack) && stack.stackSize <= slot.getSlotStackLimit() && stack.stackSize <= stack.getMaxStackSize()) {
+								slot.putStack(stack);
+							} else {
+								RetroEMI.offerOrDrop(player, stack);
+							}
+						}
+					}
+					if (output != null) {
+						if (action == 1) {
+							handler.slotClick(output.slotNumber, 0, 0, false, player);
+						} else if (action == 2) {
+							handler.slotClick(output.slotNumber, 0, 1, false, player);
+						}
+					}
+				} finally {
+					for (ItemStack stack : rubble) {
+						RetroEMI.offerOrDrop(player, stack);
 					}
 				}
 			} finally {
-				for (ItemStack stack : rubble) {
-					RetroEMI.offerOrDrop(player, stack);
-				}
+				handler.detectAndSendChanges();
 			}
 		}
 	}
@@ -226,6 +239,7 @@ public class FillRecipeC2SPacket implements EmiPacket {
 				} else {
 					grabbed = amount;
 					st.stackSize = (st.stackSize - wanted);
+					s.onSlotChanged();
 				}
 			}
 		}

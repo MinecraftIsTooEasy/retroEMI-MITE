@@ -18,6 +18,17 @@ import static org.lwjgl.opengl.GL11.glColor4f;
 
 public class REMIMixinHooks {
 	static Minecraft minecraft = Minecraft.getMinecraft();
+	private static boolean keepContainerOpenForEmiScreen;
+
+	public static void setKeepContainerOpenForEmiScreen(boolean keepOpen) {
+		keepContainerOpenForEmiScreen = keepOpen;
+	}
+
+	public static boolean consumeKeepContainerOpenForEmiScreen() {
+		boolean keepOpen = keepContainerOpenForEmiScreen;
+		keepContainerOpenForEmiScreen = false;
+		return keepOpen;
+	}
 
 	//GuiContainer
 	public static void renderBackground(int par1, int par2) {

@@ -20,6 +20,13 @@ public class GuiContainerMixin extends GuiScreen implements EMIGuiContainerCreat
     @Shadow public Slot theSlot;
     @Shadow public Container inventorySlots;
 
+    @Inject(method = "onGuiClosed", at = @At("HEAD"), cancellable = true)
+    private void keepContainerOpenForEMIScreen(CallbackInfo ci) {
+        if (REMIMixinHooks.consumeKeepContainerOpenForEmiScreen()) {
+            ci.cancel();
+        }
+    }
+
     @Inject(method = "initGui", at = @At("TAIL"))
     private void addEMIWidgets(CallbackInfo ci) {
         if ((Object) this instanceof GuiContainer hs && Minecraft.getMinecraft().currentScreen == hs) {

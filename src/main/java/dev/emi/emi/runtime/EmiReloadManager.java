@@ -6,6 +6,7 @@ import dev.emi.emi.bom.BoM;
 import dev.emi.emi.data.EmiData;
 import dev.emi.emi.platform.EmiAgnos;
 import dev.emi.emi.registry.*;
+import dev.emi.emi.api.EmiInitRegistry;
 import dev.emi.emi.screen.EmiScreenManager;
 import dev.emi.emi.search.EmiSearch;
 import dev.emi.emi.api.EmiRegistry;
@@ -123,6 +124,22 @@ public class EmiReloadManager {
 						clear = false;
 						continue;
 					}
+
+					List<EmiPluginContainer> plugins = Lists.newArrayList();
+					plugins.addAll(EmiAgnos.getPlugins().stream()
+						.sorted(Comparator.comparingInt(ReloadWorker::entrypointPriority)).toList());
+					EmiInitRegistry initRegistry = new EmiInitRegistryImpl();
+					for (EmiPluginContainer container : plugins) {
+						step(EmiPort.literal("Initializing plugin from " + container.id()), 10_000);
+						try {
+							container.plugin().initialize(initRegistry);
+						} catch (Throwable e) {
+							EmiReloadLog.warn("Exception initializing plugin provided by " + container.id(), e);
+							if (restart) {
+								continue outer;
+							}
+						}
+					}
 	
 					step(EmiPort.literal("Processing tags"));
 					EmiTags.reload();
@@ -134,10 +151,6 @@ public class EmiReloadManager {
 						continue;
 					}
 					EmiRegistry registry = new EmiRegistryImpl();
-					List<EmiPluginContainer> plugins = Lists.newArrayList();
-					plugins.addAll(EmiAgnos.getPlugins().stream()
-						.sorted(Comparator.comparingInt(ReloadWorker::entrypointPriority)).toList());
-					
 					for (EmiPluginContainer container : plugins) {
 						step(EmiPort.literal("Loading plugin from " + container.id()), 10_000);
 						long start = System.currentTimeMillis();

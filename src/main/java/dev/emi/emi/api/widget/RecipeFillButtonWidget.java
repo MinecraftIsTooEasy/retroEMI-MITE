@@ -8,6 +8,7 @@ import dev.emi.emi.api.recipe.EmiPlayerInventory;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.handler.EmiCraftContext;
 import dev.emi.emi.api.recipe.handler.EmiRecipeHandler;
+import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.input.EmiInput;
 import dev.emi.emi.registry.EmiRecipeFiller;
 import dev.emi.emi.widget.RecipeButtonWidget;
@@ -25,31 +26,12 @@ public class RecipeFillButtonWidget extends RecipeButtonWidget {
 	@ApiStatus.Internal
 	public RecipeFillButtonWidget(int x, int y, EmiRecipe recipe) {
 		super(x, y, 24, 0, recipe);
-		GuiContainer hs = EmiApi.getHandledScreen();
-		
-		EmiRecipeHandler handler = EmiRecipeFiller.getFirstValidHandler(recipe, hs);
-		tooltip = List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.inapplicable"))));
-		if (handler == null) {
-			canFill = false;
-		} else {
-			try {
-				EmiPlayerInventory inv = handler.getInventory(hs);
-				boolean applicable = handler.supportsRecipe(recipe);
-				EmiCraftContext context = new EmiCraftContext<>(hs, inv, EmiCraftContext.Type.FILL_BUTTON);
-				canFill = applicable && handler.canCraft(recipe, context);
-				if (applicable) {
-					tooltip = handler.getTooltip(recipe, context);
-				}
-			} catch (Exception e) {
-				canFill = false;
-				tooltip = List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.error.recipe.initialize"))));
-			}
-		}
+		updateFillState();
 	}
 	
 	@Override
 	public int getTextureOffset(int mouseX, int mouseY) {
-		if (!canFill) {
+		if (!canFill()) {
 			return 24;
 		}
 		return super.getTextureOffset(mouseX, mouseY);
@@ -57,6 +39,7 @@ public class RecipeFillButtonWidget extends RecipeButtonWidget {
 	
 	@Override
 	public List<TooltipComponent> getTooltip(int mouseX, int mouseY) {
+		updateFillState();
 		List<TooltipComponent> list = Lists.newArrayList();
 		if (canFill) {
 			list.add(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("tooltip.emi.fill_recipe"))));
@@ -67,7 +50,7 @@ public class RecipeFillButtonWidget extends RecipeButtonWidget {
 	
 	@Override
 	public boolean mouseClicked(int mouseX, int mouseY, int button) {
-		if (canFill) {
+		if (canFill()) {
 			GuiContainer hs = EmiApi.getHandledScreen();
 			if (hs != null && EmiRecipeFiller.performFill(recipe, hs, EmiFillAction.FILL, EmiInput.isShiftDown() ? Integer.MAX_VALUE : 1)) {
 				this.playButtonSound();
@@ -75,5 +58,35 @@ public class RecipeFillButtonWidget extends RecipeButtonWidget {
 			}
 		}
 		return false;
+	}
+
+	private boolean canFill() {
+		updateFillState();
+		return canFill;
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private void updateFillState() {
+		GuiContainer hs = EmiApi.getHandledScreen();
+		EmiRecipeHandler handler = EmiRecipeFiller.getFirstValidHandler(recipe, hs);
+		tooltip = List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.inapplicable"))));
+		if (handler == null) {
+			canFill = false;
+			return;
+		}
+		try {
+			EmiPlayerInventory inv = handler.getInventory(hs);
+			boolean applicable = handler.supportsRecipe(recipe);
+			EmiCraftContext context = new EmiCraftContext<>(hs, inv, EmiCraftContext.Type.FILL_BUTTON);
+			boolean alreadyPresent = applicable && handler instanceof StandardRecipeHandler standard
+					&& EmiRecipeFiller.recipeAlreadyPresent(recipe, standard, hs);
+			canFill = applicable && !alreadyPresent && handler.canCraft(recipe, context);
+			if (applicable && !alreadyPresent) {
+				tooltip = handler.getTooltip(recipe, context);
+			}
+		} catch (Exception e) {
+			canFill = false;
+			tooltip = List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.error.recipe.initialize"))));
+		}
 	}
 }

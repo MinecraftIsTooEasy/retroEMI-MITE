@@ -62,6 +62,10 @@ public interface StandardRecipeHandler<T extends Container> extends EmiRecipeHan
 	
 	@Override
 	default boolean craft(EmiRecipe recipe, EmiCraftContext<T> context) {
+		if (context.getDestination() == EmiCraftContext.Destination.NONE
+				&& EmiRecipeFiller.inputBatchesAlreadyPresent(recipe, this, context.getScreen()) >= context.getAmount()) {
+			return true;
+		}
 		
 		List<ItemStack> stacks = EmiRecipeFiller.getStacks(this, recipe, context.getScreen(), context.getAmount());
 		if (stacks != null) {
