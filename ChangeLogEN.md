@@ -5,6 +5,7 @@
 
 ## v1.1.27
 * Fixed recipe filling issues.
+* Fixed favorites persistence.
 * Improved the runegate calculator interface.
 
 ---
